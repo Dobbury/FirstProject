@@ -1,11 +1,11 @@
 package main;
 
-import view.MainFrame;
+import view.MainView;
 
 public class MainClass {
 
 	public static void main(String[] args) {
-		new MainFrame();
+		new MainView();
 	}
 
 }

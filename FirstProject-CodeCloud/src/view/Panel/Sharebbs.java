@@ -7,17 +7,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import view.MainFrame;
+import view.MainView;
 
-public class SinglebbsPanel extends JPanel{
+public class Sharebbs extends JPanel {
 	
-	MainFrame F;
+	MainView F;
 	
-	public SinglebbsPanel(MainFrame f) {
+	public Sharebbs(MainView f) {
 		F=f;
 		
 		setLayout(null);
-		setBackground(Color.BLUE);
+		setBackground(Color.black);
 		setBounds(50,50,300,300);
 		
 		JButton btn = new JButton();
@@ -26,12 +26,11 @@ public class SinglebbsPanel extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				F.changePanel(2);
+				F.changePanel(3);
 			}
 		});
 		
 		add(btn);
-		
 		setVisible(true);
 		
 	}

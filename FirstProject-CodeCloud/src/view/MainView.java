@@ -6,23 +6,23 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import view.Panel.QAbbsPanel;
-import view.Panel.SharebbsPanel;
-import view.Panel.SinglebbsPanel;
+import view.Panel.QAbbs;
+import view.Panel.Sharebbs;
+import view.Panel.Selfbbs;
 
-public class MainFrame extends JFrame {
+public class MainView extends JFrame {
 
 	private CardLayout cards = new CardLayout();
 	JPanel mainPanel;
-	public MainFrame() {
+	public MainView() {
 		setBounds(50, 50, 950, 450);
 		setLayout(null);
 		
 		mainPanel = new JPanel(cards);
 		
-		mainPanel.add("Singlebbs", new SinglebbsPanel(this));
-		mainPanel.add("Sharebbs", new SharebbsPanel(this));
-		mainPanel.add("Q&Abbs", new QAbbsPanel(this));
+		mainPanel.add("Singlebbs", new Selfbbs(this));
+		mainPanel.add("Sharebbs", new Sharebbs(this));
+		mainPanel.add("Q&Abbs", new QAbbs(this));
 		cards.show(mainPanel, "Singlebbs");
 		
 		mainPanel.setBounds(50,50,300,300);
