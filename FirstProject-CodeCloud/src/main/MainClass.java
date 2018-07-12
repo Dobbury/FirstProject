@@ -1,11 +1,15 @@
 package main;
 
-import view.MainView;
+import db.DBConnection;
+import view.MemberMainView;
 
 public class MainClass {
 
 	public static void main(String[] args) {
-		new MainView();
+		DBConnection.initConnect();
+		
+		new MemberMainView();
+
 	}
 
 }
