@@ -20,12 +20,13 @@ public class MainView extends JFrame {
 		
 		mainPanel = new JPanel(cards);
 		
+		
 		mainPanel.add("Singlebbs", new Selfbbs(this));
 		mainPanel.add("Sharebbs", new Sharebbs(this));
 		mainPanel.add("Q&Abbs", new QAbbs(this));
 		cards.show(mainPanel, "Singlebbs");
 		
-		mainPanel.setBounds(50,50,300,300);
+		mainPanel.setBounds(300,0,650,450);
 		
 		
 		add(mainPanel);
