@@ -11,10 +11,8 @@ import view.MemberMainView;
 
 public class Sharebbs extends JPanel {
 	
-	MemberMainView F;
-	
-	public Sharebbs(MemberMainView f) {
-		F=f;
+	public Sharebbs() {
+
 		
 		setLayout(null);
 		setBackground(Color.black);
