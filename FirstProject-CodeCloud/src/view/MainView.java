@@ -15,7 +15,7 @@ public class MainView extends JFrame {
 	private CardLayout cards = new CardLayout();
 	JPanel mainPanel;
 	public MainView() {
-		setBounds(50, 50, 950, 450);
+		setBounds(50, 50, 1200, 800);
 		setLayout(null);
 		
 		mainPanel = new JPanel(cards);
@@ -26,7 +26,8 @@ public class MainView extends JFrame {
 		mainPanel.add("Q&Abbs", new QAbbs(this));
 		cards.show(mainPanel, "Singlebbs");
 		
-		mainPanel.setBounds(300,0,650,450);
+		mainPanel.setBounds(200,0,1000,800);
+
 		
 		
 		add(mainPanel);
