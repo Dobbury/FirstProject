@@ -11,10 +11,8 @@ import view.MemberMainView;
 
 public class Selfbbs extends JPanel{
 	
-	MemberMainView F;
+	public Selfbbs() {
 	
-	public Selfbbs(MemberMainView f) {
-		F=f;
 		
 		setLayout(null);
 		setBackground(Color.BLUE);
