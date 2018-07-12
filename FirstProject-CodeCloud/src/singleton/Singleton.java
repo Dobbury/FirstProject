@@ -1,10 +1,14 @@
 package singleton;
 
+import controller.MemberController;
+import dto.MemberDto;
+
 public class Singleton {
 	public static Singleton s = null;
 	public String hostDB_IP= null;	// 호스트 디비 IP 값 받는 변수
 	
-	
+	public MemberController MemCtrl = new MemberController();
+	public MemberDto nowMember = null;
 	private Singleton() {
 		
 	}

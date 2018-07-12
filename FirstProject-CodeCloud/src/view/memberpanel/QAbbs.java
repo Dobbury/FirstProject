@@ -10,12 +10,10 @@ import javax.swing.JPanel;
 import view.MemberMainView;
 
 public class QAbbs extends JPanel {
+
 	
-	MemberMainView F;
-	
-	public QAbbs(MemberMainView f) {
-		F=f;
-		
+	public QAbbs() {
+
 		setLayout(null);
 		setBackground(Color.PINK);
 		setBounds(50,50,300,300);

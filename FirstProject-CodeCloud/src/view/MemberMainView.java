@@ -36,9 +36,9 @@ public class MemberMainView extends JFrame implements ActionListener{
 		mainPanel = new JPanel(cards);
 		
 		
-		mainPanel.add("Singlebbs", new Selfbbs(this));
-		mainPanel.add("Sharebbs", new Sharebbs(this));
-		mainPanel.add("Q&Abbs", new QAbbs(this));
+		mainPanel.add("Singlebbs", new Selfbbs());
+		mainPanel.add("Sharebbs", new Sharebbs());
+		mainPanel.add("Q&Abbs", new QAbbs());
 		cards.show(mainPanel, "Singlebbs");
 		
 		mainPanel.setBounds(200,0,1000,800);
