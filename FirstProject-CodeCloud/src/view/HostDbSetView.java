@@ -151,10 +151,13 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 			System.exit(0);
 		}
 		if(e.getSource() == btn_check) {
+			DBConnection.initConnect(IP_Text.getText());
 			//아이피 설정
 			DBConnection.initConnect(IP_Text.getText());
 			Singleton s = Singleton.getInstance();
+
 			
+
 			s.MemCtrl.login();
 			dispose();
 		}

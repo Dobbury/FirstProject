@@ -1,7 +1,10 @@
 package singleton;
 
 import controller.MemberController;
+import dao.QAbbsDao;
 import dto.MemberDto;
+import dto.QAbbsDto;
+import view.memberpanel.QAbbsList;
 
 public class Singleton {
 	public static Singleton s = null;
@@ -10,12 +13,17 @@ public class Singleton {
 	public MemberController MemCtrl = new MemberController();
 	public MemberDto nowMember = null;
 	
+	public QAbbsDto qaDto;
+	public QAbbsDao qaDao = new QAbbsDao();
+	public QAbbsList blf = null;
+	
 	private Singleton() {
 		
 	}
 	public static Singleton getInstance() {
-		if(s==null)
+		if(s==null){
 			s = new Singleton();
+		}
 		
 		return s;
 	}
