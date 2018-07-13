@@ -30,66 +30,8 @@ public class MemberDao implements MemberDaoImpl {
 	PasswordClass pwdCls = new PasswordClass();
 
 	public MemberDao() {
-		String sql = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='HR' AND TABLE_NAME='MEMBER'";
-		String sqlseq = "SELECT * FROM USER_SEQUENCES WHERE SEQUENCE_NAME='CC_MEM_SEQ'";
-		
-/*		String sqlshar = "CREATE TABLE SHARE("
-				+ "SEQ NUMBER PRIMARY KEY,"
-				+ "NICK VARCHAR2(15) FOREIGN KEY,"
-				+ "TITLE VARCHAR2(50) NOT NULL,"
-				+ "CONT VARCHAR2(4000) NOT NULL,"
-				+ "LIKED NUMBER NOT NULL,"
-				+ "FORK NUMBER NOT NULL,"
-				+ "LAN VARCHAR2(10) NOT NULL)";
-		
-		String sqlqa = "CREATE TABLE QA("
-				+ "SEQ NUMBER PRIMARY KEY,"
-				+ "NICK VARCHAR2(15) FOREIGN KEY,"
-				+ "TITLE VARCHAR2(50) NOT NULL,"
-				+ "CONT VARCHAR2(4000) NOT NULL,"
-				+ "LIKED NUMBER NOT NULL,"
-				+ "FORK NUMBER NOT NULL,"
-				+ "LAN VARCHAR2(10) NOT NULL)";*/
-		
-		
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = DBConnection.makeConnection();
-			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery();
-			if(!rs.next()) {	//테이블이 없다면 생성
-				sql = "CREATE TABLE MEMBER("
-						+ "ID VARCHAR2(15) PRIMARY KEY,"
-						+ "PWD VARCHAR2(10) NOT NULL,"
-						+ "NICK VARCHAR2(15) UNIQUE,"
-						+ "AUTH NUMBER NOT NULL,"
-						+ "IMG BLOB )";
-				psmt = conn.prepareStatement(sql);
-				psmt.executeQuery();
-			}
-			
-			psmt = conn.prepareStatement(sqlseq);
-			rs = psmt.executeQuery();
-			
-			if(!rs.next()) {	//테이블이 없다면 생성
-				sqlseq = "CREATE SEQUENCE CC_MEM_SEQ "
-						+ "START WITH 1 "
-						+ "INCREMENT BY 1";
-						
-				psmt = conn.prepareStatement(sqlseq);
-				psmt.executeQuery();
-			}
-			
-		} catch (SQLException e) {			
-			e.printStackTrace();
-		} finally {
-			DBClose.close(psmt, conn, rs);			
-		}
-				
 	}
+	
 	public boolean getId(String id) {
 		
 		String sql = " SELECT ID FROM MEMBER "
@@ -123,9 +65,9 @@ public class MemberDao implements MemberDaoImpl {
 		String path = "img/signUp/userImages.png";	//기본이미지 경로
 		String pwd = pwdCls.Encryption(dto.getID());// 암호화
 
-		String sql2 = "INSERT INTO MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
 		
-		String sql3 = "CREATE TABLE "+dto.getID()
+		String sql2 = "CREATE TABLE "+dto.getID()
 				+ "(SEQ NUMBER PRIMARY KEY,"
 				+ "TITLE VARCHAR2(50) NOT NULL,"
 				+ "CONT VARCHAR2(4000) NOT NULL,"
@@ -133,16 +75,20 @@ public class MemberDao implements MemberDaoImpl {
 				+ "LIKED NUMBER NOT NULL,"
 				+ "FORK NUMBER NOT NULL,"
 				+ "LANG VARCHAR2(10) NOT NULL)";
+		
+		String sqlseq = "CREATE SEQUENCE "+dto.getID()+"_SEQ "
+				+ "START WITH 1 "
+				+ "INCREMENT BY 1";
 
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement psmt = null;
 		int count = 0;
 
-		System.out.println(sql2);
+		System.out.println(sql);
 
 		try {
 
-			psmt = conn.prepareStatement(sql2);
+			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, dto.getID());
 			psmt.setString(2, pwd); // 암호화된 값을 넣어줌
@@ -156,8 +102,10 @@ public class MemberDao implements MemberDaoImpl {
 			psmt.setBinaryStream(5,fis, (int)imgfile.length());//이미지 저장 알아볼것
 			
 			count = psmt.executeUpdate();
+			psmt = conn.prepareStatement(sql2);
+			psmt.executeQuery();
 			
-			psmt = conn.prepareStatement(sql3);
+			psmt = conn.prepareStatement(sqlseq);
 			psmt.executeQuery();
 
 		} catch (Exception e) {
@@ -174,6 +122,8 @@ public class MemberDao implements MemberDaoImpl {
 		String sql = " SELECT ID, PWD, NICK, AUTH, IMG "
 				+ " FROM MEMBER "
 				+ " WHERE ID=?";
+		
+		
 		
 		Connection conn = null;			
 		PreparedStatement psmt = null;	

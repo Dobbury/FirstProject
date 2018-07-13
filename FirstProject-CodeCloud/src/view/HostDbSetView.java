@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import db.DBCheck;
 import db.DBConnection;
 import singleton.Singleton;
 import view.LoginView.MyPanel;
@@ -152,12 +153,12 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		}
 		if(e.getSource() == btn_check) {
 			DBConnection.initConnect(IP_Text.getText());
-			//아이피 설정
-			DBConnection.initConnect(IP_Text.getText());
 			Singleton s = Singleton.getInstance();
-
 			
-
+			DBCheck.memDBcheck();
+			DBCheck.shareDBCheck();
+			DBCheck.qaDBCheck();
+			
 			s.MemCtrl.login();
 			dispose();
 		}
