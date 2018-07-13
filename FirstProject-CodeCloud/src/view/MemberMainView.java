@@ -11,7 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import view.memberpanel.QAbbs;
+import view.memberpanel.QAbbsMain;
+import view.memberpanel.QAbbsWrite;
 import view.memberpanel.Selfbbs;
 import view.memberpanel.Sharebbs;
 
@@ -38,7 +39,7 @@ public class MemberMainView extends JFrame implements ActionListener{
 		
 		mainPanel.add("Singlebbs", new Selfbbs());
 		mainPanel.add("Sharebbs", new Sharebbs());
-		mainPanel.add("Q&Abbs", new QAbbs());
+		mainPanel.add("Q&Abbs", new QAbbsMain());
 		cards.show(mainPanel, "Singlebbs");
 		
 		mainPanel.setBounds(200,0,1000,800);

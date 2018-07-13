@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import view.memberpanel.QAbbs;
+import view.memberpanel.QAbbsMain;
 import view.memberpanel.Selfbbs;
 import view.memberpanel.Sharebbs;
 
