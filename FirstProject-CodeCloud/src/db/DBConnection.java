@@ -22,7 +22,7 @@ public class DBConnection {
 		
 		try {
 			//DB 설정 및 연결
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "hr", "hr");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@121.132.203.227:1521:xe", "hr", "hr");
 			
 			System.out.println("DB Connection Success");
 		} catch (SQLException e) {
