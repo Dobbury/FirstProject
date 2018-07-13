@@ -31,6 +31,26 @@ public class MemberDao implements MemberDaoImpl {
 
 	public MemberDao() {
 		String sql = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='HR' AND TABLE_NAME='MEMBER'";
+		String sqlseq = "SELECT * FROM USER_SEQUENCES WHERE SEQUENCE_NAME='CC_MEM_SEQ'";
+		
+/*		String sqlshar = "CREATE TABLE SHARE("
+				+ "SEQ NUMBER PRIMARY KEY,"
+				+ "NICK VARCHAR2(15) FOREIGN KEY,"
+				+ "TITLE VARCHAR2(50) NOT NULL,"
+				+ "CONT VARCHAR2(4000) NOT NULL,"
+				+ "LIKED NUMBER NOT NULL,"
+				+ "FORK NUMBER NOT NULL,"
+				+ "LAN VARCHAR2(10) NOT NULL)";
+		
+		String sqlqa = "CREATE TABLE QA("
+				+ "SEQ NUMBER PRIMARY KEY,"
+				+ "NICK VARCHAR2(15) FOREIGN KEY,"
+				+ "TITLE VARCHAR2(50) NOT NULL,"
+				+ "CONT VARCHAR2(4000) NOT NULL,"
+				+ "LIKED NUMBER NOT NULL,"
+				+ "FORK NUMBER NOT NULL,"
+				+ "LAN VARCHAR2(10) NOT NULL)";*/
+		
 		
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -45,9 +65,21 @@ public class MemberDao implements MemberDaoImpl {
 						+ "ID VARCHAR2(15) PRIMARY KEY,"
 						+ "PWD VARCHAR2(10) NOT NULL,"
 						+ "NICK VARCHAR2(15) UNIQUE,"
-						+ "AUTH NUMBER NOT NULL"
+						+ "AUTH NUMBER NOT NULL,"
 						+ "IMG BLOB )";
 				psmt = conn.prepareStatement(sql);
+				psmt.executeQuery();
+			}
+			
+			psmt = conn.prepareStatement(sqlseq);
+			rs = psmt.executeQuery();
+			
+			if(!rs.next()) {	//테이블이 없다면 생성
+				sqlseq = "CREATE SEQUENCE CC_MEM_SEQ "
+						+ "START WITH 1 "
+						+ "INCREMENT BY 1";
+						
+				psmt = conn.prepareStatement(sqlseq);
 				psmt.executeQuery();
 			}
 			
@@ -92,6 +124,15 @@ public class MemberDao implements MemberDaoImpl {
 		String pwd = pwdCls.Encryption(dto.getID());// 암호화
 
 		String sql2 = "INSERT INTO MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
+		
+		String sql3 = "CREATE TABLE "+dto.getID()
+				+ "(SEQ NUMBER PRIMARY KEY,"
+				+ "TITLE VARCHAR2(50) NOT NULL,"
+				+ "CONT VARCHAR2(4000) NOT NULL,"
+				+ "SHA NUMBER NOT NULL,"
+				+ "LIKED NUMBER NOT NULL,"
+				+ "FORK NUMBER NOT NULL,"
+				+ "LANG VARCHAR2(10) NOT NULL)";
 
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement psmt = null;
@@ -114,8 +155,10 @@ public class MemberDao implements MemberDaoImpl {
 			psmt.setInt(4, dto.getAuth());
 			psmt.setBinaryStream(5,fis, (int)imgfile.length());//이미지 저장 알아볼것
 			
-
 			count = psmt.executeUpdate();
+			
+			psmt = conn.prepareStatement(sql3);
+			psmt.executeQuery();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
