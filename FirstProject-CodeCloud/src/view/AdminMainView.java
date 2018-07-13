@@ -14,8 +14,11 @@ public class AdminMainView extends JFrame {
 
 	private CardLayout cards = new CardLayout();
 	JPanel mainPanel;
+
 	public AdminMainView() {
+
 		setBounds(50, 50, 1200, 800);
+
 		setLayout(null);
 		
 		mainPanel = new JPanel(cards);
@@ -26,7 +29,9 @@ public class AdminMainView extends JFrame {
 //		mainPanel.add("Q&Abbs", new QAbbs(this));
 		cards.show(mainPanel, "Singlebbs");
 		
+
 		mainPanel.setBounds(200,0,1000,800);
+
 
 		
 		add(mainPanel);
@@ -35,6 +40,7 @@ public class AdminMainView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
+	
 	public void changePanel(int select) {
 		if(select == 1) {
 			cards.show(mainPanel, "Singlebbs");

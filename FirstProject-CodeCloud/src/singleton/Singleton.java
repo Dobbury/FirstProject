@@ -9,12 +9,14 @@ public class Singleton {
 	
 	public MemberController MemCtrl = new MemberController();
 	public MemberDto nowMember = null;
+	
 	private Singleton() {
 		
 	}
 	public static Singleton getInstance() {
-		if(s==null)
+		if(s==null){
 			s = new Singleton();
+		}
 		
 		return s;
 	}
