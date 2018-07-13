@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
+import javax.print.attribute.ResolutionSyntax;
 import javax.swing.ImageIcon;
 
 import Encrypt.PasswordClass;
@@ -28,6 +29,35 @@ public class MemberDao implements MemberDaoImpl {
 	// 비밀번호 암호화
 	PasswordClass pwdCls = new PasswordClass();
 
+	public MemberDao() {
+		String sql = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='HR' AND TABLE_NAME='MEMBER'";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			if(!rs.next()) {	//테이블이 없다면 생성
+				sql = "CREATE TABLE MEMBER("
+						+ "ID VARCHAR2(15) PRIMARY KEY,"
+						+ "PWD VARCHAR2(10) NOT NULL,"
+						+ "NICK VARCHAR2(15) UNIQUE,"
+						+ "IMG BLOB )";
+				psmt = conn.prepareStatement(sql);
+				psmt.executeQuery();
+			}
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);			
+		}
+				
+	}
 	public boolean getId(String id) {
 		
 		String sql = " SELECT ID FROM MEMBER "
@@ -61,7 +91,7 @@ public class MemberDao implements MemberDaoImpl {
 		String path = "img/signUp/userImages.png";	//기본이미지 경로
 		String pwd = pwdCls.Encryption(dto.getID());// 암호화
 
-		String sql2 = "INSERT INTO COFFEE_MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
+		String sql2 = "INSERT INTO MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
 
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement psmt = null;
@@ -80,8 +110,10 @@ public class MemberDao implements MemberDaoImpl {
 			//이미지 파일을 Blob으로 저장
 			File imgfile = new File(path);
 			FileInputStream fis = new FileInputStream(imgfile);
-			psmt.setBinaryStream(4,fis, (int)imgfile.length());//이미지 저장 알아볼것
-			psmt.setInt(5, dto.getAuth());
+			//psmt.setBinaryStream(4, null);
+			psmt.setInt(4, dto.getAuth());
+			psmt.setBinaryStream(5,fis, (int)imgfile.length());//이미지 저장 알아볼것
+			
 
 			count = psmt.executeUpdate();
 

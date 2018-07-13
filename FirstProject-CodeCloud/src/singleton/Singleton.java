@@ -9,6 +9,7 @@ public class Singleton {
 	
 	public MemberController MemCtrl = new MemberController();
 	public MemberDto nowMember = null;
+	
 	private Singleton() {
 		
 	}
