@@ -14,7 +14,6 @@ public class DBConnection {
 			
 			System.out.println("Driver Loading Success");
 			
-		
 			Server_IP = ip;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

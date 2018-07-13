@@ -45,7 +45,7 @@ public class MemberDao implements MemberDaoImpl {
 						+ "ID VARCHAR2(15) PRIMARY KEY,"
 						+ "PWD VARCHAR2(10) NOT NULL,"
 						+ "NICK VARCHAR2(15) UNIQUE,"
-						+ "AUTH NUMBER NOT NULL"
+						+ "AUTH NUMBER NOT NULL,"
 						+ "IMG BLOB )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
