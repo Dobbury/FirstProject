@@ -153,7 +153,12 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		if(e.getSource() == btn_check) {
 			DBConnection.initConnect(IP_Text.getText());
 			//아이피 설정
+			DBConnection.initConnect(IP_Text.getText());
 			Singleton s = Singleton.getInstance();
+<<<<<<< HEAD
+=======
+			
+>>>>>>> f6d05562119d7eb12ae0d5c5fe3336b0a3f57164
 			s.MemCtrl.login();
 			dispose();
 		}
