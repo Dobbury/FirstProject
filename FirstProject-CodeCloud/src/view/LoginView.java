@@ -162,6 +162,7 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 		}
 		if(e.getSource() == btn_Login) {
 			//로그인 버튼
+			new MemberMainView();
 		}
 		if(e.getSource() == btn_Signup) {
 			//회원 가입
