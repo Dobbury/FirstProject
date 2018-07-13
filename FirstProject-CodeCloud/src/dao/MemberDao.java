@@ -40,12 +40,12 @@ public class MemberDao implements MemberDaoImpl {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			
 			if(!rs.next()) {	//테이블이 없다면 생성
 				sql = "CREATE TABLE MEMBER("
 						+ "ID VARCHAR2(15) PRIMARY KEY,"
 						+ "PWD VARCHAR2(10) NOT NULL,"
 						+ "NICK VARCHAR2(15) UNIQUE,"
+						+ "AUTH NUMBER NOT NULL"
 						+ "IMG BLOB )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
