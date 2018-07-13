@@ -4,6 +4,7 @@ import db.DBConnection;
 import singleton.Singleton;
 import view.LoginView;
 import view.MemberMainView;
+import view.memberpanel.Selfbbs;
 
 public class MainClass {
 
@@ -12,7 +13,7 @@ public class MainClass {
 		
 		Singleton s = Singleton.getInstance();
 		
-		s.MemCtrl.login();
+		new MemberMainView();
 	}
 
 }

@@ -24,8 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import view.MemberMainView;
 
 public class Selfbbs extends JPanel implements Action, MouseListener{
-	
-<<<<<<< HEAD
+
 	MemberMainView F;
 	//왼쪽 칸
 	private JPanel left = new JPanel();
@@ -60,13 +59,9 @@ public class Selfbbs extends JPanel implements Action, MouseListener{
 	JButton sharebtn = new JButton("공유");
 	JButton savebtn = new JButton("저장");
 	
-	
-	public Selfbbs(MemberMainView f) {
-=======
+
 	public Selfbbs() {
 	
-		
->>>>>>> 82215cd6bcae4df231e98fc9d2f65f7696ba3473
 		setLayout(null);
 		
 		//left
