@@ -15,5 +15,4 @@ public class MainClass {
 		
 		new MemberMainView();
 	}
-
 }
