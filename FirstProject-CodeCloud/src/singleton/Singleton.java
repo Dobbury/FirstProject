@@ -21,8 +21,9 @@ public class Singleton {
 		
 	}
 	public static Singleton getInstance() {
-		if(s==null)
+		if(s==null){
 			s = new Singleton();
+		}
 		
 		return s;
 	}
