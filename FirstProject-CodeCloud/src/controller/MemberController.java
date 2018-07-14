@@ -21,6 +21,10 @@ public class MemberController {
 		
 	}
 	
+	public boolean getNick(String nick) {
+		return mService.getNick(nick);
+	}
+	
 	public boolean addMember(String id,String pwd,String nick) {
 		return mService.insert(new MemberDto(id,pwd,nick,1,null));
 	}

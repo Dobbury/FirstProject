@@ -42,10 +42,10 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 	private JTextField id_text;
 	private JPasswordField pwd_text;
 
-	BufferedImage img = null;
-	
-	String id_Hint="ID 입력";
+	BufferedImage img = null;	String id_Hint="ID 입력";
 	String pwd_Hint="패스워드 입력";
+
+	
 
 	public LoginView() {
 		

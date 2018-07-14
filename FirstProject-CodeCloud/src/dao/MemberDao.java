@@ -60,6 +60,35 @@ public class MemberDao implements MemberDaoImpl {
 		
 		return findId;	
 	}
+	
+	@Override
+	public boolean getNick(String nick) {
+		String sql = " SELECT NICK FROM MEMBER "
+				+ " WHERE NICK ='" + nick + "'";
+		
+		Connection conn = null;			// DB info
+		PreparedStatement psmt = null;	// sql query
+		ResultSet rs = null;			// result value
+		
+		Boolean findId = false;
+				
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				findId = true;
+			}
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);			
+		}
+		
+		return findId;	
+	}
 
 	public boolean insert(MemberDto dto) {
 		String path = "img/signUp/userImages.png";	//기본이미지 경로
