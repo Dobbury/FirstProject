@@ -181,23 +181,35 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_Signup ) {
+			//아이디 체크
+			if(!id_check) {
+				JOptionPane.showMessageDialog(null, "아이디를 확인하세요.");
+				return;
+			}
+			//비밀번호 체크
+			if(!pwd_check) {
+				JOptionPane.showMessageDialog(null, "비밀번호를 확인하세요.");
+				return;
+			}
+			//닉네임 체크
+			if(!nick_check) {
+				JOptionPane.showMessageDialog(null, "닉네임을 확인하세요.");
+				return;
+			}
+			
 			
 			Singleton s = Singleton.getInstance();
 			boolean b = s.MemCtrl.addMember(id_text.getText(), pwd_text.getText(),
 					nick_text.getText());
-			//아이디 체크
-			
-			
-			//닉네임 체크
 			
 			if(b) {
 				JOptionPane.showMessageDialog(null, "회원가입을 축하합니다.");
 				//회원가입창 초기화
-				
+
 				//로그인창
 				s.MemCtrl.login();
 			}else {
-				JOptionPane.showMessageDialog(null, "이미 사용중인  입니다.");
+				JOptionPane.showMessageDialog(null, "회원가입 안 되었습니다.");
 				return;
 			}
 		}
