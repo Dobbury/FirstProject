@@ -1,6 +1,9 @@
 package singleton;
 
+import java.util.LinkedList;
+
 import controller.MemberController;
+import dto.BBSDto;
 import dto.MemberDto;
 
 public class Singleton {
@@ -9,6 +12,8 @@ public class Singleton {
 	
 	public MemberController MemCtrl = new MemberController();
 	public MemberDto nowMember = null;
+	
+	public LinkedList<BBSDto> selfcodelist = new LinkedList<>();
 	
 	private Singleton() {
 		

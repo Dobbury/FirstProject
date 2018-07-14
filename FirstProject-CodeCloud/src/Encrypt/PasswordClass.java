@@ -4,7 +4,7 @@ public class PasswordClass {
 	// 암호화 복호화 해주는 클래스
 	//공백과 특수문자는 암호화 복호화 되지않고 그대로 저장된다.
 	
-	private char[] abcCode = { // 각 순서대로 A~z에 해당하는 문자들
+	private static char[] abcCode = { // 각 순서대로 A~z에 해당하는 문자들
 			// A는 65 따라서 첫번째 인덱스는 A-65														
 			'`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?', '_', '+', '=', '|', '[', ']', '{', '}',
 			';', ':', ',', '.', '/',
@@ -15,19 +15,19 @@ public class PasswordClass {
 			'¶', '·', '¸', '¹', 'º' };
 
 	// 0 1 2 ~9 각 숫자에 해당하는 문자
-	private char[] numCode = { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' };
+	private static char[] numCode = { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' };
 
 	//공백과 특수문자는 안됨
-	String password;
+	static String password;
 	//알파벳과 숫자 이외의 자리를 알기 위한 boolean변수 
-	boolean swi[];
+	static boolean swi[];
 			
 	public PasswordClass() {
 		
 	}
 	
-	public String Encryption(String pwd) { // 암호화 메소드
-		this.password =pwd;
+	public static String Encryption(String pwd) { // 암호화 메소드
+		password =pwd;
 		swi = new boolean[password.length()]; 
 		
 		int len = password.length();
@@ -50,7 +50,7 @@ public class PasswordClass {
 		}
 		return eStr;
 	}
-	public String Decode(String pwd) {	//복호화 메소드
+	/*public String Decode(String pwd) {	//복호화 메소드
 		this.password =pwd;
 		swi = new boolean[password.length()]; 
 		
@@ -75,13 +75,13 @@ public class PasswordClass {
 			int numC=numCodeStr.indexOf(c);
 			
 			if(abcC!=-1) {//해당값이 -1이 안나오면 해당 문자열에 그 문자가 포함되있는 것이므로 아래 처리를 거쳐간다.
-				/*
+				
 				 	알파벳중아 가장 작은 값을 가지는건 A로 아스키 코드값이 65이다.
 				 	따라서 0번지에 해당하는 특수문자를 A로 바꾸려면
 				 	인덱스에 +65를 해주면 된다.
 				 	A부터해서 다른알파벳들도 순차적으로 아스키코드가 있기 때문에
 				 	인덱스값+65해주면 해당 특수문자에 해당하는 알파벳을 얻을 수 있다.
-				 */
+				 
 				eStr+=(char)(abcC+65);
 			}
 			else{//사실상 특수문자도 거르고 abcC를 통해 알파벳도 없다는 결과가 나오면 숫자만 남기 때문에 조건을 따로 걸어줄 필요가 없다.
@@ -93,5 +93,5 @@ public class PasswordClass {
 		}
 		
 		return eStr;
-	}
+	}*/
 }

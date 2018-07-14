@@ -27,19 +27,13 @@ public class MemberController {
 	
 	public boolean loginCheck(String id,String pwd) {
 		
-		MemberDto dto = mService.login(new MemberDto(id,pwd,null,1,null));
+		MemberDto dto = mService.login(id, pwd);
 		
 		if(dto != null) {
-			if(pwd.equals(dto.getPWD())) {
 				Singleton s = Singleton.getInstance();
 				s.nowMember = dto;//로그인 성공한 dto 싱글톤 nowMember에 저장
 				return true;
-			}else {	//비밀번호 틀릴 때 
-				JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
-				return false;
-			}
 		}else {//아이디 없을 때
-			JOptionPane.showMessageDialog(null, "해당 아이디가 존재하지 않습니다.");
 			return false;
 		}
 	}

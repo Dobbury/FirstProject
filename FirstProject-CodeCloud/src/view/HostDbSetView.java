@@ -88,6 +88,7 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		IP_Text.setBounds(70, 216, 220, 30);
 		IP_Text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		IP_Text.setOpaque(false);
+		IP_Text.setText("127.0.0.1");
 		layeredPane.add(IP_Text);
 		
 		ButtonGroup TogglebtnGroup = new ButtonGroup();

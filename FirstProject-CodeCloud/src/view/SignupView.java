@@ -154,13 +154,12 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 					nick_text.getText());
 			//아이디 체크
 			
-			
 			//닉네임 체크
 			
 			if(b) {
 				JOptionPane.showMessageDialog(null, "회원가입을 축하합니다.");
 				//회원가입창 초기화
-				
+				this.dispose();
 				//로그인창
 				s.MemCtrl.login();
 			}else {

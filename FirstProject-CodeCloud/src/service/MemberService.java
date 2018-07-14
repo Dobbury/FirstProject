@@ -14,7 +14,7 @@ public class MemberService implements MemberServiceImpl {
 	public boolean insert(MemberDto dto) {
 		return dao.insert(dto);
 	}
-	public MemberDto login(MemberDto dto) {
-		return dao.login(dto);
+	public MemberDto login(String id, String pw) {
+		return dao.login(id, pw);
 	}
 }

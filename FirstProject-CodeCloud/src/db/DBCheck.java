@@ -53,6 +53,7 @@ public class DBCheck {
 			if(!rs.next()) {	//테이블이 없다면 생성
 				sql = "CREATE TABLE SHAR("
 						+ "SEQ NUMBER PRIMARY KEY,"
+						+ "INDSEQ NUMBER NOT NULL,"
 						+ "NICK VARCHAR2(15) NOT NULL,"
 						+ "TITLE VARCHAR2(50) NOT NULL,"
 						+ "CONT VARCHAR2(4000) NOT NULL,"

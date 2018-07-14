@@ -21,8 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import singleton.Singleton;
+
 
 public class LoginView extends JFrame implements ActionListener,FocusListener {
+	
+	private Singleton s = Singleton.getInstance();
 	
 	private ImageIcon startIc1;
 	private ImageIcon startIc2;
@@ -161,7 +165,14 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 			System.exit(0);
 		}
 		if(e.getSource() == btn_Login) {
-			//로그인 버튼
+			boolean result =s.MemCtrl.loginCheck(id_text.getText(), pwd_text.getText());
+			if(result == true) {
+				new MemberMainView();
+				this.dispose();
+			}else {
+				id_text.setText("");
+				pwd_text.setText("");
+			}
 		}
 		if(e.getSource() == btn_Signup) {
 			//회원 가입
