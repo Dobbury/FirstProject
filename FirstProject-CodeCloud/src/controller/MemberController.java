@@ -32,11 +32,8 @@ public class MemberController {
 	
 	public boolean loginCheck(String id,String pwd) {
 		
-		MemberDto dto = mService.login(new MemberDto(id,null,null,1,null));
-		
-		PasswordClass pwdCls = new PasswordClass();
-		pwd = pwdCls.Encryption(pwd);//암호화 
-		
+		MemberDto dto = mService.login(new MemberDto(id,pwd,null,1,null));
+
 		if(dto != null) {
 				Singleton s = Singleton.getInstance();
 				s.nowMember = dto;//로그인 성공한 dto 싱글톤 nowMember에 저장

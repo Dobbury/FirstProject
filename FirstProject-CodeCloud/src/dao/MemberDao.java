@@ -49,7 +49,10 @@ public class MemberDao implements MemberDaoImpl {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 401c2e90bcb7b44dd00074ebd51f30102c0bdad0
 			if(!rs.next()) {	//테이블이 없다면 생성
 				sql = "CREATE TABLE MEMBER("
 						+ "ID VARCHAR2(15) PRIMARY KEY,"
