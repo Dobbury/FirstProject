@@ -80,12 +80,6 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 			}
 		}
 
-		// 글쓰기 버튼
-		writeBtn = new JButton("글쓰기");
-		writeBtn.addActionListener(this);
-		writeBtn.setBounds(600, 600, 100, 40);
-		add(writeBtn);
-
 		model = new DefaultTableModel(columnNames, 0);
 		model.setDataVector(rowData, columnNames);
 
@@ -117,11 +111,6 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object obj = e.getSource();
-		// 글쓰기
-		if (obj == writeBtn) {
-			adQAmian.changePanel(2, new QAbbsDto());
-		}
 	}
 
 	public void setList(List<QAbbsDto> list) {
