@@ -10,7 +10,7 @@ public class MemberDto {
 	String ID;
 	String PWD;
 	String Nick;
-	int auth;
+	int auth= -1;
 	BufferedImage profile_Img;
 	public MemberDto(){
 		

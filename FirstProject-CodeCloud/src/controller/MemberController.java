@@ -7,6 +7,7 @@ import dto.MemberDto;
 import service.MemberService;
 import service.MemberServiceImpl;
 import singleton.Singleton;
+import view.AdminMainView;
 import view.LoginView;
 import view.MemberMainView;
 
@@ -32,11 +33,17 @@ public class MemberController {
 	
 	public boolean loginCheck(String id,String pwd) {
 		
-		MemberDto dto = mService.login(new MemberDto(id,pwd,null,1,null));
+		MemberDto dto = mService.login(new MemberDto(id,pwd,null,-1,null));
 
 		if(dto != null) {
 				Singleton s = Singleton.getInstance();
 				s.nowMember = dto;//로그인 성공한 dto 싱글톤 nowMember에 저장
+				
+				if(dto.getAuth() == 0 ) {
+					new AdminMainView();
+				}else if (dto.getAuth() == 1) {
+					new MemberMainView();
+				}
 				return true;
 		}else {//아이디 없을 때
 			return false;

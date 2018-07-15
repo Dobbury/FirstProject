@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import singleton.Singleton;
@@ -24,6 +25,7 @@ import view.memberpanel.QAbbsMain;
 import view.memberpanel.QAbbsWrite;
 
 import Encrypt.PasswordClass;
+import chatting.ClientBackground;
 import dao.BBSDao;
 import db.DBClose;
 import db.DBConnection;
@@ -54,6 +56,10 @@ public class MemberMainView extends JFrame implements ActionListener{
 	ResultSet rs;
 	String sql;
 	
+	//채팅 부분
+	private ClientBackground client;
+	private JTextArea chatArea;
+	private JTextField chatText;
 	
 	public MemberMainView() {
 		setBounds(50, 50, 1200, 800);
@@ -138,6 +144,13 @@ public class MemberMainView extends JFrame implements ActionListener{
 				chat=false;
 			}else {
 				setBounds(50, 50, 1500, 800);
+				
+				client = new ClientBackground();
+				
+				chatArea = new JTextArea();
+				//chatArea.setBounds();
+				
+				chatText = new JTextField();
 				chat = true;
 			}
 		}else if(e.getSource() == btn_Logout) {
