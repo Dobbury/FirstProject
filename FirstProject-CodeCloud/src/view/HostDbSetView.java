@@ -180,6 +180,7 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 			DBConnection.initConnect(IP_Text.getText());
 			Singleton s = Singleton.getInstance();
 			s.hostDB_IP = IP_Text.getText();
+			
 			DBCheck.memDBcheck();
 			DBCheck.shareDBCheck();
 			DBCheck.qaDBCheck();
