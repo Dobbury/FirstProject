@@ -1,4 +1,4 @@
-package view.memberpanel;
+package view.adminpanel;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -7,21 +7,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import dao.MemberDao;
 import dao.QAbbsDao;
 import dto.QAbbsDto;
 import singleton.Singleton;
 
-public class QAbbsDetail extends JPanel implements ActionListener, WindowListener {
+public class adQAbbsDetail extends JPanel implements ActionListener, WindowListener{
 
 	JLabel titleLabel;// 닉네임
 	JLabel titleLabel2;// 제목
@@ -36,21 +34,23 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 	JScrollPane jScrol;
 
-	private JButton btn_Update; // 게시판 글 정보수정
+	private JButton btn_comment; // 게시글 답변달기
 	private JButton btn_List;// 목록으로
-	private JButton btn_delete;// 삭제버튼
+	private JButton btn_delete;// 삭제
+	private JButton btn_update;// 수정
 
 	final int INSERT = 0;
 	final int UPDATE = 1;
 
-	QAbbsMain QAmain;
+	adQAbbsMain adQAmian;
+
+	QAbbsDao dao;
 	QAbbsDto dto;
 
-	public QAbbsDetail(QAbbsMain QA, QAbbsDto dto) {
-		QAmain = QA;
+	public adQAbbsDetail(adQAbbsMain QA, QAbbsDto dto) {
+		adQAmian = QA;
 		this.dto = dto;
 
-		System.out.println(dto.toString() + "ffffdfdfd");
 		titleLabel = new JLabel("닉네임: ");
 		titleLabel.setBounds(100, 100, 50, 30);
 
@@ -78,21 +78,33 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		jScrol = new JScrollPane(postArea);
 		jScrol.setBounds(200, 200, 300, 300);
 
-		// 수정
-		btn_Update = new JButton("수정");
-		btn_Update.addActionListener(this);
-		btn_Update.setBounds(100, 550, 110, 50);
+		// 게시글 답글달기
+		btn_comment = new JButton("답글 달기");
+		btn_comment.addActionListener(this);
+		btn_comment.setBounds(200, 550, 110, 50);
 
 		// 글 목록
 		btn_List = new JButton("글 목록");
 		btn_List.addActionListener(this);
-		btn_List.setBounds(500, 550, 110, 50);
+		btn_List.setBounds(400, 550, 110, 50);
 
 		// 삭제
 		btn_delete = new JButton("삭제");
 		btn_delete.addActionListener(this);
-		btn_delete.setBounds(600, 550, 110, 50);
+		btn_delete.setBounds(550, 550, 110, 50);
 
+		// 수정
+		btn_update = null;
+		btn_update = new JButton("수정");
+		btn_update.addActionListener(this);
+		btn_update.setBounds(700, 550, 110, 50);
+
+		Singleton s = Singleton.getInstance();
+		// 수정 버튼의 비활성화 (같은 id일 경우만)
+		if (!dto.getNick().equals(s.nowMember.getNick())) {
+			btn_update.setEnabled(false);
+			btn_delete.setEnabled(false);
+		}
 		// 삭제 액션 구현
 		btn_delete.addActionListener(new ActionListener() {
 
@@ -105,30 +117,27 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 				} else {
 					JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
 				}
-				QAmain.changePanel(1, new QAbbsDto());
+				adQAmian.changePanel(3, dto);
 			}
 		});
 
 		add(titleLabel);
 		add(titleLabel2);
 		add(titleLabel3);
-
 		add(titleText);
 		add(titleText2);
-
 		add(jScrol);
-
-		add(btn_Update);
+		add(btn_comment);
 		add(btn_List);
+		add(btn_delete);
+		add(btn_update);
 
 		setLayout(null);
 		setBackground(Color.PINK);
 		setBounds(50, 50, 300, 300);
-
 		setVisible(true);
 
 	}
-
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
@@ -173,16 +182,15 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Singleton s = Singleton.getInstance();
+		if (e.getSource() == btn_comment) {
+			adQAmian.changePanel(2, dto);
 
-		// TODO Auto-generated method stub
-		if (e.getSource() == btn_List) {
-			QAmain.changePanel(1, new QAbbsDto());
+		} else if (e.getSource() == btn_List) {
+			adQAmian.changePanel(3, dto);
 
-		} else if (e.getSource() == btn_Update) {
-			QAmain.changePanel(3, dto);
+		} else if (e.getSource() == btn_update) {
+			adQAmian.changePanel(2, dto);
 
 		}
 	}
-
 }

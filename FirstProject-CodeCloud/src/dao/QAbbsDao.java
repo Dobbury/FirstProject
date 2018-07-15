@@ -13,7 +13,38 @@ import db.DBConnection;
 import dto.QAbbsDto;
 
 public class QAbbsDao {
-
+	// 수정부분.. 할때 넣은 코드
+	private static QAbbsDao dao = new QAbbsDao();
+	private QAbbsDao() {}
+	public static QAbbsDao getInstance() {
+		return dao;
+	}
+	// 삭제?
+	public boolean deletebbs(int seq) {
+		String sql = " UPDATE QA "+ "SET del = 1"
+					+"WHERE SEQ =?";
+		
+		Connection conn = DBConnection.makeConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null; // DB에서 데이터를 받아주는 객체
+		
+		int count = 0;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, seq);
+			
+			count = stmt.executeUpdate();
+		}catch(SQLException e) {			
+			e.printStackTrace();
+		} finally{
+			DBClose.close(stmt, conn, null);				
+		}		
+		
+		return count>0?true:false;
+	}
+	
 	public List<QAbbsDto> getbbsList() {
 		//쿼리 수정해야함
 //	      String sql = "SELECT SEQ,nick,TITLE,dat,DEL,REF,STEP,DEPT, visible"

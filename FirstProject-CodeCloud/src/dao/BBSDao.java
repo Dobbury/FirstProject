@@ -44,7 +44,6 @@ public class BBSDao implements BBSDaoImpl {
 										rs.getInt(i++), 
 										rs.getInt(i++), 
 										rs.getString(i++));
-				
 				tmp.add(dto);				
 			}				
 			
