@@ -17,7 +17,8 @@ public class Singleton {
 	public MemberDto nowMember = null;
 	
 	public QAbbsDto qaDto;
-	public QAbbsDao qaDao = new QAbbsDao();
+	//public QAbbsDao qaDao = new QAbbsDao();
+	public QAbbsDao qaDao ;
 	public QAbbsList blf = null;
 
 	public LinkedList<BBSDto> selfcodelist = new LinkedList<>();

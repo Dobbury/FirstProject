@@ -1,4 +1,4 @@
-package view.memberpanel;
+package view.adminpanel;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -9,7 +9,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,8 +17,9 @@ import javax.swing.JTextField;
 
 import dto.QAbbsDto;
 import singleton.Singleton;
+import view.memberpanel.QAbbsMain;
 
-public class QAbbsWrite extends JPanel implements WindowListener, ActionListener{
+public class adQAbbswrite extends JPanel implements ActionListener, WindowListener{
 
 	JLabel titleLabel;// 제목
 	JLabel titleLabel2;// 내용
@@ -29,22 +29,22 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 	JScrollPane jScrol;
 
-	JButton btn_Commit; // 게시판 글 입력
-	JButton btn_Cancle; // 게시판 글 입력 취소
+	JButton btn_Commit; // 답글 입력
+	JButton btn_Cancle; // 답글 입력 취소
 
 	final int INSERT = 0;
 	final int UPDATE = 1;
 	final int COMMENT = 2;
 
-	QAbbsMain QAmain;
-	QAbbsDto dto;
-	
 	int state;
 
-	public QAbbsWrite(QAbbsMain QA, QAbbsDto dto) {
-		QAmain = QA;
+	adQAbbsMain adQAmian;
+	QAbbsDto dto;
+
+	public adQAbbswrite(adQAbbsMain QA, QAbbsDto dto) {
+		adQAmian = QA;
 		this.dto = dto;
-		
+
 		titleLabel = new JLabel("제목: ");
 		titleLabel.setBounds(50, 10, 50, 30);
 
@@ -58,7 +58,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		postArea = new JTextArea();
 		postArea.setBounds(110, 80, 310, 200);
 		postArea.append(dto.getContent());
-		
+
 		jScrol = new JScrollPane(postArea);
 		jScrol.setBounds(110, 80, 310, 200);
 
@@ -76,7 +76,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		add(titleLabel2);
 		add(titleText);
 		add(jScrol);
-		
+
 		add(btn_Commit);
 		add(btn_Cancle);
 
@@ -86,38 +86,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 		setVisible(true);
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == btn_Commit) {// 확인
-			Singleton s = Singleton.getInstance();
-			// QAmain.changePanel(1);
-
-			if (state == UPDATE) {
-				dto.setTitle(titleText.getText());
-				dto.setContent(postArea.getText());
-				s.qaDao.update(dto);
-
-				QAmain.changePanel(1, new QAbbsDto());
-
-			} else if(state == INSERT) {
-			
-				//dto.setNick(s.nowMember.getNick());
-				dto.setNick("min");
-				dto.setTitle(titleText.getText());
-				dto.setContent(postArea.getText());
-				
-				dto.setDel(0); // 0이 삭제 되지 않은 게시글 , 1이 삭제된 게시글
-				s.qaDao.insert(dto);
-
-				QAmain.changePanel(1, new QAbbsDto());
-
-			} 
-		} else if (e.getSource() == btn_Cancle) {// 취소
-
-			QAmain.changePanel(1, new QAbbsDto());
-		}
-	}
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
@@ -156,8 +125,33 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
-	
+		// TODO Auto-generated method stub
 
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btn_Commit) {
+			Singleton s = Singleton.getInstance();
+
+			if (state == UPDATE) {
+				dto.setTitle(titleText.getText());
+				dto.setContent(postArea.getText());
+				s.qaDao.update(dto);
+				
+				// list로
+				adQAmian.changePanel(3, new QAbbsDto());
+				
+			} else if (state == INSERT) {
+				dto.setNick("admin");
+				dto.setTitle(titleText.getText());
+				dto.setContent(postArea.getText());
+
+				dto.setDel(0); // 0이 삭제 되지 않은 게시글 , 1이 삭제된 게시글
+				s.qaDao.insert(dto);
+			}
+		} else if (e.getSource() == btn_Cancle) {
+			adQAmian.changePanel(3, new QAbbsDto());
+		}
+	}
 }
