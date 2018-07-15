@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import chatting.chatPanel;
 import singleton.Singleton;
 import view.adminpanel.AdminSharebbs;
 
@@ -32,6 +33,11 @@ public class AdminMainView extends JFrame implements ActionListener {
    boolean chat;
 
    adQAbbsMain adQAMain = new adQAbbsMain();
+   
+
+   //채팅 부분
+   private chatPanel chatPanel;
+	
    public AdminMainView() {
 
       setBounds(50, 50, 1200, 800);
@@ -71,11 +77,17 @@ public class AdminMainView extends JFrame implements ActionListener {
       btn_Chat.addActionListener(this);
       btn_Chat.setBounds(30, 550, 100, 80);
 
-      btn_Logout = new JButton("로그아웃");
-      btn_Logout.addActionListener(this);
-      btn_Logout.setBounds(30, 650, 100, 80);
+		btn_Logout = new JButton("로그아웃");
+		btn_Logout.addActionListener(this);
+		btn_Logout.setBounds(30, 650, 100, 80);
 
-      add(btn_Member);
+		chatPanel = new chatPanel();
+		chatPanel.connect();
+		chatPanel.setBounds(1200, 0, 300, 800);
+
+		add(chatPanel);
+
+		add(btn_Member);
       add(btn_Sharebbs);
       add(btn_QAbbs);
       add(btn_Chat);
