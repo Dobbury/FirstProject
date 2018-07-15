@@ -44,7 +44,7 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 		adQAmian = QA;
 
 		Singleton s = Singleton.getInstance();
-		/*list = s.qaDao.getbbsList();
+/*		list = s.qaDao.getbbsList();
 
 		rowData = new Object[list.size()][4];// 테이블의 2차원배열이 생성
 
