@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.print.attribute.ResolutionSyntax;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import Encrypt.PasswordClass;
 import db.DBClose;
@@ -27,7 +28,7 @@ IMG		BLOB
  */
 public class MemberDao implements MemberDaoImpl {
 	// 비밀번호 암호화
-	PasswordClass pwdCls = new PasswordClass();
+	//static PasswordClass pwdCls = new PasswordClass();
 
 	public MemberDao() {
 	}
@@ -92,7 +93,7 @@ public class MemberDao implements MemberDaoImpl {
 
 	public boolean insert(MemberDto dto) {
 		String path = "img/signUp/userImages.png";	//기본이미지 경로
-		String pwd = pwdCls.Encryption(dto.getPWD());// 암호화
+		String pwd = PasswordClass.Encryption(dto.getPWD());
 
 		String sql = "INSERT INTO MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
 		
@@ -169,17 +170,25 @@ public class MemberDao implements MemberDaoImpl {
 			
 			if(rs.next()) {
 				String id = rs.getString(1);
-				
-				String pwd = rs.getString(2);	//복호화
+
+				String pwd = rs.getString(2);
 				System.out.println("비밀번호:"+pwd);
+
+				if(!PasswordClass.Encryption(dto.getPWD()).equals(pwd)) {
+					JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
+					return null;
+				}
+
 				String nick = rs.getString(3);
 				int auth = rs.getInt(4);
 				//이미지 처리
 				InputStream is = rs.getBinaryStream(5); 
 				BufferedImage profile_Img = ImageIO.read(is);
-				/////////////////////////////
+				
 				mem = new MemberDto(id, pwd, nick, auth,profile_Img);				
-			}			
+			}else {
+				JOptionPane.showMessageDialog(null, "아이디가 존재하지 않습니다.");
+			}
 			
 		} catch (Exception e) {			
 			e.printStackTrace();
@@ -189,4 +198,6 @@ public class MemberDao implements MemberDaoImpl {
 		
 		return mem;
 	}
+
+
 }
