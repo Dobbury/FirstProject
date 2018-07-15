@@ -7,9 +7,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -19,7 +21,10 @@ import dao.QAbbsDao;
 import dto.QAbbsDto;
 import singleton.Singleton;
 
-public class adQAbbsDetail extends JPanel implements ActionListener, WindowListener{
+
+
+public class adQAbbsDetail extends JPanel implements ActionListener, WindowListener, MouseListener {
+
 
 	JLabel titleLabel;// 닉네임
 	JLabel titleLabel2;// 제목
@@ -50,12 +55,15 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		adQAmian = QA;
 		this.dto = dto;
 
+
 		titleLabel = new JLabel("닉네임: ");
 		titleLabel.setBounds(100, 100, 50, 30);
 
 		titleText = new JTextField();
+
 		titleText.setBounds(200, 100, 310, 30);
 		titleText.setText(dto.getNick());
+
 		titleText.setEditable(false);
 
 		titleLabel2 = new JLabel("제목: ");
@@ -64,10 +72,12 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		titleText2 = new JTextField();
 		titleText2.setBounds(200, 150, 310, 30);
 		titleText2.setText(dto.getTitle());
+
 		titleText2.setEditable(false);
 
 		titleLabel3 = new JLabel("CONTENT: ");
 		titleLabel3.setBounds(100, 180, 100, 60);
+
 
 		postArea = new JTextArea();
 		postArea.setBounds(200, 200, 300, 300);
@@ -85,6 +95,7 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		// 글 목록
 		btn_List = new JButton("글 목록");
 		btn_List.addActionListener(this);
+
 		btn_List.setBounds(400, 550, 110, 50);
 
 		// 삭제
@@ -131,12 +142,15 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		add(btn_delete);
 		add(btn_update);
 
+
 		setLayout(null);
 		setBackground(Color.PINK);
 		setBounds(50, 50, 300, 300);
+
 		setVisible(true);
 
 	}
+
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
@@ -181,6 +195,7 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (e.getSource() == btn_comment) {
 			adQAmian.changePanel(2, dto,2);
 
@@ -192,4 +207,5 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 		}
 	}
+
 }
