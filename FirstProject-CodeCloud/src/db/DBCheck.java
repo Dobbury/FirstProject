@@ -103,7 +103,7 @@ public class DBCheck {
 						+ "SEQ     NUMBER		PRIMARY KEY,"
 						+ "TITLE	VARCHAR2(50)	NOT NULL,"
 						+ "DAT		DATE			NOT NULL,"
-						+ "NICK	VARCHAR2(15) NOT NULL,"
+						+ "NICK	VARCHAR2(15),"
 						+ "CONTENT	VARCHAR2(4000)	NOT NULL,"
 						+ "DEL		NUMBER	    NOT NULL,"
 						+ "REF 	NUMBER,	"
@@ -115,6 +115,12 @@ public class DBCheck {
 						+ "REFERENCES MEMBER(NICK))";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
+				
+				sql = "INSERT INTO QA VALUES (0,'ROOT',SYSDATE, NULL,'ROOT',0,null,0,0,0,0)";
+				
+				psmt = conn.prepareStatement(sql);
+				psmt.executeUpdate();
+				
 			}
 			
 			psmt = conn.prepareStatement(sqlseq);
