@@ -2,6 +2,7 @@ package controller;
 
 import javax.swing.JOptionPane;
 
+import Encrypt.PasswordClass;
 import dto.MemberDto;
 import service.MemberService;
 import service.MemberServiceImpl;
@@ -21,25 +22,26 @@ public class MemberController {
 		
 	}
 	
+	public boolean getNick(String nick) {
+		return mService.getNick(nick);
+	}
+	
 	public boolean addMember(String id,String pwd,String nick) {
 		return mService.insert(new MemberDto(id,pwd,nick,1,null));
 	}
 	
 	public boolean loginCheck(String id,String pwd) {
 		
-		MemberDto dto = mService.login(new MemberDto(id,pwd,null,1,null));
+		MemberDto dto = mService.login(new MemberDto(id,null,null,1,null));
+		
+		PasswordClass pwdCls = new PasswordClass();
+		pwd = pwdCls.Encryption(pwd);//암호화 
 		
 		if(dto != null) {
-			if(pwd.equals(dto.getPWD())) {
 				Singleton s = Singleton.getInstance();
 				s.nowMember = dto;//로그인 성공한 dto 싱글톤 nowMember에 저장
 				return true;
-			}else {	//비밀번호 틀릴 때 
-				JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
-				return false;
-			}
 		}else {//아이디 없을 때
-			JOptionPane.showMessageDialog(null, "해당 아이디가 존재하지 않습니다.");
 			return false;
 		}
 	}

@@ -17,4 +17,7 @@ public class MemberService implements MemberServiceImpl {
 	public MemberDto login(MemberDto dto) {
 		return dao.login(dto);
 	}
+	public boolean getNick(String nick) {
+		return dao.getNick(nick);
+	}
 }

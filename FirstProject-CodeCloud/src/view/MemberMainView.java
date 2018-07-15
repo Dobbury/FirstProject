@@ -4,22 +4,40 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import singleton.Singleton;
 import view.memberpanel.QAbbsMain;
 import view.memberpanel.QAbbsWrite;
+
+import Encrypt.PasswordClass;
+import dao.BBSDao;
+import db.DBClose;
+import db.DBConnection;
+import dto.BBSDto;
+import dto.MemberDto;
+import singleton.Singleton;
+
 import view.memberpanel.Selfbbs;
 import view.memberpanel.Sharebbs;
 
 public class MemberMainView extends JFrame implements ActionListener{
 
-	private CardLayout cards = new CardLayout();
-	JPanel mainPanel;
+	public CardLayout cards = new CardLayout();
+	public JPanel mainPanel;
 	
 	JPanel memProfile_Img;
 	JLabel memName;
@@ -28,14 +46,25 @@ public class MemberMainView extends JFrame implements ActionListener{
 	JButton btn_Sharebbs;
 	JButton btn_QAbbs;
 	JButton btn_Chat;
+	JButton btn_Logout;
 	boolean chat;
+	
+	Connection conn;
+	PreparedStatement psmt;
+	ResultSet rs;
+	String sql;
+	
 	
 	public MemberMainView() {
 		setBounds(50, 50, 1200, 800);
 		setLayout(null);
 		
-		mainPanel = new JPanel(cards);
+		Singleton s = Singleton.getInstance();
+		BBSDao bbsdao = new BBSDao();
+		s.selfcodelist = bbsdao.list();
 		
+		
+		mainPanel = new JPanel(cards);
 		
 		mainPanel.add("Singlebbs", new Selfbbs());
 		mainPanel.add("Sharebbs", new Sharebbs());
@@ -49,9 +78,9 @@ public class MemberMainView extends JFrame implements ActionListener{
 		memProfile_Img.setBounds(37,50,120,120);
 		
 		memName = new JLabel();
-		memName.setText("닉네임");
-		memName.setBounds(30,200,40,30);
-		
+		memName.setText(s.nowMember.getNick());
+		memName.setBounds(50,200,40,30);
+
 		btn_Selfbbs = new JButton("개인 코드");
 		btn_Selfbbs.addActionListener(this);
 		btn_Selfbbs.setBounds(30, 250, 100, 80);
@@ -68,10 +97,15 @@ public class MemberMainView extends JFrame implements ActionListener{
 		btn_Chat.addActionListener(this);
 		btn_Chat.setBounds(30, 550, 100, 80);
 		
+		btn_Logout = new JButton("로그아웃");
+		btn_Logout.addActionListener(this);
+		btn_Logout.setBounds(30, 650, 100, 80);
+		
 		add(btn_Selfbbs);
 		add(btn_Sharebbs);
 		add(btn_QAbbs);
 		add(btn_Chat);
+		add(btn_Logout);
 		
 		add(memName);
 		add(memProfile_Img);
@@ -106,8 +140,12 @@ public class MemberMainView extends JFrame implements ActionListener{
 				setBounds(50, 50, 1500, 800);
 				chat = true;
 			}
+		}else if(e.getSource() == btn_Logout) {
+			Singleton s = Singleton.getInstance();
+			s.nowMember = null;
+			this.dispose();
+			s.MemCtrl.login();
 		}
-		
 	}
 	
 	

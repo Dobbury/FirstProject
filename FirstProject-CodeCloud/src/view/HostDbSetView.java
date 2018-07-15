@@ -22,12 +22,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import db.DBCheck;
 import db.DBConnection;
 import singleton.Singleton;
 import view.LoginView.MyPanel;
 
 public class HostDbSetView extends JFrame implements FocusListener,ActionListener {
 
+	private String Server_IP="미 정";
+	
 	private ImageIcon closeIc1;
 	private ImageIcon closeIc2;
 	private ImageIcon closeIc3;
@@ -81,23 +84,29 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		
 		//id 텍스트 필드
 		IP_Text = new JTextField();
-		IP_Text.setText(IP_Hint);
+		IP_Text.setText(Server_IP);
 		IP_Text.setForeground(Color.WHITE);
 		IP_Text.addFocusListener(this);
 		IP_Text.setBounds(70, 216, 220, 30);
 		IP_Text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		IP_Text.setOpaque(false);
+		IP_Text.setEnabled(false);
+
 		layeredPane.add(IP_Text);
 		
 		ButtonGroup TogglebtnGroup = new ButtonGroup();
 		Tbtn_server_Host = new JToggleButton("서버 IP");
 		Tbtn_server_Host.setSelected(true);
+		Tbtn_server_Host.addActionListener(this);
 		Tbtn_server_Host.setBounds(70,260,100,40);
 		layeredPane.add(Tbtn_server_Host);
 		
 		Tbtn_indv_Host = new JToggleButton("IP 설정");
 		Tbtn_indv_Host.setBounds(170,260,100,40);
+		Tbtn_indv_Host.addActionListener(this);
 		layeredPane.add(Tbtn_indv_Host);
+		
+		//그룹에 추가
 		TogglebtnGroup.add(Tbtn_server_Host);
 		TogglebtnGroup.add(Tbtn_indv_Host);
 		
@@ -147,17 +156,25 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if(Tbtn_indv_Host.isSelected()) {
+			IP_Text.setText(IP_Hint);
+			IP_Text.setEnabled(true);
+		}
+		if(Tbtn_server_Host.isSelected()) {
+			IP_Text.setText(Server_IP);
+			IP_Text.setEnabled(false);
+		}
 		if(e.getSource() == btn_Close) {
 			System.exit(0);
 		}
 		if(e.getSource() == btn_check) {
 			DBConnection.initConnect(IP_Text.getText());
-			//아이피 설정
-			DBConnection.initConnect(IP_Text.getText());
 			Singleton s = Singleton.getInstance();
-
 			
-
+			DBCheck.memDBcheck();
+			DBCheck.shareDBCheck();
+			DBCheck.qaDBCheck();
+			
 			s.MemCtrl.login();
 			dispose();
 		}

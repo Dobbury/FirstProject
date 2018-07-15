@@ -17,12 +17,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import singleton.Singleton;
+
 
 public class LoginView extends JFrame implements ActionListener,FocusListener {
+	
+	private Singleton s = Singleton.getInstance();
 	
 	private ImageIcon startIc1;
 	private ImageIcon startIc2;
@@ -42,10 +47,10 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 	private JTextField id_text;
 	private JPasswordField pwd_text;
 
-	BufferedImage img = null;
-	
-	String id_Hint="ID 입력";
+	BufferedImage img = null;	String id_Hint="ID 입력";
 	String pwd_Hint="패스워드 입력";
+
+	
 
 	public LoginView() {
 		
@@ -162,7 +167,15 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 		}
 		if(e.getSource() == btn_Login) {
 			//로그인 버튼
-			new MemberMainView();
+			Singleton s = Singleton.getInstance();
+			boolean b = s.MemCtrl.loginCheck(id_text.getText(), pwd_text.getText());
+			
+			if(b) {
+				JOptionPane.showMessageDialog(null, s.nowMember.getNick()+"님 환영합니다.");
+				dispose();
+				new MemberMainView();
+
+			}
 		}
 		if(e.getSource() == btn_Signup) {
 			//회원 가입

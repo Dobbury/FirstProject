@@ -16,15 +16,15 @@ public class QAbbsDao {
 
 	public List<QAbbsDto> getbbsList() {
 		//쿼리 수정해야함
-	      String sql = "SELECT SEQ,nick,TITLE,dat,DEL,REF,STEP,DEPT, visible"
-	            + "FROM QA "
-	            + "WHERE SEQ > 0"
-	            + "START WITH SEQ = 0 "
-	            + "CONNECT BY PRIOR SEQ = REF "
-	            + "ORDER SIBLINGS BY STEP ASC,SEQ DESC";
+//	      String sql = "SELECT SEQ,nick,TITLE,dat,DEL,REF,STEP,DEPT, visible"
+//	            + "FROM QA "
+//	            + "WHERE SEQ > 0"
+//	            + "START WITH SEQ = 0 "
+//	            + "CONNECT BY PRIOR SEQ = REF "
+//	            + "ORDER SIBLINGS BY STEP ASC,SEQ DESC";
+//	      
 	      
-	      
-		//String sql = "SELECT seq, nick, title, content, dat, del " + "FROM QA " + "ORDER BY seq DESC";
+		String sql = "SELECT seq, nick, title, content, dat, del " + "FROM QA " + "ORDER BY seq DESC";
 
 		Connection conn = DBConnection.makeConnection();
 
@@ -50,10 +50,10 @@ public class QAbbsDao {
 				dto.setContent(rs.getString("content"));
 				dto.setWdate(rs.getString("dat"));
 				dto.setDel(rs.getInt("del"));
-				dto.setRef(rs.getInt("ref"));
-				dto.setStep(rs.getInt("step"));
-				dto.setDept(rs.getInt("dept"));
-				dto.setVisible(rs.getInt("visible"));
+				//dto.setRef(rs.getInt("ref"));
+				//dto.setStep(rs.getInt("step"));
+				//dto.setDept(rs.getInt("dept"));
+				//dto.setVisible(rs.getInt("visible"));
 				list.add(dto);
 
 			}

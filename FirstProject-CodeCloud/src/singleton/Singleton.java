@@ -1,7 +1,10 @@
 package singleton;
 
+import java.util.LinkedList;
+
 import controller.MemberController;
 import dao.QAbbsDao;
+import dto.BBSDto;
 import dto.MemberDto;
 import dto.QAbbsDto;
 import view.memberpanel.QAbbsList;
@@ -16,7 +19,9 @@ public class Singleton {
 	public QAbbsDto qaDto;
 	public QAbbsDao qaDao = new QAbbsDao();
 	public QAbbsList blf = null;
-	
+
+	public LinkedList<BBSDto> selfcodelist = new LinkedList<>();
+
 	private Singleton() {
 		
 	}

@@ -10,10 +10,14 @@ import view.memberpanel.Selfbbs;
 public class MainClass {
 
 	public static void main(String[] args) {
+
+		//Singleton s = Singleton.getInstance();
 		
+		//s.MemCtrl.login();
 		
-		//Singleton s = Singleton.getInstance()
-		new HostDbSetView();
+		//new HostDbSetView();
+		
+		new MemberMainView();
 
 	}
 }
