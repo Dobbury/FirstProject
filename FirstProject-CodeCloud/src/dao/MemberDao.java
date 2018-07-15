@@ -48,11 +48,7 @@ public class MemberDao implements MemberDaoImpl {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-<<<<<<< HEAD
-			
-			if(rs.next()) {
-				findId = true;
-=======
+
 			if(!rs.next()) {	//테이블이 없다면 생성
 				sql = "CREATE TABLE MEMBER("
 						+ "ID VARCHAR2(15) PRIMARY KEY,"
@@ -62,7 +58,6 @@ public class MemberDao implements MemberDaoImpl {
 						+ "IMG BLOB )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
->>>>>>> 0dafa130cd9326026343501e772ed9603e0ab56c
 			}
 			
 		} catch (SQLException e) {			
