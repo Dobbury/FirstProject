@@ -10,6 +10,8 @@ public class BBSDto {
 	private int fork;
 	private String language;
 	
+	public BBSDto() {
+	}
 	
 	public BBSDto(int seq, String title, String content, int share, int liked, int fork, String language) {
 		super();

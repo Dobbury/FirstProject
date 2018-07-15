@@ -39,13 +39,12 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 	QAbbsMain QAmain;
 	QAbbsDto dto;
 
-	
 	int state;
 
 	public QAbbsWrite(QAbbsMain QA, QAbbsDto dto) {
 		QAmain = QA;
 		this.dto = dto;
-		
+
 		titleLabel = new JLabel("제목: ");
 		titleLabel.setBounds(50, 10, 50, 30);
 
@@ -59,7 +58,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		postArea = new JTextArea();
 		postArea.setBounds(110, 80, 310, 200);
 		postArea.append(dto.getContent());
-		
+
 		jScrol = new JScrollPane(postArea);
 		jScrol.setBounds(110, 80, 310, 200);
 
@@ -77,7 +76,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		add(titleLabel2);
 		add(titleText);
 		add(jScrol);
-		
+
 		add(btn_Commit);
 		add(btn_Cancle);
 
@@ -103,18 +102,18 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 				QAmain.changePanel(1, new QAbbsDto());
 
 			} else if (state == INSERT) {
-			
-				//dto.setNick(s.nowMember.getNick());
+
+				// dto.setNick(s.nowMember.getNick());
 				dto.setNick("min");
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
-				
+
 				dto.setDel(0); // 0이 삭제 되지 않은 게시글 , 1이 삭제된 게시글
 				s.qaDao.insert(dto);
 
 				QAmain.changePanel(1, new QAbbsDto());
 
-			} 
+			}
 		} else if (e.getSource() == btn_Cancle) {// 취소
 
 			QAmain.changePanel(1, new QAbbsDto());

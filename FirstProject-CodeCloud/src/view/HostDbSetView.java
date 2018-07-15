@@ -29,7 +29,7 @@ import view.LoginView.MyPanel;
 
 public class HostDbSetView extends JFrame implements FocusListener,ActionListener {
 
-	private String Server_IP="미 정";
+	private String Server_IP="192.168.0.26";
 	
 	private ImageIcon closeIc1;
 	private ImageIcon closeIc2;
