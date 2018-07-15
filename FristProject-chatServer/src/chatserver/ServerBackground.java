@@ -1,4 +1,4 @@
-package chatting;
+package chatserver;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -111,9 +111,7 @@ public class ServerBackground {
 				// 사용 접속 종료시 에러 발생 구간
 				removeClient(nick);
 			}
-
 		}
-
 	}
 
 }

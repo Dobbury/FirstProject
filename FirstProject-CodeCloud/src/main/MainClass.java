@@ -12,10 +12,8 @@ import view.memberpanel.Selfbbs;
 public class MainClass {
 
 	public static void main(String[] args) {
-		Singleton s = Singleton.getInstance();
-		s.nowMember = new MemberDto("aa", "aa", "aa", 1, null);
-		//new HostDbSetView();
-		new AdminMainView();
+
+		new HostDbSetView();
 
 	}
 }

@@ -6,10 +6,13 @@ import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ClientGui extends JFrame implements ActionListener {
+import singleton.Singleton;
+
+public class chatPanel extends JPanel implements ActionListener {
 
 	/**
 	 * 
@@ -21,30 +24,24 @@ public class ClientGui extends JFrame implements ActionListener {
 	private ClientBackground client = new ClientBackground();
 	private static String nickName;
 
-	public ClientGui() {
+	public chatPanel() {
 
+		Singleton s = Singleton.getInstance();
+		
+		nickName = s.nowMember.getNick();
+		
 		add(jta, BorderLayout.CENTER);
 		add(jtf, BorderLayout.SOUTH);
 		jtf.addActionListener(this);
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-		setBounds(200, 50, 400, 800);
-		setTitle("난 클라이언트 임마");
+		
+		setBounds(0, 0, 300, 800);
 
 		client.setGui(this);
 		client.setNickName(nickName);
-		client.connet();
+		
 	}
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		System.out.print("닉네임을 입력해주세요. ");
-		nickName = sc.nextLine();
-		sc.close();
-
-		new ClientGui();
-	}
 
 	@Override
 	// 말치면 보내는 부분
@@ -57,6 +54,13 @@ public class ClientGui extends JFrame implements ActionListener {
 
 	public void appendMsg(String msg) {
 		jta.append(msg);
+	}
+	
+	public void connect() {
+		client.connet();
+	}
+	public void close() {
+		client.close();
 	}
 
 }
