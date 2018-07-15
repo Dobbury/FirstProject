@@ -9,26 +9,27 @@ import java.util.List;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import dao.ShareDao;
 import dto.QAbbsDto;
 import dto.ShareDto;
 import singleton.Singleton;
 
 public class ShareList extends JPanel implements Action, MouseListener {
 
-	private JButton testChange;
 	private JTable ShareListTable;
 	private JScrollPane jScrPane;
  
 	DefaultTableModel model; // 테이블의 넓이 설정 ? 
 
 
-	String columnNames[] = { "no.", "언어", "제목", "추천" , "다운로드"  };
+	String columnNames[] = { "no.", "언어", "제목", "닉네임", "추천" , "다운로드", "indseq"};
 	Object rowData[][];
 	Sharebbs ShareMain; //colorLayout
 
@@ -40,48 +41,34 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		
 		ShareMain=sharebbs;
 		Singleton s = Singleton.getInstance();
-		// list = s.qaDao.getbbsList(); 값져올때 다시 만들기
+		list = ShareDao.getbbsList();
+		
+		if(list.size()>0) {
+			rowData = new Object[list.size()][7];
+			
+			for (int i = 0; i < list.size(); i++) {
+				rowData[i][0] =  list.get(i).getSeq();
+				rowData[i][1] =  list.get(i).getLang();
+				rowData[i][2] =  list.get(i).getTitle();
+				rowData[i][3] =  list.get(i).getNick();
+				rowData[i][4] =  list.get(i).getLiked();
+				rowData[i][5] =  list.get(i).getFork();
+				rowData[i][6] =  list.get(i).getIndseq();
+				
+			}
+		}
+		
+		model = new DefaultTableModel(rowData, columnNames);
 		
 		
-		//게시판 만들기
-		
- 
-//	 
-//		
-//		rowData = new Object[list.size()][5];
-//		
-//		for (int i = 0; i < list.size(); i++) {  
-//		
-//		rowData[i][0] =  list.get(i).getSeq();
-//		rowData[i][1] =  list.get(i).getLang();
-//		rowData[i][2] =  list.get(i).getTitle();
-//		rowData[i][3] =  list.get(i).getLiked();
-//		rowData[i][4] =  list.get(i).getFork();
-//		}
-//			
-		
-		
-		rowData = new Object[1][5];
-		rowData[0][0] =  1;
-		rowData[0][1] =  2;
-		rowData[0][2] =  3;
-		rowData[0][3] =  4;
-		rowData[0][4] = 5;
-		
-		testChange = new JButton("체인지 뷰 확인 버튼");
-		testChange.addActionListener(this);
-		testChange.setBounds(420, 600, 100, 20);
-		add(testChange);
-
-
-		
-		
-		
-		 
 		//게시판 붙이기 !!
-		model = new DefaultTableModel(columnNames, 0);
-		model.setDataVector(rowData, columnNames);
-		ShareListTable = new JTable(model); 
+		ShareListTable = new JTable(model) {
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
+		
 		ShareListTable.addMouseListener(this);
 		
 		// 컬럼의 넓이 설정 //가 되고있지않음
@@ -89,16 +76,13 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		ShareListTable.getColumnModel().getColumn(1).setMaxWidth(300);
 		ShareListTable.getColumnModel().getColumn(2).setMaxWidth(500);
 		ShareListTable.getColumnModel().getColumn(3).setMaxWidth(50);
-		ShareListTable.getColumnModel().getColumn(3).setMaxWidth(50);
+		ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
+		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
+		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
 		
 		jScrPane = new JScrollPane(ShareListTable); 
 		jScrPane.setBounds(50, 50, 600, 300);
 		add(jScrPane);
-		
-		
-		
-		
-		
 		
 		
 		setLayout(null);
@@ -108,26 +92,42 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		
 		
 	}
-	
+	/*
+	 * 닉네임
+	 * 제목
+	 * 콘텐츠
+	 * 추천
+	 * 포크
+	 */
 
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		Object obj = e.getSource();
-		
-		if (obj == testChange) {
-			ShareMain.changePanel(2, new ShareDto());
-			
-			
-		}
+
+	
 		
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseClicked(MouseEvent e) {
+		JTable source = (JTable) e.getSource();
+		int rows = source.rowAtPoint(e.getPoint());
+		
+		try {
+			int seq = (int) source.getModel().getValueAt(rows, 0);
+			
+			for (int i = 0; i < list.size(); i++) {
+				if (seq == list.get(i).getSeq()) {
+					ShareDto dto = list.get(i);
+
+					ShareMain.changePanel(2, dto);
+					break;
+				}
+			}
+		} catch (Exception e2) {
+			e2.printStackTrace();
+			JOptionPane.showMessageDialog(null, "이 게시물은 볼수 없습니다.");
+		}
 
 	}
 
@@ -154,7 +154,7 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		
 		Singleton s = Singleton.getInstance();
 	 
-		ShareMain.changePanel(1, new ShareDto());
+		//ShareMain.changePanel(1, new ShareDto());
 		
 		}
 

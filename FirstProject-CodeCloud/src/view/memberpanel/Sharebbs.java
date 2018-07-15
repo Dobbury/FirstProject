@@ -44,7 +44,7 @@ public class Sharebbs extends JPanel {
 		endOfRightPanel = new JPanel();
 
 		mainPanel.add("ShareList", new ShareList(this));
-		mainPanel.add("ShareDetail", new ShareDetail(this));
+		//mainPanel.add("ShareDetail", new ShareDetail(this));
 		 
 		cards.show(mainPanel, "ShareList");// 처음 띄워지는 판
 
@@ -121,7 +121,7 @@ public class Sharebbs extends JPanel {
 			mainPanel.add("ShareList", new ShareList(this));
 			cards.show(mainPanel, "ShareList");
 		} else if (i == 2) {
-			mainPanel.add("ShareDetail", new ShareDetail(this));
+			mainPanel.add("ShareDetail", new ShareDetail(this, shareDto));
 			cards.show(mainPanel, "ShareDetail");
  
 		}
