@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -21,6 +22,8 @@ public class chatPanel extends JPanel implements ActionListener {
 
 	private JTextArea jta = new JTextArea(40, 25);
 	private JTextField jtf = new JTextField(25);
+	
+	private JScrollPane scrl;
 	private ClientBackground client = new ClientBackground();
 	private static String nickName;
 
@@ -30,7 +33,11 @@ public class chatPanel extends JPanel implements ActionListener {
 		
 		nickName = s.nowMember.getNick();
 		
-		add(jta, BorderLayout.CENTER);
+		scrl = new JScrollPane(jta);
+		
+		add(scrl, BorderLayout.CENTER);
+		
+		
 		add(jtf, BorderLayout.SOUTH);
 		jtf.addActionListener(this);
 
