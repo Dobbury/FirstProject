@@ -9,6 +9,7 @@ import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 import java.awt.peer.ButtonPeer;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -180,7 +181,12 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 			DBConnection.initConnect(IP_Text.getText());
 			Singleton s = Singleton.getInstance();
 			
-			DBCheck.memDBcheck();
+			try {
+				DBCheck.memDBcheck();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			DBCheck.shareDBCheck();
 			DBCheck.qaDBCheck();
 			

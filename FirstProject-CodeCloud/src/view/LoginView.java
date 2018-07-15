@@ -173,8 +173,6 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 			if(b) {
 				JOptionPane.showMessageDialog(null, s.nowMember.getNick()+"님 환영합니다.");
 				dispose();
-				new MemberMainView();
-
 			}
 		}
 		if(e.getSource() == btn_Signup) {
