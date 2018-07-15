@@ -15,7 +15,11 @@ public class DBConnection {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			System.out.println("Driver Loading Success");
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> 0dafa130cd9326026343501e772ed9603e0ab56c
 			Server_IP = ip;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

@@ -12,8 +12,21 @@ public class MainClass {
 	public static void main(String[] args) {
 		
 		
+<<<<<<< HEAD
 		//Singleton s = Singleton.getInstance()
 		new HostDbSetView();
 
 	}
 }
+=======
+		//Singleton s = Singleton.getInstance();
+		
+		//s.MemCtrl.login();
+		
+		//new HostDbSetView();
+		
+		new MemberMainView();
+
+	}
+}
+>>>>>>> 0dafa130cd9326026343501e772ed9603e0ab56c
