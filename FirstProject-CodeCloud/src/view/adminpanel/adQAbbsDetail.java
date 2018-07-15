@@ -44,7 +44,6 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 	adQAbbsMain adQAmian;
 
-	QAbbsDao dao;
 	QAbbsDto dto;
 
 	public adQAbbsDetail(adQAbbsMain QA, QAbbsDto dto) {
@@ -110,9 +109,9 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				QAbbsDao dao = QAbbsDao.getInstance();
-
-				if (dao.deletebbs(dto.getSeq())) {
+				Singleton s = Singleton.getInstance();
+				
+				if (s.qaDao.deletebbs(dto.getSeq())) {
 					JOptionPane.showMessageDialog(null, "글을 삭제하였습니다");
 				} else {
 					JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");

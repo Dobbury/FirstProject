@@ -6,8 +6,8 @@ import dto.QAbbsDto;
 import view.memberpanel.QAbbsList;
 
 public class adQAbbsMain extends JPanel {
-	private CardLayout cards = new CardLayout();
-	JPanel admainPanel;
+	public CardLayout cards = new CardLayout();
+	public JPanel admainPanel;
 	
 	adQAbbsDetail addetail;
 	

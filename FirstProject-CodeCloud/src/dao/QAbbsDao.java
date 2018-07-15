@@ -13,13 +13,8 @@ import db.DBConnection;
 import dto.QAbbsDto;
 
 public class QAbbsDao {
-	// 수정부분.. 할때 넣은 코드
-	private static QAbbsDao dao = new QAbbsDao();
-	private QAbbsDao() {}
-	public static QAbbsDao getInstance() {
-		return dao;
-	}
-	// 삭제?
+	public QAbbsDao() {}
+
 	public boolean deletebbs(int seq) {
 		String sql = " UPDATE QA "+ "SET del = 1"
 					+"WHERE SEQ =?";

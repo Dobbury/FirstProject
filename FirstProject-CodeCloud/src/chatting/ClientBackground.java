@@ -5,6 +5,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import singleton.Singleton;
+
 public class ClientBackground extends Thread {
 
 	private Socket socket;
@@ -20,7 +22,9 @@ public class ClientBackground extends Thread {
 
 	public void connet() {
 		try {
-			socket = new Socket("127.0.0.1", 7777);
+			Singleton s = Singleton.getInstance();
+			
+			socket = new Socket(s.hostDB_IP, 7777);
 			System.out.println("클라이언트 : 서버 연결됨");
 
 			out = new DataOutputStream(socket.getOutputStream());

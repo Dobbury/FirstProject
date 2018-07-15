@@ -31,6 +31,7 @@ public class AdminMainView extends JFrame implements ActionListener {
    JButton btn_Logout;
    boolean chat;
 
+   adQAbbsMain adQAMain = new adQAbbsMain();
    public AdminMainView() {
 
       setBounds(50, 50, 1200, 800);
@@ -42,7 +43,7 @@ public class AdminMainView extends JFrame implements ActionListener {
    //   mainPanel.add("Memberbbs", new MemberBBS());
   //    mainPanel.add("AdminSharebbs", new AdminSharebbs());
       
-      mainPanel.add("Q&Abbs", new adQAbbsMain());
+      mainPanel.add("Q&Abbs", adQAMain);
       cards.show(mainPanel, "Q&Abbs");
 
       mainPanel.setBounds(200, 0, 1000, 800);
@@ -96,6 +97,7 @@ public class AdminMainView extends JFrame implements ActionListener {
          cards.show(mainPanel, "AdminSharebbs");
       } else if (select == 3) {
          cards.show(mainPanel, "Q&Abbs");
+         adQAMain.cards.show(adQAMain.admainPanel,"adQAbbsList");
       }
    }
 
