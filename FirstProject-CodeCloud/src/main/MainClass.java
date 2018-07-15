@@ -17,7 +17,7 @@ public class MainClass {
 		
 		//new HostDbSetView();
 		
-		new MemberMainView();
+		new HostDbSetView();
 
 	}
 }
