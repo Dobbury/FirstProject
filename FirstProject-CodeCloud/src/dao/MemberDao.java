@@ -92,7 +92,7 @@ public class MemberDao implements MemberDaoImpl {
 
 	public boolean insert(MemberDto dto) {
 		String path = "img/signUp/userImages.png";	//기본이미지 경로
-		String pwd = pwdCls.Encryption(dto.getID());// 암호화
+		String pwd = pwdCls.Encryption(dto.getPWD());// 암호화
 
 		String sql = "INSERT INTO MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
 		
@@ -152,8 +152,6 @@ public class MemberDao implements MemberDaoImpl {
 				+ " FROM MEMBER "
 				+ " WHERE ID=?";
 		
-		
-		
 		Connection conn = null;			
 		PreparedStatement psmt = null;	
 		ResultSet rs = null;
@@ -173,7 +171,7 @@ public class MemberDao implements MemberDaoImpl {
 				String id = rs.getString(1);
 				
 				String pwd = pwdCls.Decode(rs.getString(2));	//복호화
-				System.out.println(pwd);
+				System.out.println("비밀번호:"+pwd);
 				String nick = rs.getString(3);
 				int auth = rs.getInt(4);
 				//이미지 처리

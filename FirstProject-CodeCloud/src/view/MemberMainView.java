@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import singleton.Singleton;
 import view.memberpanel.QAbbsMain;
 import view.memberpanel.QAbbsWrite;
 import view.memberpanel.Selfbbs;
@@ -48,9 +49,11 @@ public class MemberMainView extends JFrame implements ActionListener{
 		memProfile_Img.setBackground(Color.DARK_GRAY);
 		memProfile_Img.setBounds(37,50,120,120);
 		
+		Singleton s = Singleton.getInstance();
+		
 		memName = new JLabel();
-		memName.setText("닉네임");
-		memName.setBounds(30,200,40,30);
+		memName.setText(s.nowMember.getNick());
+		memName.setBounds(50,200,40,30);
 		
 		btn_Selfbbs = new JButton("개인 코드");
 		btn_Selfbbs.addActionListener(this);
