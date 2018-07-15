@@ -15,9 +15,9 @@ public class MainClass {
 		
 		//s.MemCtrl.login();
 		
-		//new HostDbSetView();
+		new HostDbSetView();
 		
-		new MemberMainView();
+		//new MemberMainView();
 
 	}
 }
