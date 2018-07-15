@@ -26,6 +26,7 @@ import view.memberpanel.QAbbsWrite;
 
 import Encrypt.PasswordClass;
 import chatting.ClientBackground;
+import chatting.chatPanel;
 import dao.BBSDao;
 import db.DBClose;
 import db.DBConnection;
@@ -57,9 +58,7 @@ public class MemberMainView extends JFrame implements ActionListener{
 	String sql;
 	
 	//채팅 부분
-	private ClientBackground client;
-	private JTextArea chatArea;
-	private JTextField chatText;
+	private chatPanel chatPanel;
 	
 	public MemberMainView() {
 		setBounds(50, 50, 1200, 800);
@@ -107,11 +106,18 @@ public class MemberMainView extends JFrame implements ActionListener{
 		btn_Logout.addActionListener(this);
 		btn_Logout.setBounds(30, 650, 100, 80);
 		
+		chatPanel = new chatPanel();
+		chatPanel.connect();
+		chatPanel.setBounds(1200,0,300,800);
+		
+		add(chatPanel);
+		
 		add(btn_Selfbbs);
 		add(btn_Sharebbs);
 		add(btn_QAbbs);
 		add(btn_Chat);
 		add(btn_Logout);
+		
 		
 		add(memName);
 		add(memProfile_Img);
@@ -141,16 +147,9 @@ public class MemberMainView extends JFrame implements ActionListener{
 		}else if(e.getSource() == btn_Chat) {
 			if(chat) {
 				setBounds(50, 50, 1200, 800);
-				chat=false;
+				chat = false;
 			}else {
 				setBounds(50, 50, 1500, 800);
-				
-				client = new ClientBackground();
-				
-				chatArea = new JTextArea();
-				//chatArea.setBounds();
-				
-				chatText = new JTextField();
 				chat = true;
 			}
 		}else if(e.getSource() == btn_Logout) {
@@ -159,7 +158,7 @@ public class MemberMainView extends JFrame implements ActionListener{
 			this.dispose();
 			s.MemCtrl.login();
 		}
+	
 	}
-	
-	
+
 }
