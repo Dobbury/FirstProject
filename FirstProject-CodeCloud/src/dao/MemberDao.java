@@ -170,7 +170,7 @@ public class MemberDao implements MemberDaoImpl {
 			if(rs.next()) {
 				String id = rs.getString(1);
 				
-				String pwd = pwdCls.Decode(rs.getString(2));	//복호화
+				String pwd = rs.getString(2);	//복호화
 				System.out.println("비밀번호:"+pwd);
 				String nick = rs.getString(3);
 				int auth = rs.getInt(4);

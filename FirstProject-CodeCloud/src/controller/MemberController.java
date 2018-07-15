@@ -2,6 +2,7 @@ package controller;
 
 import javax.swing.JOptionPane;
 
+import Encrypt.PasswordClass;
 import dto.MemberDto;
 import service.MemberService;
 import service.MemberServiceImpl;
@@ -31,7 +32,10 @@ public class MemberController {
 	
 	public boolean loginCheck(String id,String pwd) {
 		
-		MemberDto dto = mService.login(new MemberDto(id,pwd,null,1,null));
+		MemberDto dto = mService.login(new MemberDto(id,null,null,1,null));
+		
+		PasswordClass pwdCls = new PasswordClass();
+		pwd = pwdCls.Encryption(pwd);//암호화 
 		
 		if(dto != null) {
 			if(pwd.equals(dto.getPWD())) {
