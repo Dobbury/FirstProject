@@ -57,7 +57,17 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
 
-			rowData[i][1] = dto.getTitle();
+			//댓글 작업 부분	
+			rowData[i][1] ="";
+			for(int j = 0 ; j<list.get(i).getDept() ; j++) {
+				rowData[i][1] +="    ";
+			}
+			
+			if(rowData[i][1].equals("")) 
+				rowData[i][1] = list.get(i).getTitle();
+			else 
+			rowData[i][1] += "┗ "+list.get(i).getTitle();
+			
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
@@ -111,6 +121,12 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
+		Object obj = e.getSource();
+		// 글쓰기
+		if (obj == writeBtn) {
+			adQAmian.changePanel(2, new QAbbsDto(),0);
+		}
 	}
 
 	public void setList(List<QAbbsDto> list) {
@@ -122,8 +138,19 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 			rowData[i][0] = dto.getSeq();
 			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
+			
 
-			rowData[i][1] = dto.getTitle();
+			//댓글 작업 부분	
+			rowData[i][1] ="";
+			for(int j = 0 ; j<list.get(i).getDept() ; j++) {
+				rowData[i][1] +="    ";
+			}
+			
+			if(rowData[i][1].equals("")) 
+				rowData[i][1] = list.get(i).getTitle();
+			else 
+			rowData[i][1] += "┗ "+list.get(i).getTitle();
+			
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
@@ -217,9 +244,9 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 			return;
 		}
 		Singleton s = Singleton.getInstance();
-		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq());
-
-		adQAmian.changePanel(1, dto); // 해당 글 보는 곳
+		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(),list.get(rowNum).getRef(),list.get(rowNum).getStep(),list.get(rowNum).getDept());
+		
+		adQAmian.changePanel(1, dto,0); // 해당 글 보는 곳
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class adQAbbsMain extends JPanel {
 		admainPanel = new JPanel(cards);
 		
 		admainPanel.add("adQAbbsDetail", new adQAbbsDetail(this, new QAbbsDto()));
-		admainPanel.add("adQAbbswrite", new adQAbbswrite(this, new QAbbsDto()));
+		admainPanel.add("adQAbbswrite", new adQAbbswrite(this, new QAbbsDto(),0));
 		admainPanel.add("adQAbbsList", new adQAbbsList(this));
 		cards.show(admainPanel,"adQAbbsList");// 처음 띄워지는 판
 
@@ -25,12 +25,12 @@ public class adQAbbsMain extends JPanel {
 		add(admainPanel);
 		setVisible(true);
 	}
-	public void changePanel(int select, QAbbsDto dto) {
+	public void changePanel(int select, QAbbsDto dto,int state) {
 		if (select == 1) {
 			admainPanel.add("adQAbbsDetail", new adQAbbsDetail(this, dto));
 			cards.show(admainPanel, "adQAbbsDetail");
 		}else if(select ==2) {		
-			admainPanel.add("adQAbbswrite", new adQAbbswrite(this, dto));
+			admainPanel.add("adQAbbswrite", new adQAbbswrite(this, dto, state));
 			cards.show(admainPanel, "adQAbbswrite");
 		}else if(select ==3) {
 			admainPanel.add("adQAbbsList", new adQAbbsList(this));

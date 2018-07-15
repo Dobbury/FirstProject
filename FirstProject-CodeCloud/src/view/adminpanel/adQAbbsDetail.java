@@ -116,7 +116,7 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 				} else {
 					JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
 				}
-				adQAmian.changePanel(3, dto);
+				adQAmian.changePanel(3, dto,0);
 			}
 		});
 
@@ -182,13 +182,13 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btn_comment) {
-			adQAmian.changePanel(2, dto);
+			adQAmian.changePanel(2, dto,2);
 
 		} else if (e.getSource() == btn_List) {
-			adQAmian.changePanel(3, dto);
+			adQAmian.changePanel(3, dto,0);
 
 		} else if (e.getSource() == btn_update) {
-			adQAmian.changePanel(2, dto);
+			adQAmian.changePanel(2, dto,1);
 
 		}
 	}
