@@ -110,7 +110,7 @@ public class AdminMainView extends JFrame implements ActionListener {
       } else if (select == 3) {
          cards.show(mainPanel, "Q&Abbs");
          adQAMain.cards.show(adQAMain.admainPanel,"adQAbbsList");
-      }
+      } 
    }
 
    @Override
