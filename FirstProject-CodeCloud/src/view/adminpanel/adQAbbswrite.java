@@ -19,7 +19,7 @@ import dto.QAbbsDto;
 import singleton.Singleton;
 import view.memberpanel.QAbbsMain;
 
-public class adQAbbswrite extends JPanel implements ActionListener, WindowListener{
+public class adQAbbswrite extends JPanel implements ActionListener, WindowListener {
 
 	JLabel titleLabel;// 제목
 	JLabel titleLabel2;// 내용
@@ -41,11 +41,11 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 	adQAbbsMain adQAmian;
 	QAbbsDto dto;
 
-	public adQAbbswrite(adQAbbsMain QA, QAbbsDto dto,int state) {
+	public adQAbbswrite(adQAbbsMain QA, QAbbsDto dto, int state) {
 		adQAmian = QA;
 		this.dto = dto;
 		this.state = state;
-		
+
 		titleLabel = new JLabel("제목: ");
 		titleLabel.setBounds(50, 10, 50, 30);
 
@@ -139,10 +139,10 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
 				s.qaDao.update(dto);
-				
+
 				// list로
-				adQAmian.changePanel(3, new QAbbsDto(),1);
-				
+				adQAmian.changePanel(3, new QAbbsDto(), 1);
+
 			} else if (state == INSERT) {
 				dto.setNick("admin");
 				dto.setTitle(titleText.getText());
@@ -151,20 +151,20 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 				dto.setDel(0); // 0이 삭제 되지 않은 게시글 , 1이 삭제된 게시글
 				s.qaDao.insert(dto);
 
-				adQAmian.changePanel(3, new QAbbsDto(),0);
-			} else if(state == COMMENT) {
-				//상위 글의 SEQ가 그룹번호
+				adQAmian.changePanel(3, new QAbbsDto(), 0);
+			} else if (state == COMMENT) {
+				// 상위 글의 SEQ가 그룹번호
 				dto.setRef(dto.getSeq());
 
 				int ref = dto.getRef();
 				int dept = dto.getDept();
 				++dept;
-				//step최댓값 구해서 그다음에 추가하기
+				// step최댓값 구해서 그다음에 추가하기
 				int nextStep = s.qaDao.searchMaxStep(ref, dept);
-				
+
 				System.out.println(dto.getSeq());
 				System.out.println(nextStep);
-			
+
 				dto.setStep(++nextStep);
 				dto.setDept(dept);
 
@@ -172,13 +172,13 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 				dto.setContent(postArea.getText());
 				dto.setNick(s.nowMember.getNick());
 				dto.setDel(0);
-				
+
 				s.qaDao.insert(dto);
 
-				adQAmian.changePanel(3, new QAbbsDto(),2);
+				adQAmian.changePanel(3, new QAbbsDto(), 2);
 			}
 		} else if (e.getSource() == btn_Cancle) {
-			adQAmian.changePanel(3, new QAbbsDto(),0);
+			adQAmian.changePanel(3, new QAbbsDto(), 0);
 		}
 	}
 }

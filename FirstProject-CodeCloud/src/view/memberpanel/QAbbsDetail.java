@@ -97,7 +97,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Singleton s = Singleton.getInstance();
-				
+
 				if (s.qaDao.deletebbs(dto.getSeq())) {
 					JOptionPane.showMessageDialog(null, "글을 삭제하였습니다");
 				} else {

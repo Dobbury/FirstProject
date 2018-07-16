@@ -13,44 +13,45 @@ import view.MemberMainView;
 
 public class MemberController {
 	MemberServiceImpl mService = new MemberService();
-	
+
 	public void login() {
 		new LoginView();
 	}
+
 	public boolean getId(String id) {
-		
+
 		return mService.getId(id);
-		
+
 	}
-	
+
 	public boolean getNick(String nick) {
 		return mService.getNick(nick);
 	}
-	
-	public boolean addMember(String id,String pwd,String nick) {
-		return mService.insert(new MemberDto(id,pwd,nick,1,null));
-	}
-	
-	public boolean loginCheck(String id,String pwd) {
-		
-		MemberDto dto = mService.login(new MemberDto(id,pwd,null,-1,null));
 
-		if(dto != null) {
-				Singleton s = Singleton.getInstance();
-				s.nowMember = dto;//로그인 성공한 dto 싱글톤 nowMember에 저장
-				
-				if(dto.getAuth() == 0 ) {
-					new AdminMainView();
-				}else if (dto.getAuth() == 1) {
-					new MemberMainView();
-				}
-				return true;
-		}else {//아이디 없을 때
+	public boolean addMember(String id, String pwd, String nick) {
+		return mService.insert(new MemberDto(id, pwd, nick, 1, null));
+	}
+
+	public boolean loginCheck(String id, String pwd) {
+
+		MemberDto dto = mService.login(new MemberDto(id, pwd, null, -1, null));
+
+		if (dto != null) {
+			Singleton s = Singleton.getInstance();
+			s.nowMember = dto;// 로그인 성공한 dto 싱글톤 nowMember에 저장
+
+			if (dto.getAuth() == 0) {
+				new AdminMainView();
+			} else if (dto.getAuth() == 1) {
+				new MemberMainView();
+			}
+			return true;
+		} else {// 아이디 없을 때
 			return false;
 		}
 	}
-	
+
 	public void memberInfo() {
-		//new memberFrame();
+		// new memberFrame();
 	}
 }

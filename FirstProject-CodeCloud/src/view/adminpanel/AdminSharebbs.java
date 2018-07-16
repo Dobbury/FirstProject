@@ -21,8 +21,8 @@ public class AdminSharebbs extends JPanel {
 		setBackground(Color.black);
 		mainPanel = new JPanel(cards);
 
-//		mainPanel.add("AdSharedbbsList", new AdSharebbsList(this));
-//		mainPanel.add("AdSharedbbsDetail", new AdSharebbsDetail());
+		// mainPanel.add("AdSharedbbsList", new AdSharebbsList(this));
+		// mainPanel.add("AdSharedbbsDetail", new AdSharebbsDetail());
 
 		mainPanel.setBounds(0, 0, 1000, 800);
 		add(mainPanel);
