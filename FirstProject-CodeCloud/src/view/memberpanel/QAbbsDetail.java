@@ -34,10 +34,10 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 	JScrollPane jScrol;
 
-	private JButton btn_Update; // 게시판 글 정보수정
 	private JButton btn_List;// 목록으로
 	private JButton btn_delete;// 삭제버튼
-
+	private JButton btn_Update; // 게시판 글 정보수정
+	
 	final int INSERT = 0;
 	final int UPDATE = 1;
 
@@ -104,7 +104,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 				} else {
 					JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
 				}
-				QAmain.changePanel(1, new QAbbsDto());
+				QAmain.changePanel(1, new QAbbsDto(),INSERT);
 			}
 		});
 
@@ -177,10 +177,10 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 		// TODO Auto-generated method stub
 		if (e.getSource() == btn_List) {
-			QAmain.changePanel(1, new QAbbsDto());
+			QAmain.changePanel(1, new QAbbsDto(),INSERT);
 
 		} else if (e.getSource() == btn_Update) {
-			QAmain.changePanel(3, dto);
+			QAmain.changePanel(3, dto,UPDATE);
 
 		}
 	}

@@ -42,7 +42,6 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 		adQAmian = QA;
 
 		Singleton s = Singleton.getInstance();
-
 		list = s.qaDao.getbbsList();
 
 		rowData = new Object[list.size()][4];// 테이블의 2차원배열이 생성
@@ -52,24 +51,24 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 
 			rowData[i][0] = dto.getSeq();// 번호
 
-			if (dto.getDel() == 1)
+			if (dto.getDel() == 1) {
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-
-			// 댓글 작업 부분
-			rowData[i][1] = "";
-			for (int j = 0; j < list.get(i).getDept(); j++) {
-				rowData[i][1] += "    ";
 			}
+			// 댓글 부분
+			else {
+				rowData[i][1] = "";
+				for (int j = 0; j < list.get(i).getDept(); j++) {
+					rowData[i][1] += "    ";
+				}
 
-			if (rowData[i][1].equals(""))
-				rowData[i][1] = list.get(i).getTitle();
-			else
-				rowData[i][1] += "┗ " + list.get(i).getTitle();
-
+				if (rowData[i][1].equals(""))
+					rowData[i][1] = list.get(i).getTitle();
+				else
+					rowData[i][1] += "┗ " + list.get(i).getTitle();
+			}
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
-
 			// 테이블 날짜 다듬어서 뿌려주기
 			// 현재날짜의 글들은 시간과 분으로 출력 이전날짜들은 날짜들만 출력
 			// 현재 년도, 월, 일
@@ -127,61 +126,43 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 		}
 	}
 
-	public void setList(List<QAbbsDto> list) {
-		rowData = new Object[list.size()][4];
-
-		int n = 1;
-		for (int i = 0; i < list.size(); i++) {
-			QAbbsDto dto = list.get(i);
-			rowData[i][0] = dto.getSeq();
-			if (dto.getDel() == 1)
-				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-
-			// 댓글 작업 부분
-			rowData[i][1] = "";
-			for (int j = 0; j < list.get(i).getDept(); j++) {
-				rowData[i][1] += "    ";
-			}
-
-			if (rowData[i][1].equals(""))
-				rowData[i][1] = list.get(i).getTitle();
-			else
-				rowData[i][1] += "┗ " + list.get(i).getTitle();
-
-			rowData[i][2] = dto.getNick();
-
-			Calendar cal = Calendar.getInstance();
-
-			// 테이블 날짜 다듬어서 뿌려주기
-			// 현재날짜의 글들은 시간과 분으로 출력 이전날짜들은 날짜들만 출력
-			// 현재 년도, 월, 일
-			int year = cal.get(cal.YEAR);
-			int month = cal.get(cal.MONTH) + 1;
-			int date = cal.get(cal.DATE);
-			// 현재날짜
-			String nowDate = year + "-0" + month + "-" + date;
-			if (list.get(i).getWdate().contains(nowDate)) {
-				// 시간하고 분만 얻어옴
-				String nowTime = list.get(i).getWdate().substring(11, 16);
-				rowData[i][3] = nowTime;
-			} else {
-				String beforeDate = list.get(i).getWdate().substring(0, 10);
-				rowData[i][3] = beforeDate;
-			}
-		}
-		////////////////////////////// table 형태 유지
-		model.setDataVector(rowData, columnNames);
-		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
-
-		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
-		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
-		jTable.getColumn("작성일").setCellRenderer(celAlignCenter);
-		//////////////////////////////
-	}
+	/*
+	 * public void setList(List<QAbbsDto> list) { rowData = new
+	 * Object[list.size()][4];
+	 * 
+	 * int n = 1; for (int i = 0; i < list.size(); i++) { QAbbsDto dto =
+	 * list.get(i); rowData[i][0] = dto.getSeq(); if (dto.getDel() == 1)
+	 * rowData[i][1] = "*************이 글은 삭제되었습니다*************";
+	 * 
+	 * // 댓글 작업 부분 rowData[i][1] = ""; for (int j = 0; j < list.get(i).getDept();
+	 * j++) { rowData[i][1] += "    "; }
+	 * 
+	 * if (rowData[i][1].equals("")) rowData[i][1] = list.get(i).getTitle(); else
+	 * rowData[i][1] += "┗ " + list.get(i).getTitle();
+	 * 
+	 * rowData[i][2] = dto.getNick();
+	 * 
+	 * Calendar cal = Calendar.getInstance();
+	 * 
+	 * // 테이블 날짜 다듬어서 뿌려주기 // 현재날짜의 글들은 시간과 분으로 출력 이전날짜들은 날짜들만 출력 // 현재 년도, 월, 일 int
+	 * year = cal.get(cal.YEAR); int month = cal.get(cal.MONTH) + 1; int date =
+	 * cal.get(cal.DATE); // 현재날짜 String nowDate = year + "-0" + month + "-" + date;
+	 * if (list.get(i).getWdate().contains(nowDate)) { // 시간하고 분만 얻어옴 String nowTime
+	 * = list.get(i).getWdate().substring(11, 16); rowData[i][3] = nowTime; } else {
+	 * String beforeDate = list.get(i).getWdate().substring(0, 10); rowData[i][3] =
+	 * beforeDate; } } ////////////////////////////// table 형태 유지
+	 * model.setDataVector(rowData, columnNames);
+	 * jTable.getColumnModel().getColumn(0).setMaxWidth(50);
+	 * jTable.getColumnModel().getColumn(1).setMaxWidth(500);
+	 * jTable.getColumnModel().getColumn(2).setMaxWidth(200);
+	 * jTable.getColumnModel().getColumn(3).setMaxWidth(200);
+	 * 
+	 * DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+	 * celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+	 * jTable.getColumn("번호").setCellRenderer(celAlignCenter);
+	 * jTable.getColumn("작성일").setCellRenderer(celAlignCenter);
+	 * ////////////////////////////// }
+	 */
 
 	@Override
 	public void windowOpened(WindowEvent e) {

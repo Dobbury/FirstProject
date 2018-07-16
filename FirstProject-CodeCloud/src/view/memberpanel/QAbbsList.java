@@ -41,6 +41,8 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 	QAbbsMain QAmain;
 
 	List<QAbbsDto> list;
+	final int INSERT = 0;
+	final int UPDATE = 1;
 
 	public QAbbsList(QAbbsMain QA) {
 		QAmain = QA;
@@ -55,19 +57,20 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 			rowData[i][0] = dto.getSeq();// 번호
 
-			if (dto.getDel() == 1)
+			if (dto.getDel() == 1) {
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
+			} else {
+				// 댓글 작업 부분
+				rowData[i][1] = "";
+				for (int j = 0; j < list.get(i).getDept(); j++) {
+					rowData[i][1] += "    ";
+				}
 
-			// 댓글 작업 부분
-			rowData[i][1] = "";
-			for (int j = 0; j < list.get(i).getDept(); j++) {
-				rowData[i][1] += "    ";
+				if (rowData[i][1].equals(""))
+					rowData[i][1] = list.get(i).getTitle();
+				else
+					rowData[i][1] += "┗ " + list.get(i).getTitle();
 			}
-
-			if (rowData[i][1].equals(""))
-				rowData[i][1] = list.get(i).getTitle();
-			else
-				rowData[i][1] += "┗ " + list.get(i).getTitle();
 
 			rowData[i][2] = dto.getNick();
 
@@ -148,7 +151,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		Object obj = e.getSource();
 		// 글쓰기
 		if (obj == writeBtn) {
-			QAmain.changePanel(3, new QAbbsDto());
+			QAmain.changePanel(3, new QAbbsDto(),INSERT);
 		}
 		// 검색 버튼
 		else if (obj == selectBtn) {
@@ -170,6 +173,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		}
 	}
 
+	// 검색 후에 목록을 셋팅용
 	public void setList(List<QAbbsDto> list) {
 		rowData = new Object[list.size()][4];
 
@@ -177,14 +181,14 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		for (int i = 0; i < list.size(); i++) {
 			QAbbsDto dto = list.get(i);
 			rowData[i][0] = dto.getSeq();
-			if (dto.getDel() == 1)
+			if (dto.getDel() == 1) {
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-
-			rowData[i][1] = dto.getTitle();
+			} else {
+				rowData[i][1] = dto.getTitle();
+			}
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
-
 			// 테이블 날짜 다듬어서 뿌려주기
 			// 현재날짜의 글들은 시간과 분으로 출력 이전날짜들은 날짜들만 출력
 			// 현재 년도, 월, 일
@@ -201,7 +205,6 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 				String beforeDate = list.get(i).getWdate().substring(0, 10);
 				rowData[i][3] = beforeDate;
 			}
-
 		}
 		////////////////////////////// table 형태 유지
 		model.setDataVector(rowData, columnNames);
@@ -212,9 +215,9 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+
 		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
 		jTable.getColumn("작성일").setCellRenderer(celAlignCenter);
-		//////////////////////////////
 
 		jTable.setModel(model);
 	}
@@ -278,7 +281,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(), list.get(rowNum).getRef(), list.get(rowNum).getStep(),
 				list.get(rowNum).getDept());
 
-		QAmain.changePanel(2, dto); // 해당 글 보는 곳
+		QAmain.changePanel(2, dto,INSERT); // 해당 글 보는 곳
 	}
 
 	@Override

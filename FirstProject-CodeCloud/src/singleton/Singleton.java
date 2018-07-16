@@ -7,6 +7,7 @@ import dao.QAbbsDao;
 import dto.BBSDto;
 import dto.MemberDto;
 import dto.QAbbsDto;
+import view.adminpanel.adQAbbsList;
 import view.memberpanel.QAbbsList;
 
 public class Singleton {
@@ -15,10 +16,8 @@ public class Singleton {
 	
 	public MemberController MemCtrl = new MemberController();
 	public MemberDto nowMember = null;
-	
 	public QAbbsDto qaDto;
 	public QAbbsDao qaDao = new QAbbsDao();
-	//public QAbbsDao qaDao ;
 	public QAbbsList blf = null;
 
 	public LinkedList<BBSDto> selfcodelist = new LinkedList<>();

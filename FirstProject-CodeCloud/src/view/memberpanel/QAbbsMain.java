@@ -29,6 +29,8 @@ public class QAbbsMain extends JPanel {
 
 	// 추가부분
 	QAbbsDetail detail;
+	final int INSERT = 0;
+	final int UPDATE = 1;
 
 	public QAbbsMain() {
 		setLayout(null);
@@ -37,7 +39,7 @@ public class QAbbsMain extends JPanel {
 
 		mainPanel.add("QAbbsList", new QAbbsList(this));
 		mainPanel.add("QAbbsDetail", new QAbbsDetail(this, new QAbbsDto()));
-		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto()));
+		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(),INSERT));
 		cards.show(mainPanel, "QAbbsList");// 처음 띄워지는 판
 
 		mainPanel.setBounds(0, 0, 1000, 800);
@@ -45,7 +47,7 @@ public class QAbbsMain extends JPanel {
 		setVisible(true);
 	}
 
-	public void changePanel(int select, QAbbsDto dto) {
+	public void changePanel(int select, QAbbsDto dto, int state) {
 
 		if (select == 1) {
 			mainPanel.add("QAbbsList", new QAbbsList(this));
@@ -53,9 +55,8 @@ public class QAbbsMain extends JPanel {
 		} else if (select == 2) {
 			mainPanel.add("QAbbsDetail", new QAbbsDetail(this, dto));
 			cards.show(mainPanel, "QAbbsDetail");
-
 		} else if (select == 3) {
-			mainPanel.add("QAbbsWrite", new QAbbsWrite(this, dto));
+			mainPanel.add("QAbbsWrite", new QAbbsWrite(this, dto,state));
 			cards.show(mainPanel, "QAbbsWrite");
 		}
 	}

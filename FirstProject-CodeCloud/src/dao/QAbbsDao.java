@@ -73,9 +73,7 @@ public class QAbbsDao {
 				dto.setDept(rs.getInt("dept"));
 				dto.setVisible(rs.getInt("visible"));
 				list.add(dto);
-
 			}
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,11 +125,9 @@ public class QAbbsDao {
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-
 		return dto;
-
 	}
-
+	
 	// 쓰기
 	public boolean insert(QAbbsDto dto) {
 		String sql = "INSERT INTO QA(seq, nick, title, content, dat, del,ref,step,dept,visible,answer)"
@@ -192,14 +188,12 @@ public class QAbbsDao {
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-
 		return number;
-
 	}
 
 	// 수정
 	public boolean update(QAbbsDto dto) {
-		String sql = "UPDATE QA SET title=?, content=?, del = ?  visible = ? "
+		String sql = "UPDATE QA SET title=?, content=?, del = ? ,visible = ? "
 				+ "WHERE seq = ? AND ref=? AND step=? AND dept=?";
 
 		Connection conn = DBConnection.makeConnection();
@@ -229,7 +223,7 @@ public class QAbbsDao {
 		return count > 0 ? true : false;
 	}
 
-	// 삭제
+	/*// 삭제
 	public int delete(int seq) {
 		String sql = " DELETE QA " + "WHERE seq=" + seq;
 
@@ -251,7 +245,7 @@ public class QAbbsDao {
 		}
 		return count;
 	}
-
+*/
 	// 검색
 	public List<QAbbsDto> getTitleFindList(String fStr, String fword) {
 		List<QAbbsDto> list = new ArrayList<QAbbsDto>();

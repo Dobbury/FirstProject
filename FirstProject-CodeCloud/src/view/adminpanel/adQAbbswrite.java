@@ -148,11 +148,11 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 				//dto.setNick("admin");
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
-
 				dto.setDel(0); // 0이 삭제 되지 않은 게시글 , 1이 삭제된 게시글
 				s.qaDao.insert(dto);
 
 				adQAmian.changePanel(3, new QAbbsDto(), 0);
+				
 			} else if (state == COMMENT) {
 				// 상위 글의 SEQ가 그룹번호
 				dto.setRef(dto.getSeq());
