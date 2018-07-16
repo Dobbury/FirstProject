@@ -1,8 +1,6 @@
 package view.adminpanel;
 
 import java.awt.Color;
-import java.awt.Point;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -11,6 +9,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -24,17 +23,18 @@ import javax.swing.table.DefaultTableModel;
 import dto.QAbbsDto;
 import singleton.Singleton;
 
-public class adQAbbsList extends JPanel implements ActionListener, MouseListener, WindowListener {
+public class adQAbbsList extends JPanel implements ActionListener, MouseListener, WindowListener{
 
 	private JTable jTable;
 	private JScrollPane jScrPane;
 	private JButton writeBtn;
 
 	DefaultTableModel model; // 테이블의 넓이 설정
+	
+	Object rowData[][];
+
 
 	String columnNames[] = { "번호", "제목", "작성자", "작성일" };
-
-	Object rowData[][];
 	adQAbbsMain adQAmian;
 
 	List<QAbbsDto> list;
@@ -183,60 +183,60 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
 		jTable.getColumn("작성일").setCellRenderer(celAlignCenter);
 		//////////////////////////////
-
-		jTable.setModel(model);
 	}
 
+	
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
 		int rowNum = jTable.getSelectedRow();
 		if (list.get(rowNum).getDel() == 1) {
 			JOptionPane.showMessageDialog(null, "이 글은 볼 수 없습니다");
@@ -244,26 +244,28 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 		}
 		Singleton s = Singleton.getInstance();
 		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(),list.get(rowNum).getRef(),list.get(rowNum).getStep(),list.get(rowNum).getDept());
-		
-		adQAmian.changePanel(1, dto,0); // 해당 글 보는 곳
+
+		adQAmian.changePanel(2, dto,0); // 해당 글 보는 곳
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
+
+	
 
 }
