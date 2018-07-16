@@ -10,11 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import chatting.chatPanel;
 import singleton.Singleton;
-import view.adminpanel.AdminSharebbs;
-
-import view.adminpanel.adQAbbsMain;
+import view.adminmainview.AdminSharebbs;
+import view.adminmainview.adQAbbsMain;
+import view.chatview.chatPanel;
 
 
 public class AdminMainView extends JFrame implements ActionListener {

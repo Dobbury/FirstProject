@@ -21,21 +21,19 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import singleton.Singleton;
-import view.memberpanel.QAbbsMain;
-import view.memberpanel.QAbbsWrite;
-
+import view.chatview.chatPanel;
+import view.membermainview.QAbbsMain;
+import view.membermainview.QAbbsWrite;
+import view.membermainview.Selfbbs;
+import view.membermainview.Sharebbs;
 import Encrypt.PasswordClass;
 import chatting.ClientBackground;
-import chatting.chatPanel;
 import dao.BBSDao;
 import db.DBClose;
 import db.DBConnection;
 import dto.BBSDto;
 import dto.MemberDto;
 import singleton.Singleton;
-
-import view.memberpanel.Selfbbs;
-import view.memberpanel.Sharebbs;
 
 public class MemberMainView extends JFrame implements ActionListener{
 

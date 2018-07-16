@@ -1,4 +1,4 @@
-package view.adminpanel;
+package view.adminmainview;
 
 import java.awt.CardLayout;
 import java.awt.Color;

@@ -1,4 +1,4 @@
-package view.memberpanel;
+package view.membermainview;
 
 import java.awt.CardLayout;
 import java.awt.Color;

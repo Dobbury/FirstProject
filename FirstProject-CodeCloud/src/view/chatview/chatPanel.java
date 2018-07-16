@@ -1,4 +1,4 @@
-package chatting;
+package view.chatview;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import chatting.ClientBackground;
 import singleton.Singleton;
 
 public class chatPanel extends JPanel implements ActionListener {

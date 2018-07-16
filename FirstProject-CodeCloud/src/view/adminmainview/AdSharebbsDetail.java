@@ -1,4 +1,4 @@
-package view.adminpanel;
+package view.adminmainview;
 
 public class AdSharebbsDetail {
 

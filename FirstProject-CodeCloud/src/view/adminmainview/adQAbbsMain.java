@@ -1,9 +1,9 @@
-package view.adminpanel;
+package view.adminmainview;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import dto.QAbbsDto;
-import view.memberpanel.QAbbsList;
+import view.membermainview.QAbbsList;
 
 public class adQAbbsMain extends JPanel {
 	public CardLayout cards = new CardLayout();

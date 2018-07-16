@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import singleton.Singleton;
+import view.chatview.chatPanel;
 
 public class ClientBackground extends Thread {
 

@@ -1,4 +1,4 @@
-package view.memberpanel;
+package view.adminmainview;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -24,28 +24,27 @@ import javax.swing.table.DefaultTableModel;
 import dto.QAbbsDto;
 import singleton.Singleton;
 
-public class QAbbsList extends JPanel implements ActionListener, WindowListener, MouseListener {
+public class adQAbbsList extends JPanel implements ActionListener, MouseListener, WindowListener{
+
 	private JTable jTable;
 	private JScrollPane jScrPane;
 	private JButton writeBtn;
 
-	private JComboBox<String> choiceList; // 검색 목록 초이스
-	private JTextField selectField; // 검색 필드
-	private JButton selectBtn;// 검색 버튼
-
 	DefaultTableModel model; // 테이블의 넓이 설정
+	
+	Object rowData[][];
+
 
 	String columnNames[] = { "번호", "제목", "작성자", "작성일" };
-
-	Object rowData[][];
-	QAbbsMain QAmain;
+	adQAbbsMain adQAmian;
 
 	List<QAbbsDto> list;
 
-	public QAbbsList(QAbbsMain QA) {
-		QAmain = QA;
+	public adQAbbsList(adQAbbsMain QA) {
+		adQAmian = QA;
 
 		Singleton s = Singleton.getInstance();
+
 		list = s.qaDao.getbbsList();
 
 		rowData = new Object[list.size()][4];// 테이블의 2차원배열이 생성
@@ -91,22 +90,6 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 			}
 		}
 
-		// 글쓰기 버튼
-		writeBtn = new JButton("글쓰기");
-		writeBtn.addActionListener(this);
-		writeBtn.setBounds(600, 600, 100, 40);
-		add(writeBtn);
-
-		// 검색
-		selectField = new JTextField();
-		selectField.setBounds(250, 600, 150, 20);
-		add(selectField);
-
-		selectBtn = new JButton("검색");
-		selectBtn.addActionListener(this);
-		selectBtn.setBounds(420, 600, 100, 20);
-		add(selectBtn);
-
 		model = new DefaultTableModel(columnNames, 0);
 		model.setDataVector(rowData, columnNames);
 
@@ -130,13 +113,6 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		jScrPane.setBounds(50, 50, 600, 300);
 		add(jScrPane);
 
-		// 검색할 부분 콤보박스로 나열해줌
-		// Choice(AWT) -> JComboBox(swing)
-		String[] selects = new String[] { "제목", "내용", "작성자" };
-		choiceList = new JComboBox<>(selects);
-		choiceList.setBounds(150, 600, 80, 20);
-		add(choiceList);
-
 		setLayout(null);
 		setBackground(Color.PINK);
 		setBounds(50, 50, 300, 300);
@@ -145,28 +121,11 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		Object obj = e.getSource();
 		// 글쓰기
 		if (obj == writeBtn) {
-			QAmain.changePanel(3, new QAbbsDto());
-		}
-		// 검색 버튼
-		else if (obj == selectBtn) {
-			Singleton s = Singleton.getInstance();
-
-			String selectedItem = (String) choiceList.getSelectedItem();
-
-			list = s.qaDao.getTitleFindList(selectField.getText(), selectedItem);
-
-			JOptionPane.showMessageDialog(null, selectedItem);
-
-			if (list.size() == 0 || selectField.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
-
-				list = s.qaDao.getbbsList(); // 만약 데이터가 없으면 초기화함
-			}
-			// 테이블 초기화
-			setList(list);
+			adQAmian.changePanel(2, new QAbbsDto(),0);
 		}
 	}
 
@@ -179,8 +138,19 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 			rowData[i][0] = dto.getSeq();
 			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
+			
 
-			rowData[i][1] = dto.getTitle();
+			//댓글 작업 부분	
+			rowData[i][1] ="";
+			for(int j = 0 ; j<list.get(i).getDept() ; j++) {
+				rowData[i][1] +="    ";
+			}
+			
+			if(rowData[i][1].equals("")) 
+				rowData[i][1] = list.get(i).getTitle();
+			else 
+			rowData[i][1] += "┗ "+list.get(i).getTitle();
+			
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
@@ -201,7 +171,6 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 				String beforeDate = list.get(i).getWdate().substring(0, 10);
 				rowData[i][3] = beforeDate;
 			}
-
 		}
 		////////////////////////////// table 형태 유지
 		model.setDataVector(rowData, columnNames);
@@ -215,63 +184,60 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
 		jTable.getColumn("작성일").setCellRenderer(celAlignCenter);
 		//////////////////////////////
+	}
 
-		jTable.setModel(model);
+	
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
-		
-		
+		// TODO Auto-generated method stub
 		int rowNum = jTable.getSelectedRow();
 		if (list.get(rowNum).getDel() == 1) {
 			JOptionPane.showMessageDialog(null, "이 글은 볼 수 없습니다");
@@ -280,27 +246,27 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		Singleton s = Singleton.getInstance();
 		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(),list.get(rowNum).getRef(),list.get(rowNum).getStep(),list.get(rowNum).getDept());
 
-		QAmain.changePanel(2, dto); // 해당 글 보는 곳
+		adQAmian.changePanel(1, dto,0); // 해당 글 보는 곳
 	}
 
-	
-	
-	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
+
+	
+
 }

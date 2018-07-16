@@ -7,7 +7,7 @@ import dao.QAbbsDao;
 import dto.BBSDto;
 import dto.MemberDto;
 import dto.QAbbsDto;
-import view.memberpanel.QAbbsList;
+import view.membermainview.QAbbsList;
 
 public class Singleton {
 	public static Singleton s = null;

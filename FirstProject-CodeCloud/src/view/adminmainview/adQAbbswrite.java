@@ -1,4 +1,4 @@
-package view.adminpanel;
+package view.adminmainview;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 
 import dto.QAbbsDto;
 import singleton.Singleton;
-import view.memberpanel.QAbbsMain;
+import view.membermainview.QAbbsMain;
 
 public class adQAbbswrite extends JPanel implements ActionListener, WindowListener{
 
