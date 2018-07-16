@@ -269,6 +269,9 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		
+		
+		
 		int rowNum = jTable.getSelectedRow();
 		if (list.get(rowNum).getDel() == 1) {
 			JOptionPane.showMessageDialog(null, "이 글은 볼 수 없습니다");
@@ -280,6 +283,9 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		QAmain.changePanel(2, dto); // 해당 글 보는 곳
 	}
 
+	
+	
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub

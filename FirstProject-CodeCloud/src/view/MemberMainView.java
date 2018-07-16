@@ -141,6 +141,7 @@ public class MemberMainView extends JFrame implements ActionListener{
 		if(e.getSource() == btn_Selfbbs) {
 			changePanel(1);
 		}else if(e.getSource() == btn_Sharebbs) {
+			mainPanel.add("Sharebbs", new Sharebbs());
 			changePanel(2);
 		}else if(e.getSource() == btn_QAbbs) {
 			changePanel(3);

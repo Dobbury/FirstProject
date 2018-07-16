@@ -33,6 +33,7 @@ public class MemberController {
 	
 	public boolean loginCheck(String id,String pwd) {
 		
+
 		MemberDto dto = mService.login(new MemberDto(id,pwd,null,-1,null));
 
 		if(dto != null) {

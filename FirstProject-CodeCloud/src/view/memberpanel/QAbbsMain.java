@@ -35,6 +35,7 @@ public class QAbbsMain extends JPanel {
 		setBounds(0, 0, 1000, 800);
 		mainPanel = new JPanel(cards);
 
+		
 		mainPanel.add("QAbbsList", new QAbbsList(this));
 		mainPanel.add("QAbbsDetail", new QAbbsDetail(this, new QAbbsDto()));
 		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto()));
