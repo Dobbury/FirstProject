@@ -23,7 +23,7 @@ public class chatPanel extends JPanel implements ActionListener {
 
 	private JTextArea jta = new JTextArea(40, 25);
 	private JTextField jtf = new JTextField(25);
-	
+
 	private JScrollPane scrl;
 	private ClientBackground client = new ClientBackground();
 	private static String nickName;
@@ -31,25 +31,22 @@ public class chatPanel extends JPanel implements ActionListener {
 	public chatPanel() {
 
 		Singleton s = Singleton.getInstance();
-		
+
 		nickName = s.nowMember.getNick();
-		
+
 		scrl = new JScrollPane(jta);
-		
+
 		add(scrl, BorderLayout.CENTER);
-		
-		
+
 		add(jtf, BorderLayout.SOUTH);
 		jtf.addActionListener(this);
 
-		
 		setBounds(0, 0, 300, 800);
 
 		client.setGui(this);
 		client.setNickName(nickName);
-		
-	}
 
+	}
 
 	@Override
 	// 말치면 보내는 부분
@@ -63,10 +60,11 @@ public class chatPanel extends JPanel implements ActionListener {
 	public void appendMsg(String msg) {
 		jta.append(msg);
 	}
-	
+
 	public void connect() {
 		client.connet();
 	}
+
 	public void close() {
 		client.close();
 	}

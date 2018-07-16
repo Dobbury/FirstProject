@@ -21,10 +21,7 @@ import dao.QAbbsDao;
 import dto.QAbbsDto;
 import singleton.Singleton;
 
-
-
 public class adQAbbsDetail extends JPanel implements ActionListener, WindowListener {
-
 
 	JLabel titleLabel;// 닉네임
 	JLabel titleLabel2;// 제목
@@ -55,7 +52,6 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		adQAmian = QA;
 		this.dto = dto;
 
-
 		titleLabel = new JLabel("닉네임: ");
 		titleLabel.setBounds(100, 100, 50, 30);
 
@@ -78,7 +74,6 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		titleLabel3 = new JLabel("CONTENT: ");
 		titleLabel3.setBounds(100, 180, 100, 60);
 
-
 		postArea = new JTextArea();
 		postArea.setBounds(200, 200, 300, 300);
 		postArea.append(dto.getContent());
@@ -95,7 +90,6 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		// 글 목록
 		btn_List = new JButton("글 목록");
 		btn_List.addActionListener(this);
-
 		btn_List.setBounds(400, 550, 110, 50);
 
 		// 삭제
@@ -111,7 +105,7 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 		Singleton s = Singleton.getInstance();
 		// 수정 버튼의 비활성화 (같은 id일 경우만)
-		if (!dto.getNick().equals(s.nowMember.getNick())) {
+		if (dto.getNick().equals(s.nowMember.getNick())) {
 			btn_update.setEnabled(false);
 			btn_delete.setEnabled(false);
 		}
@@ -121,13 +115,13 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Singleton s = Singleton.getInstance();
-				
+
 				if (s.qaDao.deletebbs(dto.getSeq())) {
 					JOptionPane.showMessageDialog(null, "글을 삭제하였습니다");
 				} else {
 					JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
 				}
-				adQAmian.changePanel(3, dto,0);
+				adQAmian.changePanel(3, dto, 0);
 			}
 		});
 
@@ -141,7 +135,6 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		add(btn_List);
 		add(btn_delete);
 		add(btn_update);
-
 
 		setLayout(null);
 		setBackground(Color.PINK);
@@ -197,13 +190,13 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == btn_comment) {
-			adQAmian.changePanel(2, dto,2);
+			adQAmian.changePanel(2, dto, 2);
 
 		} else if (e.getSource() == btn_List) {
-			adQAmian.changePanel(3, dto,0);
+			adQAmian.changePanel(3, dto, 0);
 
 		} else if (e.getSource() == btn_update) {
-			adQAmian.changePanel(2, dto,1);
+			adQAmian.changePanel(2, dto, 1);
 
 		}
 	}

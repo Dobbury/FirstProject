@@ -16,7 +16,7 @@ public class ClientBackground extends Thread {
 	private chatPanel gui;
 	private String msg;
 	private String nickName;
-	
+
 	public void setGui(chatPanel gui) {
 		this.gui = gui;
 	}
@@ -24,7 +24,7 @@ public class ClientBackground extends Thread {
 	public void connet() {
 		try {
 			Singleton s = Singleton.getInstance();
-			
+
 			socket = new Socket(s.hostDB_IP, 7777);
 			System.out.println("클라이언트 : 서버 연결됨");
 
@@ -34,15 +34,14 @@ public class ClientBackground extends Thread {
 			out.writeUTF(nickName); // 접속 하자마자 닉네임을 전송하면, 서버가 이걸 닉네임으로 인식해서 맵에 저장
 			System.out.println("메세지 전송완료");
 
-			if(Thread.State.NEW == this.getState())	//new만되고 실행을 안했을때
+			if (Thread.State.NEW == this.getState()) // new만되고 실행을 안했을때
 				this.start();
-
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void run() {
 
@@ -57,7 +56,7 @@ public class ClientBackground extends Thread {
 
 		}
 	}
-	
+
 	public void close() {
 		try {
 			socket.close();
@@ -66,6 +65,7 @@ public class ClientBackground extends Thread {
 			e.printStackTrace();
 		}
 	}
+
 	public void sendMessage(String msg2) {
 		try {
 			out.writeUTF(msg2);

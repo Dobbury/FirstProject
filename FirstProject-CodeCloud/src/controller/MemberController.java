@@ -13,23 +13,25 @@ import view.MemberMainView;
 
 public class MemberController {
 	MemberServiceImpl mService = new MemberService();
-	
+
 	public void login() {
 		new LoginView();
 	}
+
 	public boolean getId(String id) {
-		
+
 		return mService.getId(id);
-		
+
 	}
-	
+
 	public boolean getNick(String nick) {
 		return mService.getNick(nick);
 	}
-	
-	public boolean addMember(String id,String pwd,String nick) {
-		return mService.insert(new MemberDto(id,pwd,nick,1,null));
+
+	public boolean addMember(String id, String pwd, String nick) {
+		return mService.insert(new MemberDto(id, pwd, nick, 1, null));
 	}
+
 	
 	public boolean loginCheck(String id,String pwd) {
 		
@@ -47,11 +49,12 @@ public class MemberController {
 				}
 				return true;
 		}else {//아이디 없을 때
+
 			return false;
 		}
 	}
-	
+
 	public void memberInfo() {
-		//new memberFrame();
+		// new memberFrame();
 	}
 }

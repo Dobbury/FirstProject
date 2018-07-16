@@ -20,20 +20,18 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
 import dto.QAbbsDto;
 import singleton.Singleton;
 
-public class adQAbbsList extends JPanel implements ActionListener, MouseListener, WindowListener{
+public class adQAbbsList extends JPanel implements ActionListener, MouseListener, WindowListener {
 
 	private JTable jTable;
 	private JScrollPane jScrPane;
 	private JButton writeBtn;
 
 	DefaultTableModel model; // 테이블의 넓이 설정
-	
-	Object rowData[][];
 
+	Object rowData[][];
 
 	String columnNames[] = { "번호", "제목", "작성자", "작성일" };
 	adQAbbsMain adQAmian;
@@ -57,17 +55,17 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
 
-			//댓글 작업 부분	
-			rowData[i][1] ="";
-			for(int j = 0 ; j<list.get(i).getDept() ; j++) {
-				rowData[i][1] +="    ";
+			// 댓글 작업 부분
+			rowData[i][1] = "";
+			for (int j = 0; j < list.get(i).getDept(); j++) {
+				rowData[i][1] += "    ";
 			}
-			
-			if(rowData[i][1].equals("")) 
+
+			if (rowData[i][1].equals(""))
 				rowData[i][1] = list.get(i).getTitle();
-			else 
-			rowData[i][1] += "┗ "+list.get(i).getTitle();
-			
+			else
+				rowData[i][1] += "┗ " + list.get(i).getTitle();
+
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
@@ -125,7 +123,7 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 		Object obj = e.getSource();
 		// 글쓰기
 		if (obj == writeBtn) {
-			adQAmian.changePanel(2, new QAbbsDto(),0);
+			adQAmian.changePanel(2, new QAbbsDto(), 0);
 		}
 	}
 
@@ -138,19 +136,18 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 			rowData[i][0] = dto.getSeq();
 			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-			
 
-			//댓글 작업 부분	
-			rowData[i][1] ="";
-			for(int j = 0 ; j<list.get(i).getDept() ; j++) {
-				rowData[i][1] +="    ";
+			// 댓글 작업 부분
+			rowData[i][1] = "";
+			for (int j = 0; j < list.get(i).getDept(); j++) {
+				rowData[i][1] += "    ";
 			}
-			
-			if(rowData[i][1].equals("")) 
+
+			if (rowData[i][1].equals(""))
 				rowData[i][1] = list.get(i).getTitle();
-			else 
-			rowData[i][1] += "┗ "+list.get(i).getTitle();
-			
+			else
+				rowData[i][1] += "┗ " + list.get(i).getTitle();
+
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
@@ -186,53 +183,52 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 		//////////////////////////////
 	}
 
-	
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -244,29 +240,28 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 			return;
 		}
 		Singleton s = Singleton.getInstance();
-		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(),list.get(rowNum).getRef(),list.get(rowNum).getStep(),list.get(rowNum).getDept());
+		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(), list.get(rowNum).getRef(), list.get(rowNum).getStep(),
+				list.get(rowNum).getDept());
 
 		adQAmian.changePanel(1, dto,0); // 해당 글 보는 곳
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-	
-
 }
