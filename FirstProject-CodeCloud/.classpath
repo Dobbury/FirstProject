@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="C:/Java/driver/ojdbc6.jar"/>
-=======
 	<classpathentry kind="lib" path="C:/Program Files/Java/driver/ojdbc6.jar"/>
->>>>>>> 401c2e90bcb7b44dd00074ebd51f30102c0bdad0
-=======
-	<classpathentry kind="lib" path="C:/Java/driver/ojdbc6.jar"/>
->>>>>>> 399c99fdeedb19c69bd6dad1ef5a1a1513ebdd9f
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -23,7 +23,7 @@ import singleton.Singleton;
 
 
 
-public class adQAbbsDetail extends JPanel implements ActionListener, WindowListener, MouseListener {
+public class adQAbbsDetail extends JPanel implements ActionListener, WindowListener {
 
 
 	JLabel titleLabel;// 닉네임
