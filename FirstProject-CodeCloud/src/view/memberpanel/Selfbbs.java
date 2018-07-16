@@ -84,8 +84,10 @@ public class Selfbbs extends JPanel implements Action, MouseListener{
 	
 	Robot robot;
 
-	public Selfbbs() {
+	public Selfbbs(MemberMainView main) {
 		setLayout(null);
+		
+		F = main;
 		
 		Singleton s = Singleton.getInstance();
 		
@@ -122,8 +124,6 @@ public class Selfbbs extends JPanel implements Action, MouseListener{
 		
 		model = new DefaultTableModel(rowData, head);
 
-		
-		//model.setDataVector(rowData, head);
 		
 		jTable = new JTable(model) {
 			@Override
@@ -382,6 +382,9 @@ public class Selfbbs extends JPanel implements Action, MouseListener{
 					}
 				}
 				
+				F.mainPanel.add("Singlebbs", new Selfbbs(F));
+				F.cards.show(F.mainPanel, "Singlebbs");
+				
 			}
 		}
 		if (obj == minus) {
@@ -389,6 +392,7 @@ public class Selfbbs extends JPanel implements Action, MouseListener{
 			choice = JOptionPane.showConfirmDialog (null, "이 코드를 정말 삭제하시겠습니까?","WARNING", choice);
 			
 			if (choice == 0) {
+				
 				boolean sbool;
 				if (sharebtn.isVisible() && sharebtn.isSelected()) {
 					sbool = true;
@@ -535,6 +539,7 @@ public class Selfbbs extends JPanel implements Action, MouseListener{
 		try {
 			int seq = (int) source.getModel().getValueAt(rows, 1);
 			int shar = (int) source.getModel().getValueAt(rows, 2);
+			System.out.println(shar);
 			currseq = seq;
 			for (int i = 0; i < s.selfcodelist.size(); i++) {
 				if (seq == s.selfcodelist.get(i).getSeq()) {

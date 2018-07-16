@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import singleton.Singleton;
 import view.adminpanel.AdminSharebbs;
+import view.adminpanel.MemberBBS;
 
 
 public class AdminMainView extends JFrame implements ActionListener {
@@ -37,10 +38,10 @@ public class AdminMainView extends JFrame implements ActionListener {
 
 		mainPanel = new JPanel(cards);
 		
-//		mainPanel.add("Singlebbs", new Selfbbs());
+		mainPanel.add("Memberbbs", new MemberBBS());
 		mainPanel.add("AdminSharebbs", new AdminSharebbs());
 //		mainPanel.add("Q&Abbs", new QAbbsMain());
-		cards.show(mainPanel, "Singlebbs");
+		cards.show(mainPanel, "Memberbbs");
 
 		mainPanel.setBounds(200, 0, 1000, 800);
 		memProfile_Img = new JPanel();
@@ -88,7 +89,7 @@ public class AdminMainView extends JFrame implements ActionListener {
 
 	public void changePanel(int select) {
 		if (select == 1) {
-			cards.show(mainPanel, "Singlebbs");
+			cards.show(mainPanel, "Memberbbs");
 		} else if (select == 2) {
 			cards.show(mainPanel, "AdminSharebbs");
 		} else if (select == 3) {

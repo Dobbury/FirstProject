@@ -11,10 +11,7 @@ import view.memberpanel.Selfbbs;
 public class MainClass {
 
 	public static void main(String[] args) {
-
-//		new HostDbSetView();
-//		new MemberMainView();
-		new AdminMainView();
-
+			
+		new HostDbSetView();
 	}
 }
