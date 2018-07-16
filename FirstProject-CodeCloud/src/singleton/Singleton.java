@@ -7,6 +7,7 @@ import dao.QAbbsDao;
 import dto.BBSDto;
 import dto.MemberDto;
 import dto.QAbbsDto;
+import dto.ShareDto;
 import view.memberpanel.QAbbsList;
 
 public class Singleton {
@@ -20,6 +21,11 @@ public class Singleton {
 	public QAbbsDao qaDao = new QAbbsDao();
 	public QAbbsList blf = null;
 
+	
+	//share 초이스 기능을 위해서 추가 
+	public ShareDto shareDto;
+	
+	
 	public LinkedList<BBSDto> selfcodelist = new LinkedList<>();
 
 	private Singleton() {

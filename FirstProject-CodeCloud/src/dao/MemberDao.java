@@ -117,6 +117,11 @@ public class MemberDao implements MemberDaoImpl {
 		String sqlseq = "CREATE SEQUENCE "+dto.getID()+"_SEQ "
 				+ "START WITH 1 "
 				+ "INCREMENT BY 1";
+		
+		//추천확인테이블
+		String sql3 = "CREATE TABLE " + dto.getID() + "_LIKED "
+			+ "(LIKEDSHARESEQ NUMBER NOT NULL)";
+		
 
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement psmt = null;
@@ -144,6 +149,9 @@ public class MemberDao implements MemberDaoImpl {
 			psmt.executeQuery();
 			
 			psmt = conn.prepareStatement(sqlseq);
+			psmt.executeQuery();
+			
+			psmt = conn.prepareStatement(sql3);
 			psmt.executeQuery();
 
 		} catch (Exception e) {
@@ -206,6 +214,8 @@ public class MemberDao implements MemberDaoImpl {
 		
 		return mem;
 	}
+	
+	
 
 
 }

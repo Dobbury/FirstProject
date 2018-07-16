@@ -2,6 +2,7 @@ package view.memberpanel;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -12,6 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import dao.ShareDao;
 import dto.QAbbsDto;
 import dto.ShareDto;
 import singleton.Singleton;
@@ -33,13 +35,18 @@ public class ShareDetail extends JPanel implements Action {
 	JScrollPane jScrol;
 	
 	private JButton btn_List;// 목록으로
-	private JButton btn_liked;//좋아요 버튼
+	private JToggleButton btn_liked;//좋아요 버튼
 	private JButton btn_fork;// 다운로드 버튼 
 	
 	
 	Sharebbs ShareMain;
-	QAbbsDto dto;
+	ShareDto dto;
 	public ShareDetail(Sharebbs sharebbs, ShareDto dto) {
+		
+		
+		List<Integer> list = ShareDao.getlikeseqlist();
+		
+		this.dto = dto;
 		
 		ShareMain=sharebbs;
 		
@@ -76,9 +83,20 @@ public class ShareDetail extends JPanel implements Action {
 		btn_List.setBounds(500, 550, 110, 50);
 		
 		//좋아요버튼
-		btn_liked = new JButton("추천");
+		btn_liked = new JToggleButton("추천");
 		btn_liked.addActionListener(this);
 		btn_liked.setBounds(50, 450, 60, 50);
+		
+		for (int i = 0; i < list.size(); i++) {
+			if (dto.getSeq() == list.get(i)) {
+				btn_liked.setSelected(true);
+				break;
+			}
+		}
+		
+		
+		
+		
 		likelab.setBounds(130, 450, 60, 50);
 		likelab.setText(dto.getLiked()+"");
 		
@@ -131,13 +149,23 @@ public class ShareDetail extends JPanel implements Action {
 		if(e.getSource() == btn_List) {
 			//Sharebbs.changePanel(new ShareList(ShareMain));
 			ShareMain.changePanel(1, null);
-			 
 			
 		}else if (e.getSource() == btn_liked) {
-			 
+			
+			if (btn_liked.isSelected() == true) {
+				ShareDao.clicklike(s.nowMember.getID(), dto.getNick(), dto.getIndseq(), dto.getSeq());
+				dto.setLiked(dto.getLiked()+1);
+			}else {
+				ShareDao.clickunlike(s.nowMember.getID(), dto.getNick(), dto.getIndseq(), dto.getSeq());
+				dto.setLiked(dto.getLiked()-1);
+			}
+			
+			likelab.setText(dto.getLiked()+"");
 			
 		}else if(e.getSource() == btn_fork) {
-			 
+			 ShareDao.codefork(dto);
+			 dto.setFork(dto.getFork()+1);
+			 forklab.setText(dto.getFork()+"");
 		}
 
 	 

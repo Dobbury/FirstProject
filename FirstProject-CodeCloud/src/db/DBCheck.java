@@ -60,6 +60,7 @@ public class DBCheck {
 						+ "LIKED NUMBER NOT NULL,"
 						+ "FORK NUMBER NOT NULL,"
 						+ "LAN VARCHAR2(10) NOT NULL,"
+						//+ "LIKELIST VARCHAR2(4000) "
 						+ "CONSTRAINT FK_SHAR_NICK FOREIGN KEY(NICK) "
 						+ "REFERENCES MEMBER(NICK))";
 				psmt = conn.prepareStatement(sql);

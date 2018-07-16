@@ -122,16 +122,19 @@ public class MemberMainView extends JFrame implements ActionListener{
 			cards.show(mainPanel, "Sharebbs");
 		}else if(select == 3) {
 			cards.show(mainPanel, "Q&Abbs");
+			
 		}
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btn_Selfbbs) {
+			mainPanel.add("Singlebbs", new Selfbbs());
 			changePanel(1);
 		}else if(e.getSource() == btn_Sharebbs) {
 			mainPanel.add("Sharebbs", new Sharebbs());
 			changePanel(2);
 		}else if(e.getSource() == btn_QAbbs) {
+			mainPanel.add("Q&Abbs", new QAbbsMain());
 			changePanel(3);
 		}else if(e.getSource() == btn_Chat) {
 			if(chat) {
