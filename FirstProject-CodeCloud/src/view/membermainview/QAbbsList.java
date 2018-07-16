@@ -42,6 +42,12 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 	List<QAbbsDto> list;
 
+
+	final int DETAIL = -2;
+	final int LIST = -1;
+	final int INSERT = 0;
+	final int UPDATE = 1;
+	
 	public QAbbsList(QAbbsMain QA) {
 		QAmain = QA;
 
@@ -148,7 +154,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		Object obj = e.getSource();
 		// 글쓰기
 		if (obj == writeBtn) {
-			QAmain.changePanel(3, new QAbbsDto());
+			QAmain.changePanel(3, new QAbbsDto(),INSERT);
 		}
 		// 검색 버튼
 		else if (obj == selectBtn) {
@@ -281,7 +287,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(), list.get(rowNum).getRef(), list.get(rowNum).getStep(),
 				list.get(rowNum).getDept());
 
-		QAmain.changePanel(2, dto); // 해당 글 보는 곳
+		QAmain.changePanel(2, dto,DETAIL); // 해당 글 보는 곳
 	}
 
 	
