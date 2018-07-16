@@ -1,4 +1,4 @@
-package view.adminmainview;
+package view.adminmainview.share;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import dto.BBSDto;
+import dto.ShareDto;
 
 public class AdminSharebbs extends JPanel {
 
@@ -25,23 +26,21 @@ public class AdminSharebbs extends JPanel {
 
 
 		mainPanel.add("AdSharedbbsList", new AdSharebbsList(this));
-//		mainPanel.add("AdSharedbbsDetail", new AdSharebbsDetail(this,new BBSDto()));
-		mainPanel.add("AdSharedbbsDetail", new AdSharebbsDetail(this));
-		cards.show(mainPanel, "AdSharedbbsDetail"); // 처음 띄어지는 패널
+		mainPanel.add("AdSharedbbsDetail", new AdSharebbsDetail(this, new ShareDto()));
+		cards.show(mainPanel, "AdSharedbbsList"); // 처음 띄어지는 패널
 		
 		mainPanel.setBounds(0, 0, 1000, 800);
 		add(mainPanel);
 		setVisible(true);
 	}
 
-//	public void changPanel(int select, BBSDto dto) {
-	public void changPanel(int select) {
+	public void changPanel(int select, ShareDto dto) {
 
 		if (select == 1) {
 			mainPanel.add("AdSharedbbsList", new AdSharebbsList(this));
 			cards.show(mainPanel, "AdSharedbbsList");
 		} else if (select == 2) {
-			mainPanel.add("AdSharedbbsDetail", new AdSharebbsDetail(this));
+			mainPanel.add("AdSharedbbsDetail", new AdSharebbsDetail(this,dto));
 			cards.show(mainPanel, "AdSharedbbsDetail");
 		}
 	}

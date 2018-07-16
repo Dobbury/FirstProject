@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import controller.MemberController;
 import dao.QAbbsDao;
+import dao.ShareDao;
 import dto.BBSDto;
 import dto.MemberDto;
 import dto.QAbbsDto;
@@ -21,6 +22,8 @@ public class Singleton {
 	//public QAbbsDao qaDao ;
 	public QAbbsList blf = null;
 
+	public ShareDao sharDao = new ShareDao();
+	
 	public LinkedList<BBSDto> selfcodelist = new LinkedList<>();
 
 	private Singleton() {

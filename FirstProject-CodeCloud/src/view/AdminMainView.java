@@ -11,8 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import singleton.Singleton;
-import view.adminmainview.AdminSharebbs;
-import view.adminmainview.adQAbbsMain;
+import view.adminmainview.QA.adQAbbsMain;
+import view.adminmainview.share.AdminSharebbs;
 import view.chatview.chatPanel;
 
 public class AdminMainView extends JFrame implements ActionListener {
@@ -44,8 +44,7 @@ public class AdminMainView extends JFrame implements ActionListener {
 		mainPanel = new JPanel(cards);
 
 		// mainPanel.add("Memberbbs", new MemberBBS());
-		// mainPanel.add("AdminSharebbs", new AdminSharebbs());
-
+		mainPanel.add("AdminSharebbs", new AdminSharebbs());
 		mainPanel.add("Q&Abbs", adQAMain);
 		cards.show(mainPanel, "Q&Abbs");
 

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBCheck {
 
@@ -51,7 +52,7 @@ public class DBCheck {
 						+ "NICK VARCHAR2(15) NOT NULL," + "TITLE VARCHAR2(50) NOT NULL,"
 						+ "CONT VARCHAR2(4000) NOT NULL," + "LIKED NUMBER NOT NULL," + "FORK NUMBER NOT NULL,"
 						+ "LAN VARCHAR2(10) NOT NULL," + "CONSTRAINT FK_SHAR_NICK FOREIGN KEY(NICK) "
-						+ "REFERENCES MEMBER(NICK))";
+						+ "REFERENCES MEMBER(NICK) ON DELETE CASCADE )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
 			}
@@ -92,7 +93,7 @@ public class DBCheck {
 						+ "CONTENT	VARCHAR2(4000)	NOT NULL," + "DEL		NUMBER	    NOT NULL," + "REF 	NUMBER,	"
 						+ "STEP 	NUMBER," + "DEPT 	NUMBER," + "VISIBLE	NUMBER	NOT NULL,"
 						+ "ANSWER	NUMBER  NOT NULL," + "CONSTRAINT FK_QA_NICK FOREIGN KEY(NICK) "
-						+ "REFERENCES MEMBER(NICK))";
+						+ "REFERENCES MEMBER(NICK) ON DELETE CASCADE )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
 
@@ -118,5 +119,36 @@ public class DBCheck {
 		}
 		System.out.println("QA테이블 체크 성공");
 	}
+	public static void createUpdateTrigger() {
+		String Tri_sql = "CREATE OR REPLACE TRIGGER MEMBER_UPDATE_TRG " + 
+				"AFTER UPDATE OF NICK ON MEMBER FOR EACH ROW " + 
+				"BEGIN " + 
+				"UPDATE SHAR " + 
+				"SET NICK =:NEW.NICK " + 
+				"WHERE NICK =:OLD.NICK; " + 
+				"UPDATE QA " + 
+				"SET NICK =:NEW.NICK " + 
+				"WHERE NICK =:OLD.NICK; " + 
+				"END;";
 
+		
+		Connection conn = null;
+		Statement psmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.makeConnection();
+			
+			psmt = conn.createStatement();
+			psmt.executeQuery(Tri_sql);
+		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+		System.out.println("Trigger Update 완료");
+
+	}
 }

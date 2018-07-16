@@ -47,7 +47,6 @@ public class QAbbsMain extends JPanel {
 	}
 
 	public void changePanel(int select, QAbbsDto dto) {
-
 		if (select == 1) {
 			mainPanel.add("QAbbsList", new QAbbsList(this));
 			cards.show(mainPanel, "QAbbsList");

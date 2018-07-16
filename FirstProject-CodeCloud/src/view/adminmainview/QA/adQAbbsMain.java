@@ -1,4 +1,4 @@
-package view.adminmainview;
+package view.adminmainview.QA;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;

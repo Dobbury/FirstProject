@@ -188,7 +188,8 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 			DBCheck.memDBcheck();
 			DBCheck.shareDBCheck();
 			DBCheck.qaDBCheck();
-
+			DBCheck.createUpdateTrigger();
+			
 			s.MemCtrl.login();
 			dispose();
 		}

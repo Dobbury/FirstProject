@@ -1,4 +1,4 @@
-package view.adminmainview;
+package view.adminmainview.share;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -12,6 +12,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import dto.BBSDto;
+import dto.ShareDto;
+import singleton.Singleton;
 
 public class AdSharebbsDetail extends JPanel implements ActionListener {
 
@@ -33,17 +35,17 @@ public class AdSharebbsDetail extends JPanel implements ActionListener {
 
 	JScrollPane jScrol;
 
-	private JButton btn_Update; // 게시글 삭제
+	private JButton btn_Delete; // 게시글 삭제
 	private JButton btn_List;// 목록으로
 
 	AdminSharebbs adminSharebbs;
-//	BBSDto dto;
+	ShareDto dto;
 
 //	public AdSharebbsDetail(AdminSharebbs adshbbs, BBSDto dto) {
-	public AdSharebbsDetail(AdminSharebbs adshbbs) {
+	public AdSharebbsDetail(AdminSharebbs adshbbs,ShareDto dto) {
 
 		adminSharebbs = adshbbs;
-//		this.dto = dto;
+		this.dto = dto;
 
 //		System.out.println(dto.toString());
 		titleLabel = new JLabel("닉네임: ");
@@ -51,8 +53,7 @@ public class AdSharebbsDetail extends JPanel implements ActionListener {
 
 		titleText = new JTextField();
 		titleText.setBounds(200, 100, 310, 30);
-		// titleText.setText(dto.getNick());
-		 titleText.setText("닉네임");
+		titleText.setText(dto.getNick());
 		titleText.setEditable(false);
 
 		titleLabel2 = new JLabel("제목");
@@ -60,29 +61,28 @@ public class AdSharebbsDetail extends JPanel implements ActionListener {
 
 		titleText2 = new JTextField();
 		titleText2.setBounds(200, 150, 310, 30);
-//		titleText2.setText(dto.getTitle());
-		titleText2.setText("제목");
+		titleText2.setText(dto.getTitle());
 		titleText2.setEditable(false);
 		
 		titleLabel4 = new JLabel("언어");
 		titleLabel4.setBounds(520, 150, 25, 30);
 		titleText3 = new JTextField();
 		titleText3.setBounds(550, 150, 50, 30);
-		titleText3.setText("JAVA");
+		titleText3.setText(dto.getLang());
 		titleText3.setEditable(false);
 
 		titleLabel5 = new JLabel("추천");
 		titleLabel5.setBounds(520, 100, 25, 30);
 		titleText4 = new JTextField();
 		titleText4.setBounds(550, 100, 50, 30);
-		titleText4.setText("999");
+		titleText4.setText(dto.getLiked()+"");
 		titleText4.setEditable(false);
 		
 		titleLabel6 = new JLabel("포크");
 		titleLabel6.setBounds(610, 100, 25, 30);
 		titleText5 = new JTextField();
 		titleText5.setBounds(640, 100, 50, 30);
-		titleText5.setText("999");
+		titleText5.setText(dto.getFork()+"");
 		titleText5.setEditable(false);
 		
 		titleLabel3 = new JLabel("Code");
@@ -91,16 +91,16 @@ public class AdSharebbsDetail extends JPanel implements ActionListener {
 		postArea = new JTextArea();
 		postArea.setBounds(200, 200, 500, 300);
 //		postArea.append(dto.getContent());
-		postArea.append("내용");
+		postArea.append(dto.getContent());
 		postArea.setEditable(false);
 
 		jScrol = new JScrollPane(postArea);
 		jScrol.setBounds(200, 200, 500, 300);
 
 		// 삭제
-		btn_Update = new JButton("삭제");
-		btn_Update.addActionListener(this);
-		btn_Update.setBounds(200, 550, 110, 50);
+		btn_Delete = new JButton("삭제");
+		btn_Delete.addActionListener(this);
+		btn_Delete.setBounds(200, 550, 110, 50);
 
 		// 글 목록
 		btn_List = new JButton("목록");
@@ -122,7 +122,7 @@ public class AdSharebbsDetail extends JPanel implements ActionListener {
 
 		add(jScrol);
 
-		add(btn_Update);
+		add(btn_Delete);
 		add(btn_List);
 
 		setLayout(null);
@@ -136,7 +136,12 @@ public class AdSharebbsDetail extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btn_List) {
-			adminSharebbs.changPanel(1);
+			adminSharebbs.changPanel(1,new ShareDto());
+		}
+		if(e.getSource() == btn_Delete) {
+			Singleton s = Singleton.getInstance();
+			s.sharDao.delete(dto.getSeq());
+			adminSharebbs.changPanel(1, new ShareDto());
 		}
 
 	}

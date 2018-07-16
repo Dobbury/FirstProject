@@ -1,4 +1,4 @@
-package view.adminmainview;
+package view.adminmainview.QA;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

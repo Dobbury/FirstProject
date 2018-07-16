@@ -2,8 +2,11 @@ package view;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -12,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,13 +43,13 @@ import singleton.Singleton;
 import view.membermainview.Selfbbs;
 import view.membermainview.Sharebbs;
 
-public class MemberMainView extends JFrame implements ActionListener {
+public class MemberMainView extends JFrame implements ActionListener,MouseListener {
 
 	public CardLayout cards = new CardLayout();
 	public JPanel mainPanel;
 
-	JPanel memProfile_Img;
-	JLabel memName;
+	public JLabel memProfile_Img;
+	public JLabel memName;
 
 	JButton btn_Selfbbs;
 	JButton btn_Sharebbs;
@@ -78,10 +82,17 @@ public class MemberMainView extends JFrame implements ActionListener {
 		cards.show(mainPanel, "Singlebbs");
 
 		mainPanel.setBounds(200, 0, 1000, 800);
-
-		memProfile_Img = new JPanel();
-		memProfile_Img.setBackground(Color.DARK_GRAY);
-		memProfile_Img.setBounds(37, 50, 120, 120);
+		
+		ImageIcon img = new ImageIcon(s.nowMember.getProfile_Img());
+		Image ori = img.getImage();
+		Image changedImg= ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH );
+		
+		img = new ImageIcon(changedImg);
+		
+		memProfile_Img = new JLabel();
+		memProfile_Img.setIcon(img);
+		memProfile_Img.addMouseListener(this);
+		memProfile_Img.setBounds(37, 50, 130, 130);
 
 		memName = new JLabel();
 		memName.setText(s.nowMember.getNick());
@@ -147,6 +158,7 @@ public class MemberMainView extends JFrame implements ActionListener {
 			mainPanel.add("Sharebbs", new Sharebbs());
 			changePanel(2);
 		} else if (e.getSource() == btn_QAbbs) {
+			mainPanel.add("Q&Abbs", new QAbbsMain());
 			changePanel(3);
 		} else if (e.getSource() == btn_Chat) {
 			if (chat) {
@@ -163,6 +175,40 @@ public class MemberMainView extends JFrame implements ActionListener {
 			s.MemCtrl.login();
 		}
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == memProfile_Img) {
+			Singleton s = Singleton.getInstance();
+			
+			new MemberUpdateView(this,s.nowMember);
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

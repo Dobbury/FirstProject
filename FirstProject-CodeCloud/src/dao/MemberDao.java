@@ -119,11 +119,12 @@ public class MemberDao implements MemberDaoImpl {
 			psmt.setString(2, pwd); // 암호화된 값을 넣어줌
 			psmt.setString(3, dto.getNick());
 
+		
+			// psmt.setBinaryStream(4, null);
+			psmt.setInt(4, dto.getAuth());
 			// 이미지 파일을 Blob으로 저장
 			File imgfile = new File(path);
 			FileInputStream fis = new FileInputStream(imgfile);
-			// psmt.setBinaryStream(4, null);
-			psmt.setInt(4, dto.getAuth());
 			psmt.setBinaryStream(5, fis, (int) imgfile.length());// 이미지 저장 알아볼것
 
 			count = psmt.executeUpdate();
@@ -192,5 +193,37 @@ public class MemberDao implements MemberDaoImpl {
 
 		return mem;
 	}
+	
+	public boolean update(MemberDto dto) {
+		String sql = "UPDATE MEMBER SET PWD = ?, NICK = ?, IMG = ? WHERE ID=?";
+		
+		Connection conn = DBConnection.makeConnection();
+		PreparedStatement stmt = null;
+		int count = 0;
 
+		System.out.println(sql);
+		try {
+			stmt = conn.prepareStatement(sql);
+			
+			String pwd = PasswordClass.Encryption(dto.getPWD());
+			stmt.setString(1, pwd);
+			
+			stmt.setString(2, dto.getNick());
+			
+			// 이미지 파일을 Blob으로 저장
+			File imgfile = new File("test");
+			ImageIO.write(dto.getProfile_Img(), "jpg", imgfile);
+			FileInputStream fis = new FileInputStream(imgfile);
+			stmt.setBinaryStream(3, fis, (int) imgfile.length());// 이미지 저장 알아볼것
+			stmt.setString(4, dto.getID());
+
+			count = stmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(stmt, conn, null);
+		}
+		return count > 0 ? true : false;
+	}
 }

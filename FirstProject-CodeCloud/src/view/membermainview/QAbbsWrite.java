@@ -92,8 +92,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 		if (e.getSource() == btn_Commit) {// 확인
 			Singleton s = Singleton.getInstance();
-			// QAmain.changePanel(1);
-
+			
 			if (state == UPDATE) {
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
@@ -103,8 +102,8 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 			} else if (state == INSERT) {
 
-				// dto.setNick(s.nowMember.getNick());
-				dto.setNick("min");
+				dto.setNick(s.nowMember.getNick());
+			
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
 
