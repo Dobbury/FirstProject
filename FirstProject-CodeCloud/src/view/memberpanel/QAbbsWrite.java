@@ -103,8 +103,8 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 			} else if (state == INSERT) {
 
-				// dto.setNick(s.nowMember.getNick());
-				dto.setNick("min");
+				dto.setNick(s.nowMember.getNick());
+				//dto.setNick("min");
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
 

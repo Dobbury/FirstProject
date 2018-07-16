@@ -144,7 +144,8 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 				adQAmian.changePanel(3, new QAbbsDto(), 1);
 
 			} else if (state == INSERT) {
-				dto.setNick("admin");
+				dto.setNick(s.nowMember.getNick());
+				//dto.setNick("admin");
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
 
