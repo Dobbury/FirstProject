@@ -20,8 +20,11 @@ public class DBCheck {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if (!rs.next()) { // 테이블이 없다면 생성
-				sql = "CREATE TABLE MEMBER(" + "ID VARCHAR2(15) PRIMARY KEY," + "PWD VARCHAR2(10) NOT NULL,"
-						+ "NICK VARCHAR2(15) UNIQUE," + "AUTH NUMBER NOT NULL," + "IMG BLOB )";
+				sql = "CREATE TABLE MEMBER(" 
+						+ "ID VARCHAR2(15 CHAR) PRIMARY KEY," 
+						+ "PWD VARCHAR2(10 CHAR) NOT NULL,"
+						+ "NICK VARCHAR2(15 CHAR) UNIQUE," 
+						+ "AUTH NUMBER NOT NULL," + "IMG BLOB )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
 			}
@@ -52,12 +55,12 @@ public class DBCheck {
 				sql = "CREATE TABLE SHAR(" 
 						+ "SEQ NUMBER PRIMARY KEY," 
 						+ "INDSEQ NUMBER NOT NULL,"
-						+ "NICK VARCHAR2(15) NOT NULL," 
-						+ "TITLE VARCHAR2(50) NOT NULL,"
-						+ "CONT VARCHAR2(4000) NOT NULL," 
+						+ "NICK VARCHAR2(15 CHAR) NOT NULL," 
+						+ "TITLE VARCHAR2(50 CHAR) NOT NULL,"
+						+ "CONT VARCHAR2(4000 CHAR) NOT NULL," 
 						+ "LIKED NUMBER NOT NULL," 
 						+ "FORK NUMBER NOT NULL,"
-						+ "LAN VARCHAR2(10) NOT NULL," 
+						+ "LAN VARCHAR2(10 CHAR) NOT NULL," 
 						+ "CONSTRAINT FK_SHAR_NICK FOREIGN KEY(NICK) "
 						+ "REFERENCES MEMBER(NICK) ON DELETE CASCADE )";
 
@@ -96,11 +99,18 @@ public class DBCheck {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if (!rs.next()) { // 테이블이 없다면 생성
-				sql = "CREATE TABLE QA(" + "SEQ     NUMBER		PRIMARY KEY," + "TITLE	VARCHAR2(50)	NOT NULL,"
-						+ "DAT		DATE			NOT NULL," + "NICK	VARCHAR2(15),"
-						+ "CONTENT	VARCHAR2(4000)	NOT NULL," + "DEL		NUMBER	    NOT NULL," + "REF 	NUMBER,	"
-						+ "STEP 	NUMBER," + "DEPT 	NUMBER," + "VISIBLE	NUMBER	NOT NULL,"
-						+ "ANSWER	NUMBER  NOT NULL," + "CONSTRAINT FK_QA_NICK FOREIGN KEY(NICK) "
+				sql = "CREATE TABLE QA(" 
+						+ "SEQ     NUMBER		PRIMARY KEY," 
+						+ "TITLE	VARCHAR2(50 CHAR)	NOT NULL,"
+						+ "DAT		DATE			NOT NULL," 
+						+ "NICK	VARCHAR2(15 CHAR),"
+						+ "CONTENT	VARCHAR2(4000 CHAR)	NOT NULL," 
+						+ "DEL		NUMBER	    NOT NULL," + "REF 	NUMBER,	"
+						+ "STEP 	NUMBER," 
+						+ "DEPT 	NUMBER," 
+						+ "VISIBLE	NUMBER	NOT NULL,"
+						+ "ANSWER	NUMBER  NOT NULL," 
+						+ "CONSTRAINT FK_QA_NICK FOREIGN KEY(NICK) "
 						+ "REFERENCES MEMBER(NICK) ON DELETE CASCADE )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
