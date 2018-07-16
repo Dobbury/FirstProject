@@ -243,7 +243,7 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(), list.get(rowNum).getRef(), list.get(rowNum).getStep(),
 				list.get(rowNum).getDept());
 
-		adQAmian.changePanel(2, dto, 0); // 해당 글 보는 곳
+		adQAmian.changePanel(1, dto, 0); // 해당 글 보는 곳
 	}
 
 	@Override

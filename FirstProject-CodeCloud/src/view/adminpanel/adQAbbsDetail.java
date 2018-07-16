@@ -90,7 +90,6 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		// 글 목록
 		btn_List = new JButton("글 목록");
 		btn_List.addActionListener(this);
-
 		btn_List.setBounds(400, 550, 110, 50);
 
 		// 삭제
@@ -106,7 +105,7 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 		Singleton s = Singleton.getInstance();
 		// 수정 버튼의 비활성화 (같은 id일 경우만)
-		if (!dto.getNick().equals(s.nowMember.getNick())) {
+		if (dto.getNick().equals(s.nowMember.getNick())) {
 			btn_update.setEnabled(false);
 			btn_delete.setEnabled(false);
 		}

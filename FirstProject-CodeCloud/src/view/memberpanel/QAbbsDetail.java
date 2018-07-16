@@ -48,7 +48,8 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		QAmain = QA;
 		this.dto = dto;
 
-		System.out.println(dto.toString() + "ffffdfdfd");
+		System.out.println(dto.toString() + "회원 디테일 확인용");
+		
 		titleLabel = new JLabel("닉네임: ");
 		titleLabel.setBounds(100, 100, 50, 30);
 
@@ -89,7 +90,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		// 삭제
 		btn_delete = new JButton("삭제");
 		btn_delete.addActionListener(this);
-		btn_delete.setBounds(600, 550, 110, 50);
+		btn_delete.setBounds(700, 550, 110, 50);
 
 		// 삭제 액션 구현
 		btn_delete.addActionListener(new ActionListener() {
@@ -118,6 +119,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 		add(btn_Update);
 		add(btn_List);
+		add(btn_delete);
 
 		setLayout(null);
 		setBackground(Color.PINK);
