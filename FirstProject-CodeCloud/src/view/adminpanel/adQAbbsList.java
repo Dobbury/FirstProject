@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -237,7 +238,15 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		int rowNum = jTable.getSelectedRow();
+		if (list.get(rowNum).getDel() == 1) {
+			JOptionPane.showMessageDialog(null, "이 글은 볼 수 없습니다");
+			return;
+		}
+		Singleton s = Singleton.getInstance();
+		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(),list.get(rowNum).getRef(),list.get(rowNum).getStep(),list.get(rowNum).getDept());
+
+		adQAmian.changePanel(2, dto,0); // 해당 글 보는 곳
 	}
 
 	@Override
