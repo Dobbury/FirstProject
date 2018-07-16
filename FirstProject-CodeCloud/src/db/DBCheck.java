@@ -47,12 +47,20 @@ public class DBCheck {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
+
 			if (!rs.next()) { // 테이블이 없다면 생성
-				sql = "CREATE TABLE SHAR(" + "SEQ NUMBER PRIMARY KEY," + "INDSEQ NUMBER NOT NULL,"
-						+ "NICK VARCHAR2(15) NOT NULL," + "TITLE VARCHAR2(50) NOT NULL,"
-						+ "CONT VARCHAR2(4000) NOT NULL," + "LIKED NUMBER NOT NULL," + "FORK NUMBER NOT NULL,"
-						+ "LAN VARCHAR2(10) NOT NULL," + "CONSTRAINT FK_SHAR_NICK FOREIGN KEY(NICK) "
+				sql = "CREATE TABLE SHAR(" 
+						+ "SEQ NUMBER PRIMARY KEY," 
+						+ "INDSEQ NUMBER NOT NULL,"
+						+ "NICK VARCHAR2(15) NOT NULL," 
+						+ "TITLE VARCHAR2(50) NOT NULL,"
+						+ "CONT VARCHAR2(4000) NOT NULL," 
+						+ "LIKED NUMBER NOT NULL," 
+						+ "FORK NUMBER NOT NULL,"
+						+ "LAN VARCHAR2(10) NOT NULL," 
+						+ "CONSTRAINT FK_SHAR_NICK FOREIGN KEY(NICK) "
 						+ "REFERENCES MEMBER(NICK) ON DELETE CASCADE )";
+
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
 			}

@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 public class ShareDto {
 
 	
@@ -11,6 +13,7 @@ public class ShareDto {
 	private int liked=0;
 	private int fork=0;
 	private String lang = "";
+ 
 	
 	public ShareDto() {
 		

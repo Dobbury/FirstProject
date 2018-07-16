@@ -99,11 +99,23 @@ public class MemberDao implements MemberDaoImpl {
 
 		String sql = "INSERT INTO MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
 
-		String sql2 = "CREATE TABLE " + dto.getID() + "(SEQ NUMBER PRIMARY KEY," + "TITLE VARCHAR2(50) NOT NULL,"
-				+ "CONT VARCHAR2(4000) NOT NULL," + "SHA NUMBER NOT NULL," + "LIKED NUMBER NOT NULL,"
-				+ "FORK NUMBER NOT NULL," + "LANG VARCHAR2(10) NOT NULL)";
-
-		String sqlseq = "CREATE SEQUENCE " + dto.getID() + "_SEQ " + "START WITH 1 " + "INCREMENT BY 1";
+		
+		String sql2 = "CREATE TABLE "+dto.getID()
+				+ "(SEQ NUMBER PRIMARY KEY,"
+				+ "TITLE VARCHAR2(50) NOT NULL,"
+				+ "CONT VARCHAR2(4000) NOT NULL,"
+				+ "SHA NUMBER NOT NULL,"
+				+ "LIKED NUMBER NOT NULL,"
+				+ "FORK NUMBER NOT NULL,"
+				+ "LANG VARCHAR2(10) NOT NULL)";
+		
+		String sqlseq = "CREATE SEQUENCE "+dto.getID()+"_SEQ "
+				+ "START WITH 1 "
+				+ "INCREMENT BY 1";
+		
+		//추천확인테이블
+		String sql3 = "CREATE TABLE " + dto.getID() + "_LIKED "
+			+ "(LIKEDSHARESEQ NUMBER NOT NULL)";
 
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement psmt = null;
@@ -132,6 +144,9 @@ public class MemberDao implements MemberDaoImpl {
 			psmt.executeQuery();
 
 			psmt = conn.prepareStatement(sqlseq);
+			psmt.executeQuery();
+			
+			psmt = conn.prepareStatement(sql3);
 			psmt.executeQuery();
 
 		} catch (Exception e) {
@@ -216,6 +231,7 @@ public class MemberDao implements MemberDaoImpl {
 			FileInputStream fis = new FileInputStream(imgfile);
 			stmt.setBinaryStream(3, fis, (int) imgfile.length());// 이미지 저장 알아볼것
 			stmt.setString(4, dto.getID());
+
 
 			count = stmt.executeUpdate();
 
