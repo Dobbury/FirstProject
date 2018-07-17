@@ -97,13 +97,29 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		ButtonGroup TogglebtnGroup = new ButtonGroup();
 		Tbtn_server_Host = new JToggleButton("서버 IP");
 		Tbtn_server_Host.setSelected(true);
-		Tbtn_server_Host.addActionListener(this);
+		Tbtn_server_Host.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IP_Text.setText(Server_IP);
+				IP_Text.setEnabled(false);
+			}
+		});
 		Tbtn_server_Host.setBounds(70,260,100,40);
 		layeredPane.add(Tbtn_server_Host);
 		
 		Tbtn_indv_Host = new JToggleButton("IP 설정");
 		Tbtn_indv_Host.setBounds(170,260,100,40);
-		Tbtn_indv_Host.addActionListener(this);
+		Tbtn_indv_Host.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				IP_Text.setText(IP_Hint);
+				IP_Text.setEnabled(true);
+				
+			}
+		});
 		layeredPane.add(Tbtn_indv_Host);
 		
 		//그룹에 추가
@@ -156,14 +172,7 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(Tbtn_indv_Host.isSelected()) {
-			IP_Text.setText(IP_Hint);
-			IP_Text.setEnabled(true);
-		}
-		if(Tbtn_server_Host.isSelected()) {
-			IP_Text.setText(Server_IP);
-			IP_Text.setEnabled(false);
-		}
+		
 		if(e.getSource() == btn_Close) {
 			System.exit(0);
 		}
