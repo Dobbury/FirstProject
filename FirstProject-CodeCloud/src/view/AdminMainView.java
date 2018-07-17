@@ -132,7 +132,6 @@ public class AdminMainView extends JFrame implements ActionListener {
 			s.nowMember = null;
 			this.dispose();
 			s.MemCtrl.login();
-
 		}
 	}
 }

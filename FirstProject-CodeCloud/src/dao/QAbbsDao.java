@@ -36,7 +36,6 @@ public class QAbbsDao {
 		} finally {
 			DBClose.close(stmt, conn, null);
 		}
-
 		return count > 0 ? true : false;
 	}
 
@@ -289,14 +288,12 @@ public class QAbbsDao {
 
 				list.add(dto);
 			}
-
 		} catch (SQLException e) {
 			System.out.println("getTitleFindList fail");
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-
 		return list;
 	}
 }
