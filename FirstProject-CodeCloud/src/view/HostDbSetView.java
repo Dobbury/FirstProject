@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImagingOpException;
 import java.awt.peer.ButtonPeer;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -234,9 +235,10 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		if (e.getSource() == btn_check) {
 			DBConnection.initConnect(IP_Text.getText());
 			Singleton s = Singleton.getInstance();
-			s.hostDB_IP = IP_Text.getText();
 
+			s.hostDB_IP = IP_Text.getText();
 			DBCheck.memDBcheck();
+
 			DBCheck.shareDBCheck();
 			DBCheck.qaDBCheck();
 			DBCheck.createUpdateTrigger();

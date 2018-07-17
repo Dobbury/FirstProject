@@ -1,16 +1,23 @@
 package db;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Encrypt.PasswordClass;
+
 public class DBCheck {
 
-	public static void memDBcheck() {
-		String sql = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='HR' AND TABLE_NAME='MEMBER'";
+	
+	public static void memDBcheck() throws FileNotFoundException {
 
+		String sql = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='HR' AND TABLE_NAME='MEMBER'";
+		String path = "img/signUp/userImages.png";
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -19,14 +26,29 @@ public class DBCheck {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
+
 			if (!rs.next()) { // 테이블이 없다면 생성
 				sql = "CREATE TABLE MEMBER(" 
 						+ "ID VARCHAR2(15 CHAR) PRIMARY KEY," 
 						+ "PWD VARCHAR2(10 CHAR) NOT NULL,"
 						+ "NICK VARCHAR2(15 CHAR) UNIQUE," 
 						+ "AUTH NUMBER NOT NULL," + "IMG BLOB )";
+
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
+				
+				psmt = conn.prepareStatement(sql2);
+
+				String pwtmp = PasswordClass.Encryption("1");
+				psmt.setString(1, pwtmp); // 암호화된 값을 넣어줌
+
+				
+				//이미지 파일을 Blob으로 저장
+				//psmt.setBinaryStream(4, null);
+	
+				psmt.setBinaryStream(2,fis, (int)imgfile.length());//이미지 저장 알아볼것
+				psmt.executeQuery();
+				System.out.println("관리자 아이디 생성");
 			}
 
 		} catch (SQLException e) {

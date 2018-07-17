@@ -170,8 +170,10 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 			Singleton s = Singleton.getInstance();
 			boolean b = s.MemCtrl.loginCheck(id_text.getText(), pwd_text.getText());
 
+
 			if (b) {
 				JOptionPane.showMessageDialog(null, s.nowMember.getNick() + "님 환영합니다.");
+
 				dispose();
 			}
 		}
