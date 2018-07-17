@@ -82,15 +82,9 @@ public class Selfbbs extends JPanel implements Action, MouseListener {
 
 	Robot robot;
 
-	public Selfbbs(MemberMainView main) {
+	public Selfbbs() {
 		setLayout(null);
-<<<<<<< HEAD:FirstProject-CodeCloud/src/view/membermainview/Selfbbs.java
 
-=======
-		
-		F = main;
-		
->>>>>>> 3a0ff7d77012c9f01577e8f2697db119dd1994fa:FirstProject-CodeCloud/src/view/memberpanel/Selfbbs.java
 		Singleton s = Singleton.getInstance();
 
 		if (s.selfcodelist.size() > 0) {
@@ -122,12 +116,8 @@ public class Selfbbs extends JPanel implements Action, MouseListener {
 
 		model = new DefaultTableModel(rowData, head);
 
-<<<<<<< HEAD:FirstProject-CodeCloud/src/view/membermainview/Selfbbs.java
 		// model.setDataVector(rowData, head);
 
-=======
-		
->>>>>>> 3a0ff7d77012c9f01577e8f2697db119dd1994fa:FirstProject-CodeCloud/src/view/memberpanel/Selfbbs.java
 		jTable = new JTable(model) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -382,14 +372,7 @@ public class Selfbbs extends JPanel implements Action, MouseListener {
 						sharebtn.setSelected(true);
 					}
 				}
-<<<<<<< HEAD:FirstProject-CodeCloud/src/view/membermainview/Selfbbs.java
 
-=======
-				
-				F.mainPanel.add("Singlebbs", new Selfbbs(F));
-				F.cards.show(F.mainPanel, "Singlebbs");
-				
->>>>>>> 3a0ff7d77012c9f01577e8f2697db119dd1994fa:FirstProject-CodeCloud/src/view/memberpanel/Selfbbs.java
 			}
 		}
 		if (obj == minus) {
@@ -397,7 +380,6 @@ public class Selfbbs extends JPanel implements Action, MouseListener {
 			choice = JOptionPane.showConfirmDialog(null, "이 코드를 정말 삭제하시겠습니까?", "WARNING", choice);
 
 			if (choice == 0) {
-				
 				boolean sbool;
 				if (sharebtn.isVisible() && sharebtn.isSelected()) {
 					sbool = true;
@@ -543,7 +525,6 @@ public class Selfbbs extends JPanel implements Action, MouseListener {
 		try {
 			int seq = (int) source.getModel().getValueAt(rows, 1);
 			int shar = (int) source.getModel().getValueAt(rows, 2);
-			System.out.println(shar);
 			currseq = seq;
 			for (int i = 0; i < s.selfcodelist.size(); i++) {
 				if (seq == s.selfcodelist.get(i).getSeq()) {

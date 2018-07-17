@@ -11,15 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import singleton.Singleton;
-<<<<<<< HEAD
 import view.adminmainview.QA.adQAbbsMain;
 import view.adminmainview.share.AdminSharebbs;
 import view.chatview.chatPanel;
-=======
-import view.adminpanel.AdminSharebbs;
-import view.adminpanel.MemberBBS;
-
->>>>>>> 3a0ff7d77012c9f01577e8f2697db119dd1994fa
 
 public class AdminMainView extends JFrame implements ActionListener {
 
@@ -48,12 +42,11 @@ public class AdminMainView extends JFrame implements ActionListener {
 		setLayout(null);
 
 		mainPanel = new JPanel(cards);
-		
-		mainPanel.add("Memberbbs", new MemberBBS());
+
+		// mainPanel.add("Memberbbs", new MemberBBS());
 		mainPanel.add("AdminSharebbs", new AdminSharebbs());
 		mainPanel.add("Q&Abbs", adQAMain);
-
-		cards.show(mainPanel, "Memberbbs");
+		cards.show(mainPanel, "Q&Abbs");
 
 		mainPanel.setBounds(200, 0, 1000, 800);
 		memProfile_Img = new JPanel();

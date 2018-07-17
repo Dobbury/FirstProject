@@ -11,8 +11,6 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +30,7 @@ import convertImg.ImageToBufferedImageClass;
 import dto.MemberDto;
 import singleton.Singleton;
 
-public class MemberUpdateView extends JFrame implements ActionListener, FocusListener,WindowListener {
+public class MemberUpdateView extends JFrame implements ActionListener, FocusListener {
 
 	private ImageIcon signupIc1;
 	private ImageIcon signupIc2;
@@ -98,9 +96,9 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 		// 버튼
 
 		// 회원가입
-		signupIc1 = new ImageIcon("img/signUp/btn_sign1.png");
-		signupIc2 = new ImageIcon("img/signUp/btn_sign2.png");
-		signupIc3 = new ImageIcon("img/signUp/btn_sign3.png");
+		signupIc1 = new ImageIcon("img/signUp/signup1.png");
+		signupIc2 = new ImageIcon("img/signUp/signup2.png");
+		signupIc3 = new ImageIcon("img/signUp/signup3.png");
 		btn_Signup = new JButton(signupIc1);
 		btn_Signup.setRolloverIcon(signupIc2);
 		btn_Signup.setPressedIcon(signupIc3);
@@ -130,7 +128,6 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 		accountIc1 = new ImageIcon("img/longin/account1.png");
 		accountIc2 = new ImageIcon("img/longin/account2.png");
 		accountIc3 = new ImageIcon("img/longin/account3.png");
-		
 		btn_ImgSelect = new JButton(accountIc1);
 		btn_ImgSelect.setRolloverIcon(accountIc2);
 		btn_ImgSelect.setPressedIcon(accountIc3);
@@ -191,6 +188,7 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 		setLayout(null);
 		setBounds(0, 0, 341, 597);
 		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(layeredPane);
 		setVisible(true);
 		layeredPane.add(panel);
@@ -356,47 +354,5 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 
 			}
 		}
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		dispose();
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }
