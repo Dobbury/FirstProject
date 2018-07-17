@@ -136,7 +136,7 @@ public class ShareList extends JPanel implements Action, MouseListener {
 				
 		
 		setLayout(null);
-		setBackground(Color.ORANGE);
+		setOpaque(false);
 		setBounds(50, 50, 300, 300);
 		setVisible(true);
 		

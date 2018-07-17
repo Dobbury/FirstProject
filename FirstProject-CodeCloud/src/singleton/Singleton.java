@@ -3,6 +3,7 @@ package singleton;
 import java.util.LinkedList;
 
 import controller.MemberController;
+import dao.BBSDao;
 import dao.QAbbsDao;
 import dao.ShareDao;
 import dto.BBSDto;
@@ -20,16 +21,12 @@ public class Singleton {
 	public MemberController MemCtrl = new MemberController();
 	public MemberDto nowMember = null;
 	
-	public QAbbsDto qaDto;
-	public QAbbsDao qaDao = new QAbbsDao();
-	//public QAbbsDao qaDao ;
-	public QAbbsList blf = null;
-	
+	public QAbbsDao qaDao = new QAbbsDao();	
 
 	public ShareDao sharDao = new ShareDao();
-
 	
-	public LinkedList<BBSDto> selfcodelist = new LinkedList<>();
+	public BBSDao selfDao = new BBSDao();
+	
 
 	private Singleton() {
 		
