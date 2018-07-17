@@ -1,6 +1,5 @@
 package dao;
 
-import java.awt.List;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.print.attribute.ResolutionSyntax;
@@ -19,9 +17,8 @@ import javax.swing.JOptionPane;
 import Encrypt.PasswordClass;
 import db.DBClose;
 import db.DBConnection;
-import dto.BBSDto;
 import dto.MemberDto;
-import singleton.Singleton;
+
 /*
 MEMBER	TABLE			RESTRICTION
 ID		VARCHAR2(15)	PRIMARY 
@@ -57,7 +54,6 @@ public class MemberDao implements MemberDaoImpl {
 			}
 
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
@@ -209,10 +205,10 @@ public class MemberDao implements MemberDaoImpl {
 
 		return mem;
 	}
-
+	
 	public boolean update(MemberDto dto) {
 		String sql = "UPDATE MEMBER SET PWD = ?, NICK = ?, IMG = ? WHERE ID=?";
-
+		
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement stmt = null;
 		int count = 0;
@@ -220,18 +216,19 @@ public class MemberDao implements MemberDaoImpl {
 		System.out.println(sql);
 		try {
 			stmt = conn.prepareStatement(sql);
-
+			
 			String pwd = PasswordClass.Encryption(dto.getPWD());
 			stmt.setString(1, pwd);
-
+			
 			stmt.setString(2, dto.getNick());
-
+			
 			// 이미지 파일을 Blob으로 저장
 			File imgfile = new File("test");
 			ImageIO.write(dto.getProfile_Img(), "jpg", imgfile);
 			FileInputStream fis = new FileInputStream(imgfile);
 			stmt.setBinaryStream(3, fis, (int) imgfile.length());// 이미지 저장 알아볼것
 			stmt.setString(4, dto.getID());
+
 
 			count = stmt.executeUpdate();
 
@@ -242,118 +239,4 @@ public class MemberDao implements MemberDaoImpl {
 		}
 		return count > 0 ? true : false;
 	}
-	
-	public static LinkedList<MemberDto> memlist(){
-		Connection conn = null;			
-		PreparedStatement psmt = null;	
-		ResultSet rs = null;
-		
-		LinkedList<MemberDto> tmp = new LinkedList<>();
-		String sql = "SELECT * FROM MEMBER";
-		
-		try {
-		
-			conn = DBConnection.makeConnection();		
-			psmt = conn.prepareStatement(sql);
-
-			
-			rs = psmt.executeQuery();
-			
-			while(rs.next()) {
-				int i = 1;
-				
-				MemberDto dto = new MemberDto(rs.getString(i++), 
-										rs.getString(i++), 
-										rs.getString(i++), 
-										rs.getInt(i++),
-										null);
-				if(dto.getAuth() == 0) {
-					continue;
-				}
-				tmp.add(dto);
-				
-			}
-			
-		} catch (Exception e) {			
-			e.printStackTrace();
-		} finally {
-			DBClose.close(psmt, conn, rs);			
-		}
-		
-		return tmp;
-	}
-	
-	public static int memdelete(String id) {
-		Singleton s = Singleton.getInstance();
-		String sql = "DELETE FROM MEMBER" 
-				+ " WHERE ID=?";
-		
-		String sql2 = "DROP TABLE " + id
-		+ " CASCADE CONSTRAINTS PURGE";
-			
-		String sql3 = "DROP SEQUENCE "+ id + "_SEQ";
-
-		Connection conn = DBConnection.makeConnection();
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-		int count = 0;
-
-
-		try {
-
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, id);
-			
-			count = psmt.executeUpdate();
-			System.out.println("멤버테이블에서 삭제");
-			
-			psmt = conn.prepareStatement(sql2);
-			psmt.executeQuery();
-			System.out.println("개인 테이블 삭제");
-			
-			psmt = conn.prepareStatement(sql3);
-			psmt.executeQuery();
-			System.out.println("개인 시퀀스 삭제");
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			DBClose.close(psmt, conn, null);
-		}
-
-		return count;
-
-	}
-	public static int changepw(String hash, String id) {
-		String sql = "UPDATE MEMBER" 
-				+ " SET PWD=? WHERE ID=?";
-
-				Connection conn = DBConnection.makeConnection();
-				PreparedStatement psmt = null;
-				ResultSet rs = null;
-				int count = 0;
-				
-				System.out.println(sql);
-
-				try {
-
-					psmt = conn.prepareStatement(sql);
-
-					psmt.setString(1, hash);
-					psmt.setString(2, id); // 암호화된 값을 넣어줌
-					
-					count = psmt.executeUpdate();
-
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
-					DBClose.close(psmt, conn, null);
-				}
-				return count;
-	}
-
-
 }

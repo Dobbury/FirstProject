@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -82,9 +81,9 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 		// 버튼
 
 		// 회원가입
-		signupIc1 = new ImageIcon("img/signUp/btn_sign1.png");
-		signupIc2 = new ImageIcon("img/signUp/btn_sign2.png");
-		signupIc3 = new ImageIcon("img/signUp/btn_sign3.png");
+		signupIc1 = new ImageIcon("img/signUp/signup1.png");
+		signupIc2 = new ImageIcon("img/signUp/signup2.png");
+		signupIc3 = new ImageIcon("img/signUp/signup3.png");
 		btn_Signup = new JButton(signupIc1);
 		btn_Signup.setRolloverIcon(signupIc2);
 		btn_Signup.setPressedIcon(signupIc3);
@@ -96,9 +95,9 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 		layeredPane.add(btn_Signup);
 
 		// 닫기
-		closeIc1 = new ImageIcon("img/close/close1.png");
-		closeIc2 = new ImageIcon("img/close/close2.png");
-		closeIc3 = new ImageIcon("img/close/close3.png");
+		closeIc1 = new ImageIcon("img/longin/close1.png");
+		closeIc2 = new ImageIcon("img/longin/close2.png");
+		closeIc3 = new ImageIcon("img/longin/close3.png");
 		btn_Close = new JButton(closeIc1);
 		btn_Close.setRolloverIcon(closeIc2);
 		btn_Close.setPressedIcon(closeIc3);
@@ -120,8 +119,7 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 		id_text = new JTextField();
 		id_text.setText(id_Hint);
 		id_text.setForeground(Color.WHITE);
-		id_text.setFont(new Font("menlo", Font.PLAIN, 14));
-		id_text.setBounds(92, 282, 220, 30);
+		id_text.setBounds(70, 303, 220, 30);
 		id_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		id_text.setOpaque(false);
 		id_text.addFocusListener(this);
@@ -129,41 +127,33 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 
 		// 아이디 체크 라벨
 		id_check_label = new JLabel("test");
-
-		id_check_label.setBounds(92,316,300,30);
+		id_check_label.setBounds(33, 330, 300, 30);
 		layeredPane.add(id_check_label);
-		
-		//pwd 입력 
+
 		pwd_text = new JPasswordField();
 		pwd_text.setText(pwd_Hint);
 		pwd_text.setForeground(Color.WHITE);
-		pwd_text.setBounds(92, 351, 220, 30);
+		pwd_text.setBounds(70, 366, 220, 30);
 		pwd_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		pwd_text.setOpaque(false);
 		pwd_text.addFocusListener(this);
 		layeredPane.add(pwd_text);
 
-		
-		//pwd 확인
 		pwd_check_label = new JLabel("test");
-		pwd_check_label.setBounds(92,387,300,30);
+		pwd_check_label.setBounds(33, 390, 300, 30);
 		layeredPane.add(pwd_check_label);
-		
-		// 닉네임 입력
+
 		nick_text = new JTextField();
 		nick_text.setText(nick_Hint);
-		nick_text.setFont(new Font("menlo", Font.PLAIN, 14));
 		nick_text.setForeground(Color.WHITE);
-		nick_text.setBounds(92, 423, 220, 30);
+		nick_text.setBounds(70, 429, 220, 30);
 		nick_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		nick_text.setOpaque(false);
 		nick_text.addFocusListener(this);
 		layeredPane.add(nick_text);
 
-		
-		// 닉네임 확인 
 		nick_check_label = new JLabel("test");
-		nick_check_label.setBounds(92,458,300,30);
+		nick_check_label.setBounds(33, 455, 300, 30);
 		layeredPane.add(nick_check_label);
 
 		// 기본 설정
@@ -237,18 +227,17 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 			if (id_text.getText().equals(id_Hint))
 				id_text.setText("");
 
-			
-			id_text.setForeground(Color.white);
+			id_text.setForeground(Color.black);
 		}
 		if (e.getSource() == pwd_text) {
 			if (pwd_text.getText().equals(pwd_Hint))
 				pwd_text.setText("");
-			pwd_text.setForeground(Color.white);
+			pwd_text.setForeground(Color.black);
 		}
 		if (e.getSource() == nick_text) {
 			if (nick_text.getText().equals(nick_Hint))
 				nick_text.setText("");
-			nick_text.setForeground(Color.white);
+			nick_text.setForeground(Color.black);
 		}
 	}
 
