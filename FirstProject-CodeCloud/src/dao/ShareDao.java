@@ -206,62 +206,6 @@ public class ShareDao {
 		}
 		return count;
 	}
-	
-	// 검색
-	public List<ShareDto> getTitleFindList(String fStr, String fword) {
-		List<ShareDto> list = new ArrayList<ShareDto>();
-
-		String sql = " SELECT * " + " FROM SHAR ";
-
-		if (fword.equals("제목")) {
-			sql = sql + " WHERE TITLE LIKE ?";
-		} else if (fword.equals("내용")) {
-			sql = sql + " WHERE CONT LIKE ?";
-		} else if (fword.equals("작성자")) {
-			sql = sql + " WHERE nick = ?";
-		}
-
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = DBConnection.makeConnection();
-
-			psmt = conn.prepareStatement(sql);
-
-			if (fword.equals("작성자")) {
-				psmt.setString(1, fStr);
-			} else {
-				psmt.setString(1, "%" + fStr + "%");
-			}
-
-			rs = psmt.executeQuery();
-
-			while (rs.next()) {
-				int i = 1;
-
-				ShareDto dto = new ShareDto(rs.getInt(i++), 
-						rs.getInt(i++), 
-						rs.getString(i++), 
-						rs.getString(i++), 
-						rs.getString(i++), 
-						rs.getInt(i++),
-						rs.getInt(i++),
-						rs.getString(i++));
-				
-				list.add(dto);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("getTitleFindList fail");
-			e.printStackTrace();
-		} finally {
-			DBClose.close(psmt, conn, rs);
-		}
-
-		return list;
-	}
 
 
 	public static void clickunlike(String id, String nick, int indseq, int seq) {
@@ -445,6 +389,72 @@ public class ShareDao {
 		}
 		return rowData;
 	}
+	
+
+	// 검색
+		public static List<ShareDto> getTitleFindList(String fStr, String fword) {
+			List<ShareDto> list = new ArrayList<ShareDto>();
+
+			
+			String sql = " SELECT SEQ,  TITLE , CONT, NICK , LAN " + " FROM SHAR ";
+
+			if (fword.equals("제목")) {
+				sql = sql + " WHERE TITLE LIKE ?";
+			} else if (fword.equals("내용")) {
+				sql = sql + " WHERE CONT LIKE ?";
+			} else if (fword.equals("닉네임")) {
+				sql = sql + " WHERE NICK = ?";
+			} else if (fword.equals("언어")) {
+				sql = sql + " WHERE LAN = ?";
+			}
+				
+
+			
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			ResultSet rs = null;
+
+			try {
+				conn = DBConnection.makeConnection();
+
+				psmt = conn.prepareStatement(sql);
+
+				if (fword.equals("닉네임")) {
+					psmt.setString(1, fStr); 
+				} else {
+					psmt.setString(1, "%" + fStr + "%");
+				}
+
+				rs = psmt.executeQuery();
+
+				while (rs.next()) {
+					
+					
+		//SELECT SEQ,  TITLE , CONT, NICK , LAN " + " FROM SHAR "; 
+		 ShareDto dto = new ShareDto(rs.getInt(1), //seq
+										0, //indseq
+										rs.getString(3), // nick 
+										rs.getString(4), // String title
+										rs.getString(5),// String content
+										0, //int liked, 
+										0, //int fork, 
+										rs.getString(8) //String lang 
+										);
+											
+								 
+										
+				list.add(dto);							
+				}
+
+			} catch (SQLException e) {
+				System.out.println("getTitleFindList fail");
+				e.printStackTrace();
+			} finally {
+				DBClose.close(psmt, conn, rs);
+			}
+
+			return list;
+		}
 	
 	
 }
