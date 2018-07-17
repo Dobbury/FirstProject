@@ -1,12 +1,16 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImagingOpException;
 import java.awt.peer.ButtonPeer;
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +31,7 @@ import db.DBConnection;
 import singleton.Singleton;
 import view.LoginView.MyPanel;
 
-public class HostDbSetView extends JFrame implements FocusListener,ActionListener {
+public class HostDbSetView extends JFrame implements FocusListener,ActionListener, MouseListener {
 
 	private String Server_IP="192.168.0.26";
 	
@@ -36,41 +40,52 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 	private ImageIcon closeIc3;
 	private JButton btn_Close;
 	
-	BufferedImage img = null;
+	private BufferedImage img = null;
 	
-	JTextField IP_Text;
+	private JTextField IP_Text;
 	
-	JToggleButton Tbtn_server_Host;	//서버 아이피
-	JToggleButton Tbtn_indv_Host;	//개인 아이피
-	JButton btn_check;
+	private ImageIcon serverIp1;
+	private ImageIcon serverIp2;
+	private ImageIcon serverIp3;
+	private JToggleButton Tbtn_server_Host;	//서버 아이피
 	
-	String IP_Hint = "IP 입력";
+	private ImageIcon soloIp1;
+	private ImageIcon soloIp2;
+	private ImageIcon soloIp3;
+	private JToggleButton Tbtn_indv_Host;	//개인 아이피
+	
+	private ImageIcon check1;
+	private ImageIcon check2;
+	private ImageIcon check3;
+	private JButton btn_check;
+	
+	private String IP_Hint = "IP 입력";
 	
 	public HostDbSetView() {
 
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 341, 400);
+		layeredPane.setBounds(0, 0, 341, 413);
 		layeredPane.setLayout(null);
 
 //		// ---------------------------------------------------------------------------
 //		// 배경화면
-//		try {
-//			img = ImageIO.read(new File("img/longin/loginback.png"));
-//		} catch (IOException e) {
-//			System.out.println("이미지 불러오기 실패");
-//			System.exit(0);
-//		}
-//
-//		MyPanel panel = new MyPanel();
-//		panel.setBounds(0, 0, 341, 400);
-//
+		try {
+			img = ImageIO.read(new File("img/hostDB/dbBack.png"));
+		} catch (IOException e) {
+			System.out.println("이미지 불러오기 실패");
+			System.exit(0);
+		}
+
+		MyPanel panel = new MyPanel();
+		panel.setBounds(0, 0, 341, 413);
+
 //		// ---------------------------------------------------------------------------
 //		
 
 		// 닫기
-		closeIc1 = new ImageIcon("img/longin/close1.png");
-		closeIc2 = new ImageIcon("img/longin/close2.png");
-		closeIc3 = new ImageIcon("img/longin/close3.png");
+		closeIc1 = new ImageIcon("img/close/close1.png");
+		closeIc2 = new ImageIcon("img/close/close2.png");
+		closeIc3 = new ImageIcon("img/close/close3.png");
 		btn_Close = new JButton(closeIc1);
 		btn_Close.setRolloverIcon(closeIc2);
 		btn_Close.setPressedIcon(closeIc3);
@@ -82,12 +97,13 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		layeredPane.add(btn_Close);
 		
 		
-		//id 텍스트 필드
+		//ip 텍스트 필드
 		IP_Text = new JTextField();
 		IP_Text.setText(Server_IP);
 		IP_Text.setForeground(Color.WHITE);
+		IP_Text.setFont(new Font("menlo", Font.PLAIN, 14));
 		IP_Text.addFocusListener(this);
-		IP_Text.setBounds(70, 216, 220, 30);
+		IP_Text.setBounds(92, 246, 220, 30);
 		IP_Text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		IP_Text.setOpaque(false);
 		IP_Text.setEnabled(false);
@@ -95,25 +111,46 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		layeredPane.add(IP_Text);
 		
 		ButtonGroup TogglebtnGroup = new ButtonGroup();
-		Tbtn_server_Host = new JToggleButton("서버 IP");
+		
+		serverIp1 = new ImageIcon("img/hostDB/btn_online1.png");
+		serverIp2 = new ImageIcon("img/hostDB/btn_online2.png");
+		serverIp3 = new ImageIcon("img/hostDB/btn_online3.png");
+		Tbtn_server_Host = new JToggleButton(serverIp3);
+		Tbtn_server_Host.setRolloverIcon(serverIp2);
+		Tbtn_server_Host.setPressedIcon(serverIp2);
+		Tbtn_server_Host.setBorderPainted(false);
+		Tbtn_server_Host.setContentAreaFilled(false);
+		Tbtn_server_Host.setFocusPainted(false);
 		Tbtn_server_Host.setSelected(true);
 		Tbtn_server_Host.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Tbtn_server_Host.setIcon(serverIp3);
+				Tbtn_indv_Host.setIcon(soloIp1);
 				IP_Text.setText(Server_IP);
 				IP_Text.setEnabled(false);
 			}
 		});
-		Tbtn_server_Host.setBounds(70,260,100,40);
+		Tbtn_server_Host.setBounds(23,195,73,26);
 		layeredPane.add(Tbtn_server_Host);
 		
-		Tbtn_indv_Host = new JToggleButton("IP 설정");
-		Tbtn_indv_Host.setBounds(170,260,100,40);
+		soloIp1 = new ImageIcon("img/hostDB/btn_solo1.png");
+		soloIp2 = new ImageIcon("img/hostDB/btn_solo2.png");
+		soloIp3 = new ImageIcon("img/hostDB/btn_solo3.png");
+		Tbtn_indv_Host = new JToggleButton(soloIp1);
+		Tbtn_indv_Host.setRolloverIcon(soloIp2);
+		Tbtn_indv_Host.setPressedIcon(soloIp2);
+		Tbtn_indv_Host.setBorderPainted(false);
+		Tbtn_indv_Host.setContentAreaFilled(false);
+		Tbtn_indv_Host.setFocusPainted(false);
+		Tbtn_indv_Host.setBounds(98,195,73,26);
 		Tbtn_indv_Host.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Tbtn_indv_Host.setIcon(soloIp3);
+				Tbtn_server_Host.setIcon(serverIp1);
 				
 				IP_Text.setText(IP_Hint);
 				IP_Text.setEnabled(true);
@@ -126,8 +163,19 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		TogglebtnGroup.add(Tbtn_server_Host);
 		TogglebtnGroup.add(Tbtn_indv_Host);
 		
-		btn_check = new JButton("확인");
-		btn_check.setBounds(70,330,200,40);
+		//확인
+		check1 = new ImageIcon("img/hostDB/btn_db1.png");
+		check2 = new ImageIcon("img/hostDB/btn_db2.png");
+		check3 = new ImageIcon("img/hostDB/btn_db3.png");
+		
+		btn_check = new JButton(check1);
+		btn_check.setSelectedIcon(check2);
+		btn_check.setRolloverIcon(check2);
+		btn_check.setPressedIcon(check3);
+		btn_check.setBorderPainted(false);
+		btn_check.setContentAreaFilled(false);
+		btn_check.setFocusPainted(false);
+		btn_check.setBounds(22,301,296,50);
 		btn_check.requestFocus(true);
 		btn_check.addActionListener(this);
 		layeredPane.add(btn_check);
@@ -136,11 +184,11 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		// setBackground(new Color(0,0,0,122)); 배경 투명 설정
 		setTitle("DB IP 설정");
 		setLayout(null);
-		setBounds(0, 0, 341, 400);
+		setBounds(0, 0, 340, 400);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(layeredPane);
-		//add(panel);
+		add(panel);
 		setVisible(true);
 	}
 	class MyPanel extends JPanel {
@@ -156,7 +204,7 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 		if(e.getSource() == IP_Text) {
 			if(IP_Text.getText().equals(IP_Hint))
 				IP_Text.setText("");
-			IP_Text.setForeground(Color.black);
+			IP_Text.setForeground(Color.white);
 		}
 	}
 	@Override
@@ -187,5 +235,30 @@ public class HostDbSetView extends JFrame implements FocusListener,ActionListene
 			s.MemCtrl.login();
 			dispose();
 		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+	
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
