@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import convertImg.ImageToBufferedImageClass;
 import dto.MemberDto;
 import singleton.Singleton;
 
@@ -242,6 +243,7 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 	        Image ori = userIc.getImage();
 			Image changedImg = ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH );
 			//이미지 다시 세팅
+			changedImg = imageToOval(changedImg);
 			userIc.setImage(changedImg);
 			userLabel.setIcon(userIc);
 			userLabel.setLayout(null);
@@ -256,7 +258,29 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 
 		}
 	}
+	
+	public BufferedImage imageToOval(Image img) { // 이미지 원으로 자르는 메소드
+		// Image -> BufferedImage
+		BufferedImage oriImg = ImageToBufferedImageClass.toBufferedImage(img);
 
+		// 기본 프로필 원형 이미지
+		ImageIcon basic_profile_img = new ImageIcon("img/signUp/userImages.png");
+
+		Image ori_bpi = basic_profile_img.getImage();
+		BufferedImage buf_bpi = ImageToBufferedImageClass.toBufferedImage(ori_bpi);
+
+		for (int y = 0; y < 130; y++) {
+			for (int x = 0; x < 130; x++) {
+				int pixel = buf_bpi.getRGB(x, y);
+
+				if (pixel == 0) {// 픽셀이 투명이면
+					oriImg.setRGB(x, y, pixel);
+				}
+			}
+		}
+		return oriImg;
+	}
+	
 	@Override
 	public void focusGained(FocusEvent e) {
 		// TODO Auto-generated method stub
