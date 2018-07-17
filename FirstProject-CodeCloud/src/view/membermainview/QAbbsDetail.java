@@ -51,7 +51,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		this.dto = dto;
 
 		System.out.println(dto.toString() + "회원 디테일 확인용");
-		
+
 		titleLabel = new JLabel("닉네임: ");
 		titleLabel.setBounds(100, 100, 50, 30);
 
@@ -82,34 +82,28 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		// 수정
 		btn_Update = new JButton("수정");
 		btn_Update.addActionListener(this);
-		btn_Update.setBounds(100, 550, 110, 50);
+
+		btn_Update.setBounds(500, 550, 110, 50);
 
 		// 글 목록
 		btn_List = new JButton("글 목록");
 		btn_List.addActionListener(this);
-		btn_List.setBounds(500, 550, 110, 50);
+		btn_List.setBounds(100, 550, 110, 50);
 
 		// 삭제
 		btn_delete = new JButton("삭제");
 		btn_delete.addActionListener(this);
 		btn_delete.setBounds(700, 550, 110, 50);
 
+		Singleton s = Singleton.getInstance();
+		// 수정 버튼의 비활성화 (같은 id일 경우만)
+		if (!dto.getNick().equals(s.nowMember.getNick())) {
+			btn_Update.setEnabled(false);
+			btn_delete.setEnabled(false);
+		}
+
 		// 삭제 액션 구현
-		btn_delete.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Singleton s = Singleton.getInstance();
-
-				if (s.qaDao.deletebbs(dto.getSeq())) {
-					JOptionPane.showMessageDialog(null, "글을 삭제하였습니다");
-				} else {
-					JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
-				}
-				QAmain.changePanel(1, new QAbbsDto(),INSERT);
-				QAmain.changePanel(1, new QAbbsDto(),LIST);
-			}
-		});
+		btn_delete.addActionListener(this);
 
 		add(titleLabel);
 		add(titleLabel2);
@@ -180,14 +174,18 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 		// TODO Auto-generated method stub
 		if (e.getSource() == btn_List) {
-			QAmain.changePanel(1, new QAbbsDto(),INSERT);
-
-		} else if (e.getSource() == btn_Update) {
-			QAmain.changePanel(3, dto,UPDATE);
-			QAmain.changePanel(1, new QAbbsDto(),LIST);
+			QAmain.changePanel(1, new QAbbsDto(), LIST);
 
 		} else if (e.getSource() == btn_Update) {
 			QAmain.changePanel(3, dto, UPDATE);
+
+		} else if (e.getSource() == btn_delete) {
+			if (s.qaDao.deletebbs(dto.getSeq())) {
+				JOptionPane.showMessageDialog(null, "글을 삭제하였습니다");
+			} else {
+				JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
+			}
+			QAmain.changePanel(1, new QAbbsDto(), LIST);
 		}
 	}
 }
