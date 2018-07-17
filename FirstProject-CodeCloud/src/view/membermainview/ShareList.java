@@ -104,7 +104,7 @@ public class ShareList extends JPanel implements Action, MouseListener {
 
 		// 검색할 부분 콤보박스로 나열해줌
 		// Choice(AWT) -> JComboBox(swing)
-		String[] selects = new String[] { "제목", "내용", "닉네임","언어"};
+		String[] selects = new String[] {"전체보기" ,"제목", "내용", "닉네임","언어"};
 		choiceList = new JComboBox<>(selects);
 		choiceList.setBounds(150, 600, 80, 20);
 		add(choiceList);
@@ -148,62 +148,17 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		rowData = new Object[list.size()][7];
 
 		int n = 1;
- 
-		
-			for (int i = 0; i < list.size(); i++) {
-				rowData[i][0] =  list.get(i).getSeq();
-				rowData[i][1] =  list.get(i).getLang();
-				rowData[i][2] =  list.get(i).getTitle();
-				rowData[i][3] =  list.get(i).getNick();
-				rowData[i][4] =  list.get(i).getLiked();
-				rowData[i][5] =  list.get(i).getFork();
-				rowData[i][6] =  list.get(i).getIndseq();
-			
-/*			
-//			ShareDto dto = list.get(i);
-//			
-//			
-//			rowData[i][0] = dto.getSeq();
-//			rowData[i][1] = dto.getLang();
-//			rowData[i][2] = dto.getTitle();
-//			
-//			rowData[i][3] = dto.getNick();
-//			rowData[i][4] = dto.getLiked();
-//			rowData[i][5] = dto.getFork();
-//			rowData[i][6] =  dto.getContent();
-//}
-//			*/
-//		
-//		Dto(rs.getInt(i++), //seq
-//				0, //indseq
-//				rs.getString(i++), // nick 
-//				rs.getString(i++), // String title
-//				rs.getString(i++),// String content
-//				0, //int liked, 
-//				0, //int fork, 
-//				rs.getString(i++) //String lang 
-//				);
-//					
-//		 
-		
-		
-		
-//		for (int i = 0; i < list.size(); i++) {
-//			rowData[i][0] =  list.get(i).getSeq();
-//			rowData[i][1] =  list.get(i).getLang();
-//			rowData[i][2] =  list.get(i).getTitle();
-//			rowData[i][3] =  list.get(i).getNick();
-//			rowData[i][4] =  list.get(i).getLiked();
-//			rowData[i][5] =  list.get(i).getFork();
-//			rowData[i][6] =  list.get(i).getIndseq();
-//			
-		
-		
-		
-		
-		
-		
-		
+
+		for (int i = 0; i < list.size(); i++) {
+			rowData[i][0] = list.get(i).getSeq();
+			rowData[i][1] = list.get(i).getLang();
+			rowData[i][2] = list.get(i).getTitle();
+			rowData[i][3] = list.get(i).getNick();
+			rowData[i][4] = list.get(i).getLiked();
+			rowData[i][5] = list.get(i).getFork();
+			rowData[i][6] = list.get(i).getIndseq();
+
+		}
 		model.setDataVector(rowData, columnNames);
 		ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		ShareListTable.getColumnModel().getColumn(1).setMaxWidth(300);
@@ -212,23 +167,16 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
 		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
 		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
-		
+
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		ShareListTable.getColumn("번호").setCellRenderer(celAlignCenter);
 		ShareListTable.getColumn("작성일").setCellRenderer(celAlignCenter);
-		
-		
-			}	
-		
 		//////////////////////////////
 
 		ShareListTable.setModel(model);
-		
-		
-		
+
 	}
-	
 	
 	
 	@Override
@@ -237,19 +185,22 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		// 글쓰기
 		if (obj == writeBtn) {
 			ShareMain.changePanel(2, new ShareDto());
-			
+
 		}
 		// 검색 버튼
 		else if (obj == selectBtn) {
 			Singleton s = Singleton.getInstance();
 
-				
-			 String selectedItem = (String) choiceList.getSelectedItem();
+			String selectedItem = (String) choiceList.getSelectedItem();
 
-			list = s.sharDao.getTitleFindList(selectField.getText(), selectedItem);
-			JOptionPane.showMessageDialog(null, selectedItem);
+			if(selectedItem.equals("전체보기")) {
+				list = s.sharDao.getbbsList();
+			}
+			else {
+				list = s.sharDao.getTitleFindList(selectField.getText(), selectedItem);
+					
+			}
 
- 
 			if (list.size() == 0 || selectField.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
 
@@ -258,12 +209,7 @@ public class ShareList extends JPanel implements Action, MouseListener {
 			// 테이블 초기화
 			setList(list);
 		}
-	
-		
-		
-		
-		
-		
+
 	}
 
 	public void mouseClicked(MouseEvent e) {
