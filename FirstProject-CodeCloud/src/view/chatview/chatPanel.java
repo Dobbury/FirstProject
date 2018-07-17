@@ -21,7 +21,7 @@ public class chatPanel extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JTextArea jta = new JTextArea(40, 25);
+	private JTextArea jta = new JTextArea(34, 25);
 	private JTextField jtf = new JTextField(25);
 
 	private JScrollPane scrl;
@@ -41,7 +41,7 @@ public class chatPanel extends JPanel implements ActionListener {
 		add(jtf, BorderLayout.SOUTH);
 		jtf.addActionListener(this);
 
-		setBounds(0, 0, 300, 800);
+		setBounds(0, 0, 300, 700);
 
 		client.setGui(this);
 		client.setNickName(nickName);

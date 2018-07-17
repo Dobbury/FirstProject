@@ -126,7 +126,7 @@ public class ShareDetail extends JPanel implements Action {
 		
 		
 		setLayout(null);
-		setBackground(Color.PINK);
+		setOpaque(false);
 		setBounds(50, 50, 300, 300);
 		
 		setVisible(true);

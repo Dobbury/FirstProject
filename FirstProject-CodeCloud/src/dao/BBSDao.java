@@ -1,13 +1,16 @@
 package dao;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import Encrypt.PasswordClass;
@@ -20,7 +23,7 @@ import singleton.Singleton;
 public class BBSDao implements BBSDaoImpl {
 
 	@Override
-	public LinkedList<BBSDto> list() {
+	public LinkedList<BBSDto> getSelfBbsList() {
 		Singleton s = Singleton.getInstance();
 		String sql = "SELECT * FROM " + s.nowMember.getID();
 		Connection conn = null;
@@ -51,8 +54,9 @@ public class BBSDao implements BBSDaoImpl {
 		return tmp;
 	}
 
+	
 	@Override
-	public int insert(String title, String lang, String content) {
+	public boolean insert(String title, String lang, String content) {
 		Singleton s = Singleton.getInstance();
 		String sql = "INSERT INTO " + s.nowMember.getID() + " VALUES(" + s.nowMember.getID()
 				+ "_SEQ.NEXTVAL, ?, ?, 0, 0, 0, ?)";
@@ -91,20 +95,51 @@ public class BBSDao implements BBSDaoImpl {
 			DBClose.close(psmt, conn, null);
 		}
 
-		s.selfcodelist.add(new BBSDto(seq, title, content, 0, 0, 0, lang));
-
-		return seq;
+		return count>0?true:false;
 
 	}
 
 	@Override
-	public void select() {
+	public BBSDto select(int seq) {
 		// TODO Auto-generated method stub
+		Singleton s = Singleton.getInstance();
+		
+		String sql = " SELECT TITLE,CONT,SHA,LIKED,FORK,LANG FROM " + s.nowMember.getID()+" WHERE SEQ =" + seq;
 
+		Connection conn = null; // DB info
+		PreparedStatement psmt = null; // sql query
+		ResultSet rs = null; // result value
+
+		BBSDto self = null;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				
+				String title = rs.getString(1);
+				String cont = rs.getString(2);
+				int shar = rs.getInt(3);
+				int liked = rs.getInt(4);
+				int fork = rs.getInt(5);
+				String lang = rs.getString(6);
+				self = new BBSDto(seq,title,cont,shar,liked,fork,lang);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+
+		return self;
+		
 	}
 
 	@Override
-	public int update(int seq, String title, String lang, String content, boolean share) {
+	public boolean update(BBSDto dto) {
 		Singleton s = Singleton.getInstance();
 		String sql = "UPDATE " + s.nowMember.getID() + " SET TITLE=?, LANG=?, CONT=? WHERE SEQ=?";
 
@@ -122,20 +157,20 @@ public class BBSDao implements BBSDaoImpl {
 
 			psmt = conn.prepareStatement(sql);
 
-			psmt.setString(1, title);
-			psmt.setString(2, lang); // 암호화된 값을 넣어줌
-			psmt.setString(3, content);
-			psmt.setInt(4, seq);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getLanguage()); // 암호화된 값을 넣어줌
+			psmt.setString(3, dto.getContent());
+			psmt.setInt(4, dto.getSeq());
 
 			count = psmt.executeUpdate();
 
-			if (share == true) {
+			if (dto.getShare() == 1) {
 				psmt = conn.prepareStatement(sql2);
 
-				psmt.setString(1, title);
-				psmt.setString(2, lang); // 암호화된 값을 넣어줌
-				psmt.setString(3, content);
-				psmt.setInt(4, seq);
+				psmt.setString(1, dto.getTitle());
+				psmt.setString(2, dto.getLanguage()); // 암호화된 값을 넣어줌
+				psmt.setString(3, dto.getContent());
+				psmt.setInt(4, dto.getSeq());
 				psmt.setString(5, s.nowMember.getNick());
 
 				count2 = psmt.executeUpdate();
@@ -151,20 +186,12 @@ public class BBSDao implements BBSDaoImpl {
 			DBClose.close(psmt, conn, null);
 		}
 
-		for (int i = 0; i < s.selfcodelist.size(); i++) {
-			if (s.selfcodelist.get(i).getSeq() == seq) {
-				s.selfcodelist.get(i).setTitle(title);
-				s.selfcodelist.get(i).setContent(content);
-				s.selfcodelist.get(i).setLanguage(lang);
-			}
-		}
-
-		return count;
+		return count>0?true:false;
 
 	}
 
 	@Override
-	public int delete(int seq, boolean share) {
+	public boolean delete(int seq) {
 		Singleton s = Singleton.getInstance();
 		String sql = "DELETE FROM " + s.nowMember.getID() + " WHERE SEQ=?";
 
@@ -178,23 +205,23 @@ public class BBSDao implements BBSDaoImpl {
 		System.out.println(sql);
 
 		try {
+			//공유된글ㅇ ㅣ있는지 확인후 지우고 그다음 개인게시판 지우기
+			psmt = conn.prepareStatement(sql2);
+			psmt.setInt(1, seq);
+			psmt.setString(2, s.nowMember.getNick());
 
+			int count2 = psmt.executeUpdate();
+			if (count2 > 0) {
+				JOptionPane.showMessageDialog(null, "공유 게시판에 글도 삭제되었습니다.");
+			}
+			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, seq);
 
 			count = psmt.executeUpdate();
 
-			if (share == true) {
-				psmt = conn.prepareStatement(sql2);
-				psmt.setInt(1, seq);
-				psmt.setString(2, s.nowMember.getNick());
 
-				int count2 = psmt.executeUpdate();
-				if (count2 > 0) {
-					JOptionPane.showMessageDialog(null, "공유 게시판에 글도 삭제되었습니다.");
-				}
-			}
-
+	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -202,13 +229,7 @@ public class BBSDao implements BBSDaoImpl {
 			DBClose.close(psmt, conn, null);
 		}
 
-		for (int i = 0; i < s.selfcodelist.size(); i++) {
-			if (s.selfcodelist.get(i).getSeq() == seq) {
-				s.selfcodelist.remove(i);
-			}
-		}
-
-		return count;
+		return count>0?true:false;
 
 	}
 
