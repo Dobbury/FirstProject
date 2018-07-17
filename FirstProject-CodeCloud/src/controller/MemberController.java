@@ -70,9 +70,10 @@ public class MemberController {
 				
 				if(dto.getAuth() == 0 ) {
 					new AdminMainView();
-				}else if (dto.getAuth() == 1) {
-					new MemberMainView();
-				}
+
+		        }else if (dto.getAuth() == 1) {
+		        	new MemberMainView();
+		        }
 				return true;
 		}else {//아이디 없을 때
 

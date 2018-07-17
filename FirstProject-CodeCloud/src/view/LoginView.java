@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -86,9 +87,9 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 		layeredPane.add(btn_Login);
 
 		// 닫기
-		closeIc1 = new ImageIcon("img/longin/close1.png");
-		closeIc2 = new ImageIcon("img/longin/close2.png");
-		closeIc3 = new ImageIcon("img/longin/close3.png");
+		closeIc1 = new ImageIcon("img/close/close1.png");
+		closeIc2 = new ImageIcon("img/close/close2.png");
+		closeIc3 = new ImageIcon("img/close/close3.png");
 		btn_Close = new JButton(closeIc1);
 		btn_Close.setRolloverIcon(closeIc2);
 		btn_Close.setPressedIcon(closeIc3);
@@ -109,7 +110,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 		btn_Signup.setBorderPainted(false);
 		btn_Signup.setContentAreaFilled(false);
 		btn_Signup.setFocusPainted(false);
-		btn_Signup.setBounds(20, 560, 76, 8);
+		btn_Signup.setBounds(208, 540, 100, 20);
 		btn_Signup.addActionListener(this);
 		layeredPane.add(btn_Signup);
 
@@ -118,7 +119,8 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 		id_text.setText(id_Hint);
 		id_text.setForeground(Color.WHITE);
 		id_text.addFocusListener(this);
-		id_text.setBounds(70, 366, 220, 30);
+		id_text.setBounds(92, 366, 220, 30);
+		id_text.setFont(new Font("menlo", Font.PLAIN, 14));
 		id_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		id_text.setOpaque(false);
 		layeredPane.add(id_text);
@@ -128,7 +130,8 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 		pwd_text.setText(pwd_Hint);
 		pwd_text.setForeground(Color.WHITE);
 		pwd_text.addFocusListener(this);
-		pwd_text.setBounds(70, 429, 220, 30);
+		pwd_text.setBounds(92, 429, 220, 30);
+//		pwd_text.setFont(new Font("menlo", Font.PLAIN, 14));
 		pwd_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		pwd_text.setOpaque(false);
 		layeredPane.add(pwd_text);
@@ -167,8 +170,10 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 			Singleton s = Singleton.getInstance();
 			boolean b = s.MemCtrl.loginCheck(id_text.getText(), pwd_text.getText());
 
+
 			if (b) {
 				JOptionPane.showMessageDialog(null, s.nowMember.getNick() + "님 환영합니다.");
+
 				dispose();
 			}
 		}
@@ -185,12 +190,12 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 		if (e.getSource() == id_text) {
 			if (id_text.getText().equals(id_Hint))
 				id_text.setText("");
-			id_text.setForeground(Color.black);
+			id_text.setForeground(Color.white);
 		}
 		if (e.getSource() == pwd_text) {
 			if (pwd_text.getText().equals(pwd_Hint))
 				pwd_text.setText("");
-			pwd_text.setForeground(Color.black);
+			pwd_text.setForeground(Color.white);
 		}
 	}
 
