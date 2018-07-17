@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.Action;
@@ -16,10 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import dao.ShareDao;
+import dto.BBSDto;
 import dto.QAbbsDto;
 import dto.ShareDto;
 import singleton.Singleton;
@@ -104,7 +107,8 @@ public class ShareList extends JPanel implements Action, MouseListener {
 
 		// 검색할 부분 콤보박스로 나열해줌
 		// Choice(AWT) -> JComboBox(swing)
-		String[] selects = new String[] { "제목", "내용", "닉네임","언어"};
+		String[] selects = new String[] {"전체보기", "제목", "언어", "닉네임"};
+				//{ "제목", "내용", "닉네임","언어"};
 		choiceList = new JComboBox<>(selects);
 		choiceList.setBounds(150, 600, 80, 20);
 		add(choiceList);
@@ -127,13 +131,7 @@ public class ShareList extends JPanel implements Action, MouseListener {
 				selectBtn.setBounds(420, 600, 100, 20);
 				add(selectBtn);
 
-		
-		
-		
-				
-				
-				
-				
+
 		
 		setLayout(null);
 		setBackground(Color.ORANGE);
@@ -142,14 +140,15 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		
 		
 	}
-	 
+	
+	
 	// seq lang title nick liked fork
-	public void setList(List<ShareDto> list) {
+	/*public void setList(List<ShareDto> list) {
 		rowData = new Object[list.size()][7];
 
 		int n = 1;
  
-		
+
 			for (int i = 0; i < list.size(); i++) {
 				rowData[i][0] =  list.get(i).getSeq();
 				rowData[i][1] =  list.get(i).getLang();
@@ -157,8 +156,9 @@ public class ShareList extends JPanel implements Action, MouseListener {
 				rowData[i][3] =  list.get(i).getNick();
 				rowData[i][4] =  list.get(i).getLiked();
 				rowData[i][5] =  list.get(i).getFork();
-				rowData[i][6] =  list.get(i).getIndseq();
+				rowData[i][6] =  list.get(i).getIndseq();*/
 			
+				
 /*			
 //			ShareDto dto = list.get(i);
 //			
@@ -204,30 +204,28 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		
 		
 		
-		model.setDataVector(rowData, columnNames);
+		/*model.setDataVector(rowData, columnNames);
 		ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		ShareListTable.getColumnModel().getColumn(1).setMaxWidth(300);
 		ShareListTable.getColumnModel().getColumn(2).setMaxWidth(500);
 		ShareListTable.getColumnModel().getColumn(3).setMaxWidth(50);
 		ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
 		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
-		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
+		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));*/
+//		
+//		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+//		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+//		ShareListTable.getColumn("번호").setCellRenderer(celAlignCenter);
+//		ShareListTable.getColumn("작성일").setCellRenderer(celAlignCenter);
+//		
+//		
 		
-		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
-		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-		ShareListTable.getColumn("번호").setCellRenderer(celAlignCenter);
-		ShareListTable.getColumn("작성일").setCellRenderer(celAlignCenter);
-		
-		
-			}	
+
 		
 		//////////////////////////////
 
-		ShareListTable.setModel(model);
+		//ShareListTable.setModel(l);
 		
-		
-		
-	}
 	
 	
 	
@@ -241,25 +239,155 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		}
 		// 검색 버튼
 		else if (obj == selectBtn) {
-			Singleton s = Singleton.getInstance();
+			/*if(selectField.getText().equals(""))   { //여기다시수정
+			//model = new DefaultTableModel(rowData, columnNames);
+			ShareListTable.setModel(model);
+			
+			}else if(list.size() == 0 || selectField.getText().equals(""))
 
-				
-			 String selectedItem = (String) choiceList.getSelectedItem();
-
-			list = ShareDao.getTitleFindList(selectField.getText(), selectedItem);
-			JOptionPane.showMessageDialog(null, selectedItem);
-
- 
-			if (list.size() == 0 || selectField.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
+				ShareListTable.setModel(model);*/
+			//{"전체보기", "제목", "언어", "내용"};
 
-				list = ShareDao.getbbsList(); // 만약 데이터가 없으면 초기화함
+			String searchstr = selectField.getText();
+			List<ShareDto> tmplist = new LinkedList<>();
+			Object[][] tmparr;
+			
+			if(choiceList.getSelectedIndex() == 0) {
+				//전체보기
+				tmplist = list;
+				tmparr = new Object[list.size()][7];
+				
+				for (int i = 0; i < list.size(); i++) {
+					ShareDto dto = list.get(i);
+					tmparr[i][0] =  tmplist.get(i).getSeq();
+					tmparr[i][1] =  tmplist.get(i).getLang();
+					tmparr[i][2] =  tmplist.get(i).getTitle();
+					tmparr[i][3] =  tmplist.get(i).getNick();
+					tmparr[i][4] =  tmplist.get(i).getLiked();
+					tmparr[i][5] =  tmplist.get(i).getFork();
+					tmparr[i][6] =  tmplist.get(i).getIndseq();
+					
+				}
+				
+				model.setDataVector(tmparr, columnNames);
+				ShareListTable.setModel(model);
+				ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(1).setMaxWidth(300);
+				ShareListTable.getColumnModel().getColumn(2).setMaxWidth(500);
+				ShareListTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
+				((AbstractTableModel) model).fireTableDataChanged();
+				selectField.setText("");
+				
+			}else if(choiceList.getSelectedIndex() == 1){
+				//이름
+				String pattern = ".*" + searchstr + ".*";
+				
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i).getTitle().matches(pattern)){
+						tmplist.add(list.get(i));
+					}
+				}
+				tmparr = new Object[tmplist.size()][7];	// 테이블의 2차원배열이 생성
+				
+				for (int i = 0; i < tmplist.size(); i++) {
+					ShareDto dto = tmplist.get(i);
+					tmparr[i][0] =  tmplist.get(i).getSeq();
+					tmparr[i][1] =  tmplist.get(i).getLang();
+					tmparr[i][2] =  tmplist.get(i).getTitle();
+					tmparr[i][3] =  tmplist.get(i).getNick();
+					tmparr[i][4] =  tmplist.get(i).getLiked();
+					tmparr[i][5] =  tmplist.get(i).getFork();
+					tmparr[i][6] =  tmplist.get(i).getIndseq();
+				}
+				model.setDataVector(tmparr, columnNames);
+				ShareListTable.setModel(model);
+				ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(1).setMaxWidth(300);
+				ShareListTable.getColumnModel().getColumn(2).setMaxWidth(500);
+				ShareListTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
+				((AbstractTableModel) model).fireTableDataChanged();
+				selectField.setText("");
+				
+				
+			}else if(choiceList.getSelectedIndex() == 2){
+				//언어
+				String tmp = searchstr.toUpperCase();
+				
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i).getLang().equals(tmp)){
+						tmplist.add(list.get(i));
+					}
+				}
+				tmparr = new Object[tmplist.size()][7];	// 테이블의 2차원배열이 생성
+				
+				for (int i = 0; i < tmplist.size(); i++) {
+					ShareDto dto = tmplist.get(i);
+					tmparr[i][0] =  tmplist.get(i).getSeq();
+					tmparr[i][1] =  tmplist.get(i).getLang();
+					tmparr[i][2] =  tmplist.get(i).getTitle();
+					tmparr[i][3] =  tmplist.get(i).getNick();
+					tmparr[i][4] =  tmplist.get(i).getLiked();
+					tmparr[i][5] =  tmplist.get(i).getFork();
+					tmparr[i][6] =  tmplist.get(i).getIndseq();
+				}
+				model.setDataVector(tmparr, columnNames);
+				ShareListTable.setModel(model);
+				ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(1).setMaxWidth(300);
+				ShareListTable.getColumnModel().getColumn(2).setMaxWidth(500);
+				ShareListTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
+				((AbstractTableModel) model).fireTableDataChanged();
+				selectField.setText("");
+				
+			}else if(choiceList.getSelectedIndex() == 3){
+				//내용
+				String pattern = ".*" + searchstr + ".*";
+				
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i).getNick().matches(pattern)){
+						tmplist.add(list.get(i));
+					}
+				}
+				tmparr = new Object[tmplist.size()][7];	// 테이블의 2차원배열이 생성
+				
+				for (int i = 0; i < tmplist.size(); i++) {
+					ShareDto dto = tmplist.get(i);
+					tmparr[i][0] =  tmplist.get(i).getSeq();
+					tmparr[i][1] =  tmplist.get(i).getLang();
+					tmparr[i][2] =  tmplist.get(i).getTitle();
+					tmparr[i][3] =  tmplist.get(i).getNick();
+					tmparr[i][4] =  tmplist.get(i).getLiked();
+					tmparr[i][5] =  tmplist.get(i).getFork();
+					tmparr[i][6] =  tmplist.get(i).getIndseq();
+				}
+				model.setDataVector(tmparr, columnNames);
+				ShareListTable.setModel(model);
+				ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(1).setMaxWidth(300);
+				ShareListTable.getColumnModel().getColumn(2).setMaxWidth(500);
+				ShareListTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
+				((AbstractTableModel) model).fireTableDataChanged();
+				selectField.setText("");
+				
 			}
-			// 테이블 초기화
-			setList(list);
+			
+			
 		}
-	
-		
+			
+
 		
 		
 		

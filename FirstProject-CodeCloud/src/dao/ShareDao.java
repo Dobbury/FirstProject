@@ -344,6 +344,7 @@ public class ShareDao {
 			}
 				
 
+			
 			Connection conn = null;
 			PreparedStatement psmt = null;
 			ResultSet rs = null;
@@ -354,7 +355,7 @@ public class ShareDao {
 				psmt = conn.prepareStatement(sql);
 
 				if (fword.equals("닉네임")) {
-					psmt.setString(1, fStr);
+					psmt.setString(1, fStr); 
 				} else {
 					psmt.setString(1, "%" + fStr + "%");
 				}
