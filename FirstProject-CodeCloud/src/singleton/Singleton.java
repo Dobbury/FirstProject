@@ -4,11 +4,12 @@ import java.util.LinkedList;
 
 import controller.MemberController;
 import dao.QAbbsDao;
+import dao.ShareDao;
 import dto.BBSDto;
 import dto.MemberDto;
 import dto.QAbbsDto;
-import view.adminpanel.adQAbbsList;
-import view.memberpanel.QAbbsList;
+import view.membermainview.QAbbsList;
+import dto.ShareDto;
 
 public class Singleton {
 	public static Singleton s = null;
@@ -19,7 +20,9 @@ public class Singleton {
 	public QAbbsDto qaDto;
 	public QAbbsDao qaDao = new QAbbsDao();
 	public QAbbsList blf = null;
+	public ShareDao sharDao = new ShareDao();
 
+	
 	public LinkedList<BBSDto> selfcodelist = new LinkedList<>();
 
 	private Singleton() {
@@ -29,7 +32,6 @@ public class Singleton {
 		if(s==null){
 			s = new Singleton();
 		}
-		
 		return s;
 	}
 }

@@ -179,6 +179,7 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		if (e.getSource() == btn_Close) {
 			System.exit(0);
 		}
+
 		if (e.getSource() == btn_check) {
 			DBConnection.initConnect(IP_Text.getText());
 			Singleton s = Singleton.getInstance();
@@ -187,7 +188,8 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 			DBCheck.memDBcheck();
 			DBCheck.shareDBCheck();
 			DBCheck.qaDBCheck();
-
+			DBCheck.createUpdateTrigger();
+			
 			s.MemCtrl.login();
 			dispose();
 		}

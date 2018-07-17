@@ -7,4 +7,5 @@ public interface MemberServiceImpl {
 	public boolean insert(MemberDto dto);
 	public MemberDto login(MemberDto dto);
 	public boolean getNick(String nick);
+	public boolean update(MemberDto dto);
 }

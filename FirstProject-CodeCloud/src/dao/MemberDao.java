@@ -49,11 +49,8 @@ public class MemberDao implements MemberDaoImpl {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 
-			if (!rs.next()) { // 테이블이 없다면 생성
-				sql = "CREATE TABLE MEMBER(" + "ID VARCHAR2(15) PRIMARY KEY," + "PWD VARCHAR2(10) NOT NULL,"
-						+ "NICK VARCHAR2(15) UNIQUE," + "AUTH NUMBER NOT NULL," + "IMG BLOB )";
-				psmt = conn.prepareStatement(sql);
-				psmt.executeQuery();
+			if (rs.next()) { // 테이블이 없다면 생성
+				findId = true;
 			}
 
 		} catch (SQLException e) {
@@ -99,11 +96,23 @@ public class MemberDao implements MemberDaoImpl {
 
 		String sql = "INSERT INTO MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
 
-		String sql2 = "CREATE TABLE " + dto.getID() + "(SEQ NUMBER PRIMARY KEY," + "TITLE VARCHAR2(50) NOT NULL,"
-				+ "CONT VARCHAR2(4000) NOT NULL," + "SHA NUMBER NOT NULL," + "LIKED NUMBER NOT NULL,"
-				+ "FORK NUMBER NOT NULL," + "LANG VARCHAR2(10) NOT NULL)";
-
-		String sqlseq = "CREATE SEQUENCE " + dto.getID() + "_SEQ " + "START WITH 1 " + "INCREMENT BY 1";
+		
+		String sql2 = "CREATE TABLE "+dto.getID()
+				+ "(SEQ NUMBER PRIMARY KEY,"
+				+ "TITLE VARCHAR2(50) NOT NULL,"
+				+ "CONT VARCHAR2(4000) NOT NULL,"
+				+ "SHA NUMBER NOT NULL,"
+				+ "LIKED NUMBER NOT NULL,"
+				+ "FORK NUMBER NOT NULL,"
+				+ "LANG VARCHAR2(10) NOT NULL)";
+		
+		String sqlseq = "CREATE SEQUENCE "+dto.getID()+"_SEQ "
+				+ "START WITH 1 "
+				+ "INCREMENT BY 1";
+		
+		//추천확인테이블
+		String sql3 = "CREATE TABLE " + dto.getID() + "_LIKED "
+			+ "(LIKEDSHARESEQ NUMBER NOT NULL)";
 
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement psmt = null;
@@ -119,11 +128,12 @@ public class MemberDao implements MemberDaoImpl {
 			psmt.setString(2, pwd); // 암호화된 값을 넣어줌
 			psmt.setString(3, dto.getNick());
 
+		
+			// psmt.setBinaryStream(4, null);
+			psmt.setInt(4, dto.getAuth());
 			// 이미지 파일을 Blob으로 저장
 			File imgfile = new File(path);
 			FileInputStream fis = new FileInputStream(imgfile);
-			// psmt.setBinaryStream(4, null);
-			psmt.setInt(4, dto.getAuth());
 			psmt.setBinaryStream(5, fis, (int) imgfile.length());// 이미지 저장 알아볼것
 
 			count = psmt.executeUpdate();
@@ -131,6 +141,9 @@ public class MemberDao implements MemberDaoImpl {
 			psmt.executeQuery();
 
 			psmt = conn.prepareStatement(sqlseq);
+			psmt.executeQuery();
+			
+			psmt = conn.prepareStatement(sql3);
 			psmt.executeQuery();
 
 		} catch (Exception e) {
@@ -192,5 +205,38 @@ public class MemberDao implements MemberDaoImpl {
 
 		return mem;
 	}
+	
+	public boolean update(MemberDto dto) {
+		String sql = "UPDATE MEMBER SET PWD = ?, NICK = ?, IMG = ? WHERE ID=?";
+		
+		Connection conn = DBConnection.makeConnection();
+		PreparedStatement stmt = null;
+		int count = 0;
 
+		System.out.println(sql);
+		try {
+			stmt = conn.prepareStatement(sql);
+			
+			String pwd = PasswordClass.Encryption(dto.getPWD());
+			stmt.setString(1, pwd);
+			
+			stmt.setString(2, dto.getNick());
+			
+			// 이미지 파일을 Blob으로 저장
+			File imgfile = new File("test");
+			ImageIO.write(dto.getProfile_Img(), "jpg", imgfile);
+			FileInputStream fis = new FileInputStream(imgfile);
+			stmt.setBinaryStream(3, fis, (int) imgfile.length());// 이미지 저장 알아볼것
+			stmt.setString(4, dto.getID());
+
+
+			count = stmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(stmt, conn, null);
+		}
+		return count > 0 ? true : false;
+	}
 }
