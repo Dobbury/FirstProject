@@ -91,14 +91,13 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 		panel.setBounds(0, 0, 1600, 700);
 
 		// ---------------------------------------------------------------------------
-
+		// 제일 왼쪽 판넬
 		left = new JPanel();
-		left.setBounds(0,0,200,700);
+		left.setBounds(0,0,150,700);
 		left.setBackground(new Color(0, 0, 0,60));
 		
 		Singleton s = Singleton.getInstance();
-		
-	
+			
 		mainPanel = new JPanel(cards);
 		mainPanel.add("SelfbbsMain", new SelfbbsMain());
 		mainPanel.add("Sharebbs", new Sharebbs());
@@ -108,43 +107,44 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 		mainPanel.add("Q&Abbs", new QAbbsMain());
 		cards.show(mainPanel, "Singlebbs");
 		
+		// 타이틀 판넬
 		mainPanel.setOpaque(false);
-		mainPanel.setBounds(200, 0, 1100, 700);
+		mainPanel.setBounds(150, 0, 1150, 700);
 		
 		ImageIcon img = new ImageIcon(s.nowMember.getProfile_Img());
 		Image ori = img.getImage();
-		Image changedImg= ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH );
+		Image changedImg= ori.getScaledInstance(100, 100, Image.SCALE_SMOOTH );
 		
 		img = new ImageIcon(changedImg);
 		
 		memProfile_Img = new JLabel();
 		memProfile_Img.setIcon(img);
 		memProfile_Img.addMouseListener(this);
-		memProfile_Img.setBounds(37, 50, 130, 130);
+		memProfile_Img.setBounds(10, 50, 130, 130);
 
 		memName = new JLabel();
 		memName.setText(s.nowMember.getNick());
-		memName.setBounds(50, 200, 40, 30);
+		memName.setBounds(15, 200, 40, 50);
 
 		btn_Selfbbs = new JButton("개인 코드");
 		btn_Selfbbs.addActionListener(this);
-		btn_Selfbbs.setBounds(30, 250, 130, 80);
+		btn_Selfbbs.setBounds(10, 260, 130, 50);
 
 		btn_Sharebbs = new JButton("코드 공유");
 		btn_Sharebbs.addActionListener(this);
-		btn_Sharebbs.setBounds(30, 350, 130, 80);
+		btn_Sharebbs.setBounds(10, 360, 130, 50);
 
 		btn_QAbbs = new JButton("Q&A");
 		btn_QAbbs.addActionListener(this);
-		btn_QAbbs.setBounds(30, 450, 130, 80);
+		btn_QAbbs.setBounds(10, 460, 130, 50);
 
 		btn_Chat = new JButton("채팅 ");
 		btn_Chat.addActionListener(this);
-		btn_Chat.setBounds(30, 550, 130, 80);
+		btn_Chat.setBounds(10, 560, 130, 50);
 
 		btn_Logout = new JButton("로그아웃");
 		btn_Logout.addActionListener(this);
-		btn_Logout.setBounds(30, 650, 130, 80);
+		btn_Logout.setBounds(10, 591, 130, 50);
 
 		chatPanel = new chatPanel();
 		chatPanel.connect();

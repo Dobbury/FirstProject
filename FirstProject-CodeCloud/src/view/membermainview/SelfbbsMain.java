@@ -63,7 +63,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 	public SelfbbsMain() {
 		setLayout(null);
 		setOpaque(false);
-		setBounds(0, 0, 1100, 700);
+		setBounds(0, 0, 1150, 700);
 		mainPanel = new JPanel(cards);
 
 		
@@ -72,7 +72,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 		cards.show(mainPanel, "SelfbbsDetail");// 처음 띄워지는 판
 
-		mainPanel.setBounds(200, 0, 900, 700);
+		mainPanel.setBounds(150, 0, 1150, 700);
 		mainPanel.setOpaque(false);
 		
 		Singleton s = Singleton.getInstance();
@@ -86,12 +86,12 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		// left
 		left.setOpaque(false);
 		//left.setBackground(new Color(0,0,0,30));
-		left.setBounds(0, 0, 200, 800);
+		left.setBounds(0, 0, 300, 700);
 		left.setLayout(null);
 
-		plus.setBounds(0, 0, 100, 50);
+		plus.setBounds(0, 0, 300, 50);
 		plus.addActionListener(this);
-		minus.setBounds(100, 0, 100, 50);
+		minus.setBounds(100, 7, 100, 50);
 		minus.addActionListener(this);
 		left.add(plus);
 		left.add(minus);
@@ -119,7 +119,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		};
 		jTable.addMouseListener(this);
 		jTable.setRowHeight(100);
-		jTable.getColumnModel().getColumn(0).setMaxWidth(202);
+		jTable.getColumnModel().getColumn(0).setMaxWidth(500);
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.getSelectionModel().setSelectionInterval(0, 0);
@@ -132,7 +132,8 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		jScrPane.setOpaque(false);
 		jScrPane.getViewport().setOpaque(false);
 		
-		jScrPane.setBounds(-1, 50, 204, 650);
+		// title부분(+,-부분...)
+		jScrPane.setBounds(-1, 50, 300, 700);
 		left.add(jScrPane);
 
 		searchbox.setBounds(0, 700, 200, 25);

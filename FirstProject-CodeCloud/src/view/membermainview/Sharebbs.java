@@ -98,7 +98,7 @@ public class Sharebbs extends JPanel {
 		((DefaultTableCellRenderer) Fork.getDefaultRenderer(Object.class)).setOpaque(false);
       
       
-       endOfRightPanel.setBounds(800,0,300,700);
+       endOfRightPanel.setBounds(900,0,300,700);
        endOfRightPanel.setOpaque(false);
        endOfRightPanel.add(Liked);     
        endOfRightPanel.add(Fork);

@@ -80,12 +80,12 @@ public class ShareDetail extends JPanel implements Action {
 		// 글 목록
 		btn_List = new JButton("글 목록");
 		btn_List.addActionListener(this);
-		btn_List.setBounds(500, 550, 110, 50);
+		btn_List.setBounds(50, 570, 100, 40);
 		
 		//좋아요버튼
 		btn_liked = new JToggleButton("추천");
 		btn_liked.addActionListener(this);
-		btn_liked.setBounds(50, 450, 60, 50);
+		btn_liked.setBounds(50, 700, 60, 50);
 		
 		for (int i = 0; i < list.size(); i++) {
 			if (dto.getSeq() == list.get(i)) {
@@ -93,17 +93,13 @@ public class ShareDetail extends JPanel implements Action {
 				break;
 			}
 		}
-		
-		
-		
-		
 		likelab.setBounds(130, 450, 60, 50);
 		likelab.setText(dto.getLiked()+"");
 		
 		//포크 버튼 
 		btn_fork = new JButton("퍼가요");
 		btn_fork.addActionListener(this);
-		btn_fork.setBounds(50, 550, 60, 50);
+		btn_fork.setBounds(750, 80, 60, 50);
 		forklab.setBounds(130, 550, 60, 50);
 		forklab.setText(dto.getFork()+"");
 		

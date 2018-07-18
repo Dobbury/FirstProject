@@ -77,24 +77,24 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		postArea.setEditable(false);
 
 		jScrol = new JScrollPane(postArea);
-		jScrol.setBounds(200, 200, 300, 300);
+		jScrol.setBounds(50, 150, 750, 400);
 
-		// 수정
-		btn_Update = new JButton("수정");
-		btn_Update.addActionListener(this);
-
-		btn_Update.setBounds(500, 550, 110, 50);
 
 		// 글 목록
 		btn_List = new JButton("글 목록");
 		btn_List.addActionListener(this);
-		btn_List.setBounds(100, 550, 110, 50);
+		btn_List.setBounds(50, 570, 100, 40);
 
 		// 삭제
 		btn_delete = new JButton("삭제");
 		btn_delete.addActionListener(this);
-		btn_delete.setBounds(700, 550, 110, 50);
+		btn_delete.setBounds(550, 570, 100, 50);
 
+		// 수정
+		btn_Update = new JButton("수정");
+		btn_Update.addActionListener(this);
+		btn_Update.setBounds(700, 570, 100, 50);
+		
 		Singleton s = Singleton.getInstance();
 		// 수정 버튼의 비활성화 (같은 id일 경우만)
 		if (!dto.getNick().equals(s.nowMember.getNick())) {
