@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 
 import singleton.Singleton;
 
-public class SignupView extends JFrame implements ActionListener, FocusListener {
+public class SignupView extends JFrame implements ActionListener, FocusListener, MouseMotionListener, MouseListener {
 
 	private ImageIcon signupIc1;
 	private ImageIcon signupIc2;
@@ -54,6 +54,11 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 	private JLabel pwd_check_label;
 	private boolean pwd_check;
 
+	private int posX = 0, posY = 0;
+	private ImageIcon drag1;
+	private ImageIcon drag2;
+	private JButton btn_drag;
+
 	BufferedImage img = null;
 	BufferedImage userImg = null;
 
@@ -76,10 +81,24 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 		}
 
 		MyPanel panel = new MyPanel();
-		panel.setBounds(0, 0, 341, 597);
+		panel.setBounds(0, 0, 341, 596);
 
 		// ---------------------------------------------------------------------------
 		// 버튼
+
+		// 창 드래그
+		drag1 = new ImageIcon("img/drag/drag1.png");
+		drag1 = new ImageIcon("img/drag/drag2.png");
+		btn_drag = new JButton(drag1);
+		btn_drag.setRolloverIcon(drag2);
+		btn_drag.setPressedIcon(drag2);
+		btn_drag.setBorderPainted(false);
+		btn_drag.setContentAreaFilled(false);
+		btn_drag.setFocusPainted(false);
+		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.addMouseMotionListener(this);
+		btn_drag.addMouseListener(this);
+		layeredPane.add(btn_drag);
 
 		// 회원가입
 		signupIc1 = new ImageIcon("img/signUp/btn_sign1.png");
@@ -91,7 +110,7 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 		btn_Signup.setBorderPainted(false);
 		btn_Signup.setContentAreaFilled(false);
 		btn_Signup.setFocusPainted(false);
-		btn_Signup.setBounds(20, 484, 295, 50);
+		btn_Signup.setBounds(20, 484, 296, 51);
 		btn_Signup.addActionListener(this);
 		layeredPane.add(btn_Signup);
 
@@ -110,7 +129,7 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 		layeredPane.add(btn_Close);
 
 		// ---------------------------------------------------------------------------
-		// 사용자 프로필 이미지
+//		 사용자 프로필 이미지
 		userIc = new ImageIcon("img/signUp/userImages.png");
 		userLabel = new JLabel(userIc);
 		userLabel.setLayout(null);
@@ -130,10 +149,10 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 		// 아이디 체크 라벨
 		id_check_label = new JLabel("test");
 
-		id_check_label.setBounds(92,316,300,30);
+		id_check_label.setBounds(92, 316, 300, 30);
 		layeredPane.add(id_check_label);
-		
-		//pwd 입력 
+
+		// pwd 입력
 		pwd_text = new JPasswordField();
 		pwd_text.setText(pwd_Hint);
 		pwd_text.setForeground(Color.WHITE);
@@ -143,12 +162,11 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 		pwd_text.addFocusListener(this);
 		layeredPane.add(pwd_text);
 
-		
-		//pwd 확인
+		// pwd 확인
 		pwd_check_label = new JLabel("test");
-		pwd_check_label.setBounds(92,387,300,30);
+		pwd_check_label.setBounds(92, 387, 300, 30);
 		layeredPane.add(pwd_check_label);
-		
+
 		// 닉네임 입력
 		nick_text = new JTextField();
 		nick_text.setText(nick_Hint);
@@ -160,10 +178,9 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 		nick_text.addFocusListener(this);
 		layeredPane.add(nick_text);
 
-		
-		// 닉네임 확인 
+		// 닉네임 확인
 		nick_check_label = new JLabel("test");
-		nick_check_label.setBounds(92,458,300,30);
+		nick_check_label.setBounds(92, 458, 300, 30);
 		layeredPane.add(nick_check_label);
 
 		// 기본 설정
@@ -171,12 +188,12 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 		// setBackground(new Color(0,0,0,122)); 배경 투명 설정
 		setTitle("로그인테스트");
 		setLayout(null);
-		setBounds(0, 0, 341, 597);
+		setBounds(0, 0, 341, 596);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(layeredPane);
 		setVisible(true);
-		layeredPane.add(userLabel);
+//		layeredPane.add(userLabel);
 		layeredPane.add(panel);
 
 	}
@@ -237,7 +254,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 			if (id_text.getText().equals(id_Hint))
 				id_text.setText("");
 
-			
 			id_text.setForeground(Color.white);
 		}
 		if (e.getSource() == pwd_text) {
@@ -343,5 +359,52 @@ public class SignupView extends JFrame implements ActionListener, FocusListener 
 
 			}
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (e.getSource() == btn_drag) {
+			posX = e.getX();
+			posY = e.getY();
+		}
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (e.getSource() == btn_drag) {
+			setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
+		}
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 }

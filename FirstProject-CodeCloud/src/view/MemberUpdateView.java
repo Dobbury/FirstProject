@@ -32,7 +32,8 @@ import convertImg.ImageToBufferedImageClass;
 import dto.MemberDto;
 import singleton.Singleton;
 
-public class MemberUpdateView extends JFrame implements ActionListener, FocusListener,WindowListener {
+public class MemberUpdateView extends JFrame
+		implements ActionListener, FocusListener, WindowListener, MouseMotionListener, MouseListener {
 
 	private ImageIcon signupIc1;
 	private ImageIcon signupIc2;
@@ -44,12 +45,12 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 	private ImageIcon closeIc3;
 	private JButton btn_Close;
 
-	//이미지 파일 불러오는 버튼 이미지 나중에 바꿔야함
+	// 이미지 파일 불러오는 버튼 이미지 나중에 바꿔야함
 	private ImageIcon accountIc1;
 	private ImageIcon accountIc2;
 	private ImageIcon accountIc3;
 	private JButton btn_ImgSelect;
-	
+
 	private ImageIcon userIc;
 	private JLabel userLabel;
 
@@ -63,23 +64,28 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 	private JLabel pwd_check_label;
 	private boolean pwd_check;
 
+	private int posX = 0, posY = 0;
+	private ImageIcon drag1;
+	private ImageIcon drag2;
+	private JButton btn_drag;
+
 	BufferedImage img = null;
 	BufferedImage userImg = null;
 
 	String id_Hint = "ID 입력";
 	String pwd_Hint = "패스워드 입력";
 	String nick_Hint = "닉네임 입력";
-	
+
 	String Diraddress;
-	
+
 	MemberDto dto;
 	MemberMainView mainView;
-	
-	public MemberUpdateView(MemberMainView mainView,MemberDto dto) {
+
+	public MemberUpdateView(MemberMainView mainView, MemberDto dto) {
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(0, 0, 342, 596);
 		layeredPane.setLayout(null);
-		
+
 		this.dto = dto;
 		this.mainView = mainView;
 		// ---------------------------------------------------------------------------
@@ -96,6 +102,20 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 
 		// ---------------------------------------------------------------------------
 		// 버튼
+
+		// 창 드래그
+		drag1 = new ImageIcon("img/drag/drag1.png");
+		drag1 = new ImageIcon("img/drag/drag2.png");
+		btn_drag = new JButton(drag1);
+		btn_drag.setRolloverIcon(drag2);
+		btn_drag.setPressedIcon(drag2);
+		btn_drag.setBorderPainted(false);
+		btn_drag.setContentAreaFilled(false);
+		btn_drag.setFocusPainted(false);
+		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.addMouseMotionListener(this);
+		btn_drag.addMouseListener(this);
+		layeredPane.add(btn_drag);
 
 		// 회원가입
 		signupIc1 = new ImageIcon("img/signUp/btn_sign1.png");
@@ -124,13 +144,12 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 		btn_Close.setBounds(313, 10, 16, 16);
 		btn_Close.addActionListener(this);
 		layeredPane.add(btn_Close);
-		
-		
+
 		// 회원가입
 		accountIc1 = new ImageIcon("img/longin/account1.png");
 		accountIc2 = new ImageIcon("img/longin/account2.png");
 		accountIc3 = new ImageIcon("img/longin/account3.png");
-		
+
 		btn_ImgSelect = new JButton(accountIc1);
 		btn_ImgSelect.setRolloverIcon(accountIc2);
 		btn_ImgSelect.setPressedIcon(accountIc3);
@@ -148,7 +167,7 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 		userLabel.setLayout(null);
 		userLabel.setBounds(105, 100, 130, 130);
 		layeredPane.add(userLabel);
-		
+
 		// 아이디 입력 textField
 		id_text = new JTextField();
 		id_text.setText(dto.getID());
@@ -157,7 +176,6 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 		id_text.setOpaque(false);
 		id_text.setEditable(false);
 		layeredPane.add(id_text);
-
 
 		pwd_text = new JPasswordField();
 		pwd_text.setText(pwd_Hint);
@@ -200,7 +218,7 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btn_Signup) {
-			
+
 			// 비밀번호 체크
 			if (!pwd_check) {
 				JOptionPane.showMessageDialog(null, "비밀번호를 확인하세요.");
@@ -213,16 +231,17 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 			}
 
 			Singleton s = Singleton.getInstance();
-			
-			boolean b = s.MemCtrl.memberUpdate(id_text.getText(), pwd_text.getText(), nick_text.getText(),s.nowMember.getAuth(),userIc);
+
+			boolean b = s.MemCtrl.memberUpdate(id_text.getText(), pwd_text.getText(), nick_text.getText(),
+					s.nowMember.getAuth(), userIc);
 
 			if (b) {
 				JOptionPane.showMessageDialog(null, "회원의 정보가 수정 되었습니다.");
 				mainView.memProfile_Img.setIcon(userIc);
 				mainView.memName.setText(s.nowMember.getNick());
-				
+
 				this.dispose();
-				
+
 			} else {
 				JOptionPane.showMessageDialog(null, "수정 실패");
 				return;
@@ -231,20 +250,20 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 		if (e.getSource() == btn_Close) {
 			dispose();
 		}
-		if(e.getSource() == btn_ImgSelect) {
+		if (e.getSource() == btn_ImgSelect) {
 			JFrame img_Frame = new JFrame();
-	        FileDialog dial = new FileDialog(img_Frame,"Open",FileDialog.LOAD);
-	        dial.setFile("*.*");
-	        dial.setVisible(true);
-	        String DirName = dial.getDirectory();
-	        String FileName = dial.getFile();
-	        Diraddress = DirName + "./"+FileName;
-	        System.out.println(Diraddress);
-	        userIc = new ImageIcon(Diraddress);
-	        //크기조정
-	        Image ori = userIc.getImage();
-			Image changedImg = ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH );
-			//이미지 다시 세팅
+			FileDialog dial = new FileDialog(img_Frame, "Open", FileDialog.LOAD);
+			dial.setFile("*.*");
+			dial.setVisible(true);
+			String DirName = dial.getDirectory();
+			String FileName = dial.getFile();
+			Diraddress = DirName + "./" + FileName;
+			System.out.println(Diraddress);
+			userIc = new ImageIcon(Diraddress);
+			// 크기조정
+			Image ori = userIc.getImage();
+			Image changedImg = ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+			// 이미지 다시 세팅
 			changedImg = imageToOval(changedImg);
 			userIc.setImage(changedImg);
 			userLabel.setIcon(userIc);
@@ -260,7 +279,7 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 
 		}
 	}
-	
+
 	public BufferedImage imageToOval(Image img) { // 이미지 원으로 자르는 메소드
 		// Image -> BufferedImage
 		BufferedImage oriImg = ImageToBufferedImageClass.toBufferedImage(img);
@@ -282,7 +301,7 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 		}
 		return oriImg;
 	}
-	
+
 	@Override
 	public void focusGained(FocusEvent e) {
 		// TODO Auto-generated method stub
@@ -307,7 +326,7 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 	@Override
 	public void focusLost(FocusEvent e) {
 		// TODO Auto-generated method stub
-		
+
 		if (e.getSource() == pwd_text) {
 			if (pwd_text.getText().length() == 0) {
 				pwd_text.setText(pwd_Hint);
@@ -361,13 +380,13 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -379,24 +398,71 @@ public class MemberUpdateView extends JFrame implements ActionListener, FocusLis
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (e.getSource() == btn_drag) {
+			posX = e.getX();
+			posY = e.getY();
+		}
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (e.getSource() == btn_drag) {
+			setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
+		}
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 }
