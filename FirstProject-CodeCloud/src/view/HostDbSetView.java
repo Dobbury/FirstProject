@@ -248,7 +248,7 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		}
 
 		if (e.getSource() == btn_check) {
-			DBConnection.initConnect("127.0.0.1");
+			DBConnection.initConnect(IP_Text.getText());
 			Singleton s = Singleton.getInstance();
 			s.hostDB_IP = IP_Text.getText();
 
