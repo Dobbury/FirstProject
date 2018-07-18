@@ -1,12 +1,16 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,10 +26,9 @@ import singleton.Singleton;
 public class QAbbsDetail extends JPanel implements ActionListener, WindowListener {
 
 
-	JTextField titleText;// 닉넴 텍스트필드
-	JTextField titleText2;// 제목 텍스트필드
-	JTextField titleText3;// content 텍스트 필드
-
+	JLabel nickText;// 닉넴 텍스트필드
+	JLabel titleText;// 제목 텍스트필드
+	
 	JTextArea postArea;
 	JPanel comments;
 
@@ -52,26 +55,46 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 		System.out.println(dto.toString() + "회원 디테일 확인용");
 
-		//제목
-		titleText2 = new JTextField();
-		titleText2.setBounds(50, 100, 310, 50);
-		titleText2.setText(dto.getTitle());
-		titleText2.setEditable(false);
 
 		//닉네임
-		titleText = new JTextField();
-		titleText.setBounds(50, 160, 310, 30);
-		titleText.setText(dto.getNick());
-		titleText.setEditable(false);
+		Font nickFont = new Font("굴림",Font.BOLD, 25);
+		nickText = new JLabel();
+		nickText.setFont(nickFont);
+		nickText.setForeground(Color.WHITE);
+		nickText.setBounds(65, 160, 310, 30);
+		nickText.setText(dto.getNick());
+		
+		//타이틀
+		Font titleFont = new Font("굴림",Font.BOLD, 40);
+		titleText = new JLabel();
+		titleText.setFont(titleFont);
+		titleText.setForeground(Color.WHITE);
+		titleText.setBounds(65, 100, 310, 50);
+		titleText.setText(dto.getTitle());
+		
 		
 		//컨텐츠
 		postArea = new JTextArea();
 		postArea.append(dto.getContent());
+		postArea.setOpaque(false);
 		postArea.setEditable(false);
 
+		// 코드 배경
+		ImageIcon content_back_Img = new ImageIcon("img/QAbbs/QA_content_background.png");
+
+		JLabel content_backgorund = new JLabel();
+		content_backgorund.setIcon(content_back_Img);
+		content_backgorund.setBounds(50, 200, 750, 350);
+	
 		jScrol = new JScrollPane(postArea);
+		jScrol.setOpaque(false);
+		jScrol.getViewport().setOpaque(false);
 		jScrol.setBounds(50, 200, 750, 350);
 
+		jScrol.setBorder(BorderFactory.createCompoundBorder(null,
+	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+
+		
 
 		// 글 목록
 		btn_List = new JButton("글 목록");
@@ -106,10 +129,10 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		});
 
 		add(titleText);
-		add(titleText2);
+		add(nickText);
 
 		add(jScrol);
-
+		add(content_backgorund);
 		add(btn_Update);
 		add(btn_List);
 		add(btn_delete);
