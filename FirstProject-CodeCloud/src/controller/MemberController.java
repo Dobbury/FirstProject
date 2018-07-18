@@ -61,15 +61,14 @@ public class MemberController {
 	
 	public boolean loginCheck(String id,String pwd) {
 		
-<<<<<<< HEAD
+ 
 		MemberDto dto = mService.login(new MemberDto(id,pwd,null,1,null));
 
 		PasswordClass pwdCls = new PasswordClass();
 		pwd = pwdCls.Encryption(pwd);//암호화 
-=======
-
-		MemberDto dto = mService.login(new MemberDto(id,pwd,null,-1,null));
->>>>>>> c6d0a980b1b378fbefda7d652763da0e78b25d75
+ 
+ 
+ 
 
 		if(dto != null) {
 				Singleton s = Singleton.getInstance();
