@@ -58,7 +58,6 @@ public class QAbbsMain extends JPanel {
 
 		mainPanel.add("QAbbsList", new QAbbsList(this));
 		mainPanel.add("QAbbsDetail", new QAbbsDetail(this, new QAbbsDto()));
-
 		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(),LIST));
 		mainPanel.setOpaque(false);
 
