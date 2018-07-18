@@ -8,11 +8,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -52,7 +50,6 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 
 	adQAbbsMain adQAmian;
-
 	QAbbsDto dto;
 
 	public adQAbbsDetail(adQAbbsMain QA, QAbbsDto dto) {
@@ -109,13 +106,15 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		btn_delete.setBounds(550, 550, 110, 50);
 
 		// 수정
-		btn_update = null;
+		//btn_update = null;
 		btn_update = new JButton("수정");
 		btn_update.addActionListener(this);
 		btn_update.setBounds(700, 550, 110, 50);
 
 		Singleton s = Singleton.getInstance();
+
 		// 수정 버튼의 비활성화 (다른 id일 경우만)
+
 		if (!dto.getNick().equals(s.nowMember.getNick())) {
 			btn_update.setEnabled(false);
 			btn_delete.setEnabled(false);
@@ -207,6 +206,7 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 			adQAmian.changePanel(LIST, dto);
 
 		} else if (e.getSource() == btn_update) {
+
 			adQAmian.changePanel(COMMENT_UPDATE, dto);
 
 		}

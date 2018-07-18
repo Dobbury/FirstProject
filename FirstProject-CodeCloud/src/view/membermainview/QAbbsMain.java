@@ -30,12 +30,12 @@ public class QAbbsMain extends JPanel {
 
 	// 추가부분
 	QAbbsDetail detail;
+	final int INSERT = 0;
+	final int UPDATE = 1;
 
 	final int DETAIL = -2;
 	final int LIST = -1;
-	final int INSERT = 0;
-	final int UPDATE = 1;
-	
+
 	private static JTable Liked,Fork;
     
     static String Lcolum[] = {
@@ -49,17 +49,22 @@ public class QAbbsMain extends JPanel {
     Object LrowData[][],  FrowData[][];     
    
     
+
 	public QAbbsMain() {
 		setLayout(null);
 		setOpaque(false);
 		setBounds(0, 0, 1100, 700);
 		mainPanel = new JPanel(cards);
 
-		
 		mainPanel.add("QAbbsList", new QAbbsList(this));
 		mainPanel.add("QAbbsDetail", new QAbbsDetail(this, new QAbbsDto()));
+<<<<<<< HEAD
 		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(),LIST));
 		mainPanel.setOpaque(false);
+=======
+		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(), INSERT));
+		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(), LIST));
+>>>>>>> 6e1f19c0cbb7c937b222296d2c62743b5d1e0f95
 		cards.show(mainPanel, "QAbbsList");// 처음 띄워지는 판
 
 		
@@ -122,16 +127,15 @@ public class QAbbsMain extends JPanel {
 		setVisible(true);
 	}
 
-	public void changePanel(int select, QAbbsDto dto,int state) {
+	public void changePanel(int select, QAbbsDto dto, int state) {
 		if (select == 1) {
 			mainPanel.add("QAbbsList", new QAbbsList(this));
 			cards.show(mainPanel, "QAbbsList");
 		} else if (select == 2) {
 			mainPanel.add("QAbbsDetail", new QAbbsDetail(this, dto));
 			cards.show(mainPanel, "QAbbsDetail");
-
 		} else if (select == 3) {
-			mainPanel.add("QAbbsWrite", new QAbbsWrite(this, dto,state));
+			mainPanel.add("QAbbsWrite", new QAbbsWrite(this, dto, state));
 			cards.show(mainPanel, "QAbbsWrite");
 		}
 	}

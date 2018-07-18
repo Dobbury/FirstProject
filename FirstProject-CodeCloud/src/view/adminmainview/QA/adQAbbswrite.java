@@ -146,6 +146,7 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 				// list로
 				adQAmian.changePanel(LIST, new QAbbsDto());
 
+
 			} else if (state == COMMENT) {
 				// 상위 글의 SEQ가 그룹번호
 				dto.setRef(dto.getSeq());

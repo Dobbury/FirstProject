@@ -73,7 +73,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		
 		setLayout(null);
 		setOpaque(false);
-		setBounds(0, 0, 1100, 700);
+		setBounds(0, 0, 1150, 700);
 		mainPanel = new JPanel(cards);
 
 		if (list.size() > 0) {	
@@ -85,7 +85,9 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 		cards.show(mainPanel, "SelfbbsDetail");// 처음 띄워지는 판
 
+
 		mainPanel.setBounds(300, 0, 800, 700);
+
 		mainPanel.setOpaque(false);
 
 		/*if (list.size() > 0) {//첫번째 게시물 시퀀스번호 저장
@@ -99,12 +101,14 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		left.setLayout(null);
 
 		plus.setBounds(0, 0, 300, 50);
+
 		plus.setOpaque(false);
 		plus.setContentAreaFilled(false);
 		plus.setBorderPainted(true);
 		plus.setForeground(Color.WHITE);
 		plus.addActionListener(this);
 		plus.setFont(new Font("Arial", Font.PLAIN, 40));
+
 
 		left.add(plus);
 
@@ -130,8 +134,10 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		//한글 지원 안됨
 		jTable.setFont(new Font("Arial", Font.PLAIN, 30));
 		jTable.addMouseListener(this);
+
 		jTable.setRowHeight(70);
 		jTable.getColumnModel().getColumn(0).setMaxWidth(305);
+
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.getSelectionModel().setSelectionInterval(0, 0);
@@ -149,7 +155,9 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		jScrPane.setOpaque(false);
 		jScrPane.getViewport().setOpaque(false);
 		
+
 		jScrPane.setBounds(0, 50, 305, 550);
+
 		left.add(jScrPane);
 		
 		

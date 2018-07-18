@@ -52,7 +52,7 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 	final int UPDATE = 1;
 	final int DETAIL = 2;
 
-	JLabel lang;
+	JLabel lang;// 자바
 	
 	JPanel right = new JPanel();
 	JLabel titletxt = new JLabel();

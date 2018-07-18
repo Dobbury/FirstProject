@@ -199,7 +199,6 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 			s.nowMember = null;
 			this.dispose();
 			s.MemCtrl.login();
-
 		}
 	}
 

@@ -108,7 +108,9 @@ public class ShareDetail extends JPanel implements Action {
 		btn_liked.setContentAreaFilled(false);
 		btn_liked.setBorderPainted(false);
 		btn_liked.addActionListener(this);
+
 		btn_liked.setBounds(610, 160, 30, 30);
+
 		
 		for (int i = 0; i < list.size(); i++) {
 			if (dto.getSeq() == list.get(i)) {
@@ -116,10 +118,12 @@ public class ShareDetail extends JPanel implements Action {
 				break;
 			}
 		}
+
 		Font liked_fork_Font = new Font("굴림",Font.BOLD,15);
 		likelab.setBounds(650, 160, 30, 30);
 		likelab.setFont(liked_fork_Font);
 		likelab.setForeground(Color.WHITE);
+
 		likelab.setText(dto.getLiked()+"");
 		
 		//포크 버튼 
@@ -134,7 +138,9 @@ public class ShareDetail extends JPanel implements Action {
 		btn_fork.setContentAreaFilled(false);
 		btn_fork.setBorderPainted(false);
 		btn_fork.addActionListener(this);
+
 		btn_fork.setBounds(710, 160, 30, 30);
+
 		
 		forklab.setBounds(752, 160, 30, 30);
 		forklab.setFont(liked_fork_Font);

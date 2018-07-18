@@ -83,6 +83,7 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		panel.setBounds(0, 0, 341, 413);
 
 //		// ---------------------------------------------------------------------------
+
 //		
 
 		// 창 드래그
@@ -98,6 +99,7 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
 		layeredPane.add(btn_drag);
+
 
 		// 닫기
 		closeIc1 = new ImageIcon("img/close/close1.png");

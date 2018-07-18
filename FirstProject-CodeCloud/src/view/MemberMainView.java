@@ -98,7 +98,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		panel.setBounds(0, 0, 1600, 700);
 
 		// ---------------------------------------------------------------------------
-
+		// 제일 왼쪽 판넬
 		left = new JPanel();
 
 		left.setBounds(0,0,150,700);
@@ -116,13 +116,12 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		cards.show(mainPanel, "Singlebbs");
 
 		mainPanel.setOpaque(false);
-
 		mainPanel.setBounds(150, 0, 1150, 700);
-
 		
 		ImageIcon img = new ImageIcon(s.nowMember.getProfile_Img());
 		Image ori = img.getImage();
 		Image changedImg = ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+
 
 		img = new ImageIcon(changedImg);
 
@@ -133,6 +132,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 
 		memName = new JLabel();
 		memName.setText(s.nowMember.getNick());
+
 
 		memName.setBounds(10, 200, 40, 30);
 

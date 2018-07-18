@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 import javax.swing.ScrollPaneConstants;
 
 import dto.QAbbsDto;
@@ -33,7 +33,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 	JScrollPane jScrol;
 
 	JButton btn_Commit; // 게시판 글 입력
-	JButton btn_Cancle; // 게시판 글 입력 취소
+	JButton btn_Cancle; // 게시판 글 목록으로
 
 	final int DETAIL = -2;
 	final int LIST = -1;
@@ -50,9 +50,9 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		setOpaque(false);
 		QAmain = QA;
 		this.dto = dto;
-
-		this.state=state;
+		this.state = state;
 		
+
 		//타이틀
 		titleText = new JTextField();
 		titleText.setDocument(new JTextFieldLimit(50));//50자 제한
@@ -86,6 +86,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		add(btn_Commit);
 		add(btn_Cancle);
 
+
 		setLayout(null);
 
 		setVisible(true);
@@ -96,7 +97,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 		if (e.getSource() == btn_Commit) {// 확인
 			Singleton s = Singleton.getInstance();
-			
+
 			if (state == UPDATE) {
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
@@ -107,10 +108,9 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 			} else if (state == INSERT) {
 
 				dto.setNick(s.nowMember.getNick());
-			
+				// dto.setNick("min");
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
-
 				dto.setDel(0); // 0이 삭제 되지 않은 게시글 , 1이 삭제된 게시글
 				s.qaDao.insert(dto);
 
@@ -120,7 +120,9 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		} else if (e.getSource() == btn_Cancle) {// 취소
 
 			QAmain.changePanel(1, new QAbbsDto(),INSERT);
+			
 		}
+			
 	}
 
 	@Override
@@ -163,5 +165,4 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 	public void windowDeactivated(WindowEvent e) {
 
 	}
-
 }
