@@ -189,6 +189,8 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		add(memProfile_Img);
 		add(mainPanel);
 		add(left);
+		
+		setUndecorated(true);
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

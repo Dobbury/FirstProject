@@ -210,6 +210,8 @@ public class MemberUpdateView extends JFrame
 		setBounds(0, 0, 341, 597);
 		setLocationRelativeTo(null);
 		add(layeredPane);
+		
+		setUndecorated(true);
 		setVisible(true);
 		layeredPane.add(panel);
 

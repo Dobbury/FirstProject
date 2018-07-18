@@ -156,6 +156,8 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		add(memName);
 		add(memProfile_Img);
 		add(mainPanel);
+		
+		setUndecorated(true);
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

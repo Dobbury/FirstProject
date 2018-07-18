@@ -127,11 +127,11 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		editbtn.addActionListener(this);
 		right.add(editbtn);
 		sharebtn.setBounds(600, 570, 75, 50);
-		if (list.size() > 0) {
-			if (list.get(0).getShare() == 1) {
-				sharebtn.setSelected(true);
-			}
+
+		if (dto.getShare() == 1) {
+			sharebtn.setSelected(true);
 		}
+
 		deletebtn.setBounds(700, 570, 75, 50);
 		deletebtn.addActionListener(this);
 		right.add(deletebtn);

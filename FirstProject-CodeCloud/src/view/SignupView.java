@@ -39,8 +39,8 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 	private ImageIcon closeIc3;
 	private JButton btn_Close;
 
-	private ImageIcon userIc;
-	private JLabel userLabel;
+//	private ImageIcon userIc;
+//	private JLabel userLabel;
 
 	private JTextField id_text;
 	private JLabel id_check_label;
@@ -60,7 +60,7 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 	private JButton btn_drag;
 
 	BufferedImage img = null;
-	BufferedImage userImg = null;
+//	BufferedImage userImg = null;
 
 	String id_Hint = "ID 입력";
 	String pwd_Hint = "패스워드 입력";
@@ -130,10 +130,10 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 
 		// ---------------------------------------------------------------------------
 //		 사용자 프로필 이미지
-		userIc = new ImageIcon("img/signUp/userImages.png");
-		userLabel = new JLabel(userIc);
-		userLabel.setLayout(null);
-		userLabel.setBounds(105, 100, 130, 130);
+//		userIc = new ImageIcon("img/signUp/userImages.png");
+//		userLabel = new JLabel(userIc);
+//		userLabel.setLayout(null);
+//		userLabel.setBounds(105, 100, 130, 130);
 
 		// 아이디 입력 textField
 		id_text = new JTextField();
