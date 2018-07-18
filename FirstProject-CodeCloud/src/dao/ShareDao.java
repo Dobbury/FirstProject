@@ -218,7 +218,7 @@ public class ShareDao {
 		+ " SET LIKED=LIKED-1 WHERE SEQ=?";
 		
 		//멤버 라이크 테이블에 시퀀스 넘버 추가// 좋아하는 게시글에 각각의 시퀀스 넘버 부여 > 중복을 확인할수 있음 
-		String sql2 = "DELETE FROM" + id +"_LIKED"
+		String sql2 = "DELETE FROM " + id +"_LIKED"
 		+ " WHERE LIKEDSHARESEQ="+seq;
 		
 		//원래 글 추천수 올림 // 누군가 공유게에서 추천을 눌렀는데   개인게의 추천버튼도 카운트 되는것 
@@ -233,6 +233,7 @@ public class ShareDao {
 			psmt.executeQuery();
 			
 			psmt = conn.prepareStatement(sql2);
+			psmt.executeQuery();
 			
 			
 			psmt = conn.prepareStatement(sql3);
@@ -322,8 +323,7 @@ public class ShareDao {
 		} finally {
 			DBClose.close(psmt, conn, rs);			
 		}
-		
-		s.selfcodelist.add(new BBSDto(indseq2, dto.getTitle(), dto.getContent(), 0, 0, 0, dto.getLang()));
+	
 	}
 	
 	public static Object[][] getLikeList(){

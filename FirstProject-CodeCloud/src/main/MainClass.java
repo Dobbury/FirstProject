@@ -8,7 +8,7 @@ import view.HostDbSetView;
 import view.LoginView;
 import view.MemberMainView;
 
-import view.membermainview.Selfbbs;
+import view.membermainview.SelfbbsWrite;
 
 import view.SignupView;
 
