@@ -56,7 +56,7 @@ public class BBSDao implements BBSDaoImpl {
 
 	
 	@Override
-	public boolean insert(String title, String lang, String content) {
+	public int insert(String title, String lang, String content) {
 		Singleton s = Singleton.getInstance();
 		String sql = "INSERT INTO " + s.nowMember.getID() + " VALUES(" + s.nowMember.getID()
 				+ "_SEQ.NEXTVAL, ?, ?, 0, 0, 0, ?)";
@@ -95,7 +95,7 @@ public class BBSDao implements BBSDaoImpl {
 			DBClose.close(psmt, conn, null);
 		}
 
-		return count>0?true:false;
+		return seq;
 
 	}
 

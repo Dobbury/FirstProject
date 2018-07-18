@@ -31,6 +31,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -67,6 +69,7 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 	int state;
 	
 	public SelfbbsWrite(SelfbbsMain selfMain,BBSDto dto,int state) {
+
 		setLayout(null);
 		setOpaque(false);
 		this.selfMain = selfMain;
@@ -79,13 +82,14 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		right.setBounds(0, 0, 900, 700);
 		right.setLayout(null);
 
-		Font tilteFont = new Font("굴림", Font.BOLD, 40);
+		Font tilteFont = new Font("굴림", Font.BOLD, 30);
 
-		titletxt.setBounds(25, 25, 750, 50);
+		titletxt.setBounds(25, 35, 400, 50);
 		titletxt.setFont(tilteFont);
 		titletxt.setForeground(Color.WHITE);
-		titletxt.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-		//titletxt.setBackground(new Color(0,0,0,70));
+		Border border = BorderFactory.createLineBorder(Color.white);
+	    titletxt.setBorder(BorderFactory.createCompoundBorder(border,
+	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		titletxt.setOpaque(false);
 		
 		titletxt.setText(dto.getTitle());
@@ -98,19 +102,22 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		
 		Tbtn_Java = new JToggleButton("JAVA");
 		Tbtn_Java.setBounds(25, 100, 75, 50);
-		Tbtn_Java.setSelected(true);
+
 		langTogglebtnGroup.add(Tbtn_Java);
 		
 		Tbtn_SQL = new JToggleButton("SQL");
 		Tbtn_SQL.setBounds(100,100,75,50);
+
 		langTogglebtnGroup.add(Tbtn_SQL);
 		
 		Tbtn_C = new JToggleButton("C");
 		Tbtn_C.setBounds(175,100,75,50);
+
 		langTogglebtnGroup.add(Tbtn_C);
 		
 		Tbtn_ETC = new JToggleButton("ETC");
 		Tbtn_ETC.setBounds(250,100,75,50);
+
 		langTogglebtnGroup.add(Tbtn_ETC);
 		
 		right.add(Tbtn_Java);
@@ -119,19 +126,21 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		right.add(Tbtn_ETC);
 
 		
-		Font contentFont = new Font("굴림", Font.BOLD, 15);
+		Font contentFont = new Font("굴림", Font.BOLD, 20);
 
-		codetxt.setBounds(25, 170, 750, 400);
+		codetxt.setBounds(25, 170, 750, 390);
 		//codetxt.setBackground(new Color(0,0,0,70));
 		codetxt.setOpaque(false);
-		codetxt.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		Border border2 = BorderFactory.createLineBorder(Color.white);
+	    codetxt.setBorder(BorderFactory.createCompoundBorder(border2,
+	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		codetxt.setFont(contentFont);
 		codetxt.setForeground(Color.white);
 		codetxt.append(dto.getContent());
 		right.add(codetxt);
 
 		
-		savebtn.setBounds(600, 580, 75, 50);
+		savebtn.setBounds(700, 570, 75, 50);
 		savebtn.addActionListener(this);
 		right.add(savebtn);
 
@@ -155,12 +164,14 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 				else
 					lang="ETC";
 					
-				boolean result = s.selfDao.insert(titletxt.getText(),lang, codetxt.getText());
+				int seq = s.selfDao.insert(titletxt.getText(),lang, codetxt.getText());
+
 				
-				if (result) {
+				
 					JOptionPane.showMessageDialog(null, "저장되었습니다.");
+					selfMain.changePanel(DETAIL, new BBSDto(seq,titletxt.getText(),codetxt.getText(),0 ,0, 0, lang ));
 					selfMain.setList(s.selfDao.getSelfBbsList());
-					selfMain.changePanel(DETAIL, dto);
+					
 				}
 				//테이블 모델 갱신
 				
@@ -183,5 +194,5 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 				}
 			}
 		}
-	}
+	
 }

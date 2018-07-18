@@ -7,7 +7,7 @@ import dto.BBSDto;
 public interface BBSDaoImpl {
 	public LinkedList<BBSDto> getSelfBbsList();
 
-	public boolean insert(String title, String lang, String content);
+	public int insert(String title, String lang, String content);
 
 	public BBSDto select(int seq);
 

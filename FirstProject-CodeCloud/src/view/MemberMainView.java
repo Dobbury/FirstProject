@@ -81,7 +81,9 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 		// ---------------------------------------------------------------------------
 		// 배경화면
 		try {
+
 			img = ImageIO.read(new File("img/background.png"));
+
 		} catch (IOException e) {
 			System.out.println("이미지 불러오기 실패");
 			System.exit(0);
@@ -109,7 +111,9 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 		cards.show(mainPanel, "Singlebbs");
 		
 		mainPanel.setOpaque(false);
+
 		mainPanel.setBounds(150, 0, 1150, 700);
+
 		
 		ImageIcon img = new ImageIcon(s.nowMember.getProfile_Img());
 		Image ori = img.getImage();
@@ -124,7 +128,9 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 
 		memName = new JLabel();
 		memName.setText(s.nowMember.getNick());
+
 		memName.setBounds(10, 200, 40, 30);
+
 
 		btn_Selfbbs = new JButton("개인 코드");
 		btn_Selfbbs.addActionListener(this);
@@ -145,6 +151,7 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 		btn_Logout = new JButton("로그아웃");
 		btn_Logout.addActionListener(this);
 		btn_Logout.setBounds(10, 591, 130, 50);
+
 
 		chatPanel = new chatPanel();
 		chatPanel.connect();

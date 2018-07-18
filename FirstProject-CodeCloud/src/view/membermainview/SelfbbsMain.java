@@ -2,6 +2,9 @@ package view.membermainview;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -12,15 +15,20 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -42,7 +50,6 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 	// 왼쪽 칸
 	private JPanel left = new JPanel();
 	private JButton plus = new JButton("+");
-	private JButton minus = new JButton("-");
 
 	private JTable jTable;
 	private JScrollPane jScrPane;
@@ -61,46 +68,51 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 	
 	public SelfbbsMain() {
+		Singleton s = Singleton.getInstance();
+		list = s.selfDao.getSelfBbsList();
+		
 		setLayout(null);
 		setOpaque(false);
 		setBounds(0, 0, 1100, 700);
 		mainPanel = new JPanel(cards);
 
-		
-		mainPanel.add("SelfbbsDetail", new SelfbbsDetail(this,new BBSDto()));
+		if (list.size() > 0) {	
+			mainPanel.add("SelfbbsDetail", new SelfbbsDetail(this, list.get(0)));
+		}else {
+			mainPanel.add("SelfbbsDetail", new SelfbbsDetail(this, new BBSDto()));
+		}
 		mainPanel.add("SelfbbsWrite", new SelfbbsWrite(this, new BBSDto(),INSERT));
 
 		cards.show(mainPanel, "SelfbbsDetail");// 처음 띄워지는 판
 
-		mainPanel.setBounds(200, 0, 900, 700);
+		mainPanel.setBounds(300, 0, 800, 700);
 		mainPanel.setOpaque(false);
-		
-		Singleton s = Singleton.getInstance();
-		
-		list = s.selfDao.getSelfBbsList();
-		
-		if (list.size() > 0) {//첫번째 게시물 시퀀스번호 저장
+
+		/*if (list.size() > 0) {//첫번째 게시물 시퀀스번호 저장
 			currseq = list.get(0).getSeq();
-		}
+		}*/
 		
 		// left
 		left.setOpaque(false);
 		//left.setBackground(new Color(0,0,0,30));
-		left.setBounds(0, 0, 200, 800);
+		left.setBounds(0, 0, 300, 700);
 		left.setLayout(null);
 
-		plus.setBounds(0, 0, 100, 50);
+		plus.setBounds(0, 0, 300, 50);
+		plus.setOpaque(false);
+		plus.setContentAreaFilled(false);
+		plus.setBorderPainted(true);
+		plus.setForeground(Color.WHITE);
 		plus.addActionListener(this);
-		minus.setBounds(100, 0, 100, 50);
-		minus.addActionListener(this);
+		plus.setFont(new Font("Arial", Font.PLAIN, 40));
+
 		left.add(plus);
-		left.add(minus);
+
 
 		if (list.size() > 0) {
 			rowData = new Object[list.size()][3];
 
 			for (int i = 0; i < list.size(); i++) {
-
 				rowData[i][0] = list.get(i).getTitle();
 				rowData[i][1] = list.get(i).getSeq();
 				rowData[i][2] = list.get(i).getShare();
@@ -109,22 +121,26 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 		model = new DefaultTableModel(rowData, head);
 
-		// model.setDataVector(rowData, head);
-
 		jTable = new JTable(model) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
+		jTable.setFont(new Font("Arial", Font.PLAIN, 30));
 		jTable.addMouseListener(this);
-		jTable.setRowHeight(100);
-		jTable.getColumnModel().getColumn(0).setMaxWidth(202);
+		jTable.setRowHeight(70);
+		jTable.getColumnModel().getColumn(0).setMaxWidth(305);
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.getSelectionModel().setSelectionInterval(0, 0);
+		jTable.setTableHeader(null);
+		jTable.setForeground(Color.WHITE);
+		jTable.setSelectionForeground(Color.gray);
 		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 
+		
+		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 		// 테이블 투명
 		jTable.setOpaque(false);
 		((DefaultTableCellRenderer) jTable.getDefaultRenderer(Object.class)).setOpaque(false);
@@ -132,18 +148,40 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		jScrPane.setOpaque(false);
 		jScrPane.getViewport().setOpaque(false);
 		
-		jScrPane.setBounds(-1, 50, 204, 650);
+		jScrPane.setBounds(0, 50, 305, 550);
 		left.add(jScrPane);
+		
 
-		searchbox.setBounds(0, 700, 200, 25);
+		searchbox.setBounds(0, 600, 300, 25);
+		searchbox.setOpaque(false);
+		searchbox.setForeground(Color.white);
+		searchbox.setRenderer(new DefaultListCellRenderer(){
+		    @Override
+		    public Component getListCellRendererComponent(JList list, Object value,
+		            int index, boolean isSelected, boolean cellHasFocus) {
+		        JComponent result = (JComponent)super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+		        result.setOpaque(false);
+		        return result;
+		    }});
+
 		left.add(searchbox);
-		searchtext.setBounds(0, 725, 140, 40);
+		searchtext.setForeground(Color.white);
+		searchtext.setOpaque(false);
+		searchtext.setBounds(0, 625, 225, 40);
 		left.add(searchtext);
-		searchbtn.setBounds(140, 725, 60, 40);
+		searchbtn.setBounds(225, 625, 75, 40);
+		searchbtn.setOpaque(false);
+		searchbtn.setContentAreaFilled(false);
+		//searchbtn.setBorderPainted(true);
+		searchbtn.setForeground(Color.WHITE);
 		searchbtn.addActionListener(this);
 		left.add(searchbtn);
 
 		add(mainPanel);
+		
+		Border border = BorderFactory.createLineBorder(Color.white);
+	    left.setBorder(BorderFactory.createCompoundBorder(border,
+	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		add(left);
 		setVisible(true);
 	}
@@ -163,16 +201,22 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
-		Singleton s = Singleton.getInstance();
+		JTable source = (JTable) e.getSource();
+		int rows = source.rowAtPoint(e.getPoint());
 		
+		Singleton s = Singleton.getInstance();
 		try {
-			int rowNum = jTable.getSelectedRow();
+			int seq = (int) source.getModel().getValueAt(rows, 1);
+			int shar = (int) source.getModel().getValueAt(rows, 2);
+			System.out.println(shar);
+			currseq = seq;
+			for (int i = 0; i < list.size(); i++) {
+				if (seq == list.get(i).getSeq()) {
+					changePanel(DETAIL, list.get(i));
+					break;
+				}
+			}
 			
-			BBSDto dto = list.get(rowNum);
-
-			changePanel(DETAIL, dto); // 해당 글 보는 곳
-
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(null, "이 게시물은 볼수 없습니다.");
 		}
@@ -209,21 +253,9 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		if (e.getSource() == plus) {
 			changePanel(INSERT, new BBSDto());
 		}
-		if( e.getSource() == minus) {
-			int choice = JOptionPane.YES_NO_OPTION;
-			choice = JOptionPane.showConfirmDialog(null, "이 코드를 정말 삭제하시겠습니까?", "WARNING", choice);
+		/*
 
-			if (choice == 0) {
-				//삭제부분
-				boolean result = s.selfDao.delete(currseq);
-				if (result) {
-					JOptionPane.showMessageDialog(null, "삭제되었습니다.");
-					model.removeRow(jTable.getSelectedRow());
-				}
-
-			}
-
-		}
+		}*/
 		if(e.getSource() == searchbtn) {
 			// {"전체보기", "제목", "언어", "내용"};
 
@@ -246,9 +278,10 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(200);
+				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
 				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				changePanel(DETAIL, tmplist.get(0));
 				((AbstractTableModel) model).fireTableDataChanged();
 				searchtext.setText("");
 
@@ -272,7 +305,8 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				}
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(200);
+				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+				changePanel(DETAIL, tmplist.get(0));
 				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 				((AbstractTableModel) model).fireTableDataChanged();
@@ -297,7 +331,8 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				}
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(200);
+				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+				changePanel(DETAIL, tmplist.get(0));
 				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 				((AbstractTableModel) model).fireTableDataChanged();
@@ -323,7 +358,8 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				}
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(200);
+				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+				changePanel(DETAIL, tmplist.get(0));
 				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 				((AbstractTableModel) model).fireTableDataChanged();
@@ -336,6 +372,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 	
 	public void setList(List<BBSDto> list) {
 		rowData = new Object[list.size()][3];
+		this.list = list;
 
 		int n = 1;
 		for (int i = 0; i < list.size(); i++) {
@@ -347,7 +384,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		////////////////////////////// table 형태 유지
 		model.setDataVector(rowData, head);
 		jTable.setModel(model);
-		jTable.getColumnModel().getColumn(0).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(0).setMaxWidth(300);
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		((AbstractTableModel) model).fireTableDataChanged();
