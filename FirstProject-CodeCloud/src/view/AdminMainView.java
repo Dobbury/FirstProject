@@ -6,11 +6,17 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,7 +30,7 @@ import view.adminmainview.member.adMemberbbsMain;
 import view.adminmainview.share.AdminSharebbs;
 import view.chatview.chatPanel;
 
-public class AdminMainView extends JFrame implements ActionListener {
+public class AdminMainView extends JFrame implements ActionListener, MouseListener, MouseMotionListener {
 
 	private CardLayout cards = new CardLayout();
 	JPanel mainPanel;
@@ -40,7 +46,12 @@ public class AdminMainView extends JFrame implements ActionListener {
 	boolean chat;
 
 	BufferedImage img = null;
-	
+
+	private int posX = 0, posY = 0;
+	private ImageIcon drag1;
+	private ImageIcon drag2;
+	private JButton btn_drag;
+
 	adQAbbsMain adQAMain = new adQAbbsMain();
 
 	// 채팅 부분
@@ -120,6 +131,20 @@ public class AdminMainView extends JFrame implements ActionListener {
 		chatPanel.connect();
 		chatPanel.setBounds(1100, 0, 300, 700);
 
+		// 창 드래그
+		drag1 = new ImageIcon("img/drag/drag1.png");
+		drag1 = new ImageIcon("img/drag/drag2.png");
+		btn_drag = new JButton(drag1);
+		btn_drag.setRolloverIcon(drag2);
+		btn_drag.setPressedIcon(drag2);
+		btn_drag.setBorderPainted(false);
+		btn_drag.setContentAreaFilled(false);
+		btn_drag.setFocusPainted(false);
+		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.addMouseMotionListener(this);
+		btn_drag.addMouseListener(this);
+		add(btn_drag);
+
 		add(chatPanel);
 
 		add(btn_Member);
@@ -175,6 +200,7 @@ public class AdminMainView extends JFrame implements ActionListener {
 
 		}
 	}
+
 	
 	class MyPanel extends JPanel {
 		public void paint(Graphics g) {
@@ -182,5 +208,53 @@ public class AdminMainView extends JFrame implements ActionListener {
 			g.drawImage(img, 0, 0, null);
 
 		}
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (e.getSource() == btn_drag) {
+			posX = e.getX();
+			posY = e.getY();
+		}
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (e.getSource() == btn_drag) {
+			setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
+		}
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 }

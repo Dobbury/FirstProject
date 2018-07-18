@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +28,7 @@ import javax.swing.JTextField;
 
 import singleton.Singleton;
 
-public class LoginView extends JFrame implements ActionListener, FocusListener {
+public class LoginView extends JFrame implements ActionListener, FocusListener, MouseListener, MouseMotionListener {
 
 	private Singleton s = Singleton.getInstance();
 
@@ -47,6 +50,11 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 	private JTextField id_text;
 	private JPasswordField pwd_text;
 
+	private int posX = 0, posY = 0;
+	private ImageIcon drag1;
+	private ImageIcon drag2;
+	private JButton btn_drag;
+
 	BufferedImage img = null;
 	String id_Hint = "ID 입력";
 	String pwd_Hint = "패스워드 입력";
@@ -60,7 +68,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 		// ---------------------------------------------------------------------------
 		// 배경화면
 		try {
-			img = ImageIO.read(new File("img/longin/loginback.png"));
+			img = ImageIO.read(new File("img/login/loginback.png"));
 		} catch (IOException e) {
 			System.out.println("이미지 불러오기 실패");
 			System.exit(0);
@@ -72,17 +80,31 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 		// ---------------------------------------------------------------------------
 		// 버튼
 
+		// 창 드래그
+		drag1 = new ImageIcon("img/drag/drag1.png");
+		drag1 = new ImageIcon("img/drag/drag2.png");
+		btn_drag = new JButton(drag1);
+		btn_drag.setRolloverIcon(drag2);
+		btn_drag.setPressedIcon(drag2);
+		btn_drag.setBorderPainted(false);
+		btn_drag.setContentAreaFilled(false);
+		btn_drag.setFocusPainted(false);
+		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.addMouseMotionListener(this);
+		btn_drag.addMouseListener(this);
+		layeredPane.add(btn_drag);
+
 		// 로그인
-		startIc1 = new ImageIcon("img/longin/btn_Login1.png");
-		startIc2 = new ImageIcon("img/longin/btn_Login2.png");
-		startIc3 = new ImageIcon("img/longin/btn_Login3.png");
+		startIc1 = new ImageIcon("img/login/btn_Login1.png");
+		startIc2 = new ImageIcon("img/login/btn_Login2.png");
+		startIc3 = new ImageIcon("img/login/btn_Login3.png");
 		btn_Login = new JButton(startIc1);
 		btn_Login.setRolloverIcon(startIc2);
 		btn_Login.setPressedIcon(startIc3);
 		btn_Login.setBorderPainted(false);
 		btn_Login.setContentAreaFilled(false);
 		btn_Login.setFocusPainted(false);
-		btn_Login.setBounds(20, 484, 295, 50);
+		btn_Login.setBounds(20, 484, 296, 51);
 		btn_Login.addActionListener(this);
 		layeredPane.add(btn_Login);
 
@@ -101,16 +123,16 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 		layeredPane.add(btn_Close);
 
 		// 회원가입
-		accountIc1 = new ImageIcon("img/longin/account1.png");
-		accountIc2 = new ImageIcon("img/longin/account2.png");
-		accountIc3 = new ImageIcon("img/longin/account3.png");
+		accountIc1 = new ImageIcon("img/login/account1.png");
+		accountIc2 = new ImageIcon("img/login/account2.png");
+		accountIc3 = new ImageIcon("img/login/account3.png");
 		btn_Signup = new JButton(accountIc1);
 		btn_Signup.setRolloverIcon(accountIc2);
 		btn_Signup.setPressedIcon(accountIc3);
 		btn_Signup.setBorderPainted(false);
 		btn_Signup.setContentAreaFilled(false);
 		btn_Signup.setFocusPainted(false);
-		btn_Signup.setBounds(208, 540, 100, 20);
+		btn_Signup.setBounds(122, 554, 100, 20);
 		btn_Signup.addActionListener(this);
 		layeredPane.add(btn_Signup);
 
@@ -142,7 +164,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 		// setBackground(new Color(0,0,0,122)); 배경 투명 설정
 		setTitle("로그인테스트");
 		setLayout(null);
-		setBounds(0, 0, 341, 597);
+		setBounds(0, 0, 341, 596);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(layeredPane);
@@ -212,5 +234,52 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 				pwd_text.setForeground(Color.WHITE);
 			}
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (e.getSource() == btn_drag) {
+			posX = e.getX();
+			posY = e.getY();
+		}
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (e.getSource() == btn_drag) {
+			setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
+		}
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 }

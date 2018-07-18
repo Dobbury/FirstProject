@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -45,16 +46,15 @@ import dto.BBSDto;
 import dto.MemberDto;
 import singleton.Singleton;
 
-
 import view.membermainview.SelfbbsWrite;
 import view.membermainview.Sharebbs;
 
-public class MemberMainView extends JFrame implements ActionListener,MouseListener {
+public class MemberMainView extends JFrame implements ActionListener, MouseListener, MouseMotionListener {
 
 	public CardLayout cards = new CardLayout();
 	public JPanel mainPanel;
 	public JPanel left;
-	
+
 	public JLabel memProfile_Img;
 	public JLabel memName;
 
@@ -69,7 +69,12 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 	PreparedStatement psmt;
 	ResultSet rs;
 	String sql;
-	
+
+	private int posX = 0, posY = 0;
+	private ImageIcon drag1;
+	private ImageIcon drag2;
+	private JButton btn_drag;
+
 	BufferedImage img = null;
 	// 채팅 부분
 	private chatPanel chatPanel;
@@ -95,21 +100,21 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 		// ---------------------------------------------------------------------------
 
 		left = new JPanel();
+
 		left.setBounds(0,0,150,700);
 		left.setBackground(new Color(0, 0, 0,60));
-		
+
 		Singleton s = Singleton.getInstance();
-		
-	
+
 		mainPanel = new JPanel(cards);
 		mainPanel.add("SelfbbsMain", new SelfbbsMain());
 		mainPanel.add("Sharebbs", new Sharebbs());
 		RankThread rank = new RankThread();
 		rank.start();
-		
+
 		mainPanel.add("Q&Abbs", new QAbbsMain());
 		cards.show(mainPanel, "Singlebbs");
-		
+
 		mainPanel.setOpaque(false);
 
 		mainPanel.setBounds(150, 0, 1150, 700);
@@ -117,10 +122,10 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 		
 		ImageIcon img = new ImageIcon(s.nowMember.getProfile_Img());
 		Image ori = img.getImage();
-		Image changedImg= ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH );
-		
+		Image changedImg = ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+
 		img = new ImageIcon(changedImg);
-		
+
 		memProfile_Img = new JLabel();
 		memProfile_Img.setIcon(img);
 		memProfile_Img.addMouseListener(this);
@@ -158,6 +163,20 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 		chatPanel.setOpaque(false);
 		chatPanel.setBounds(1300, 7, 300, 700);
 
+		// 창 드래그
+		drag1 = new ImageIcon("img/drag/drag1.png");
+		drag1 = new ImageIcon("img/drag/drag2.png");
+		btn_drag = new JButton(drag1);
+		btn_drag.setRolloverIcon(drag2);
+		btn_drag.setPressedIcon(drag2);
+		btn_drag.setBorderPainted(false);
+		btn_drag.setContentAreaFilled(false);
+		btn_drag.setFocusPainted(false);
+		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.addMouseMotionListener(this);
+		btn_drag.addMouseListener(this);
+		add(btn_drag);
+
 		add(chatPanel);
 
 		add(btn_Selfbbs);
@@ -173,7 +192,7 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		add(panel);
 
 	}
@@ -188,16 +207,16 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 		} else if (select == 3) {
 			mainPanel.add("Q&Abbs", new QAbbsMain());
 			cards.show(mainPanel, "Q&Abbs");
-			
+
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btn_Selfbbs) {
+		if (e.getSource() == btn_Selfbbs) {
 			mainPanel.add("SelfbbsMain", new SelfbbsMain());
 			changePanel(1);
-		}else if(e.getSource() == btn_Sharebbs) {
+		} else if (e.getSource() == btn_Sharebbs) {
 			mainPanel.add("Sharebbs", new Sharebbs());
 			changePanel(2);
 		} else if (e.getSource() == btn_QAbbs) {
@@ -224,37 +243,52 @@ public class MemberMainView extends JFrame implements ActionListener,MouseListen
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource() == memProfile_Img) {
+		if (e.getSource() == memProfile_Img) {
 			Singleton s = Singleton.getInstance();
-			
-			new MemberUpdateView(this,s.nowMember);
+
+			new MemberUpdateView(this, s.nowMember);
+		} else if (e.getSource() == btn_drag) {
+			posX = e.getX();
+			posY = e.getY();
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (e.getSource() == btn_drag) {
+			setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
+		}
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
 
 	class MyPanel extends JPanel {
 		public void paint(Graphics g) {
