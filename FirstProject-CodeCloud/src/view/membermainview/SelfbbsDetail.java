@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.Action;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.GrayFilter;
 import javax.swing.JButton;
@@ -30,6 +31,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -57,6 +59,7 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 
 	JButton editbtn = new JButton("수정");
 	JToggleButton sharebtn = new JToggleButton("공유");
+	JButton deletebtn = new JButton("삭제");
 
 
 	BBSDao dao = new BBSDao();
@@ -86,18 +89,18 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		
 		Font langFont = new Font("굴림",Font.BOLD, 25);
 		lang = new JLabel();
-		lang.setText("JAVA");
+		lang.setText(dto.getLanguage());
 		lang.setFont(langFont);
-		lang.setForeground(new Color(4,102,95));
-		lang.setBounds(30,30,100,50);
+		lang.setForeground(Color.white);
+		lang.setBounds(25, 100, 75, 50);
 		right.add(lang);
 		
 		Font tilteFont = new Font("굴림", Font.BOLD, 40);
 
-		titletxt.setBounds(25,  75, 400, 50);
+		titletxt.setBounds(25, 35, 400, 50);
 		titletxt.setEditable(false);
 		titletxt.setFont(tilteFont);
-		titletxt.setForeground(Color.BLACK);
+		titletxt.setForeground(Color.white);
 		titletxt.setOpaque(false);
 
 		titletxt.setText(dto.getTitle());
@@ -106,26 +109,33 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 	
 		Font contentFont = new Font("굴림", Font.BOLD, 15);
 
-		codetxt.setBounds(30, 170, 750, 400);
+		codetxt.setBounds(25, 170, 750, 390);
 		codetxt.setOpaque(false);
 		codetxt.setFont(contentFont);
 		codetxt.setForeground(Color.white);
 		
+		Border border = BorderFactory.createLineBorder(Color.white);
+	    codetxt.setBorder(BorderFactory.createCompoundBorder(border,
+	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		codetxt.setText(dto.getContent());
 		codetxt.setEditable(false);
 
 		right.add(codetxt);
 
-		// 700
-		editbtn.setBounds(400, 580, 75, 50);
+		// 공유 수정 삭제
+		editbtn.setBounds(500, 570, 75, 50);
 		editbtn.addActionListener(this);
 		right.add(editbtn);
-		sharebtn.setBounds(500, 580, 75, 50);
+		sharebtn.setBounds(600, 570, 75, 50);
 		if (list.size() > 0) {
 			if (list.get(0).getShare() == 1) {
 				sharebtn.setSelected(true);
 			}
 		}
+		deletebtn.setBounds(700, 570, 75, 50);
+		deletebtn.addActionListener(this);
+		right.add(deletebtn);
+		
 		sharebtn.addActionListener(this);
 		right.add(sharebtn);
 		
@@ -172,6 +182,19 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 			}
 
 		}
-	}
+		if(e.getSource() == deletebtn) {
+			int choice = JOptionPane.YES_NO_OPTION;
+			choice = JOptionPane.showConfirmDialog(null, "이 코드를 정말 삭제하시겠습니까?", "WARNING", choice);
 
+			if (choice == 0) {
+				//삭제부분
+				boolean result = s.selfDao.delete(dto.getSeq());
+				if (result) {
+					JOptionPane.showMessageDialog(null, "삭제되었습니다.");
+					selfMain.changePanel(DETAIL, selfMain.list.get(0));
+				}
+
+			}
+		}
+	}
 }
