@@ -1,6 +1,7 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,9 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import dto.QAbbsDto;
 import singleton.Singleton;
+import textLimit.JTextFieldLimit;
 
 public class QAbbsWrite extends JPanel implements WindowListener, ActionListener {
 
@@ -50,20 +53,21 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 		this.state=state;
 		
-		titleLabel = new JLabel("제목: ");
-		titleLabel.setBounds(50, 50, 50, 50);
-
+		//타이틀
 		titleText = new JTextField();
+		titleText.setDocument(new JTextFieldLimit(50));//50자 제한
 		titleText.setBounds(100, 50, 310, 30);
 		titleText.setText(dto.getTitle());
 
-		titleLabel2 = new JLabel("내용 ");
-		titleLabel2.setBounds(50, 110, 50, 50);
 
 		postArea = new JTextArea();
+		postArea.setDocument(new JTextFieldLimit(4000));	//4000자 제한
 		postArea.append(dto.getContent());
 
-		jScrol = new JScrollPane(postArea);
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrol.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+				
 		jScrol.setBounds(50, 150, 650, 400);
 
 		// 입력 버튼
@@ -76,8 +80,6 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		btn_Cancle.addActionListener(this);
 		btn_Cancle.setBounds(50, 570, 100, 40);
 
-		add(titleLabel);
-		add(titleLabel2);
 		add(titleText);
 		add(jScrol);
 

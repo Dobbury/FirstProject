@@ -1,6 +1,7 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+
 import dao.QAbbsDao;
 import dto.QAbbsDto;
 import singleton.Singleton;
@@ -86,11 +89,14 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		content_backgorund.setIcon(content_back_Img);
 		content_backgorund.setBounds(50, 200, 750, 350);
 	
-		jScrol = new JScrollPane(postArea);
+		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrol.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+		
 		jScrol.setOpaque(false);
 		jScrol.getViewport().setOpaque(false);
 		jScrol.setBounds(50, 200, 750, 350);
-
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+					
 		jScrol.setBorder(BorderFactory.createCompoundBorder(null,
 	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 

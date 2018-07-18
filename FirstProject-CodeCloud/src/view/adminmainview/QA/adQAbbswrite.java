@@ -1,6 +1,7 @@
 package view.adminmainview.QA;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,16 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import dto.QAbbsDto;
 import singleton.Singleton;
+import textLimit.JTextFieldLimit;
 import view.membermainview.QAbbsMain;
 
 public class adQAbbswrite extends JPanel implements ActionListener, WindowListener {
 
-	JLabel titleLabel;// 제목
-	JLabel titleLabel2;// 내용
-
+	
 	JTextField titleText;
 	JTextArea postArea;
 
@@ -49,23 +50,26 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 		this.dto = dto;
 		this.state = state;
 
-		titleLabel = new JLabel("제목: ");
-		titleLabel.setBounds(50, 10, 50, 30);
-
+		//제목
 		titleText = new JTextField();
+		titleText.setDocument(new JTextFieldLimit(50));	//50자 제한
 		titleText.setBounds(110, 10, 310, 30);
 		titleText.setText(dto.getTitle());
 
-		titleLabel2 = new JLabel("내용 ");
-		titleLabel2.setBounds(50, 150, 50, 30);
 
 		postArea = new JTextArea();
+		postArea.setDocument(new JTextFieldLimit(4000));	//4000자 제한
 		postArea.setBounds(110, 80, 310, 200);
 		postArea.append(dto.getContent());
 
 		jScrol = new JScrollPane(postArea);
 		jScrol.setBounds(110, 80, 310, 200);
 
+		// 스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrol.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+	
 		// 입력 버튼
 		btn_Commit = new JButton("확 인");
 		btn_Commit.addActionListener(this);
@@ -76,8 +80,6 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 		btn_Cancle.addActionListener(this);
 		btn_Cancle.setBounds(335, 305, 110, 50);
 
-		add(titleLabel);
-		add(titleLabel2);
 		add(titleText);
 		add(jScrol);
 

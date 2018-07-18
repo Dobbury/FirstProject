@@ -1,6 +1,7 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -32,6 +33,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -61,7 +63,7 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 	JToggleButton sharebtn = new JToggleButton("공유");
 	JButton deletebtn = new JButton("삭제");
 
-
+	private JScrollPane jScrPane;
 	BBSDao dao = new BBSDao();
 
 	MouseEvent selectfirst;
@@ -125,7 +127,12 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		codetxt.setText(dto.getContent());
 		codetxt.setEditable(false);
 
-		right.add(codetxt);
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrPane = new JScrollPane(codetxt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+					
+				
+		right.add(jScrPane);
 		right.add(code_backgorund);
 		
 		// 공유 수정 삭제

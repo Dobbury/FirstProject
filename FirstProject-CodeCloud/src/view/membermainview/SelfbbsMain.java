@@ -127,6 +127,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				return false;
 			}
 		};
+		//한글 지원 안됨
 		jTable.setFont(new Font("Arial", Font.PLAIN, 30));
 		jTable.addMouseListener(this);
 		jTable.setRowHeight(70);
@@ -135,11 +136,11 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.getSelectionModel().setSelectionInterval(0, 0);
 		jTable.setTableHeader(null);
-		jTable.setForeground(Color.WHITE);
-		jTable.setSelectionForeground(Color.gray);
-		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
-
+		jTable.setForeground(Color.WHITE);		
+		jTable.setSelectionForeground(Color.BLACK);
 		
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 		// 테이블 투명
 		jTable.setOpaque(false);
@@ -151,7 +152,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		jScrPane.setBounds(0, 50, 305, 550);
 		left.add(jScrPane);
 		
-
+		
 		searchbox.setBounds(0, 600, 300, 25);
 		searchbox.setOpaque(false);
 		searchbox.setForeground(Color.white);
@@ -210,6 +211,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 			int shar = (int) source.getModel().getValueAt(rows, 2);
 			System.out.println(shar);
 			currseq = seq;
+	
 			for (int i = 0; i < list.size(); i++) {
 				if (seq == list.get(i).getSeq()) {
 					changePanel(DETAIL, list.get(i));

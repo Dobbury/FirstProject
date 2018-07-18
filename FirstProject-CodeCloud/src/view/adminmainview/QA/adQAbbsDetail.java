@@ -1,6 +1,7 @@
 package view.adminmainview.QA;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -16,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+
 import dao.MemberDao;
 import dao.QAbbsDao;
 import dto.QAbbsDto;
@@ -85,7 +88,9 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		postArea.append(dto.getContent());
 		postArea.setEditable(false);
 
-		jScrol = new JScrollPane(postArea);
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrol.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 		jScrol.setBounds(200, 200, 300, 300);
 
 		// 게시글 답글달기

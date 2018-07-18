@@ -152,10 +152,9 @@ public class QAbbsMain extends JPanel {
 		Fork.getColumnModel().getColumn(1).setMaxWidth(100);
 		Fork.getColumnModel().getColumn(2).setMaxWidth(40);
 
-		Liked.setBounds(10, 50, 180, 270);
-		Fork.setBounds(10, 370, 180, 270);
 		Liked.setRowHeight(45);
 		Fork.setRowHeight(45);
 
+	
 	}
 }

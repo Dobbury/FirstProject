@@ -1,6 +1,7 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -91,7 +93,10 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
 		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
 
-		jScrPane = new JScrollPane(ShareListTable);
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrPane = new JScrollPane(ShareListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+						
 		jScrPane.setBounds(50, 150, 750, 400);
 		add(jScrPane);
 		

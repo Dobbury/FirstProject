@@ -1,6 +1,7 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.ScrollPaneConstants;
 
 import dao.ShareDao;
 import dto.QAbbsDto;
@@ -81,7 +83,10 @@ public class ShareDetail extends JPanel implements Action {
 		code_backgorund.setBounds(50,200,750,350);
 				
 			
-		jScrol = new JScrollPane(postArea);
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrol.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+				
 		jScrol.setOpaque(false);
 		jScrol.getViewport().setOpaque(false);
 		jScrol.setBounds(50, 200, 750, 350);

@@ -1,6 +1,7 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -10,6 +11,8 @@ import java.awt.event.WindowListener;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -64,7 +68,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 			rowData[i][0] = dto.getSeq();// 번호
 
 			if (dto.getDel() == 1)
-				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
+				rowData[i][1] = "  *************이 글은 삭제되었습니다*************";
 			else {
 				// 댓글 작업 부분
 				rowData[i][1] = "";
@@ -73,7 +77,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 				}
 	
 				if (rowData[i][1].equals(""))
-					rowData[i][1] = list.get(i).getTitle();
+					rowData[i][1] ="  " + list.get(i).getTitle();
 				else
 					rowData[i][1] += "[답변] " + list.get(i).getTitle();
 			}
@@ -121,23 +125,48 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		jTable = new JTable(model);
 		jTable.addMouseListener(this);
 
-		// 컬럼의 넓이 설정
-		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(600);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(60);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(150);
-
 		// 테이블안에 컬럼을 위치설정
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
-		jTable.getColumn("작성일").setCellRenderer(celAlignCenter);
+		celAlignCenter.setOpaque(false);
+		// 컬럼의 넓이 설정
+		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
+		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(80);
+		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(120);
+		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
+		
+		jTable.setOpaque(false);
+		jTable.setForeground(Color.WHITE);
+		jTable.setTableHeader(null);
+		jTable.setShowGrid(false);
+		
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+		jScrPane.setOpaque(false);
+		((DefaultTableCellRenderer) jTable.getDefaultRenderer(Object.class)).setOpaque(false);
+		jScrPane.getViewport().setOpaque(false);
+		
+		//테두리 없애기
+		jScrPane.setBorder(BorderFactory.createCompoundBorder(null,
+	            BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 
-		jScrPane = new JScrollPane(jTable);
+		
+		// 코드 배경
+		ImageIcon bbs_back_Img = new ImageIcon("img/QAbbs/QAbbs_background.png");
 
-		jScrPane.setBounds(50, 150, 750, 400);
+		JLabel bbs_backgorund = new JLabel();
+		bbs_backgorund.setIcon(bbs_back_Img);
+		bbs_backgorund.setBounds(50, 150, 750, 400);
+		///////////////////////////////////////////////////
+		jScrPane.setBounds(50, 196, 750, 354);
+		
 		add(jScrPane);
-
+		add(bbs_backgorund);
+		
 		// 검색할 부분 콤보박스로 나열해줌
 		// Choice(AWT) -> JComboBox(swing)
 		String[] selects = new String[] { "제목", "내용", "작성자" };
