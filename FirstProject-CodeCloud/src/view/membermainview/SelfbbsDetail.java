@@ -21,6 +21,7 @@ import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.GrayFilter;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -51,8 +52,7 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 	JLabel lang;
 
 	JPanel right = new JPanel();
-	JLabel titlelab = new JLabel("제목");
-	JTextField titletxt = new JTextField("");
+	JLabel titletxt = new JLabel();
 
 	JTextArea codetxt = new JTextArea("");
 
@@ -88,13 +88,12 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		lang.setText(dto.getLanguage());
 		lang.setFont(langFont);
 		lang.setForeground(Color.white);
-		lang.setBounds(25, 100, 75, 50);
+		lang.setBounds(35, 110, 75, 50);
 		right.add(lang);
 
 		Font tilteFont = new Font("굴림", Font.BOLD, 40);
 
-		titletxt.setBounds(25, 35, 400, 50);
-		titletxt.setEditable(false);
+		titletxt.setBounds(30, 55, 400, 50);
 		titletxt.setFont(tilteFont);
 		titletxt.setForeground(Color.white);
 		titletxt.setOpaque(false);
@@ -103,30 +102,40 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		right.add(titletxt);
 
 		Font contentFont = new Font("굴림", Font.BOLD, 15);
-
-		codetxt.setBounds(25, 170, 750, 390);
+		
+		//코드 배경
+		ImageIcon code_back_Img = new ImageIcon("img/selfbbs/self_code_background.png");
+		
+		JLabel code_backgorund = new JLabel();
+		code_backgorund.setIcon(code_back_Img);
+		code_backgorund.setBounds(25,170,750,400);
+		
+		codetxt.setBounds(25, 170, 750, 400);
 		codetxt.setOpaque(false);
 		codetxt.setFont(contentFont);
 		codetxt.setForeground(Color.white);
 
-		Border border = BorderFactory.createLineBorder(Color.white);
-		codetxt.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		
+	    codetxt.setBorder(BorderFactory.createCompoundBorder(null,
+	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+
 		codetxt.setText(dto.getContent());
 		codetxt.setEditable(false);
 
 		right.add(codetxt);
-
+		right.add(code_backgorund);
+		
 		// 공유 수정 삭제
-		editbtn.setBounds(500, 570, 75, 50);
+		editbtn.setBounds(500, 590, 75, 50);
 		editbtn.addActionListener(this);
 		right.add(editbtn);
-		sharebtn.setBounds(600, 570, 75, 50);
+		sharebtn.setBounds(600, 590, 75, 50);
 
 		if (dto.getShare() == 1) {
 			sharebtn.setSelected(true);
 		}
 
-		deletebtn.setBounds(700, 570, 75, 50);
+		deletebtn.setBounds(700, 590, 75, 50);
 		deletebtn.addActionListener(this);
 		right.add(deletebtn);
 

@@ -251,9 +251,10 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 
 		if (e.getSource() == btn_check) {
 
-			Singleton s = Singleton.getInstance();
-			 s.hostDB_IP = IP_Text.getText();
 			DBConnection.initConnect(IP_Text.getText());
+			Singleton s = Singleton.getInstance();
+			s.hostDB_IP = IP_Text.getText();
+
 			DBCheck.memDBcheck();
 			DBCheck.shareDBCheck();
 			DBCheck.qaDBCheck();

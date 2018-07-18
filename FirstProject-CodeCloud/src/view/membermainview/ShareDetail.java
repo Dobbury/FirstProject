@@ -1,10 +1,13 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,9 +27,8 @@ public class ShareDetail extends JPanel implements Action {
 	JLabel likelab = new JLabel();
 	JLabel forklab = new JLabel();
 
-	JTextField titleText;// 닉넴 텍스트필드
-	JTextField titleText2;// 제목 텍스트필드
-	JTextField titleText3;// content 텍스트 필드
+	JLabel nickText;// 닉넴 텍스트필드
+	JLabel titleText;// 제목 텍스트필드
 	
 	JTextArea postArea;
 	JScrollPane jScrol;
@@ -48,23 +50,43 @@ public class ShareDetail extends JPanel implements Action {
 		ShareMain=sharebbs;
 		
 		//닉네임
-		titleText = new JTextField();
-		titleText.setBounds(50, 160, 310, 30);
-		titleText.setText(dto.getNick());
-		titleText.setEditable(false);
-
+		Font nickFont = new Font("굴림",Font.BOLD, 25);
+		nickText = new JLabel();
+		nickText.setFont(nickFont);
+		nickText.setForeground(Color.WHITE);
+		nickText.setBounds(65, 160, 310, 30);
+		nickText.setText(dto.getNick());
+		
 		//타이틀
-		titleText2 = new JTextField();
-		titleText2.setBounds(50, 100, 310, 50);
-		titleText2.setText(dto.getTitle());
-		titleText2.setEditable(false);
+
+		Font titleFont = new Font("굴림",Font.BOLD, 40);
+		titleText = new JLabel();
+		titleText.setFont(titleFont);
+		titleText.setForeground(Color.WHITE);
+		titleText.setBounds(65, 100, 310, 50);
+		titleText.setText(dto.getTitle());
 		
 		postArea = new JTextArea();
+		postArea.setOpaque(false);
+		postArea.setForeground(Color.WHITE);
 		postArea.append(dto.getContent());
 		postArea.setEditable(false);
 		
+		
+		//코드 배경
+		ImageIcon code_back_Img = new ImageIcon("img/sharebbs/share_code_background.png");
+				
+		JLabel code_backgorund = new JLabel();
+		code_backgorund.setIcon(code_back_Img);
+		code_backgorund.setBounds(50,200,750,350);
+				
+			
 		jScrol = new JScrollPane(postArea);
+		jScrol.setOpaque(false);
+		jScrol.getViewport().setOpaque(false);
 		jScrol.setBounds(50, 200, 750, 350);
+		jScrol.setBorder(BorderFactory.createCompoundBorder(null,
+	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 
 		// 글 목록
 		btn_List = new JButton("글 목록");
@@ -72,7 +94,14 @@ public class ShareDetail extends JPanel implements Action {
 		btn_List.setBounds(50, 570, 100, 40);
 		
 		//좋아요버튼
-		btn_liked = new JToggleButton("추천");
+		ImageIcon liked_Img = new ImageIcon("img/sharebbs/btn_Liked.png");
+		ImageIcon liked_Img_clicked = new ImageIcon("img/sharebbs/btn_Liked_clicked.png");
+		
+		btn_liked = new JToggleButton(liked_Img);
+		btn_liked.setSelectedIcon(liked_Img_clicked);
+		btn_liked.setFocusPainted(false);
+		btn_liked.setContentAreaFilled(false);
+		btn_liked.setBorderPainted(false);
 		btn_liked.addActionListener(this);
 		btn_liked.setBounds(610, 160, 30, 30);
 		
@@ -82,25 +111,37 @@ public class ShareDetail extends JPanel implements Action {
 				break;
 			}
 		}
-		
-		likelab.setBounds(670, 160, 30, 30);
+
+		Font liked_fork_Font = new Font("굴림",Font.BOLD,15);
+		likelab.setBounds(650, 160, 30, 30);
+		likelab.setFont(liked_fork_Font);
 		likelab.setForeground(Color.WHITE);
 		likelab.setText(dto.getLiked()+"");
 		
 		//포크 버튼 
-		btn_fork = new JButton("퍼가요");
+		ImageIcon fork_Img1 = new ImageIcon("img/sharebbs/fork1.png");
+		ImageIcon fork_Img2 = new ImageIcon("img/sharebbs/fork2.png");
+		ImageIcon fork_Img3 = new ImageIcon("img/sharebbs/fork3.png");
+		
+		btn_fork = new JButton(fork_Img1);
+		btn_fork.setRolloverIcon(fork_Img2);
+		btn_fork.setPressedIcon(fork_Img3);
+		btn_fork.setFocusPainted(false);
+		btn_fork.setContentAreaFilled(false);
+		btn_fork.setBorderPainted(false);
 		btn_fork.addActionListener(this);
 		btn_fork.setBounds(710, 160, 30, 30);
 		
-		forklab.setBounds(770, 160, 30, 30);
+		forklab.setBounds(752, 160, 30, 30);
+		forklab.setFont(liked_fork_Font);
 		forklab.setForeground(Color.WHITE);
 		forklab.setText(dto.getFork()+"");
 		
+		add(nickText);
 		add(titleText);
-		add(titleText2);
 		
 		add(jScrol);
-
+		add(code_backgorund);
 		add(btn_List);
 		add(btn_liked);
 		add(btn_fork);
