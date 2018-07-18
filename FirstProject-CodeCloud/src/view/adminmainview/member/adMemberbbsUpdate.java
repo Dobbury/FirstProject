@@ -37,12 +37,10 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 	private ImageIcon signupIc3;
 	private JButton btn_Commit;
 
-	
 	private ImageIcon userIc;
 	private JLabel userLabel;
 
 	private JTextField id_text;
-
 	private JTextField nick_text;
 	
 	private JPasswordField pwd_text;
@@ -61,7 +59,6 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(0, 0, 342, 596);
 		layeredPane.setLayout(null);
-		
 		
 		setOpaque(false);
 		
@@ -82,7 +79,6 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 
 		// ---------------------------------------------------------------------------
 		// 버튼
-
 		// 회원가입
 		signupIc1 = new ImageIcon("img/signUp/btn_sign1.png");
 		signupIc2 = new ImageIcon("img/signUp/btn_sign2.png");
@@ -96,9 +92,8 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 		btn_Commit.setBounds(20, 484, 295, 50);
 		btn_Commit.addActionListener(this);
 		layeredPane.add(btn_Commit);
-
-
 		// ---------------------------------------------------------------------------
+		
 		// 사용자 프로필 이미지
 		userIc = new ImageIcon(dto.getProfile_Img());
 		userLabel = new JLabel(userIc);
@@ -138,7 +133,6 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 
 		// 기본 설정
 		// setBackground(new Color(0,0,0,122)); 배경 투명 설정
-
 		setLayout(null);
 		setBounds(0, 0, 341, 597);
 		add(layeredPane);
@@ -150,7 +144,6 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 		public void paint(Graphics g) {
 			// g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
 			g.drawImage(img, 0, 0, null);
-
 		}
 	}
 	@Override
@@ -227,13 +220,11 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 				pwd_text.setForeground(Color.WHITE);
 				pwd_check_label.setText("필수 정보입니다.");
 				pwd_check_label.setForeground(Color.RED);
-
 				pwd_check = false;
 			} else {
 				// 비밀번호 조건 넣을 부분
 				pwd_check_label.setText("사용 가능한 비밀번호입니다.");
 				pwd_check_label.setForeground(Color.GREEN);
-
 				pwd_check = true;
 			}
 		}

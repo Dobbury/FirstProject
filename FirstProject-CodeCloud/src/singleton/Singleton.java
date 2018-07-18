@@ -9,7 +9,9 @@ import dao.ShareDao;
 import dto.BBSDto;
 import dto.MemberDto;
 import dto.QAbbsDto;
+
 import view.membermainview.QAbbsList;
+
 import dto.ShareDto;
 
 public class Singleton {
@@ -18,9 +20,9 @@ public class Singleton {
 	
 	public MemberController MemCtrl = new MemberController();
 	public MemberDto nowMember = null;
-	public QAbbsDto qaDto;
-	public QAbbsDao qaDao = new QAbbsDao();
-	public QAbbsList blf = null;
+	
+	public QAbbsDao qaDao = new QAbbsDao();	
+
 	public ShareDao sharDao = new ShareDao();
 	
 	public BBSDao selfDao = new BBSDao();
@@ -33,6 +35,7 @@ public class Singleton {
 		if(s==null){
 			s = new Singleton();
 		}
+		
 		return s;
 	}
 }

@@ -11,8 +11,10 @@ import java.awt.event.WindowListener;
 import java.util.Calendar;
 import java.util.List;
 
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
 import dto.QAbbsDto;
 import singleton.Singleton;
 
@@ -39,18 +42,19 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 	DefaultTableModel model; // 테이블의 넓이 설정
 
-	String columnNames[] = { "번호", "제목", "닉네임", "작성일" };
+	String columnNames[] = { "번호", "제목", "작성자", "작성일" };
 
 	Object rowData[][];
 	QAbbsMain QAmain;
 
 	List<QAbbsDto> list;
-	final int INSERT = 0;
-	final int UPDATE = 1;
+
 
 	final int DETAIL = -2;
 	final int LIST = -1;
-
+	final int INSERT = 0;
+	final int UPDATE = 1;
+	
 	public QAbbsList(QAbbsMain QA) {
 		setOpaque(false);
 		
@@ -125,7 +129,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		selectBtn.setBounds(300, 570, 100, 40);
 		add(selectBtn);
 
-		model = new DefaultTableModel(columnNames, 0);	
+		model = new DefaultTableModel(columnNames, 0);
 		model.setDataVector(rowData, columnNames);
 
 		jTable = new JTable(model);
@@ -161,7 +165,6 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		jScrPane.setBorder(BorderFactory.createCompoundBorder(null,
 	            BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 
-		
 		// 코드 배경
 		ImageIcon bbs_back_Img = new ImageIcon("img/QAbbs/QAbbs_background.png");
 
@@ -177,7 +180,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		
 		// 검색할 부분 콤보박스로 나열해줌
 		// Choice(AWT) -> JComboBox(swing)
-		String[] selects = new String[] { "제목", "내용", "닉네임" };
+		String[] selects = new String[] { "제목", "내용", "작성자" };
 		choiceList = new JComboBox<>(selects);
 		choiceList.setBounds(50, 570, 80, 40);
 		add(choiceList);
@@ -191,7 +194,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		Object obj = e.getSource();
 		// 글쓰기
 		if (obj == writeBtn) {
-			QAmain.changePanel(3, new QAbbsDto(), INSERT);
+			QAmain.changePanel(3, new QAbbsDto(),INSERT);
 		}
 		// 검색 버튼
 		else if (obj == selectBtn) {
@@ -213,7 +216,6 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		}
 	}
 
-	// 검색 후에 목록을 셋팅용
 	public void setList(List<QAbbsDto> list) {
 		rowData = new Object[list.size()][4];
 
@@ -221,9 +223,8 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		for (int i = 0; i < list.size(); i++) {
 			QAbbsDto dto = list.get(i);
 			rowData[i][0] = dto.getSeq();
-			if (dto.getDel() == 1) {
+			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-			}
 			else {
 				// 댓글 작업 부분
 				rowData[i][1] = "";
@@ -239,6 +240,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 
 			Calendar cal = Calendar.getInstance();
+
 			// 테이블 날짜 다듬어서 뿌려주기
 			// 현재날짜의 글들은 시간과 분으로 출력 이전날짜들은 날짜들만 출력
 			// 현재 년도, 월, 일
@@ -255,6 +257,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 				String beforeDate = list.get(i).getWdate().substring(0, 10);
 				rowData[i][3] = beforeDate;
 			}
+
 		}
 		////////////////////////////// table 형태 유지
 		model.setDataVector(rowData, columnNames);
@@ -268,9 +271,9 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-
 		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
 		jTable.getColumn("작성일").setCellRenderer(celAlignCenter);
+		//////////////////////////////
 
 		jTable.setModel(model);
 	}
@@ -335,10 +338,12 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(), list.get(rowNum).getRef(), list.get(rowNum).getStep(),
 				list.get(rowNum).getDept());
 
-		QAmain.changePanel(2, dto, INSERT); // 해당 글 보는 곳
-		QAmain.changePanel(2, dto, DETAIL); // 해당 글 보는 곳
+		QAmain.changePanel(2, dto,DETAIL); // 해당 글 보는 곳
 	}
 
+	
+	
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub

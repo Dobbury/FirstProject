@@ -40,7 +40,6 @@ public class QAbbsDao {
 	}
 
 	public List<QAbbsDto> getbbsList() {
-		// 쿼리 수정해야함
 		String sql = "SELECT SEQ,nick,TITLE,dat,DEL,REF,STEP,DEPT,visible " + "FROM QA " + "WHERE SEQ > 0 "
 				+ "START WITH SEQ = 0 " + "CONNECT BY PRIOR SEQ = REF " + "ORDER SIBLINGS BY STEP ASC,SEQ DESC";
 
@@ -72,6 +71,7 @@ public class QAbbsDao {
 				dto.setDept(rs.getInt("dept"));
 				dto.setVisible(rs.getInt("visible"));
 				list.add(dto);
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -126,7 +126,7 @@ public class QAbbsDao {
 		}
 		return dto;
 	}
-	
+
 	// 쓰기
 	public boolean insert(QAbbsDto dto) {
 		String sql = "INSERT INTO QA(seq, nick, title, content, dat, del,ref,step,dept,visible,answer)"
@@ -151,7 +151,6 @@ public class QAbbsDao {
 			count = stmt.executeUpdate();
 
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		} finally {
 			DBClose.close(stmt, conn, null);
@@ -192,7 +191,7 @@ public class QAbbsDao {
 
 	// 수정
 	public boolean update(QAbbsDto dto) {
-		String sql = "UPDATE QA SET title=?, content=?, del = ? ,visible = ? "
+		String sql = "UPDATE QA SET title=?, content=?, del = ?  visible = ? "
 				+ "WHERE seq = ? AND ref=? AND step=? AND dept=?";
 
 		Connection conn = DBConnection.makeConnection();
@@ -211,7 +210,7 @@ public class QAbbsDao {
 			stmt.setInt(6, dto.getRef());
 			stmt.setInt(7, dto.getStep());
 			stmt.setInt(8, dto.getDept());
-
+			
 			count = stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -222,7 +221,7 @@ public class QAbbsDao {
 		return count > 0 ? true : false;
 	}
 
-	/*// 삭제
+	// 삭제
 	public int delete(int seq) {
 		String sql = " DELETE QA " + "WHERE seq=" + seq;
 
@@ -244,7 +243,7 @@ public class QAbbsDao {
 		}
 		return count;
 	}
-*/
+
 	// 검색
 	public List<QAbbsDto> getTitleFindList(String fStr, String fword) {
 		List<QAbbsDto> list = new ArrayList<QAbbsDto>();
@@ -288,6 +287,7 @@ public class QAbbsDao {
 
 				list.add(dto);
 			}
+
 		} catch (SQLException e) {
 			System.out.println("getTitleFindList fail");
 			e.printStackTrace();

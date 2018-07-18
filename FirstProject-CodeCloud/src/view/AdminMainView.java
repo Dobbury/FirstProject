@@ -76,7 +76,6 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 
 		// ---------------------------------------------------------------------------
 		
-
 		mainPanel = new JPanel(cards);
 
 		mainPanel.add("Memberbbs", new adMemberbbsMain());
@@ -97,14 +96,12 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		
 		memProfile_Img = new JLabel();
 		memProfile_Img.setIcon(img);
-//		memProfile_Img.addMouseListener(this);
 		memProfile_Img.setBounds(10, 50, 130, 130);
 
 		memName = new JLabel();
 		memName.setText(s.nowMember.getNick());
 		memName.setForeground(Color.WHITE);
-		memName.setBounds(50, 200, 80, 30);
-		
+		memName.setBounds(50, 200, 80, 30);		
 
 		btn_Member = new JButton("회원 관리");
 		btn_Member.addActionListener(this);
@@ -143,8 +140,9 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		btn_drag.setBounds(0, 0, 13, 13);
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
+		
+		
 		add(btn_drag);
-
 		add(chatPanel);
 
 		add(btn_Member);
@@ -182,30 +180,34 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btn_Member) {
 			changePanel(1);
+			
 		} else if (e.getSource() == btn_Sharebbs) {
 			changePanel(2);
+			
 		} else if (e.getSource() == btn_QAbbs) {
 			changePanel(3);
+			
 		} else if (e.getSource() == btn_Chat) {
 			if (chat) {
 				setBounds(50, 50, 1100, 700);
 				chat = false;
+				
 			} else {
 				setBounds(50, 50, 1400, 700);
 				chat = true;
+				
 			}
 		} else if (e.getSource() == btn_Logout) {
 			Singleton s = Singleton.getInstance();
 			s.nowMember = null;
 			this.dispose();
 			s.MemCtrl.login();
+
 		}
 	}
-
 	
 	class MyPanel extends JPanel {
 		public void paint(Graphics g) {
-			// g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
 			g.drawImage(img, 0, 0, null);
 
 		}
@@ -224,7 +226,6 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 			posX = e.getX();
 			posY = e.getY();
 		}
-
 	}
 
 	@Override
@@ -250,7 +251,6 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		if (e.getSource() == btn_drag) {
 			setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
 		}
-
 	}
 
 	@Override

@@ -28,7 +28,7 @@ import singleton.Singleton;
 
 public class QAbbsDetail extends JPanel implements ActionListener, WindowListener {
 
-
+	
 	JLabel nickText;// 닉넴 텍스트필드
 	JLabel titleText;// 제목 텍스트필드
 	
@@ -37,9 +37,9 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 	JScrollPane jScrol;
 
+	private JButton btn_Update; // 게시판 글 정보수정
 	private JButton btn_List;// 목록으로
 	private JButton btn_delete;// 삭제버튼
-	private JButton btn_Update; // 게시판 글 정보수정
 
 	final int DETAIL = -2;
 	final int LIST = -1;
@@ -50,10 +50,9 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 	QAbbsDto dto;
 
 	public QAbbsDetail(QAbbsMain QA, QAbbsDto dto) {
-		
+
 		setOpaque(false);
 		QAmain = QA;
-		
 		this.dto = dto;
 
 		System.out.println(dto.toString() + "회원 디테일 확인용");
@@ -91,6 +90,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		//이미지 크기 높이 400으로 수정할것
 		content_backgorund.setBounds(50, 200, 750, 350);
 	
+
 		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrol.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 		
@@ -128,9 +128,24 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 		
 		// 삭제 액션 구현
-		btn_delete.addActionListener(this);
+		btn_delete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Singleton s = Singleton.getInstance();
+
+				if (s.qaDao.deletebbs(dto.getSeq())) {
+					JOptionPane.showMessageDialog(null, "글을 삭제하였습니다");
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
+				}
+				
+				QAmain.changePanel(1, new QAbbsDto(), LIST);
+			}
+		});
 
 		add(titleText);
+
 		add(nickText);
 
 		add(jScrol);
@@ -138,12 +153,9 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		add(btn_Update);
 		add(btn_List);
 		add(btn_delete);
-		
-		
+
 		setLayout(null);
-
 		setVisible(true);
-
 	}
 
 	@Override
@@ -199,13 +211,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		} else if (e.getSource() == btn_Update) {
 			QAmain.changePanel(3, dto, UPDATE);
 
-		} else if (e.getSource() == btn_delete) {
-			if (s.qaDao.deletebbs(dto.getSeq())) {
-				JOptionPane.showMessageDialog(null, "글을 삭제하였습니다");
-			} else {
-				JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
-			}
-			QAmain.changePanel(1, new QAbbsDto(), LIST);
 		}
 	}
+
 }

@@ -65,7 +65,6 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 	List<BBSDto> list;
 	
 	int currseq;
-
 	
 	public SelfbbsMain() {
 		Singleton s = Singleton.getInstance();
@@ -73,7 +72,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		
 		setLayout(null);
 		setOpaque(false);
-		setBounds(0, 0, 1150, 700);
+		setBounds(0, 0, 1100, 700);
 		mainPanel = new JPanel(cards);
 
 		if (list.size() > 0) {	
@@ -85,8 +84,8 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 		cards.show(mainPanel, "SelfbbsDetail");// 처음 띄워지는 판
 
-
 		mainPanel.setBounds(300, 0, 800, 700);
+
 
 		mainPanel.setOpaque(false);
 
@@ -112,7 +111,6 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 		left.add(plus);
 
-
 		if (list.size() > 0) {
 			rowData = new Object[list.size()][3];
 
@@ -134,9 +132,9 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		//한글 지원 안됨
 		jTable.setFont(new Font("Arial", Font.PLAIN, 30));
 		jTable.addMouseListener(this);
-
 		jTable.setRowHeight(70);
 		jTable.getColumnModel().getColumn(0).setMaxWidth(305);
+
 
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
@@ -144,6 +142,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		jTable.setTableHeader(null);
 		jTable.setForeground(Color.WHITE);		
 		jTable.setSelectionForeground(Color.BLACK);
+
 		
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
@@ -155,12 +154,11 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		jScrPane.setOpaque(false);
 		jScrPane.getViewport().setOpaque(false);
 		
-
 		jScrPane.setBounds(0, 50, 305, 550);
 
 		left.add(jScrPane);
 		
-		
+	
 		searchbox.setBounds(0, 600, 300, 25);
 		searchbox.setOpaque(false);
 		searchbox.setForeground(Color.white);
@@ -263,9 +261,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		if (e.getSource() == plus) {
 			changePanel(INSERT, new BBSDto());
 		}
-		/*
-
-		}*/
+		
 		if(e.getSource() == searchbtn) {
 			// {"전체보기", "제목", "언어", "내용"};
 
@@ -324,7 +320,6 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 			} else if (searchbox.getSelectedIndex() == 2) {
 				// 언어
-
 				for (int i = 0; i < list.size(); i++) {
 					if (list.get(i).getLanguage().equals(searchstr)) {
 						tmplist.add(list.get(i));
@@ -374,9 +369,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 				((AbstractTableModel) model).fireTableDataChanged();
 				searchtext.setText("");
-
 			}
-
 		}
 	}
 	
@@ -399,7 +392,5 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		((AbstractTableModel) model).fireTableDataChanged();
 		searchtext.setText("");
-	}
-
-	
+	}	
 }

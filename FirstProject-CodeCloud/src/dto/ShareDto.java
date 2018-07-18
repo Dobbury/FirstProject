@@ -14,7 +14,6 @@ public class ShareDto {
 	private int fork=0;
 	private String lang = "";
  
-	
 	public ShareDto() {
 		
 	}

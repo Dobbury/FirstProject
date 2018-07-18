@@ -374,7 +374,6 @@ public class MemberUpdateView extends JFrame
 
 					nick_check = true;
 				}
-
 			}
 		}
 	}
@@ -427,7 +426,6 @@ public class MemberUpdateView extends JFrame
 			posX = e.getX();
 			posY = e.getY();
 		}
-
 	}
 
 	@Override
@@ -453,7 +451,6 @@ public class MemberUpdateView extends JFrame
 		if (e.getSource() == btn_drag) {
 			setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
 		}
-
 	}
 
 	@Override

@@ -30,8 +30,6 @@ public class QAbbsMain extends JPanel {
 
 	// 추가부분
 	QAbbsDetail detail;
-	final int INSERT = 0;
-	final int UPDATE = 1;
 
 	final int DETAIL = -2;
 	final int LIST = -1;
@@ -50,6 +48,7 @@ public class QAbbsMain extends JPanel {
    
     
 
+
 	public QAbbsMain() {
 		setLayout(null);
 		setOpaque(false);
@@ -58,15 +57,15 @@ public class QAbbsMain extends JPanel {
 
 		mainPanel.add("QAbbsList", new QAbbsList(this));
 		mainPanel.add("QAbbsDetail", new QAbbsDetail(this, new QAbbsDto()));
+
 		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(),LIST));
 		mainPanel.setOpaque(false);
 
 		cards.show(mainPanel, "QAbbsList");// 처음 띄워지는 판
 
-		
 		mainPanel.setBounds(0, 0, 1000, 800);
 
-		//rank
+		// rank
 		endOfRightPanel = new JPanel();
 		endOfRightPanel.setLayout(null);
 
@@ -80,7 +79,7 @@ public class QAbbsMain extends JPanel {
 				return false;
 			}
 		};
-
+		
 		Fork = new JTable(modelfork) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -127,9 +126,11 @@ public class QAbbsMain extends JPanel {
 		if (select == 1) {
 			mainPanel.add("QAbbsList", new QAbbsList(this));
 			cards.show(mainPanel, "QAbbsList");
+			
 		} else if (select == 2) {
 			mainPanel.add("QAbbsDetail", new QAbbsDetail(this, dto));
 			cards.show(mainPanel, "QAbbsDetail");
+
 		} else if (select == 3) {
 			mainPanel.add("QAbbsWrite", new QAbbsWrite(this, dto, state));
 			cards.show(mainPanel, "QAbbsWrite");

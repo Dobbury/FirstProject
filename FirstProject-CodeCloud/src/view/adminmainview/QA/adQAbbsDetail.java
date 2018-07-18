@@ -77,9 +77,7 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 		titleText2.setEditable(false);
 
-		titleLabel3 = new JLabel("CONTENT: ");
-		titleLabel3.setBounds(100, 180, 100, 60);
-
+		
 		postArea = new JTextArea();
 		postArea.setBounds(200, 200, 300, 300);
 		postArea.append(dto.getContent());

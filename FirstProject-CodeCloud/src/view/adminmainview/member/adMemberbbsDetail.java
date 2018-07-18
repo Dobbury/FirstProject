@@ -65,7 +65,6 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 		layeredPane.setBounds(0, 0, 342, 596);
 		layeredPane.setLayout(null);
 		
-		
 		setOpaque(false);
 		
 		this.adMembermian = adMembermian;
@@ -85,7 +84,6 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 
 		// ---------------------------------------------------------------------------
 		// 버튼
-
 		// 회원가입
 		signupIc1 = new ImageIcon("img/signUp/btn_sign1.png");
 		signupIc2 = new ImageIcon("img/signUp/btn_sign2.png");
@@ -99,7 +97,6 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 		btn_Update.setBounds(20, 484, 295, 50);
 		btn_Update.addActionListener(this);
 		layeredPane.add(btn_Update);
-
 	
 		// ---------------------------------------------------------------------------
 		// 사용자 프로필 이미지
@@ -137,7 +134,6 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 
 		// 기본 설정
 		// setBackground(new Color(0,0,0,122)); 배경 투명 설정
-
 		setLayout(null);
 		setBounds(0, 0, 341, 597);
 		add(layeredPane);
@@ -204,9 +200,8 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 
 			if (choice == 0) {
 				adMembermian.changePanel(UPDATE, dto);
+				
 			}
-
 		} 
 	}
-
 }

@@ -79,7 +79,6 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 
 		// ---------------------------------------------------------------------------
 		// 버튼
-
 		// 창 드래그
 		drag1 = new ImageIcon("img/drag/drag1.png");
 		drag1 = new ImageIcon("img/drag/drag2.png");
@@ -153,7 +152,6 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		pwd_text.setForeground(Color.WHITE);
 		pwd_text.addFocusListener(this);
 		pwd_text.setBounds(92, 429, 220, 30);
-//		pwd_text.setFont(new Font("menlo", Font.PLAIN, 14));
 		pwd_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		pwd_text.setOpaque(false);
 		layeredPane.add(pwd_text);
@@ -161,7 +159,6 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		// ---------------------------------------------------------------------------
 		// 기본 설정
 		setUndecorated(true); // 상단 닫기 최소화 설정
-		// setBackground(new Color(0,0,0,122)); 배경 투명 설정
 		setTitle("로그인테스트");
 		setLayout(null);
 		setBounds(0, 0, 341, 596);
@@ -172,7 +169,6 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		layeredPane.add(panel);
 
 	}
-
 	class MyPanel extends JPanel {
 		public void paint(Graphics g) {
 			// g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
@@ -248,7 +244,6 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 			posX = e.getX();
 			posY = e.getY();
 		}
-
 	}
 
 	@Override
@@ -274,7 +269,6 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		if (e.getSource() == btn_drag) {
 			setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
 		}
-
 	}
 
 	@Override

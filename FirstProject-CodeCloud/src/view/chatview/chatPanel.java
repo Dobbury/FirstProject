@@ -18,9 +18,6 @@ import singleton.Singleton;
 
 public class chatPanel extends JPanel implements ActionListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private JTextArea jta = new JTextArea(34, 25);
@@ -72,5 +69,4 @@ public class chatPanel extends JPanel implements ActionListener {
 	public void close() {
 		client.close();
 	}
-
 }

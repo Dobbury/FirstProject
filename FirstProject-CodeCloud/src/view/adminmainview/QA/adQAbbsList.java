@@ -25,13 +25,13 @@ import javax.swing.table.DefaultTableModel;
 import dto.QAbbsDto;
 import singleton.Singleton;
 
-public class adQAbbsList extends JPanel implements  MouseListener, WindowListener {
+public class adQAbbsList extends JPanel implements MouseListener, WindowListener {
 
 	final int DETAIL = 0;
 	final int LIST = 1;
 	final int COMMENT = 2;
 	final int COMMENT_UPDATE = 3;
-	
+
 	private JTable jTable;
 	private JScrollPane jScrPane;
 	private JButton writeBtn;
@@ -46,13 +46,13 @@ public class adQAbbsList extends JPanel implements  MouseListener, WindowListene
 	List<QAbbsDto> list;
 
 	public adQAbbsList(adQAbbsMain QA) {
-		
 
 		setOpaque(false);
-		
+
 		adQAmian = QA;
 
 		Singleton s = Singleton.getInstance();
+
 		list = s.qaDao.getbbsList();
 
 		rowData = new Object[list.size()][4];// 테이블의 2차원배열이 생성
@@ -64,14 +64,14 @@ public class adQAbbsList extends JPanel implements  MouseListener, WindowListene
 
 			if (dto.getDel() == 1) {
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-			}
-			else {
+
+			}else {
 				// 댓글 작업 부분
 				rowData[i][1] = "";
 				for (int j = 0; j < list.get(i).getDept(); j++) {
 					rowData[i][1] += "    ";
 				}
-	
+
 				if (rowData[i][1].equals(""))
 					rowData[i][1] = list.get(i).getTitle();
 				else
@@ -81,6 +81,7 @@ public class adQAbbsList extends JPanel implements  MouseListener, WindowListene
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
+
 			// 테이블 날짜 다듬어서 뿌려주기
 			// 현재날짜의 글들은 시간과 분으로 출력 이전날짜들은 날짜들만 출력
 			// 현재 년도, 월, 일
@@ -104,7 +105,7 @@ public class adQAbbsList extends JPanel implements  MouseListener, WindowListene
 
 		jTable = new JTable(model);
 		jTable.addMouseListener(this);
-		
+
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		// 컬럼의 넓이 설정
@@ -115,19 +116,19 @@ public class adQAbbsList extends JPanel implements  MouseListener, WindowListene
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
-		
+
 
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 		
+
 		jScrPane.setBounds(80, 150, 800, 400);
 		add(jScrPane);
 
 		setLayout(null);
 		setVisible(true);
 	}
-
 
 	public void setList(List<QAbbsDto> list) {
 		rowData = new Object[list.size()][4];
@@ -144,7 +145,7 @@ public class adQAbbsList extends JPanel implements  MouseListener, WindowListene
 				for (int j = 0; j < list.get(i).getDept(); j++) {
 					rowData[i][1] += "    ";
 				}
-	
+
 				if (rowData[i][1].equals(""))
 					rowData[i][1] = list.get(i).getTitle();
 				else
@@ -176,7 +177,7 @@ public class adQAbbsList extends JPanel implements  MouseListener, WindowListene
 		model.setDataVector(rowData, columnNames);
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-		
+
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
@@ -184,9 +185,8 @@ public class adQAbbsList extends JPanel implements  MouseListener, WindowListene
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
-
-
 	}
+
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
@@ -239,13 +239,13 @@ public class adQAbbsList extends JPanel implements  MouseListener, WindowListene
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int rowNum = jTable.getSelectedRow();
-		
+
 		Singleton s = Singleton.getInstance();
+
 		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(), list.get(rowNum).getRef(), list.get(rowNum).getStep(),
 				list.get(rowNum).getDept());
 
 		adQAmian.changePanel(DETAIL, dto); // 해당 글 보는 곳
-
 	}
 
 	@Override

@@ -9,7 +9,6 @@ public class BBSDto {
 	private int liked;
 	private int fork;
 	private String language;
-
 	
 	public BBSDto() {
 	}

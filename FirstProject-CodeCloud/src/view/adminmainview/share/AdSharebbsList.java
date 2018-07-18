@@ -65,7 +65,6 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 
 		}
 		
-		
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		
@@ -101,6 +100,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+
 		jScrPane.setBounds(80, 150, 800, 400);
 		add(jScrPane);
 
@@ -113,9 +113,8 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 
 		setLayout(null);
 		setVisible(true);
-
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == selectBtn) { // 검색버튼으로 디테일뷰 테스트
@@ -128,7 +127,6 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 
 				list = s.sharDao.getbbsList(); // 만약 데이터가 없으면 초기화함
 			}
-			
 			setList(list);
 		}
 	}
@@ -165,8 +163,6 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		jTable.getColumnModel().getColumn(4).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(5).setMaxWidth(100); // 닉네임
 		jTable.getColumnModel().getColumn(5).setCellRenderer(celAlignCenter);
-
-
 		//////////////////////////////
 
 		jTable.setModel(model);

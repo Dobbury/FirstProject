@@ -54,7 +54,6 @@ public class BBSDao implements BBSDaoImpl {
 		return tmp;
 	}
 
-	
 	@Override
 	public int insert(String title, String lang, String content) {
 		Singleton s = Singleton.getInstance();
@@ -74,7 +73,7 @@ public class BBSDao implements BBSDaoImpl {
 		try {
 
 			psmt = conn.prepareStatement(sql);
-
+			
 			psmt.setString(1, title);
 			psmt.setString(2, content); // 암호화된 값을 넣어줌
 			psmt.setString(3, lang);
@@ -94,40 +93,37 @@ public class BBSDao implements BBSDaoImpl {
 		} finally {
 			DBClose.close(psmt, conn, null);
 		}
-
 		return seq;
-
 	}
 
 	@Override
 	public BBSDto select(int seq) {
 		// TODO Auto-generated method stub
 		Singleton s = Singleton.getInstance();
-		
-		String sql = " SELECT TITLE,CONT,SHA,LIKED,FORK,LANG FROM " + s.nowMember.getID()+" WHERE SEQ =" + seq;
+
+		String sql = " SELECT TITLE,CONT,SHA,LIKED,FORK,LANG FROM " + s.nowMember.getID() + " WHERE SEQ =" + seq;
 
 		Connection conn = null; // DB info
 		PreparedStatement psmt = null; // sql query
 		ResultSet rs = null; // result value
 
 		BBSDto self = null;
-		
+
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 
 			if (rs.next()) {
-				
+
 				String title = rs.getString(1);
 				String cont = rs.getString(2);
 				int shar = rs.getInt(3);
 				int liked = rs.getInt(4);
 				int fork = rs.getInt(5);
 				String lang = rs.getString(6);
-				self = new BBSDto(seq,title,cont,shar,liked,fork,lang);
+				self = new BBSDto(seq, title, cont, shar, liked, fork, lang);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -135,7 +131,6 @@ public class BBSDao implements BBSDaoImpl {
 		}
 
 		return self;
-		
 	}
 
 	@Override
@@ -178,16 +173,13 @@ public class BBSDao implements BBSDaoImpl {
 					JOptionPane.showMessageDialog(null, "공유 게시판에 글도 수정되었습니다.");
 				}
 			}
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, null);
 		}
-
-		return count>0?true:false;
-
+		return count > 0 ? true : false;
 	}
 
 	@Override
@@ -205,7 +197,7 @@ public class BBSDao implements BBSDaoImpl {
 		System.out.println(sql);
 
 		try {
-			//공유된글ㅇ ㅣ있는지 확인후 지우고 그다음 개인게시판 지우기
+			// 공유된글ㅇ ㅣ있는지 확인후 지우고 그다음 개인게시판 지우기
 			psmt = conn.prepareStatement(sql2);
 			psmt.setInt(1, seq);
 			psmt.setString(2, s.nowMember.getNick());
@@ -214,23 +206,19 @@ public class BBSDao implements BBSDaoImpl {
 			if (count2 > 0) {
 				JOptionPane.showMessageDialog(null, "공유 게시판에 글도 삭제되었습니다.");
 			}
-			
+
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, seq);
 
 			count = psmt.executeUpdate();
 
-
-	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, null);
 		}
-
-		return count>0?true:false;
-
+		return count > 0 ? true : false;
 	}
 
 	@Override
@@ -246,7 +234,6 @@ public class BBSDao implements BBSDaoImpl {
 		ResultSet rs = null;
 		int count = 0;
 		// 쉐어 테이블에 삽입
-
 		try {
 
 			psmt = conn.prepareStatement(sql);
@@ -271,7 +258,6 @@ public class BBSDao implements BBSDaoImpl {
 		} finally {
 			DBClose.close(psmt, conn, null);
 		}
-
 		return count;
 	}
 
@@ -307,8 +293,6 @@ public class BBSDao implements BBSDaoImpl {
 		} finally {
 			DBClose.close(psmt, conn, null);
 		}
-
 		return count;
 	}
-
 }

@@ -70,8 +70,9 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		layeredPane.setBounds(0, 0, 341, 413);
 		layeredPane.setLayout(null);
 
-//		// ---------------------------------------------------------------------------
-//		// 배경화면
+		// //
+		// ---------------------------------------------------------------------------
+		// // 배경화면
 		try {
 			img = ImageIO.read(new File("img/hostDB/dbBack.png"));
 		} catch (IOException e) {
@@ -82,9 +83,10 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		MyPanel panel = new MyPanel();
 		panel.setBounds(0, 0, 341, 413);
 
+
 //		// ---------------------------------------------------------------------------
 
-//		
+
 
 		// 창 드래그
 		drag1 = new ImageIcon("img/drag/drag1.png");
@@ -99,7 +101,6 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
 		layeredPane.add(btn_drag);
-
 
 		// 닫기
 		closeIc1 = new ImageIcon("img/close/close1.png");
@@ -250,6 +251,7 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		}
 
 		if (e.getSource() == btn_check) {
+
 			DBConnection.initConnect(IP_Text.getText());
 			Singleton s = Singleton.getInstance();
 			s.hostDB_IP = IP_Text.getText();
@@ -276,7 +278,6 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 			posX = e.getX();
 			posY = e.getY();
 		}
-
 	}
 
 	@Override

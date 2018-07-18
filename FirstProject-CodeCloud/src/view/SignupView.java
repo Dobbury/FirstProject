@@ -39,9 +39,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 	private ImageIcon closeIc3;
 	private JButton btn_Close;
 
-//	private ImageIcon userIc;
-//	private JLabel userLabel;
-
 	private JTextField id_text;
 	private JLabel id_check_label;
 	private boolean id_check;
@@ -60,7 +57,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 	private JButton btn_drag;
 
 	BufferedImage img = null;
-//	BufferedImage userImg = null;
 
 	String id_Hint = "ID 입력";
 	String pwd_Hint = "패스워드 입력";
@@ -85,7 +81,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 
 		// ---------------------------------------------------------------------------
 		// 버튼
-
 		// 창 드래그
 		drag1 = new ImageIcon("img/drag/drag1.png");
 		drag1 = new ImageIcon("img/drag/drag2.png");
@@ -127,13 +122,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		btn_Close.setBounds(313, 10, 16, 16);
 		btn_Close.addActionListener(this);
 		layeredPane.add(btn_Close);
-
-		// ---------------------------------------------------------------------------
-//		 사용자 프로필 이미지
-//		userIc = new ImageIcon("img/signUp/userImages.png");
-//		userLabel = new JLabel(userIc);
-//		userLabel.setLayout(null);
-//		userLabel.setBounds(105, 100, 130, 130);
 
 		// 아이디 입력 textField
 		id_text = new JTextField();
@@ -193,9 +181,7 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(layeredPane);
 		setVisible(true);
-//		layeredPane.add(userLabel);
 		layeredPane.add(panel);
-
 	}
 
 	@Override
@@ -221,7 +207,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 			boolean b = s.MemCtrl.addMember(id_text.getText(), pwd_text.getText(), nick_text.getText());
 
 			// 아이디 체크
-
 			// 닉네임 체크
 
 			if (b) {
@@ -308,7 +293,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 					id_check_label.setForeground(Color.GREEN);
 					id_check = true;
 				}
-
 			}
 		}
 		if (e.getSource() == pwd_text) {
@@ -356,7 +340,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 
 					nick_check = true;
 				}
-
 			}
 		}
 	}
@@ -373,7 +356,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 			posX = e.getX();
 			posY = e.getY();
 		}
-
 	}
 
 	@Override
@@ -399,7 +381,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		if (e.getSource() == btn_drag) {
 			setLocation(e.getXOnScreen() - posX, e.getYOnScreen() - posY);
 		}
-
 	}
 
 	@Override

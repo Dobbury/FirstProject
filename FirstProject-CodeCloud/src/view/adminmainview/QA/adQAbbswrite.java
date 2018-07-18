@@ -24,7 +24,7 @@ import view.membermainview.QAbbsMain;
 
 public class adQAbbswrite extends JPanel implements ActionListener, WindowListener {
 
-	
+
 	JTextField titleText;
 	JTextArea postArea;
 
@@ -44,18 +44,16 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 	QAbbsDto dto;
 
 	public adQAbbswrite(adQAbbsMain QA, QAbbsDto dto, int state) {
-
 		setOpaque(false);
 		adQAmian = QA;
 		this.dto = dto;
 		this.state = state;
 
-		//제목
+
 		titleText = new JTextField();
 		titleText.setDocument(new JTextFieldLimit(50));	//50자 제한
-		titleText.setBounds(110, 10, 310, 30);
+		titleText.setBounds(50, 100, 310, 50);
 		titleText.setText(dto.getTitle());
-
 
 		postArea = new JTextArea();
 		postArea.setDocument(new JTextFieldLimit(4000));	//4000자 제한
@@ -63,7 +61,7 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 		postArea.append(dto.getContent());
 
 		jScrol = new JScrollPane(postArea);
-		jScrol.setBounds(110, 80, 310, 200);
+		jScrol.setBounds(50, 200, 750, 350);
 
 		// 스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
@@ -71,14 +69,14 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 		jScrol.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
 	
 		// 입력 버튼
-		btn_Commit = new JButton("확 인");
+		btn_Commit = new JButton("저 장");
 		btn_Commit.addActionListener(this);
-		btn_Commit.setBounds(45, 305, 110, 50);
+		btn_Commit.setBounds(700, 570, 100, 40);
 
-		// 취소버튼
-		btn_Cancle = new JButton("취 소");
+		// 글 목록
+		btn_Cancle = new JButton("글 목록");
 		btn_Cancle.addActionListener(this);
-		btn_Cancle.setBounds(335, 305, 110, 50);
+		btn_Cancle.setBounds(50, 570, 100, 40);
 
 		add(titleText);
 		add(jScrol);
@@ -87,7 +85,6 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 		add(btn_Cancle);
 
 		setLayout(null);
-
 		setVisible(true);
 	}
 
@@ -146,7 +143,6 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 				// list로
 				adQAmian.changePanel(LIST, new QAbbsDto());
 
-
 			} else if (state == COMMENT) {
 				// 상위 글의 SEQ가 그룹번호
 				dto.setRef(dto.getSeq());
@@ -169,11 +165,11 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 				dto.setDel(0);
 
 				s.qaDao.insert(dto);
-
 				adQAmian.changePanel(LIST, new QAbbsDto());
 			}
 		} else if (e.getSource() == btn_Cancle) {
 			adQAmian.changePanel(LIST, new QAbbsDto());
+			
 		}
 	}
 }

@@ -98,9 +98,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		panel.setBounds(0, 0, 1600, 700);
 
 		// ---------------------------------------------------------------------------
-		// 제일 왼쪽 판넬
 		left = new JPanel();
-
 		left.setBounds(0,0,150,700);
 		left.setBackground(new Color(0, 0, 0,60));
 
@@ -111,6 +109,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		mainPanel.add("Sharebbs", new Sharebbs());
 		mainPanel.add("Q&Abbs", new QAbbsMain());
 		cards.show(mainPanel, "Singlebbs");
+
 		
 		mainPanel.setOpaque(false);
 		mainPanel.setBounds(150, 0, 1150, 700);
@@ -120,8 +119,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		
 		
 
-		
-		
+
 		ImageIcon img = new ImageIcon(s.nowMember.getProfile_Img());
 		Image ori = img.getImage();
 		Image changedImg = ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH);
@@ -136,10 +134,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 
 		memName = new JLabel();
 		memName.setText(s.nowMember.getNick());
-
-
 		memName.setBounds(10, 200, 40, 30);
-
 
 		btn_Selfbbs = new JButton("개인 코드");
 		btn_Selfbbs.addActionListener(this);
@@ -179,26 +174,24 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		btn_drag.setBounds(0, 0, 13, 13);
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
+
 		add(btn_drag);
-
-		add(chatPanel);
-
 		add(btn_Selfbbs);
 		add(btn_Sharebbs);
 		add(btn_QAbbs);
 		add(btn_Chat);
 		add(btn_Logout);
 
+		add(chatPanel);
 		add(memName);
 		add(memProfile_Img);
 		add(mainPanel);
 		add(left);
-		
+
 		setUndecorated(true);
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		add(panel);
 
 	}
@@ -207,9 +200,11 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		if (select == 1) {
 			mainPanel.add("SelfbbsMain", new SelfbbsMain());
 			cards.show(mainPanel, "SelfbbsMain");
+
 		} else if (select == 2) {
 			mainPanel.add("Sharebbs", new Sharebbs());
 			cards.show(mainPanel, "Sharebbs");
+
 		} else if (select == 3) {
 			mainPanel.add("Q&Abbs", new QAbbsMain());
 			cards.show(mainPanel, "Q&Abbs");
@@ -222,28 +217,32 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		if (e.getSource() == btn_Selfbbs) {
 			mainPanel.add("SelfbbsMain", new SelfbbsMain());
 			changePanel(1);
+
 		} else if (e.getSource() == btn_Sharebbs) {
 			mainPanel.add("Sharebbs", new Sharebbs());
 			changePanel(2);
-		} else if (e.getSource() == btn_QAbbs) {
 
+		} else if (e.getSource() == btn_QAbbs) {
 			mainPanel.add("Q&Abbs", new QAbbsMain());
 			changePanel(3);
+
 		} else if (e.getSource() == btn_Chat) {
 			if (chat) {
 				setBounds(50, 50, 1300, 700);
 				chat = false;
+
 			} else {
 				setBounds(50, 50, 1600, 700);
 				chat = true;
+
 			}
 		} else if (e.getSource() == btn_Logout) {
 			Singleton s = Singleton.getInstance();
+
 			s.nowMember = null;
 			this.dispose();
 			s.MemCtrl.login();
 		}
-
 	}
 
 	@Override

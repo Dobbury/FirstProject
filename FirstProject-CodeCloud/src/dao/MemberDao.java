@@ -32,7 +32,6 @@ IMG		BLOB
  */
 public class MemberDao implements MemberDaoImpl {
 	// 비밀번호 암호화
-	// static PasswordClass pwdCls = new PasswordClass();
 
 	public MemberDao() {
 	}
@@ -40,7 +39,6 @@ public class MemberDao implements MemberDaoImpl {
 	public List<MemberDto> getbbsList(){
 		List<MemberDto> list = new ArrayList<>();
 		
-		//Singleton s = Singleton.getInstance();
 		String sql = "SELECT * FROM MEMBER";
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -66,8 +64,7 @@ public class MemberDao implements MemberDaoImpl {
 										rs.getInt(i++), 
 										profile_Img);
 				list.add(dto);				
-			}				
-			
+			}							
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,13 +91,11 @@ public class MemberDao implements MemberDaoImpl {
 			if (rs.next()) { // 테이블이 없다면 생성
 				findId = true;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-
 		return findId;
 	}
 
@@ -122,13 +117,11 @@ public class MemberDao implements MemberDaoImpl {
 			if (rs.next()) {
 				findId = true;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-
 		return findId;
 	}
 
@@ -137,7 +130,6 @@ public class MemberDao implements MemberDaoImpl {
 		String pwd = PasswordClass.Encryption(dto.getPWD());
 
 		String sql = "INSERT INTO MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
-
 		
 		String sql2 = "CREATE TABLE "+dto.getID()
 				+ "(SEQ NUMBER PRIMARY KEY,"
@@ -161,18 +153,15 @@ public class MemberDao implements MemberDaoImpl {
 		int count = 0;
 
 		System.out.println(sql);
-
+		
 		try {
-
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, dto.getID());
 			psmt.setString(2, pwd); // 암호화된 값을 넣어줌
 			psmt.setString(3, dto.getNick());
-
-		
-			// psmt.setBinaryStream(4, null);
 			psmt.setInt(4, dto.getAuth());
+			
 			// 이미지 파일을 Blob으로 저장
 			File imgfile = new File(path);
 			FileInputStream fis = new FileInputStream(imgfile);
@@ -194,9 +183,7 @@ public class MemberDao implements MemberDaoImpl {
 		} finally {
 			DBClose.close(psmt, conn, null);
 		}
-
 		return count != 0 ? true : false;
-
 	}
 
 	public MemberDto login(MemberDto dto) {
@@ -205,7 +192,6 @@ public class MemberDao implements MemberDaoImpl {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-
 		MemberDto mem = null;
 
 		try {
@@ -238,13 +224,11 @@ public class MemberDao implements MemberDaoImpl {
 			} else {
 				JOptionPane.showMessageDialog(null, "아이디가 존재하지 않습니다.");
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-
 		return mem;
 	}
 	
@@ -254,7 +238,6 @@ public class MemberDao implements MemberDaoImpl {
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-
 		MemberDto mem = null;
 
 		try {
@@ -278,13 +261,11 @@ public class MemberDao implements MemberDaoImpl {
 			} else {
 				JOptionPane.showMessageDialog(null, "아이디가 존재하지 않습니다.");
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-
 		return mem;
 	}
 	public boolean update(MemberDto dto) {
@@ -299,8 +280,7 @@ public class MemberDao implements MemberDaoImpl {
 			stmt = conn.prepareStatement(sql);
 			
 			String pwd = PasswordClass.Encryption(dto.getPWD());
-			stmt.setString(1, pwd);
-			
+			stmt.setString(1, pwd);			
 			stmt.setString(2, dto.getNick());
 			
 			// 이미지 파일을 Blob으로 저장
@@ -309,7 +289,6 @@ public class MemberDao implements MemberDaoImpl {
 			FileInputStream fis = new FileInputStream(imgfile);
 			stmt.setBinaryStream(3, fis, (int) imgfile.length());// 이미지 저장 알아볼것
 			stmt.setString(4, dto.getID());
-
 
 			count = stmt.executeUpdate();
 

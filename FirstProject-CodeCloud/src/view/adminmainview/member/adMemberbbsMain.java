@@ -44,8 +44,7 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 
 	String columnNames[] = { "ID", "닉네임", "회원 등급" };
 
-	List<MemberDto> list;
-	
+	List<MemberDto> list;	
 	adMemberbbsDetail addetail;
 
 	public adMemberbbsMain() {
@@ -73,9 +72,7 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 			if(dto.getAuth()==0)
 				rowData[i][2] = "관리자"; 
 			else
-				rowData[i][2] = "회원"; 
-
-		
+				rowData[i][2] = "회원"; 		
 		}
 
 		model = new DefaultTableModel(columnNames, 0);
@@ -103,13 +100,10 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 		jScrPane.setBounds(50, 0, 360, 597);
 		ListPanel.add(jScrPane);
-		
-		
+				
 		mainPanel = new JPanel(cards);
-
 		mainPanel.add("adMemberbbsDetail", new adMemberbbsDetail(this, list.get(0)));
-		mainPanel.add("adMemberbbsUpdate", new adMemberbbsUpdate(this, list.get(0)));
-		
+		mainPanel.add("adMemberbbsUpdate", new adMemberbbsUpdate(this, list.get(0)));		
 		cards.show(mainPanel, "adMemberbbsList");// 처음 띄워지는 판
 
 		mainPanel.setOpaque(false);
@@ -132,14 +126,12 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		int rowNum = jTable.getSelectedRow();
 		
 		// 비밀번호 변경
 		if (e.getSource() == writeBtn) {
 			changePanel(UPDATE, list.get(rowNum));
 		}
-
 	}
 
 	public void setList(List<MemberDto> list) {
@@ -154,9 +146,7 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 				if(dto.getAuth()==0)
 					rowData[i][2] = "관리자"; 
 				else
-					rowData[i][2] = "회원"; 
-
-			
+					rowData[i][2] = "회원"; 			
 			}
 
 			model = new DefaultTableModel(columnNames, 0);
@@ -175,8 +165,7 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 			celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 			jTable.getColumn("ID").setCellRenderer(celAlignCenter);
 			jTable.getColumn("닉네임").setCellRenderer(celAlignCenter);
-			jTable.getColumn("회원등급").setCellRenderer(celAlignCenter);
-			
+			jTable.getColumn("회원등급").setCellRenderer(celAlignCenter);			
 			
 	}
 	@Override
@@ -199,14 +188,12 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		int rowNum = jTable.getSelectedRow();
 		
 		Singleton s = Singleton.getInstance();
 		MemberDto dto = s.MemCtrl.memSearch(list.get(rowNum).getID());
 
 		changePanel(DETAIL, dto); // 해당 글 보는 곳
-
 	}
 
 	@Override

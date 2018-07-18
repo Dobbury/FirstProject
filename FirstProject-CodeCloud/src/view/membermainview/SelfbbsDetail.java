@@ -47,13 +47,12 @@ import view.MemberMainView;
 
 public class SelfbbsDetail extends JPanel implements ActionListener {
 
-
 	final int INSERT = 0;
 	final int UPDATE = 1;
 	final int DETAIL = 2;
 
-	JLabel lang;// 자바
-	
+	JLabel lang;
+
 	JPanel right = new JPanel();
 	JLabel titletxt = new JLabel();
 
@@ -63,40 +62,40 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 	JToggleButton sharebtn = new JToggleButton("공유");
 	JButton deletebtn = new JButton("삭제");
 
+
 	private JScrollPane jScrPane;
+
 	BBSDao dao = new BBSDao();
 
 	MouseEvent selectfirst;
 
 	SelfbbsMain selfMain;
-	
+
 	List<BBSDto> list;
 	BBSDto dto;
-	
-	public SelfbbsDetail(SelfbbsMain selfMain,BBSDto dto) {
+
+	public SelfbbsDetail(SelfbbsMain selfMain, BBSDto dto) {
 		setLayout(null);
 		setOpaque(false);
 		this.selfMain = selfMain;
 		this.dto = dto;
-		
+
 		Singleton s = Singleton.getInstance();
 		list = s.selfDao.getSelfBbsList();
-		
-		
+
 		// right
 		right.setOpaque(false);
 		right.setBounds(0, 0, 900, 700);
 		right.setLayout(null);
 
-		
-		Font langFont = new Font("굴림",Font.BOLD, 25);
+		Font langFont = new Font("굴림", Font.BOLD, 25);
 		lang = new JLabel();
 		lang.setText(dto.getLanguage());
 		lang.setFont(langFont);
 		lang.setForeground(Color.white);
 		lang.setBounds(35, 110, 75, 50);
 		right.add(lang);
-		
+
 		Font tilteFont = new Font("굴림", Font.BOLD, 40);
 
 		titletxt.setBounds(30, 55, 400, 50);
@@ -105,9 +104,8 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		titletxt.setOpaque(false);
 
 		titletxt.setText(dto.getTitle());
-
 		right.add(titletxt);
-	
+
 		Font contentFont = new Font("굴림", Font.BOLD, 15);
 		
 		//코드 배경
@@ -121,9 +119,11 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		codetxt.setOpaque(false);
 		codetxt.setFont(contentFont);
 		codetxt.setForeground(Color.white);
+
 		
 	    codetxt.setBorder(BorderFactory.createCompoundBorder(null,
 	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+
 		codetxt.setText(dto.getContent());
 		codetxt.setEditable(false);
 
@@ -148,11 +148,9 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		deletebtn.setBounds(700, 590, 75, 50);
 		deletebtn.addActionListener(this);
 		right.add(deletebtn);
-		
+
 		sharebtn.addActionListener(this);
 		right.add(sharebtn);
-		
-		
 		add(right);
 
 	}
@@ -161,9 +159,9 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Singleton s = Singleton.getInstance();
 		Object obj = e.getSource();
-	
+
 		if (obj == editbtn) {
-			selfMain.changePanel(UPDATE,dto);
+			selfMain.changePanel(UPDATE, dto);
 		}
 		if (obj == sharebtn) {
 
@@ -194,20 +192,18 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 					sharebtn.setSelected(true);
 				}
 			}
-
 		}
-		if(e.getSource() == deletebtn) {
+		if (e.getSource() == deletebtn) {
 			int choice = JOptionPane.YES_NO_OPTION;
 			choice = JOptionPane.showConfirmDialog(null, "이 코드를 정말 삭제하시겠습니까?", "WARNING", choice);
 
 			if (choice == 0) {
-				//삭제부분
+				// 삭제부분
 				boolean result = s.selfDao.delete(dto.getSeq());
 				if (result) {
 					JOptionPane.showMessageDialog(null, "삭제되었습니다.");
 					selfMain.changePanel(DETAIL, selfMain.list.get(0));
 				}
-
 			}
 		}
 	}
