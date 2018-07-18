@@ -58,13 +58,10 @@ public class QAbbsMain extends JPanel {
 
 		mainPanel.add("QAbbsList", new QAbbsList(this));
 		mainPanel.add("QAbbsDetail", new QAbbsDetail(this, new QAbbsDto()));
-<<<<<<< HEAD
+
 		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(),LIST));
 		mainPanel.setOpaque(false);
-=======
-		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(), INSERT));
-		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(), LIST));
->>>>>>> 6e1f19c0cbb7c937b222296d2c62743b5d1e0f95
+
 		cards.show(mainPanel, "QAbbsList");// 처음 띄워지는 판
 
 		
