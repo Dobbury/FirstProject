@@ -107,11 +107,11 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		add(selectField);
 
 		selectBtn = new JButton("검색");
-		selectBtn.addActionListener(this);
+		selectBtn.addActionListener(this);	
 		selectBtn.setBounds(420, 600, 100, 20);
 		add(selectBtn);
 
-		model = new DefaultTableModel(columnNames, 0);
+		model = new DefaultTableModel(columnNames, 0);	
 		model.setDataVector(rowData, columnNames);
 
 		jTable = new JTable(model);
