@@ -1,6 +1,7 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.ScrollPaneConstants;
 
 import dao.ShareDao;
 import dto.QAbbsDto;
@@ -81,7 +83,10 @@ public class ShareDetail extends JPanel implements Action {
 		code_backgorund.setBounds(50,200,750,350);
 				
 			
-		jScrol = new JScrollPane(postArea);
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrol.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+				
 		jScrol.setOpaque(false);
 		jScrol.getViewport().setOpaque(false);
 		jScrol.setBounds(50, 200, 750, 350);
@@ -103,7 +108,9 @@ public class ShareDetail extends JPanel implements Action {
 		btn_liked.setContentAreaFilled(false);
 		btn_liked.setBorderPainted(false);
 		btn_liked.addActionListener(this);
+
 		btn_liked.setBounds(610, 160, 30, 30);
+
 		
 		for (int i = 0; i < list.size(); i++) {
 			if (dto.getSeq() == list.get(i)) {
@@ -116,6 +123,7 @@ public class ShareDetail extends JPanel implements Action {
 		likelab.setBounds(650, 160, 30, 30);
 		likelab.setFont(liked_fork_Font);
 		likelab.setForeground(Color.WHITE);
+
 		likelab.setText(dto.getLiked()+"");
 		
 		//포크 버튼 
@@ -130,7 +138,9 @@ public class ShareDetail extends JPanel implements Action {
 		btn_fork.setContentAreaFilled(false);
 		btn_fork.setBorderPainted(false);
 		btn_fork.addActionListener(this);
+
 		btn_fork.setBounds(710, 160, 30, 30);
+
 		
 		forklab.setBounds(752, 160, 30, 30);
 		forklab.setFont(liked_fork_Font);

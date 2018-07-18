@@ -99,26 +99,31 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 
 		// ---------------------------------------------------------------------------
 		left = new JPanel();
-		left.setBounds(0, 0, 150, 700);
-		left.setBackground(new Color(0, 0, 0, 60));
+		left.setBounds(0,0,150,700);
+		left.setBackground(new Color(0, 0, 0,60));
 
 		Singleton s = Singleton.getInstance();
 
 		mainPanel = new JPanel(cards);
 		mainPanel.add("SelfbbsMain", new SelfbbsMain());
 		mainPanel.add("Sharebbs", new Sharebbs());
-		RankThread rank = new RankThread();
-		rank.start();
-
 		mainPanel.add("Q&Abbs", new QAbbsMain());
 		cards.show(mainPanel, "Singlebbs");
 
+		
 		mainPanel.setOpaque(false);
 		mainPanel.setBounds(150, 0, 1150, 700);
+		
+		RankThread rank = new RankThread();
+		rank.start();
+		
+		
+
 
 		ImageIcon img = new ImageIcon(s.nowMember.getProfile_Img());
 		Image ori = img.getImage();
 		Image changedImg = ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+
 
 		img = new ImageIcon(changedImg);
 
@@ -150,6 +155,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		btn_Logout = new JButton("로그아웃");
 		btn_Logout.addActionListener(this);
 		btn_Logout.setBounds(10, 591, 130, 50);
+
 
 		chatPanel = new chatPanel();
 		chatPanel.connect();

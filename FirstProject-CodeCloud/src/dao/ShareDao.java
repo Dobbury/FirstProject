@@ -396,7 +396,7 @@ public class ShareDao {
 			List<ShareDto> list = new ArrayList<ShareDto>();
 
 			
-			String sql = " SELECT SEQ,  TITLE , CONT, NICK , LAN " + " FROM SHAR ";
+			String sql = " SELECT * " + " FROM SHAR ";
 
 			if (fword.equals("제목")) {
 				sql = sql + " WHERE TITLE LIKE ?";
@@ -430,15 +430,15 @@ public class ShareDao {
 				while (rs.next()) {
 					
 					
-		//SELECT SEQ,  TITLE , CONT, NICK , LAN " + " FROM SHAR "; 
-		 ShareDto dto = new ShareDto(rs.getInt(1), //seq
-										0, //indseq
-										rs.getString(3), // nick 
-										rs.getString(4), // String title
-										rs.getString(5),// String content
-										0, //int liked, 
-										0, //int fork, 
-										rs.getString(8) //String lang 
+					//SELECT SEQ,  TITLE , CONT, NICK , LAN " + " FROM SHAR "; 
+					ShareDto dto = new ShareDto(rs.getInt("seq"), //seq
+												rs.getInt("indseq"), //indseq
+												rs.getString("nick"), // nick 
+												rs.getString("title"), // String title
+												rs.getString("cont"),// String content
+												rs.getInt("liked"), //int liked, 
+												rs.getInt("fork"), //int fork, 
+												rs.getString("lan") //String lang 
 										);
 											
 								 

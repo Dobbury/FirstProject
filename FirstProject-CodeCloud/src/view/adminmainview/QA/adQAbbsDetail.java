@@ -1,21 +1,22 @@
 package view.adminmainview.QA;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+
 import dao.MemberDao;
 import dao.QAbbsDao;
 import dto.QAbbsDto;
@@ -49,7 +50,6 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 
 	adQAbbsMain adQAmian;
-
 	QAbbsDto dto;
 
 	public adQAbbsDetail(adQAbbsMain QA, QAbbsDto dto) {
@@ -77,40 +77,42 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 		titleText2.setEditable(false);
 
-		titleLabel3 = new JLabel("CONTENT: ");
-		titleLabel3.setBounds(100, 180, 100, 60);
-
+		
 		postArea = new JTextArea();
 		postArea.setBounds(200, 200, 300, 300);
 		postArea.append(dto.getContent());
 		postArea.setEditable(false);
 
-		jScrol = new JScrollPane(postArea);
-		jScrol.setBounds(50, 200, 750, 350);
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrol.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+		jScrol.setBounds(200, 200, 300, 300);
 
 		// 게시글 답글달기
 		btn_comment = new JButton("답글 달기");
 		btn_comment.addActionListener(this);
-		btn_comment.setBounds(350, 570, 110, 50);
+		btn_comment.setBounds(200, 550, 110, 50);
 
 		// 글 목록
 		btn_List = new JButton("글 목록");
 		btn_List.addActionListener(this);
-		btn_List.setBounds(50, 570, 100, 40);
+		btn_List.setBounds(400, 550, 110, 50);
 
 		// 삭제
 		btn_delete = new JButton("삭제");
 		btn_delete.addActionListener(this);
-		btn_delete.setBounds(550, 570, 100, 50);
+		btn_delete.setBounds(550, 550, 110, 50);
 
 		// 수정
-		btn_update = null;
+		//btn_update = null;
 		btn_update = new JButton("수정");
 		btn_update.addActionListener(this);
-		btn_update.setBounds(700, 570, 100, 50);
+		btn_update.setBounds(700, 550, 110, 50);
 
 		Singleton s = Singleton.getInstance();
+
 		// 수정 버튼의 비활성화 (다른 id일 경우만)
+
 		if (!dto.getNick().equals(s.nowMember.getNick())) {
 			btn_update.setEnabled(false);
 			btn_delete.setEnabled(false);
@@ -202,6 +204,7 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 			adQAmian.changePanel(LIST, dto);
 
 		} else if (e.getSource() == btn_update) {
+
 			adQAmian.changePanel(COMMENT_UPDATE, dto);
 
 		}

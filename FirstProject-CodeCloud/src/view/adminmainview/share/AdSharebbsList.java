@@ -1,6 +1,7 @@
 package view.adminmainview.share;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -95,7 +97,10 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		jTable.getColumnModel().getColumn(5).setMaxWidth(100); // 닉네임
 		jTable.getColumnModel().getColumn(5).setCellRenderer(celAlignCenter);
 
-		jScrPane = new JScrollPane(jTable);
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+
 		jScrPane.setBounds(80, 150, 800, 400);
 		add(jScrPane);
 

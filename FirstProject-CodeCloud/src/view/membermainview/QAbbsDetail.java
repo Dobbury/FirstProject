@@ -1,6 +1,7 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+
 import dao.QAbbsDao;
 import dto.QAbbsDto;
 import singleton.Singleton;
@@ -54,6 +57,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 		System.out.println(dto.toString() + "회원 디테일 확인용");
 
+
 		//닉네임
 		Font nickFont = new Font("굴림",Font.BOLD, 25);
 		nickText = new JLabel();
@@ -76,21 +80,27 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		postArea.setOpaque(false);
 		postArea.setEditable(false);
 
+
 		// 코드 배경
 		ImageIcon content_back_Img = new ImageIcon("img/QAbbs/QA_content_background.png");
 
 		JLabel content_backgorund = new JLabel();
 		content_backgorund.setIcon(content_back_Img);
+		//이미지 크기 높이 400으로 수정할것
 		content_backgorund.setBounds(50, 200, 750, 350);
 	
-		jScrol = new JScrollPane(postArea);
+
+		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrol.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+		
 		jScrol.setOpaque(false);
 		jScrol.getViewport().setOpaque(false);
-		jScrol.setBounds(50, 200, 750, 350);
-
-
+		jScrol.setBounds(50, 150, 750, 400);
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+					
 		jScrol.setBorder(BorderFactory.createCompoundBorder(null,
 	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+
 
 		// 글 목록
 		btn_List = new JButton("글 목록");
@@ -107,6 +117,15 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		btn_Update.addActionListener(this);
 		btn_Update.setBounds(700, 570, 100, 50);
 
+		
+		Singleton s = Singleton.getInstance();
+		// 수정 버튼의 비활성화 (같은 id가 아닐 경우만)
+		if (!dto.getNick().equals(s.nowMember.getNick())) {
+			btn_Update.setEnabled(false);
+			btn_delete.setEnabled(false);
+		}
+
+		
 		// 삭제 액션 구현
 		btn_delete.addActionListener(new ActionListener() {
 			@Override
@@ -133,12 +152,6 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		add(btn_List);
 		add(btn_delete);
 
-		Singleton s = Singleton.getInstance();
-
-		if (!s.nowMember.getNick().equals(dto.getNick())) {// 접속자와 게시글의 닉네임이 다르면 버튼 비활성화
-			btn_Update.setVisible(false);
-			btn_delete.setVisible(false);
-		}
 		setLayout(null);
 		setVisible(true);
 	}

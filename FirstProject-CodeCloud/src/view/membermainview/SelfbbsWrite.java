@@ -1,6 +1,7 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -31,6 +32,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
@@ -42,6 +44,7 @@ import dto.BBSDto;
 
 import singleton.Singleton;
 import view.MemberMainView;
+import textLimit.*;
 
 public class SelfbbsWrite extends JPanel implements ActionListener {
 
@@ -49,17 +52,22 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 	final int UPDATE = 1;
 	final int DETAIL = 2;
 
+
 	// 오른쪽 칸
 	JPanel right = new JPanel();
 	JLabel titlelab = new JLabel("제목");
-	JTextField titletxt = new JTextField("");
+	JTextField titletxt = new JTextField();
 
 	JToggleButton Tbtn_Java;
 	JToggleButton Tbtn_SQL;
 	JToggleButton Tbtn_C;
 	JToggleButton Tbtn_ETC;
-
+	
+	private JScrollPane jScrPane;
+	
 	JTextArea codetxt = new JTextArea("");
+
+
 	JButton savebtn = new JButton("저장");
 
 	BBSDto dto;
@@ -82,6 +90,7 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		Font tilteFont = new Font("굴림", Font.BOLD, 30);
 
 		titletxt.setBounds(25, 35, 400, 50);
+		titletxt.setDocument(new JTextFieldLimit(50));	//글자수 50개로 제한
 		titletxt.setFont(tilteFont);
 		titletxt.setForeground(Color.WHITE);
 		Border border = BorderFactory.createLineBorder(Color.white);
@@ -120,13 +129,22 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		Font contentFont = new Font("굴림", Font.BOLD, 20);
 
 		codetxt.setBounds(25, 170, 750, 390);
+
+		codetxt.setDocument(new JTextFieldLimit(4000));	//4000자 제한
+		//codetxt.setBackground(new Color(0,0,0,70));
+
 		codetxt.setOpaque(false);
 		Border border2 = BorderFactory.createLineBorder(Color.white);
 		codetxt.setBorder(BorderFactory.createCompoundBorder(border2, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		codetxt.setFont(contentFont);
 		codetxt.setForeground(Color.white);
 		codetxt.append(dto.getContent());
-		right.add(codetxt);
+		
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrPane = new JScrollPane(codetxt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+		
+		right.add(jScrPane);
 
 		savebtn.setBounds(700, 570, 75, 50);
 		savebtn.addActionListener(this);

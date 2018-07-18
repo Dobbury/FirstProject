@@ -33,16 +33,21 @@ public class QAbbsMain extends JPanel {
 
 	final int DETAIL = -2;
 	final int LIST = -1;
-	final int INSERT = 0;
-	final int UPDATE = 1;
 
-	private static JTable Liked, Fork;
+	private static JTable Liked,Fork;
+    
+    static String Lcolum[] = {
+         "순위","제목","추천수"
+    };      
+   
+    static String Fcolum[] = {
+          "순위","제목", "포크수"
+    };   
+    
+    Object LrowData[][],  FrowData[][];     
+   
+    
 
-	static String Lcolum[] = { "순위", "제목", "추천수" };
-
-	static String Fcolum[] = { "순위", "제목", "포크수" };
-
-	Object LrowData[][], FrowData[][];
 
 	public QAbbsMain() {
 		setLayout(null);
@@ -52,8 +57,10 @@ public class QAbbsMain extends JPanel {
 
 		mainPanel.add("QAbbsList", new QAbbsList(this));
 		mainPanel.add("QAbbsDetail", new QAbbsDetail(this, new QAbbsDto()));
-		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(), LIST));
+
+		mainPanel.add("QAbbsWrite", new QAbbsWrite(this, new QAbbsDto(),LIST));
 		mainPanel.setOpaque(false);
+
 		cards.show(mainPanel, "QAbbsList");// 처음 띄워지는 판
 
 		mainPanel.setBounds(0, 0, 1000, 800);
@@ -146,10 +153,9 @@ public class QAbbsMain extends JPanel {
 		Fork.getColumnModel().getColumn(1).setMaxWidth(100);
 		Fork.getColumnModel().getColumn(2).setMaxWidth(40);
 
-		Liked.setBounds(10, 50, 180, 270);
-		Fork.setBounds(10, 370, 180, 270);
 		Liked.setRowHeight(45);
 		Fork.setRowHeight(45);
 
+	
 	}
 }

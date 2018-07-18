@@ -1,6 +1,7 @@
 package view.adminmainview.QA;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import dto.QAbbsDto;
@@ -60,9 +62,10 @@ public class adQAbbsList extends JPanel implements MouseListener, WindowListener
 
 			rowData[i][0] = dto.getSeq();// 번호
 
-			if (dto.getDel() == 1)
+			if (dto.getDel() == 1) {
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-			else {
+
+			}else {
 				// 댓글 작업 부분
 				rowData[i][1] = "";
 				for (int j = 0; j < list.get(i).getDept(); j++) {
@@ -74,6 +77,7 @@ public class adQAbbsList extends JPanel implements MouseListener, WindowListener
 				else
 					rowData[i][1] += "┗ [답변] " + list.get(i).getTitle();
 			}
+
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
@@ -113,7 +117,12 @@ public class adQAbbsList extends JPanel implements MouseListener, WindowListener
 		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
 
-		jScrPane = new JScrollPane(jTable);
+
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
+		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+		
+
 		jScrPane.setBounds(80, 150, 800, 400);
 		add(jScrPane);
 

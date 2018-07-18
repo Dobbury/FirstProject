@@ -32,7 +32,7 @@ import view.LoginView.MyPanel;
 
 public class HostDbSetView extends JFrame implements FocusListener, ActionListener, MouseListener, MouseMotionListener {
 
-	private String Server_IP = "미 정";
+	private String solo_IP = "127.0.0.1";
 	private ImageIcon closeIc1;
 	private ImageIcon closeIc2;
 	private ImageIcon closeIc3;
@@ -42,10 +42,10 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 
 	private JTextField IP_Text;
 
-	private ImageIcon serverIp1;
-	private ImageIcon serverIp2;
-	private ImageIcon serverIp3;
-	private JToggleButton Tbtn_server_Host; // 서버 아이피
+	private ImageIcon onlineIP1;
+	private ImageIcon onlineIP2;
+	private ImageIcon onlineIP3;
+	private JToggleButton Tbtn_server_Host; // 온라인 아이피
 
 	private ImageIcon soloIp1;
 	private ImageIcon soloIp2;
@@ -83,9 +83,10 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		MyPanel panel = new MyPanel();
 		panel.setBounds(0, 0, 341, 413);
 
-		// //
-		// ---------------------------------------------------------------------------
-		//
+
+//		// ---------------------------------------------------------------------------
+
+
 
 		// 창 드래그
 		drag1 = new ImageIcon("img/drag/drag1.png");
@@ -129,12 +130,12 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 
 		ButtonGroup TogglebtnGroup = new ButtonGroup();
 
-		serverIp1 = new ImageIcon("img/hostDB/btn_online1.png");
-		serverIp2 = new ImageIcon("img/hostDB/btn_online2.png");
-		serverIp3 = new ImageIcon("img/hostDB/btn_online3.png");
-		Tbtn_server_Host = new JToggleButton(serverIp3);
-		Tbtn_server_Host.setRolloverIcon(serverIp2);
-		Tbtn_server_Host.setPressedIcon(serverIp2);
+		onlineIP1 = new ImageIcon("img/hostDB/btn_online1.png");
+		onlineIP2 = new ImageIcon("img/hostDB/btn_online2.png");
+		onlineIP3 = new ImageIcon("img/hostDB/btn_online3.png");
+		Tbtn_server_Host = new JToggleButton(onlineIP3);
+		Tbtn_server_Host.setRolloverIcon(onlineIP2);
+		Tbtn_server_Host.setPressedIcon(onlineIP2);
 		Tbtn_server_Host.setBorderPainted(false);
 		Tbtn_server_Host.setContentAreaFilled(false);
 		Tbtn_server_Host.setFocusPainted(false);
@@ -143,7 +144,7 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Tbtn_server_Host.setIcon(serverIp3);
+				Tbtn_server_Host.setIcon(onlineIP3);
 				Tbtn_indv_Host.setIcon(soloIp1);
 				IP_Text.setText(IP_Hint);
 				IP_Text.setEnabled(true);
@@ -170,9 +171,9 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 			public void actionPerformed(ActionEvent e) {
 
 				Tbtn_indv_Host.setIcon(soloIp3);
-				Tbtn_server_Host.setIcon(serverIp1);
+				Tbtn_server_Host.setIcon(onlineIP1);
 
-				IP_Text.setText(Server_IP);
+				IP_Text.setText(solo_IP);
 				IP_Text.setEnabled(false);
 
 			}

@@ -83,50 +83,62 @@ public class Sharebbs extends JPanel {
 		Fork.setOpaque(false);
 		((DefaultTableCellRenderer) Fork.getDefaultRenderer(Object.class)).setOpaque(false);
 
-		endOfRightPanel.setBounds(900, 0, 300, 700);
-		endOfRightPanel.setOpaque(false);
-		endOfRightPanel.add(Liked);
-		endOfRightPanel.add(Fork);
+      
+      
+       endOfRightPanel.setBounds(900,0,300,700);
+       endOfRightPanel.setOpaque(false);
+       endOfRightPanel.add(Liked);     
+       endOfRightPanel.add(Fork);
+      
+      
 
-		// 가운데 패널 체인지해주는 패널 부착
-		add(mainPanel);
-		add(endOfRightPanel);
-		setVisible(true);
-	}
+      //가운데 패널 체인지해주는 패널 부착
+      add(mainPanel);
+      
+    
+      add(endOfRightPanel);
+     
+      
+      setVisible(true);
 
-	public static void setRankList(Object LList[][], Object FList[][]) {
-		// 추천순 포크순 테이블 만들기
-		DefaultTableModel modellike = new DefaultTableModel(LList, Lcolum);
-		DefaultTableModel modelfork = new DefaultTableModel(FList, Fcolum);
+      
+   }
+   public static void setRankList(Object LList[][], Object FList[][]) {
+	   //추천순 포크순 테이블 만들기
+	      DefaultTableModel modellike = new DefaultTableModel(LList, Lcolum);
+	      DefaultTableModel modelfork = new DefaultTableModel(FList, Fcolum);
 
-		Liked.setModel(modellike);
-		Fork.setModel(modelfork);
+	      Liked.setModel(modellike);
+	      Fork.setModel(modelfork);
+	      
+	      Liked.getColumnModel().getColumn(0).setMaxWidth(40);
+	      Liked.getColumnModel().getColumn(1).setMaxWidth(100);
+	      Liked.getColumnModel().getColumn(2).setMaxWidth(40);
+	      
+	      Fork.getColumnModel().getColumn(0).setMaxWidth(40);
+	      Fork.getColumnModel().getColumn(1).setMaxWidth(100);
+	      Fork.getColumnModel().getColumn(2).setMaxWidth(40);
+	      
+	      Liked.setBounds(10,50,180,270);
+	      Fork.setBounds(10,370,180,270);
+	      Liked.setRowHeight(45);
+	      Fork.setRowHeight(45);
 
-		Liked.getColumnModel().getColumn(0).setMaxWidth(40);
-		Liked.getColumnModel().getColumn(1).setMaxWidth(100);
-		Liked.getColumnModel().getColumn(2).setMaxWidth(40);
 
-		Fork.getColumnModel().getColumn(0).setMaxWidth(40);
-		Fork.getColumnModel().getColumn(1).setMaxWidth(100);
-		Fork.getColumnModel().getColumn(2).setMaxWidth(40);
+   }
+   public void changePanel(int i, ShareDto shareDto) {
 
-		Liked.setBounds(10, 50, 180, 270);
-		Fork.setBounds(10, 370, 180, 270);
-		Liked.setRowHeight(45);
-		Fork.setRowHeight(45);
-	}
-
-	public void changePanel(int i, ShareDto shareDto) {
-
-		if (i == 1) {
-			
-			mainPanel.add("ShareList", new ShareList(this));
-			cards.show(mainPanel, "ShareList");
-			
-		} else if (i == 2) {
-			
-			mainPanel.add("ShareDetail", new ShareDetail(this, shareDto));
-			cards.show(mainPanel, "ShareDetail");
-		}
-	}
+      if (i == 1) {
+         mainPanel.add("ShareList", new ShareList(this));
+         cards.show(mainPanel, "ShareList");
+      } else if (i == 2) {
+         mainPanel.add("ShareDetail", new ShareDetail(this, shareDto));
+         cards.show(mainPanel, "ShareDetail");
+ 
+      }
+            
+      
+      
+   }
+   
 }
