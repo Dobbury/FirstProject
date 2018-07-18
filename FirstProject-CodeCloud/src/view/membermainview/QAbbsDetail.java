@@ -25,8 +25,7 @@ import singleton.Singleton;
 
 public class QAbbsDetail extends JPanel implements ActionListener, WindowListener {
 
-
-
+	
 	JLabel nickText;// 닉넴 텍스트필드
 	JLabel titleText;// 제목 텍스트필드
 	
@@ -54,8 +53,6 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		this.dto = dto;
 
 		System.out.println(dto.toString() + "회원 디테일 확인용");
-
-
 
 		//닉네임
 		Font nickFont = new Font("굴림",Font.BOLD, 25);

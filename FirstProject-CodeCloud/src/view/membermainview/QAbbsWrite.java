@@ -34,7 +34,6 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 	final int INSERT = 0;
 	final int UPDATE = 1;
 
-
 	QAbbsMain QAmain;
 	QAbbsDto dto;
 
@@ -61,7 +60,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		btn_Commit.addActionListener(this);
 		btn_Commit.setBounds(700, 570, 100, 40);
 
-		// 취소버튼
+		// 글 목록
 		btn_Cancle = new JButton("글 목록");
 		btn_Cancle.addActionListener(this);
 		btn_Cancle.setBounds(50, 570, 100, 40);
