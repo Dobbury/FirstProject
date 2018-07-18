@@ -125,6 +125,7 @@ public class Sharebbs extends JPanel {
 	      Liked.setModel(modellike);
 	      Fork.setModel(modelfork);
 
+	      
 	      Liked.getColumnModel().getColumn(0).setMaxWidth(40);
 	      Liked.getColumnModel().getColumn(1).setMaxWidth(100);
 	      Liked.getColumnModel().getColumn(2).setMaxWidth(40);
