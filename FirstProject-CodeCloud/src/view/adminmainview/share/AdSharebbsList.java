@@ -43,7 +43,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 	List<ShareDto> list;
 	
 	public AdSharebbsList(AdminSharebbs adSharebbs) {
-		
+		setOpaque(false);
 		this.adSharebbs = adSharebbs;
 		Singleton s= Singleton.getInstance();
 		
@@ -87,18 +87,19 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50); // 번호
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter); 
 		jTable.getColumnModel().getColumn(1).setMaxWidth(500); // 제목
-		jTable.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(2).setMaxWidth(50); // 언어
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(50); // 추천
+		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(4).setMaxWidth(50); // 포크
+		jTable.getColumnModel().getColumn(4).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(5).setMaxWidth(100); // 닉네임
-
+		jTable.getColumnModel().getColumn(5).setCellRenderer(celAlignCenter);
 
 
 		jScrPane = new JScrollPane(jTable);
 
-		jScrPane.setBounds(100, 150, 600, 300);
+		jScrPane.setBounds(80, 150, 800, 400);
 		add(jScrPane);
 
 		// 검색할 부분 콤보박스로 나열해줌
@@ -109,8 +110,6 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		add(choiceList);
 
 		setLayout(null);
-		setBackground(Color.LIGHT_GRAY);
-		setBounds(50, 50, 300, 300);
 		setVisible(true);
 
 	}
@@ -154,14 +153,17 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50); // 번호
-		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter); 
 		jTable.getColumnModel().getColumn(1).setMaxWidth(500); // 제목
-		jTable.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(2).setMaxWidth(50); // 언어
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(50); // 추천
+		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(4).setMaxWidth(50); // 포크
+		jTable.getColumnModel().getColumn(4).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(5).setMaxWidth(100); // 닉네임
+		jTable.getColumnModel().getColumn(5).setCellRenderer(celAlignCenter);
+
 
 		//////////////////////////////
 

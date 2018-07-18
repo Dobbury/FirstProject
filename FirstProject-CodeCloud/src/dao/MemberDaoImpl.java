@@ -1,9 +1,14 @@
 package dao;
 
+import java.util.List;
+
 import dto.MemberDto;
+import dto.ShareDto;
 
 public interface MemberDaoImpl {
 
+	public List<MemberDto> getbbsList();
+	
 	public boolean getId(String id);
 
 	public boolean insert(MemberDto dto);
@@ -14,4 +19,5 @@ public interface MemberDaoImpl {
 
 	public boolean getNick(String nick);
 
+	public MemberDto search(String id);
 }

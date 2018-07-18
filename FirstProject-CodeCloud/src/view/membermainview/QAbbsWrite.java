@@ -44,37 +44,37 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 	int state;
 
 	public QAbbsWrite(QAbbsMain QA, QAbbsDto dto,int state) {
+		setOpaque(false);
 		QAmain = QA;
 		this.dto = dto;
 
 		this.state=state;
 		
 		titleLabel = new JLabel("제목: ");
-		titleLabel.setBounds(50, 10, 50, 30);
+		titleLabel.setBounds(50, 50, 50, 50);
 
 		titleText = new JTextField();
-		titleText.setBounds(110, 10, 310, 30);
+		titleText.setBounds(100, 50, 310, 30);
 		titleText.setText(dto.getTitle());
 
 		titleLabel2 = new JLabel("내용 ");
-		titleLabel2.setBounds(50, 150, 50, 30);
+		titleLabel2.setBounds(50, 110, 50, 50);
 
 		postArea = new JTextArea();
-		postArea.setBounds(110, 80, 310, 200);
 		postArea.append(dto.getContent());
 
 		jScrol = new JScrollPane(postArea);
-		jScrol.setBounds(110, 80, 310, 200);
+		jScrol.setBounds(50, 150, 650, 400);
 
 		// 입력 버튼
-		btn_Commit = new JButton("확 인");
+		btn_Commit = new JButton("저 장");
 		btn_Commit.addActionListener(this);
-		btn_Commit.setBounds(45, 305, 110, 50);
+		btn_Commit.setBounds(600, 570, 100, 40);
 
 		// 취소버튼
-		btn_Cancle = new JButton("취 소");
+		btn_Cancle = new JButton("글 목록");
 		btn_Cancle.addActionListener(this);
-		btn_Cancle.setBounds(335, 305, 110, 50);
+		btn_Cancle.setBounds(50, 570, 100, 40);
 
 		add(titleLabel);
 		add(titleLabel2);
@@ -85,8 +85,6 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		add(btn_Cancle);
 
 		setLayout(null);
-		setBackground(Color.PINK);
-		setBounds(50, 50, 300, 300);
 
 		setVisible(true);
 	}

@@ -21,9 +21,6 @@ import singleton.Singleton;
 
 public class QAbbsDetail extends JPanel implements ActionListener, WindowListener {
 
-	JLabel titleLabel;// 닉네임
-	JLabel titleLabel2;// 제목
-	JLabel titleLabel3;// content
 
 	JTextField titleText;// 닉넴 텍스트필드
 	JTextField titleText2;// 제목 텍스트필드
@@ -47,53 +44,51 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 	QAbbsDto dto;
 
 	public QAbbsDetail(QAbbsMain QA, QAbbsDto dto) {
+		
+		setOpaque(false);
 		QAmain = QA;
+		
 		this.dto = dto;
 
 		System.out.println(dto.toString() + "회원 디테일 확인용");
-		
-		titleLabel = new JLabel("닉네임: ");
-		titleLabel.setBounds(100, 100, 50, 30);
 
-		titleText = new JTextField();
-		titleText.setBounds(200, 100, 310, 30);
-		titleText.setText(dto.getNick());
-		titleText.setEditable(false);
-
-		titleLabel2 = new JLabel("제목: ");
-		titleLabel2.setBounds(100, 150, 50, 30);
-
+		//제목
 		titleText2 = new JTextField();
-		titleText2.setBounds(200, 150, 310, 30);
+		titleText2.setBounds(50, 100, 310, 50);
 		titleText2.setText(dto.getTitle());
 		titleText2.setEditable(false);
 
-		titleLabel3 = new JLabel("CONTENT: ");
-		titleLabel3.setBounds(100, 180, 100, 60);
-
+		//닉네임
+		titleText = new JTextField();
+		titleText.setBounds(50, 160, 310, 30);
+		titleText.setText(dto.getNick());
+		titleText.setEditable(false);
+		
+		//컨텐츠
 		postArea = new JTextArea();
-		postArea.setBounds(200, 200, 300, 300);
 		postArea.append(dto.getContent());
 		postArea.setEditable(false);
 
 		jScrol = new JScrollPane(postArea);
-		jScrol.setBounds(200, 200, 300, 300);
+		jScrol.setBounds(50, 200, 750, 350);
 
-		// 수정
-		btn_Update = new JButton("수정");
-		btn_Update.addActionListener(this);
-		btn_Update.setBounds(100, 550, 110, 50);
 
 		// 글 목록
 		btn_List = new JButton("글 목록");
 		btn_List.addActionListener(this);
-		btn_List.setBounds(500, 550, 110, 50);
+		btn_List.setBounds(50, 570, 100, 40);
 
 		// 삭제
 		btn_delete = new JButton("삭제");
 		btn_delete.addActionListener(this);
-		btn_delete.setBounds(700, 550, 110, 50);
+		btn_delete.setBounds(550, 570, 100, 50);
 
+		// 수정
+		btn_Update = new JButton("수정");
+		btn_Update.addActionListener(this);
+		btn_Update.setBounds(700, 570, 100, 50);
+
+		
 		// 삭제 액션 구현
 		btn_delete.addActionListener(new ActionListener() {
 
@@ -110,10 +105,6 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 			}
 		});
 
-		add(titleLabel);
-		add(titleLabel2);
-		add(titleLabel3);
-
 		add(titleText);
 		add(titleText2);
 
@@ -122,10 +113,14 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		add(btn_Update);
 		add(btn_List);
 		add(btn_delete);
-
+		
+		Singleton s = Singleton.getInstance();
+		
+		if(!s.nowMember.getNick().equals(dto.getNick())) {//접속자와 게시글의 닉네임이 다르면 버튼 비활성화
+			btn_Update.setVisible(false);
+			btn_delete.setVisible(false);
+		}
 		setLayout(null);
-		setBackground(Color.PINK);
-		setBounds(50, 50, 300, 300);
 
 		setVisible(true);
 

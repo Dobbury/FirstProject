@@ -6,6 +6,12 @@ import dto.QAbbsDto;
 import view.membermainview.QAbbsList;
 
 public class adQAbbsMain extends JPanel {
+	
+	final int DETAIL = 0;
+	final int LIST = 1;
+	final int COMMENT = 2;
+	final int COMMENT_UPDATE = 3;
+	
 	public CardLayout cards = new CardLayout();
 	public JPanel admainPanel;
 
@@ -13,27 +19,29 @@ public class adQAbbsMain extends JPanel {
 
 	public adQAbbsMain() {
 		setLayout(null);
-		setBounds(0, 0, 1000, 800);
+		setOpaque(false);
+		setBounds(0, 0, 1150, 700);
 		admainPanel = new JPanel(cards);
 
 		admainPanel.add("adQAbbsDetail", new adQAbbsDetail(this, new QAbbsDto()));
 		admainPanel.add("adQAbbswrite", new adQAbbswrite(this, new QAbbsDto(), 0));
 		admainPanel.add("adQAbbsList", new adQAbbsList(this));
+		admainPanel.setOpaque(false);
 		cards.show(admainPanel, "adQAbbsList");// 처음 띄워지는 판
 
-		admainPanel.setBounds(0, 0, 1000, 800);
+		admainPanel.setBounds(0, 0, 1150, 700);
 		add(admainPanel);
 		setVisible(true);
 	}
 
-	public void changePanel(int select, QAbbsDto dto, int state) {
-		if (select == 1) {
+	public void changePanel(int state, QAbbsDto dto) {
+		if (state == DETAIL) {
 			admainPanel.add("adQAbbsDetail", new adQAbbsDetail(this, dto));
 			cards.show(admainPanel, "adQAbbsDetail");
-		} else if (select == 2) {
+		} else if (state == COMMENT) {
 			admainPanel.add("adQAbbswrite", new adQAbbswrite(this, dto, state));
 			cards.show(admainPanel, "adQAbbswrite");
-		} else if (select == 3) {
+		} else if (state == LIST) {
 			admainPanel.add("adQAbbsList", new adQAbbsList(this));
 			cards.show(admainPanel, "adQAbbsList");
 		}

@@ -2,16 +2,25 @@ package view;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import singleton.Singleton;
+import view.MemberMainView.MyPanel;
 import view.adminmainview.QA.adQAbbsMain;
+import view.adminmainview.member.adMemberbbsMain;
 import view.adminmainview.share.AdminSharebbs;
 import view.chatview.chatPanel;
 
@@ -20,7 +29,7 @@ public class AdminMainView extends JFrame implements ActionListener {
 	private CardLayout cards = new CardLayout();
 	JPanel mainPanel;
 
-	JPanel memProfile_Img;
+	JLabel memProfile_Img;
 	JLabel memName;
 
 	JButton btn_Member;
@@ -30,6 +39,8 @@ public class AdminMainView extends JFrame implements ActionListener {
 	JButton btn_Logout;
 	boolean chat;
 
+	BufferedImage img = null;
+	
 	adQAbbsMain adQAMain = new adQAbbsMain();
 
 	// 채팅 부분
@@ -37,49 +48,77 @@ public class AdminMainView extends JFrame implements ActionListener {
 
 	public AdminMainView() {
 
-		setBounds(50, 50, 1200, 800);
-
+		setBounds(50, 50, 1100, 700);
 		setLayout(null);
+		
+		// ---------------------------------------------------------------------------
+		// 배경화면
+		try {
+			img = ImageIO.read(new File("img/background.png"));
+		} catch (IOException e) {
+			System.out.println("이미지 불러오기 실패");
+			System.exit(0);
+		}
+
+		MyPanel panel = new MyPanel();
+		panel.setBounds(0, 0, 1400, 700);
+
+		// ---------------------------------------------------------------------------
+		
 
 		mainPanel = new JPanel(cards);
 
-		// mainPanel.add("Memberbbs", new MemberBBS());
+		mainPanel.add("Memberbbs", new adMemberbbsMain());
 		mainPanel.add("AdminSharebbs", new AdminSharebbs());
 		mainPanel.add("Q&Abbs", adQAMain);
-		cards.show(mainPanel, "Q&Abbs");
+		cards.show(mainPanel, "Memberbbs");
 
-		mainPanel.setBounds(200, 0, 1000, 800);
-		memProfile_Img = new JPanel();
-		memProfile_Img.setBackground(Color.DARK_GRAY);
-		memProfile_Img.setBounds(37, 50, 120, 120);
+		mainPanel.setOpaque(false);
+		mainPanel.setBounds(150, 0, 950, 700);
+		
+		Singleton s = Singleton.getInstance();
+		
+		ImageIcon img = new ImageIcon(s.nowMember.getProfile_Img());
+		Image ori = img.getImage();
+		Image changedImg= ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH );
+		
+		img = new ImageIcon(changedImg);
+		
+		memProfile_Img = new JLabel();
+		memProfile_Img.setIcon(img);
+//		memProfile_Img.addMouseListener(this);
+		memProfile_Img.setBounds(10, 50, 130, 130);
 
 		memName = new JLabel();
-		memName.setText("관리자");
-		memName.setBounds(50, 200, 40, 30);
+		memName.setText(s.nowMember.getNick());
+		memName.setForeground(Color.WHITE);
+		memName.setBounds(50, 200, 80, 30);
+		
 
 		btn_Member = new JButton("회원 관리");
 		btn_Member.addActionListener(this);
-		btn_Member.setBounds(30, 250, 100, 80);
+		btn_Member.setBounds(10, 260, 130, 50);
 
 		btn_Sharebbs = new JButton("공유 관리");
 		btn_Sharebbs.addActionListener(this);
-		btn_Sharebbs.setBounds(30, 350, 100, 80);
+		btn_Sharebbs.setBounds(10, 360, 130, 50);
 
 		btn_QAbbs = new JButton("Q&A 관리");
 		btn_QAbbs.addActionListener(this);
-		btn_QAbbs.setBounds(30, 450, 100, 80);
+		btn_QAbbs.setBounds(10, 460, 130, 50);
 
 		btn_Chat = new JButton("채팅");
 		btn_Chat.addActionListener(this);
-		btn_Chat.setBounds(30, 550, 100, 80);
+		btn_Chat.setBounds(10, 560, 130, 50);
 
 		btn_Logout = new JButton("로그아웃");
 		btn_Logout.addActionListener(this);
 		btn_Logout.setBounds(30, 650, 100, 80);
 
 		chatPanel = new chatPanel();
+		chatPanel.setOpaque(false);
 		chatPanel.connect();
-		chatPanel.setBounds(1200, 0, 300, 800);
+		chatPanel.setBounds(1100, 0, 300, 700);
 
 		add(chatPanel);
 
@@ -95,13 +134,16 @@ public class AdminMainView extends JFrame implements ActionListener {
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		add(panel);
 
 	}
 
 	public void changePanel(int select) {
 		if (select == 1) {
+			mainPanel.add("Memberbbs", new adMemberbbsMain());
 			cards.show(mainPanel, "Memberbbs");
 		} else if (select == 2) {
+			mainPanel.add("AdminSharebbs", new AdminSharebbs());
 			cards.show(mainPanel, "AdminSharebbs");
 		} else if (select == 3) {
 			cards.show(mainPanel, "Q&Abbs");
@@ -119,10 +161,10 @@ public class AdminMainView extends JFrame implements ActionListener {
 			changePanel(3);
 		} else if (e.getSource() == btn_Chat) {
 			if (chat) {
-				setBounds(50, 50, 1200, 800);
+				setBounds(50, 50, 1100, 700);
 				chat = false;
 			} else {
-				setBounds(50, 50, 1500, 800);
+				setBounds(50, 50, 1400, 700);
 				chat = true;
 			}
 		} else if (e.getSource() == btn_Logout) {
@@ -130,6 +172,14 @@ public class AdminMainView extends JFrame implements ActionListener {
 			s.nowMember = null;
 			this.dispose();
 			s.MemCtrl.login();
+
+		}
+	}
+	
+	class MyPanel extends JPanel {
+		public void paint(Graphics g) {
+			// g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
+			g.drawImage(img, 0, 0, null);
 
 		}
 	}

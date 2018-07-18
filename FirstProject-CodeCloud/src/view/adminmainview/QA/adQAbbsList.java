@@ -23,8 +23,13 @@ import javax.swing.table.DefaultTableModel;
 import dto.QAbbsDto;
 import singleton.Singleton;
 
-public class adQAbbsList extends JPanel implements ActionListener, MouseListener, WindowListener {
+public class adQAbbsList extends JPanel implements  MouseListener, WindowListener {
 
+	final int DETAIL = 0;
+	final int LIST = 1;
+	final int COMMENT = 2;
+	final int COMMENT_UPDATE = 3;
+	
 	private JTable jTable;
 	private JScrollPane jScrPane;
 	private JButton writeBtn;
@@ -39,6 +44,10 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 	List<QAbbsDto> list;
 
 	public adQAbbsList(adQAbbsMain QA) {
+		
+
+		setOpaque(false);
+		
 		adQAmian = QA;
 
 		Singleton s = Singleton.getInstance();
@@ -54,18 +63,18 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 
 			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-
-			// 댓글 작업 부분
-			rowData[i][1] = "";
-			for (int j = 0; j < list.get(i).getDept(); j++) {
-				rowData[i][1] += "    ";
+			else {
+				// 댓글 작업 부분
+				rowData[i][1] = "";
+				for (int j = 0; j < list.get(i).getDept(); j++) {
+					rowData[i][1] += "    ";
+				}
+	
+				if (rowData[i][1].equals(""))
+					rowData[i][1] = list.get(i).getTitle();
+				else
+					rowData[i][1] += "┗ [답변] " + list.get(i).getTitle();
 			}
-
-			if (rowData[i][1].equals(""))
-				rowData[i][1] = list.get(i).getTitle();
-			else
-				rowData[i][1] += "┗ " + list.get(i).getTitle();
-
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
@@ -93,38 +102,26 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 
 		jTable = new JTable(model);
 		jTable.addMouseListener(this);
-
-		// 컬럼의 넓이 설정
-		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(300);
-
-		// 테이블안에 컬럼을 위치설정
+		
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
-		jTable.getColumn("작성일").setCellRenderer(celAlignCenter);
+		// 컬럼의 넓이 설정
+		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
+		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
+		
 
 		jScrPane = new JScrollPane(jTable);
 
-		jScrPane.setBounds(50, 50, 600, 300);
+		jScrPane.setBounds(80, 150, 800, 400);
 		add(jScrPane);
 
 		setLayout(null);
-		setBackground(Color.PINK);
-		setBounds(50, 50, 300, 300);
 		setVisible(true);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-
-		Object obj = e.getSource();
-		// 글쓰기
-		if (obj == writeBtn) {
-			adQAmian.changePanel(2, new QAbbsDto(), 0);
-		}
 	}
 
 	public void setList(List<QAbbsDto> list) {
@@ -136,17 +133,18 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 			rowData[i][0] = dto.getSeq();
 			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-
-			// 댓글 작업 부분
-			rowData[i][1] = "";
-			for (int j = 0; j < list.get(i).getDept(); j++) {
-				rowData[i][1] += "    ";
+			else {
+				// 댓글 작업 부분
+				rowData[i][1] = "";
+				for (int j = 0; j < list.get(i).getDept(); j++) {
+					rowData[i][1] += "    ";
+				}
+	
+				if (rowData[i][1].equals(""))
+					rowData[i][1] = list.get(i).getTitle();
+				else
+					rowData[i][1] += "┗ [답변] " + list.get(i).getTitle();
 			}
-
-			if (rowData[i][1].equals(""))
-				rowData[i][1] = list.get(i).getTitle();
-			else
-				rowData[i][1] += "┗ " + list.get(i).getTitle();
 
 			rowData[i][2] = dto.getNick();
 
@@ -171,16 +169,18 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 		}
 		////////////////////////////// table 형태 유지
 		model.setDataVector(rowData, columnNames);
-		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
-
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
-		jTable.getColumn("작성일").setCellRenderer(celAlignCenter);
-		//////////////////////////////
+		
+		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
+		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
+
+
 	}
 
 	@Override
@@ -235,15 +235,12 @@ public class adQAbbsList extends JPanel implements ActionListener, MouseListener
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int rowNum = jTable.getSelectedRow();
-		if (list.get(rowNum).getDel() == 1) {
-			JOptionPane.showMessageDialog(null, "이 글은 볼 수 없습니다");
-			return;
-		}
+		
 		Singleton s = Singleton.getInstance();
 		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(), list.get(rowNum).getRef(), list.get(rowNum).getStep(),
 				list.get(rowNum).getDept());
 
-		adQAmian.changePanel(1, dto,0); // 해당 글 보는 곳
+		adQAmian.changePanel(DETAIL, dto); // 해당 글 보는 곳
 
 	}
 

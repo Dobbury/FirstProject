@@ -129,6 +129,7 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		sharebtn.addActionListener(this);
 		right.add(sharebtn);
 		
+		
 		add(right);
 
 	}

@@ -20,8 +20,8 @@ public class AdminSharebbs extends JPanel {
 
 	public AdminSharebbs() {
 		setLayout(null);
-		setBounds(0, 0, 1000, 800);
-		setBackground(Color.black);
+		setBounds(0, 0, 1150, 700);
+		setOpaque(false);
 		mainPanel = new JPanel(cards);
 
 
@@ -29,7 +29,8 @@ public class AdminSharebbs extends JPanel {
 		mainPanel.add("AdSharedbbsDetail", new AdSharebbsDetail(this, new ShareDto()));
 		cards.show(mainPanel, "AdSharedbbsList"); // 처음 띄어지는 패널
 		
-		mainPanel.setBounds(0, 0, 1000, 800);
+		mainPanel.setBounds(0, 0, 1150, 700);
+		mainPanel.setOpaque(false);
 		add(mainPanel);
 		setVisible(true);
 	}

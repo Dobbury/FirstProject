@@ -23,6 +23,12 @@ import singleton.Singleton;
 
 public class adQAbbsDetail extends JPanel implements ActionListener, WindowListener {
 
+	
+	final int DETAIL = 0;
+	final int LIST = 1;
+	final int COMMENT = 2;
+	final int COMMENT_UPDATE = 3;
+	
 	JLabel titleLabel;// 닉네임
 	JLabel titleLabel2;// 제목
 	JLabel titleLabel3;// content
@@ -41,14 +47,14 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 	private JButton btn_delete;// 삭제
 	private JButton btn_update;// 수정
 
-	final int INSERT = 0;
-	final int UPDATE = 1;
 
 	adQAbbsMain adQAmian;
 
 	QAbbsDto dto;
 
 	public adQAbbsDetail(adQAbbsMain QA, QAbbsDto dto) {
+
+		setOpaque(false);
 		adQAmian = QA;
 		this.dto = dto;
 
@@ -104,8 +110,8 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		btn_update.setBounds(700, 550, 110, 50);
 
 		Singleton s = Singleton.getInstance();
-		// 수정 버튼의 비활성화 (같은 id일 경우만)
-		if (dto.getNick().equals(s.nowMember.getNick())) {
+		// 수정 버튼의 비활성화 (다른 id일 경우만)
+		if (!dto.getNick().equals(s.nowMember.getNick())) {
 			btn_update.setEnabled(false);
 			btn_delete.setEnabled(false);
 		}
@@ -121,7 +127,7 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 				} else {
 					JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
 				}
-				adQAmian.changePanel(3, dto, 0);
+				adQAmian.changePanel(LIST, dto);
 			}
 		});
 
@@ -137,8 +143,6 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		add(btn_update);
 
 		setLayout(null);
-		setBackground(Color.PINK);
-		setBounds(50, 50, 300, 300);
 
 		setVisible(true);
 
@@ -190,13 +194,13 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == btn_comment) {
-			adQAmian.changePanel(2, dto, 2);
+			adQAmian.changePanel(COMMENT, new QAbbsDto());
 
 		} else if (e.getSource() == btn_List) {
-			adQAmian.changePanel(3, dto, 0);
+			adQAmian.changePanel(LIST, dto);
 
 		} else if (e.getSource() == btn_update) {
-			adQAmian.changePanel(2, dto, 1);
+			adQAmian.changePanel(COMMENT_UPDATE, dto);
 
 		}
 	}

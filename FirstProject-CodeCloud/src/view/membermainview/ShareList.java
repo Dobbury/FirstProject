@@ -81,60 +81,39 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		};
 		
 		ShareListTable.addMouseListener(this);
-		
+
 		// 컬럼의 넓이 설정 //가 되고있지않음
 		ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		ShareListTable.getColumnModel().getColumn(1).setMaxWidth(300);
-		ShareListTable.getColumnModel().getColumn(2).setMaxWidth(500);
-		ShareListTable.getColumnModel().getColumn(3).setMaxWidth(50);
+		ShareListTable.getColumnModel().getColumn(1).setMaxWidth(60);
+		ShareListTable.getColumnModel().getColumn(2).setMaxWidth(600);
+		ShareListTable.getColumnModel().getColumn(3).setMaxWidth(60);
 		ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
 		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
 		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
-		
-		jScrPane = new JScrollPane(ShareListTable); 
-		jScrPane.setBounds(50, 50, 600, 300);
+
+		jScrPane = new JScrollPane(ShareListTable);
+		jScrPane.setBounds(50, 150, 750, 400);
 		add(jScrPane);
 		
-		
-		
-		
-		//맨 아랫 콤보박스 텍스트필드 검색 버튼 글쓰기 버튼
-		
-		
+
 
 		// 검색할 부분 콤보박스로 나열해줌
 		// Choice(AWT) -> JComboBox(swing)
-		String[] selects = new String[] {"전체보기" ,"제목", "내용", "닉네임","언어"};
+		String[] selects = new String[] { "전체보기", "제목", "내용", "닉네임", "언어" };
 		choiceList = new JComboBox<>(selects);
-		choiceList.setBounds(150, 600, 80, 20);
+		choiceList.setBounds(50, 570, 80, 40);
 		add(choiceList);
 
-		
-		// 글쓰기 버튼
-				writeBtn = new JButton("글쓰기");
-				writeBtn.addActionListener(this);
-				writeBtn.setBounds(600, 600, 100, 40);
-				add(writeBtn);
+		// 검색
+		selectField = new JTextField();
+		selectField.setBounds(140, 570, 150, 40);
+		add(selectField);
 
-				
-				// 검색
-				selectField = new JTextField();
-				selectField.setBounds(250, 600, 150, 20);
-				add(selectField);
+		selectBtn = new JButton("검색");
+		selectBtn.addActionListener(this);
+		selectBtn.setBounds(300, 570, 100, 40);
+		add(selectBtn);
 
-				selectBtn = new JButton("검색");
-				selectBtn.addActionListener(this);
-				selectBtn.setBounds(420, 600, 100, 20);
-				add(selectBtn);
-
-		
-		
-		
-				
-				
-				
-				
-		
 		setLayout(null);
 		setOpaque(false);
 		setBounds(50, 50, 300, 300);
@@ -160,13 +139,16 @@ public class ShareList extends JPanel implements Action, MouseListener {
 
 		}
 		model.setDataVector(rowData, columnNames);
+
+		// 컬럼의 넓이 설정 //가 되고있지않음
 		ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		ShareListTable.getColumnModel().getColumn(1).setMaxWidth(300);
-		ShareListTable.getColumnModel().getColumn(2).setMaxWidth(500);
-		ShareListTable.getColumnModel().getColumn(3).setMaxWidth(50);
+		ShareListTable.getColumnModel().getColumn(1).setMaxWidth(60);
+		ShareListTable.getColumnModel().getColumn(2).setMaxWidth(600);
+		ShareListTable.getColumnModel().getColumn(3).setMaxWidth(60);
 		ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
 		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
 		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
+
 
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);

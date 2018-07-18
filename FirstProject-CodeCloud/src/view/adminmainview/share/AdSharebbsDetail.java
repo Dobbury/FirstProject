@@ -43,7 +43,7 @@ public class AdSharebbsDetail extends JPanel implements ActionListener {
 
 //	public AdSharebbsDetail(AdminSharebbs adshbbs, BBSDto dto) {
 	public AdSharebbsDetail(AdminSharebbs adshbbs,ShareDto dto) {
-
+		setOpaque(false);
 		adminSharebbs = adshbbs;
 		this.dto = dto;
 
@@ -126,8 +126,6 @@ public class AdSharebbsDetail extends JPanel implements ActionListener {
 		add(btn_List);
 
 		setLayout(null);
-		setBackground(Color.LIGHT_GRAY);
-		setBounds(50, 50, 300, 300);
 
 		setVisible(true);
 

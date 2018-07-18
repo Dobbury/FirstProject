@@ -2,20 +2,14 @@ package view.membermainview;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import dao.ShareDao;
-import dto.QAbbsDto;
 import dto.ShareDto;
-import view.MemberMainView;
 
 public class Sharebbs extends JPanel {
    private CardLayout cards = new CardLayout();
@@ -55,7 +49,7 @@ public class Sharebbs extends JPanel {
       //추천순 포크순 테이블 생성
 
       
-       //추천순 포크순 테이블 만들기
+      //추천순 포크순 테이블 만들기
       DefaultTableModel modellike = new DefaultTableModel(ShareDao.getLikeList(), Lcolum);
       DefaultTableModel modelfork = new DefaultTableModel(ShareDao.getForkList(), Fcolum);
 
@@ -88,17 +82,19 @@ public class Sharebbs extends JPanel {
       Fork.setRowHeight(45);
 
       Liked.setOpaque(false);
+      Liked.setForeground(Color.WHITE);
       Liked.setShowGrid(false);
       Liked.setOpaque(false);
 		((DefaultTableCellRenderer) Liked.getDefaultRenderer(Object.class)).setOpaque(false);
 
       Fork.setOpaque(false);
+      Fork.setForeground(Color.WHITE);
       Fork.setShowGrid(false);
       Fork.setOpaque(false);
 		((DefaultTableCellRenderer) Fork.getDefaultRenderer(Object.class)).setOpaque(false);
       
       
-       endOfRightPanel.setBounds(800,0,300,700);
+       endOfRightPanel.setBounds(900,0,300,700);
        endOfRightPanel.setOpaque(false);
        endOfRightPanel.add(Liked);     
        endOfRightPanel.add(Fork);
@@ -151,8 +147,7 @@ public class Sharebbs extends JPanel {
          cards.show(mainPanel, "ShareDetail");
  
       }
-      
-      
+            
       
       
    }

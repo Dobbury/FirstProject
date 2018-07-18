@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -35,7 +36,9 @@ public class MemberController {
 		return mService.getId(id);
 
 	}
-
+	public MemberDto memSearch(String id) {
+		return mService.search(id);
+	}
 	public boolean getNick(String nick) {
 		return mService.getNick(nick);
 	}
@@ -84,5 +87,8 @@ public class MemberController {
 		// new memberFrame();
 	}
 	
+	public List<MemberDto> getbbsList(){
+		return mService.getbbsList();
+	}
 
 }

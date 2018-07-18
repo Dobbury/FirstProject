@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.print.attribute.ResolutionSyntax;
@@ -18,6 +20,7 @@ import Encrypt.PasswordClass;
 import db.DBClose;
 import db.DBConnection;
 import dto.MemberDto;
+import dto.ShareDto;
 
 /*
 MEMBER	TABLE			RESTRICTION
@@ -34,6 +37,45 @@ public class MemberDao implements MemberDaoImpl {
 	public MemberDao() {
 	}
 
+	public List<MemberDto> getbbsList(){
+		List<MemberDto> list = new ArrayList<>();
+		
+		//Singleton s = Singleton.getInstance();
+		String sql = "SELECT * FROM MEMBER";
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.makeConnection();
+		
+			psmt = conn.prepareStatement(sql);
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				int i = 1;
+				
+				// 이미지 처리
+				InputStream is = rs.getBinaryStream(5);
+				BufferedImage profile_Img = ImageIO.read(is);
+				
+				MemberDto dto = new MemberDto(rs.getString(i++), 
+										rs.getString(i++), 
+										rs.getString(i++), 
+										rs.getInt(i++), 
+										profile_Img);
+				list.add(dto);				
+			}				
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);			
+		}
+		return list;
+	}
 	public boolean getId(String id) {
 
 		String sql = " SELECT ID FROM MEMBER " + " WHERE ID ='" + id + "'";
@@ -206,6 +248,45 @@ public class MemberDao implements MemberDaoImpl {
 		return mem;
 	}
 	
+	public MemberDto search(String id) {
+		String sql = " SELECT PWD, NICK, AUTH, IMG " + " FROM MEMBER " + " WHERE ID=?";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		MemberDto mem = null;
+
+		try {
+
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, id);
+
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				String pwd = rs.getString(1);
+				String nick = rs.getString(2);
+				int auth = rs.getInt(3);
+				// 이미지 처리
+				InputStream is = rs.getBinaryStream(4);
+				BufferedImage profile_Img = ImageIO.read(is);
+
+				mem = new MemberDto(id, pwd, nick, auth, profile_Img);
+			} else {
+				JOptionPane.showMessageDialog(null, "아이디가 존재하지 않습니다.");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+
+		return mem;
+	}
 	public boolean update(MemberDto dto) {
 		String sql = "UPDATE MEMBER SET PWD = ?, NICK = ?, IMG = ? WHERE ID=?";
 		

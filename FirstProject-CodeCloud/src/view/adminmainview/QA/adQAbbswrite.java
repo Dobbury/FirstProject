@@ -32,9 +32,10 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 	JButton btn_Commit; // 답글 입력
 	JButton btn_Cancle; // 답글 입력 취소
 
-	final int INSERT = 0;
-	final int UPDATE = 1;
+	final int DETAIL = 0;
+	final int LIST = 1;
 	final int COMMENT = 2;
+	final int COMMENT_UPDATE = 3;
 
 	int state;
 
@@ -42,6 +43,8 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 	QAbbsDto dto;
 
 	public adQAbbswrite(adQAbbsMain QA, QAbbsDto dto, int state) {
+
+		setOpaque(false);
 		adQAmian = QA;
 		this.dto = dto;
 		this.state = state;
@@ -82,8 +85,6 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 		add(btn_Cancle);
 
 		setLayout(null);
-		setBackground(Color.PINK);
-		setBounds(50, 50, 300, 300);
 
 		setVisible(true);
 	}
@@ -135,23 +136,14 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 		if (e.getSource() == btn_Commit) {
 			Singleton s = Singleton.getInstance();
 
-			if (state == UPDATE) {
+			if (state == COMMENT_UPDATE) {
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
 				s.qaDao.update(dto);
 
 				// list로
-				adQAmian.changePanel(3, new QAbbsDto(), 1);
+				adQAmian.changePanel(LIST, new QAbbsDto());
 
-			} else if (state == INSERT) {
-				dto.setNick("admin");
-				dto.setTitle(titleText.getText());
-				dto.setContent(postArea.getText());
-
-				dto.setDel(0); // 0이 삭제 되지 않은 게시글 , 1이 삭제된 게시글
-				s.qaDao.insert(dto);
-
-				adQAmian.changePanel(3, new QAbbsDto(), 0);
 			} else if (state == COMMENT) {
 				// 상위 글의 SEQ가 그룹번호
 				dto.setRef(dto.getSeq());
@@ -175,10 +167,10 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 
 				s.qaDao.insert(dto);
 
-				adQAmian.changePanel(3, new QAbbsDto(), 2);
+				adQAmian.changePanel(LIST, new QAbbsDto());
 			}
 		} else if (e.getSource() == btn_Cancle) {
-			adQAmian.changePanel(3, new QAbbsDto(), 0);
+			adQAmian.changePanel(LIST, new QAbbsDto());
 		}
 	}
 }

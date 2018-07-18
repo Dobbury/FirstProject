@@ -49,6 +49,8 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 	final int UPDATE = 1;
 	
 	public QAbbsList(QAbbsMain QA) {
+		setOpaque(false);
+		
 		QAmain = QA;
 
 		Singleton s = Singleton.getInstance();
@@ -63,18 +65,18 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-
-			// 댓글 작업 부분
-			rowData[i][1] = "";
-			for (int j = 0; j < list.get(i).getDept(); j++) {
-				rowData[i][1] += "    ";
+			else {
+				// 댓글 작업 부분
+				rowData[i][1] = "";
+				for (int j = 0; j < list.get(i).getDept(); j++) {
+					rowData[i][1] += "    ";
+				}
+	
+				if (rowData[i][1].equals(""))
+					rowData[i][1] = list.get(i).getTitle();
+				else
+					rowData[i][1] += "[답변] " + list.get(i).getTitle();
 			}
-
-			if (rowData[i][1].equals(""))
-				rowData[i][1] = list.get(i).getTitle();
-			else
-				rowData[i][1] += "┗ " + list.get(i).getTitle();
-
 			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
@@ -100,17 +102,17 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		// 글쓰기 버튼
 		writeBtn = new JButton("글쓰기");
 		writeBtn.addActionListener(this);
-		writeBtn.setBounds(600, 600, 100, 40);
+		writeBtn.setBounds(700, 570, 100, 40);
 		add(writeBtn);
 
 		// 검색
 		selectField = new JTextField();
-		selectField.setBounds(250, 600, 150, 20);
+		selectField.setBounds(140, 570, 150, 40);
 		add(selectField);
 
 		selectBtn = new JButton("검색");
 		selectBtn.addActionListener(this);
-		selectBtn.setBounds(420, 600, 100, 20);
+		selectBtn.setBounds(300, 570, 100, 40);
 		add(selectBtn);
 
 		model = new DefaultTableModel(columnNames, 0);
@@ -121,9 +123,9 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(300);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(600);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(60);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(150);
 
 		// 테이블안에 컬럼을 위치설정
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
@@ -133,19 +135,17 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 		jScrPane = new JScrollPane(jTable);
 
-		jScrPane.setBounds(50, 50, 600, 300);
+		jScrPane.setBounds(50, 150, 750, 400);
 		add(jScrPane);
 
 		// 검색할 부분 콤보박스로 나열해줌
 		// Choice(AWT) -> JComboBox(swing)
 		String[] selects = new String[] { "제목", "내용", "작성자" };
 		choiceList = new JComboBox<>(selects);
-		choiceList.setBounds(150, 600, 80, 20);
+		choiceList.setBounds(50, 570, 80, 40);
 		add(choiceList);
 
 		setLayout(null);
-		setBackground(Color.PINK);
-		setBounds(50, 50, 300, 300);
 		setVisible(true);
 	}
 
@@ -185,9 +185,18 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 			rowData[i][0] = dto.getSeq();
 			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
-
-			rowData[i][1] = dto.getTitle();
-			rowData[i][2] = dto.getNick();
+			else {
+				// 댓글 작업 부분
+				rowData[i][1] = "";
+				for (int j = 0; j < list.get(i).getDept(); j++) {
+					rowData[i][1] += "    ";
+				}
+	
+				if (rowData[i][1].equals(""))
+					rowData[i][1] = list.get(i).getTitle();
+				else
+					rowData[i][1] += "┗ [답변] " + list.get(i).getTitle();
+			}			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
 
@@ -211,10 +220,13 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		}
 		////////////////////////////// table 형태 유지
 		model.setDataVector(rowData, columnNames);
+
+		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(600);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(60);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(150);
+
 
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
@@ -275,8 +287,6 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
-		
 		
 		int rowNum = jTable.getSelectedRow();
 		if (list.get(rowNum).getDel() == 1) {
