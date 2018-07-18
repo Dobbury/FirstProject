@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -143,6 +144,70 @@ public class ShareDao {
 		
 	}
 	
+
+	// 한개의 row만 가져옴
+	public ShareDto search(int seq) {
+
+		String sql = "SELECT * FROM SHAR " + "WHERE seq=" + seq;
+
+		Connection conn = DBConnection.makeConnection();
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null; // DB에서 데이터를 받아주는 객체
+
+		ShareDto dto = null;
+
+		System.out.println(sql);
+
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				dto = new ShareDto();
+
+				dto.setSeq(rs.getInt("seq"));
+				dto.setNick(rs.getString("nick"));
+				dto.setLang(rs.getString("lan"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("cont"));
+				dto.setLiked(rs.getInt("liked"));
+				dto.setFork(rs.getInt("fork"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(stmt, conn, rs);
+		}
+
+		return dto;
+	}
+
+	// 삭제
+	public int delete(int seq) {
+		String sql = " DELETE SHAR " + "WHERE seq=" + seq;
+
+		Connection conn = DBConnection.makeConnection();
+		Statement stmt = null;
+
+		int count = 0;
+
+		System.out.println(sql);
+		try {
+			stmt = conn.createStatement();
+			count = stmt.executeUpdate(sql);
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			DBClose.close(stmt, conn, null);
+		}
+		return count;
+	}
+
+
 	public static void clickunlike(String id, String nick, int indseq, int seq) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -153,7 +218,7 @@ public class ShareDao {
 		+ " SET LIKED=LIKED-1 WHERE SEQ=?";
 		
 		//멤버 라이크 테이블에 시퀀스 넘버 추가// 좋아하는 게시글에 각각의 시퀀스 넘버 부여 > 중복을 확인할수 있음 
-		String sql2 = "DELETE FROM" + id +"_LIKED"
+		String sql2 = "DELETE FROM " + id +"_LIKED"
 		+ " WHERE LIKEDSHARESEQ="+seq;
 		
 		//원래 글 추천수 올림 // 누군가 공유게에서 추천을 눌렀는데   개인게의 추천버튼도 카운트 되는것 
@@ -168,6 +233,7 @@ public class ShareDao {
 			psmt.executeQuery();
 			
 			psmt = conn.prepareStatement(sql2);
+			psmt.executeQuery();
 			
 			
 			psmt = conn.prepareStatement(sql3);
@@ -257,8 +323,7 @@ public class ShareDao {
 		} finally {
 			DBClose.close(psmt, conn, rs);			
 		}
-		
-		s.selfcodelist.add(new BBSDto(indseq2, dto.getTitle(), dto.getContent(), 0, 0, 0, dto.getLang()));
+	
 	}
 	
 	public static Object[][] getLikeList(){
@@ -325,7 +390,7 @@ public class ShareDao {
 		return rowData;
 	}
 	
-	
+
 	// 검색
 		public static List<ShareDto> getTitleFindList(String fStr, String fword) {
 			List<ShareDto> list = new ArrayList<ShareDto>();
@@ -392,5 +457,4 @@ public class ShareDao {
 		}
 	
 	
-	 
 }

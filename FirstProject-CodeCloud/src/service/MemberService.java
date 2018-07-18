@@ -20,4 +20,7 @@ public class MemberService implements MemberServiceImpl {
 	public boolean getNick(String nick) {
 		return dao.getNick(nick);
 	}
+	public boolean update(MemberDto dto) {
+		return dao.update(dto);
+	}
 }

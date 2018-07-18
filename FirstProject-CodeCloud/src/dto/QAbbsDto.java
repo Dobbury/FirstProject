@@ -2,7 +2,7 @@ package dto;
 
 public class QAbbsDto {
 
-	private int seq= 0;// 번호
+	private int seq = 0;// 번호
 	private String nick = "";// 닉네임
 	private String title = "";// 제목
 	private String content = "";// 글작성부분
@@ -12,8 +12,9 @@ public class QAbbsDto {
 	private int step;
 	private int dept;
 	private int visible;
-	
-	public QAbbsDto() {}
+
+	public QAbbsDto() {
+	}
 
 	public QAbbsDto(int seq, String nick, String title, String content, String wdate, int del, int ref, int step,
 			int dept, int visible) {

@@ -3,12 +3,16 @@ package singleton;
 import java.util.LinkedList;
 
 import controller.MemberController;
+import dao.BBSDao;
 import dao.QAbbsDao;
+import dao.ShareDao;
 import dto.BBSDto;
 import dto.MemberDto;
 import dto.QAbbsDto;
+
+import view.membermainview.QAbbsList;
+
 import dto.ShareDto;
-import view.memberpanel.QAbbsList;
 
 public class Singleton {
 	public static Singleton s = null;
@@ -17,16 +21,12 @@ public class Singleton {
 	public MemberController MemCtrl = new MemberController();
 	public MemberDto nowMember = null;
 	
-	public QAbbsDto qaDto;
-	public QAbbsDao qaDao = new QAbbsDao();
-	public QAbbsList blf = null;
+	public QAbbsDao qaDao = new QAbbsDao();	
 
+	public ShareDao sharDao = new ShareDao();
 	
-	//share 초이스 기능을 위해서 추가 
-	public ShareDto shareDto;
+	public BBSDao selfDao = new BBSDao();
 	
-	
-	public LinkedList<BBSDto> selfcodelist = new LinkedList<>();
 
 	private Singleton() {
 		

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,36 +25,34 @@ import javax.swing.JTextField;
 
 import singleton.Singleton;
 
+public class LoginView extends JFrame implements ActionListener, FocusListener {
 
-public class LoginView extends JFrame implements ActionListener,FocusListener {
-	
 	private Singleton s = Singleton.getInstance();
-	
+
 	private ImageIcon startIc1;
 	private ImageIcon startIc2;
 	private ImageIcon startIc3;
 	private JButton btn_Login;
-	
+
 	private ImageIcon closeIc1;
 	private ImageIcon closeIc2;
 	private ImageIcon closeIc3;
 	private JButton btn_Close;
-	
+
 	private ImageIcon accountIc1;
 	private ImageIcon accountIc2;
 	private ImageIcon accountIc3;
 	private JButton btn_Signup;
-	
+
 	private JTextField id_text;
 	private JPasswordField pwd_text;
 
-	BufferedImage img = null;	String id_Hint="ID 입력";
-	String pwd_Hint="패스워드 입력";
-
-	
+	BufferedImage img = null;
+	String id_Hint = "ID 입력";
+	String pwd_Hint = "패스워드 입력";
 
 	public LoginView() {
-		
+
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(0, 0, 342, 596);
 		layeredPane.setLayout(null);
@@ -72,7 +71,7 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 
 		// ---------------------------------------------------------------------------
 		// 버튼
-		
+
 		// 로그인
 		startIc1 = new ImageIcon("img/longin/btn_Login1.png");
 		startIc2 = new ImageIcon("img/longin/btn_Login2.png");
@@ -86,11 +85,11 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 		btn_Login.setBounds(20, 484, 295, 50);
 		btn_Login.addActionListener(this);
 		layeredPane.add(btn_Login);
-		
+
 		// 닫기
-		closeIc1 = new ImageIcon("img/longin/close1.png");
-		closeIc2 = new ImageIcon("img/longin/close2.png");
-		closeIc3 = new ImageIcon("img/longin/close3.png");
+		closeIc1 = new ImageIcon("img/close/close1.png");
+		closeIc2 = new ImageIcon("img/close/close2.png");
+		closeIc3 = new ImageIcon("img/close/close3.png");
 		btn_Close = new JButton(closeIc1);
 		btn_Close.setRolloverIcon(closeIc2);
 		btn_Close.setPressedIcon(closeIc3);
@@ -100,8 +99,7 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 		btn_Close.setBounds(313, 10, 16, 16);
 		btn_Close.addActionListener(this);
 		layeredPane.add(btn_Close);
-		
-		
+
 		// 회원가입
 		accountIc1 = new ImageIcon("img/longin/account1.png");
 		accountIc2 = new ImageIcon("img/longin/account2.png");
@@ -112,17 +110,17 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 		btn_Signup.setBorderPainted(false);
 		btn_Signup.setContentAreaFilled(false);
 		btn_Signup.setFocusPainted(false);
-		btn_Signup.setBounds(20, 560, 76, 8);
+		btn_Signup.setBounds(208, 540, 100, 20);
 		btn_Signup.addActionListener(this);
 		layeredPane.add(btn_Signup);
-		
-		
-		//id 텍스트 필드
+
+		// id 텍스트 필드
 		id_text = new JTextField();
 		id_text.setText(id_Hint);
 		id_text.setForeground(Color.WHITE);
 		id_text.addFocusListener(this);
-		id_text.setBounds(70, 366, 220, 30);
+		id_text.setBounds(92, 366, 220, 30);
+		id_text.setFont(new Font("menlo", Font.PLAIN, 14));
 		id_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		id_text.setOpaque(false);
 		layeredPane.add(id_text);
@@ -132,11 +130,12 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 		pwd_text.setText(pwd_Hint);
 		pwd_text.setForeground(Color.WHITE);
 		pwd_text.addFocusListener(this);
-		pwd_text.setBounds(70, 429, 220, 30);
+		pwd_text.setBounds(92, 429, 220, 30);
+//		pwd_text.setFont(new Font("menlo", Font.PLAIN, 14));
 		pwd_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		pwd_text.setOpaque(false);
 		layeredPane.add(pwd_text);
-				
+
 		// ---------------------------------------------------------------------------
 		// 기본 설정
 		setUndecorated(true); // 상단 닫기 최소화 설정
@@ -149,9 +148,9 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 		add(layeredPane);
 		setVisible(true);
 		layeredPane.add(panel);
-		
+
 	}
-	
+
 	class MyPanel extends JPanel {
 		public void paint(Graphics g) {
 			// g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
@@ -159,55 +158,56 @@ public class LoginView extends JFrame implements ActionListener,FocusListener {
 
 		}
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource() == btn_Close) {
+		if (e.getSource() == btn_Close) {
 			System.exit(0);
 		}
-		if(e.getSource() == btn_Login) {
-			//로그인 버튼
+		if (e.getSource() == btn_Login) {
+			// 로그인 버튼
 			Singleton s = Singleton.getInstance();
 			boolean b = s.MemCtrl.loginCheck(id_text.getText(), pwd_text.getText());
-			
-			if(b) {
-				JOptionPane.showMessageDialog(null, s.nowMember.getNick()+"님 환영합니다.");
-				dispose();
-				new MemberMainView();
 
+			if (b) {
+				JOptionPane.showMessageDialog(null, s.nowMember.getNick() + "님 환영합니다.");
+				dispose();
 			}
 		}
-		if(e.getSource() == btn_Signup) {
-			//회원 가입
+		if (e.getSource() == btn_Signup) {
+			// 회원 가입
 			dispose();
 			new SignupView();
 		}
 	}
+
 	@Override
 	public void focusGained(FocusEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource() == id_text) {
-			if(id_text.getText().equals(id_Hint))
+		if (e.getSource() == id_text) {
+			if (id_text.getText().equals(id_Hint))
 				id_text.setText("");
-			id_text.setForeground(Color.black);
+			id_text.setForeground(Color.white);
 		}
-		if(e.getSource() == pwd_text) {
-			if(pwd_text.getText().equals(pwd_Hint))
+		if (e.getSource() == pwd_text) {
+			if (pwd_text.getText().equals(pwd_Hint))
 				pwd_text.setText("");
-			pwd_text.setForeground(Color.black);
+			pwd_text.setForeground(Color.white);
 		}
 	}
+
 	@Override
 	public void focusLost(FocusEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource() == id_text) {
-			if(id_text.getText().length()==0) {
+		if (e.getSource() == id_text) {
+			if (id_text.getText().length() == 0) {
 				id_text.setText(id_Hint);
 				id_text.setForeground(Color.WHITE);
 			}
 		}
-		if(e.getSource() == pwd_text) {
-			if(pwd_text.getText().length()==0) {
+		if (e.getSource() == pwd_text) {
+			if (pwd_text.getText().length() == 0) {
 				pwd_text.setText(pwd_Hint);
 				pwd_text.setForeground(Color.WHITE);
 			}
