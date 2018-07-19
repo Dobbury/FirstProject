@@ -43,7 +43,7 @@ public class chatPanel extends JPanel implements ActionListener {
 		jtf.addActionListener(this);
 
 		setBounds(0, 0, 300, 700);
-
+		
 		client.setGui(this);
 		client.setNickName(nickName);
 

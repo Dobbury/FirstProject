@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -22,6 +24,7 @@ import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.GrayFilter;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -46,7 +49,7 @@ import singleton.Singleton;
 import textlimit.*;
 import view.MemberMainView;
 
-public class SelfbbsWrite extends JPanel implements ActionListener {
+public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener {
 
 	final int INSERT = 0;
 	final int UPDATE = 1;
@@ -75,7 +78,8 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 	SelfbbsMain selfMain;
 	int state;
 	String lang = "JAVA";
-
+	String title_Hint = "제목을 입력해 주세요";
+	
 	public SelfbbsWrite(SelfbbsMain selfMain, BBSDto dto, int state) {
 		setLayout(null);
 		setOpaque(false);
@@ -100,10 +104,13 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		titletxt.setDocument(new JTextFieldLimit(50));	//글자수 50개로 제한
 		titletxt.setFont(tilteFont);
 		titletxt.setForeground(Color.WHITE);
-		Border border = BorderFactory.createLineBorder(Color.white);
-		titletxt.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		titletxt.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 		titletxt.setOpaque(false);
-		titletxt.setText(dto.getTitle());
+		if(dto.getTitle().equals(""))
+			titletxt.setText(title_Hint);
+		else
+			titletxt.setText(dto.getTitle());
+		titletxt.addFocusListener(this);
 		right.add(titletxt);
 
 		langTogglebtnGroup = new ButtonGroup();
@@ -144,31 +151,39 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 
 		Font contentFont = new Font("굴림", Font.BOLD, 20);
 
-
+		//코드 배경
+		ImageIcon code_back_Img = new ImageIcon("img/selfbbs/self_code_background.png");
+		
+		JLabel code_backgorund = new JLabel();
+		code_backgorund.setIcon(code_back_Img);
+		code_backgorund.setBounds(25,170,750,400);
+		
+		
 		codetxt.setDocument(new JTextFieldLimit(4000));	//4000자 제한
 		//codetxt.setBackground(new Color(0,0,0,70));
 
 		codetxt.setOpaque(false);
-		Border border2 = BorderFactory.createLineBorder(Color.white);
-		codetxt.setBorder(BorderFactory.createCompoundBorder(border2, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		
 		codetxt.setFont(contentFont);
 		codetxt.setForeground(Color.white);
+		
 		codetxt.append(dto.getContent());
+		
 		
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(codetxt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+		jScrPane.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 		jScrPane.setOpaque(false);
 		jScrPane.getViewport().setOpaque(false);
-		jScrPane.setBorder(BorderFactory.createCompoundBorder(null,
-	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 		jScrPane.setBounds(25,170,750,400);
 		right.add(jScrPane);
 
-		savebtn.setBounds(700, 570, 75, 50);
+		savebtn.setBounds(700, 590, 75, 50);
 		savebtn.addActionListener(this);
 		right.add(savebtn);
 		add(right);
+		add(code_backgorund);
 	}
 
 	@Override
@@ -225,5 +240,26 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 			// 테이블 모델 갱신
 
 		} 
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == titletxt) {
+			if (titletxt.getText().equals(title_Hint))
+				titletxt.setText("");
+			titletxt.setForeground(Color.white);
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == titletxt) {
+			if (titletxt.getText().length() == 0) {
+				titletxt.setText(title_Hint);
+				titletxt.setForeground(Color.WHITE);
+			}
+		}
 	}
 }

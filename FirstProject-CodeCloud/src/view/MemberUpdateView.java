@@ -44,11 +44,11 @@ public class MemberUpdateView extends JFrame
 	private ImageIcon closeIc2;
 	private ImageIcon closeIc3;
 	private JButton btn_Close;
+	
 
 	// 이미지 파일 불러오는 버튼 이미지 나중에 바꿔야함
-	private ImageIcon accountIc1;
-	private ImageIcon accountIc2;
-	private ImageIcon accountIc3;
+	private ImageIcon edit1;
+	private ImageIcon edit2;
 	private JButton btn_ImgSelect;
 
 	private ImageIcon userIc;
@@ -91,14 +91,14 @@ public class MemberUpdateView extends JFrame
 		// ---------------------------------------------------------------------------
 		// 배경화면
 		try {
-			img = ImageIO.read(new File("img/signUp/signBack.png"));
+			img = ImageIO.read(new File("img/memberUpdate/updatebck.png"));
 		} catch (IOException e) {
 			System.out.println("이미지 불러오기 실패");
 			System.exit(0);
 		}
 
 		MyPanel panel = new MyPanel();
-		panel.setBounds(0, 0, 341, 597);
+		panel.setBounds(0, 0, 341, 596);
 
 		// ---------------------------------------------------------------------------
 		// 버튼
@@ -112,51 +112,48 @@ public class MemberUpdateView extends JFrame
 		btn_drag.setBorderPainted(false);
 		btn_drag.setContentAreaFilled(false);
 		btn_drag.setFocusPainted(false);
-		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.setBounds(0, 0, 17, 17);
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
 		layeredPane.add(btn_drag);
 
 		// 회원가입
-		signupIc1 = new ImageIcon("img/signUp/btn_sign1.png");
-		signupIc2 = new ImageIcon("img/signUp/btn_sign2.png");
-		signupIc3 = new ImageIcon("img/signUp/btn_sign3.png");
+		signupIc1 = new ImageIcon("img/memberUpdate/btn_update1.png");
+		signupIc2 = new ImageIcon("img/memberUpdate/btn_update2.png");
+		signupIc3 = new ImageIcon("img/memberUpdate/btn_update3.png");
 		btn_Signup = new JButton(signupIc1);
 		btn_Signup.setRolloverIcon(signupIc2);
 		btn_Signup.setPressedIcon(signupIc3);
 		btn_Signup.setBorderPainted(false);
 		btn_Signup.setContentAreaFilled(false);
 		btn_Signup.setFocusPainted(false);
-		btn_Signup.setBounds(20, 484, 295, 50);
+		btn_Signup.setBounds(20, 484, 296, 51);
 		btn_Signup.addActionListener(this);
 		layeredPane.add(btn_Signup);
 
 		// 닫기
-		closeIc1 = new ImageIcon("img/longin/close1.png");
-		closeIc2 = new ImageIcon("img/longin/close2.png");
-		closeIc3 = new ImageIcon("img/longin/close3.png");
+		closeIc1 = new ImageIcon("img/close/close1.png");
+		closeIc2 = new ImageIcon("img/close/close2.png");
+		closeIc3 = new ImageIcon("img/close/close3.png");
 		btn_Close = new JButton(closeIc1);
 		btn_Close.setRolloverIcon(closeIc2);
 		btn_Close.setPressedIcon(closeIc3);
 		btn_Close.setBorderPainted(false);
 		btn_Close.setContentAreaFilled(false);
 		btn_Close.setFocusPainted(false);
-		btn_Close.setBounds(313, 10, 16, 16);
+		btn_Close.setBounds(318, 5, 16, 16);
 		btn_Close.addActionListener(this);
 		layeredPane.add(btn_Close);
 
-		// 회원가입
-		accountIc1 = new ImageIcon("img/longin/account1.png");
-		accountIc2 = new ImageIcon("img/longin/account2.png");
-		accountIc3 = new ImageIcon("img/longin/account3.png");
-
-		btn_ImgSelect = new JButton(accountIc1);
-		btn_ImgSelect.setRolloverIcon(accountIc2);
-		btn_ImgSelect.setPressedIcon(accountIc3);
+		edit1 = new ImageIcon("img/memberUpdate/btn_edit1.png");
+		edit2 = new ImageIcon("img/memberUpdate/btn_edit2.png");
+		btn_ImgSelect = new JButton(edit1);
+		btn_ImgSelect.setRolloverIcon(edit2);
+		btn_ImgSelect.setPressedIcon(edit2);
 		btn_ImgSelect.setBorderPainted(false);
 		btn_ImgSelect.setContentAreaFilled(false);
 		btn_ImgSelect.setFocusPainted(false);
-		btn_ImgSelect.setBounds(105, 250, 76, 8);
+		btn_ImgSelect.setBounds(143, 243, 59, 12);
 		btn_ImgSelect.addActionListener(this);
 		layeredPane.add(btn_ImgSelect);
 
@@ -165,13 +162,14 @@ public class MemberUpdateView extends JFrame
 		userIc = new ImageIcon(dto.getProfile_Img());
 		userLabel = new JLabel(userIc);
 		userLabel.setLayout(null);
-		userLabel.setBounds(105, 100, 130, 130);
+		userLabel.setBounds(115, 108, 115, 115);
 		layeredPane.add(userLabel);
 
 		// 아이디 입력 textField
 		id_text = new JTextField();
 		id_text.setText(dto.getID());
-		id_text.setBounds(70, 303, 220, 30);
+		id_text.setForeground(Color.gray);
+		id_text.setBounds(92, 282, 220, 30);
 		id_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		id_text.setOpaque(false);
 		id_text.setEditable(false);
@@ -180,37 +178,36 @@ public class MemberUpdateView extends JFrame
 		pwd_text = new JPasswordField();
 		pwd_text.setText(pwd_Hint);
 		pwd_text.setForeground(Color.WHITE);
-		pwd_text.setBounds(70, 366, 220, 30);
+		pwd_text.setBounds(92, 351, 220, 30);
 		pwd_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		pwd_text.setOpaque(false);
 		pwd_text.addFocusListener(this);
 		layeredPane.add(pwd_text);
 
 		pwd_check_label = new JLabel("test");
-		pwd_check_label.setBounds(33, 390, 300, 30);
+		pwd_check_label.setBounds(92, 387, 300, 30);
 		layeredPane.add(pwd_check_label);
 
 		nick_text = new JTextField();
 		nick_text.setText(nick_Hint);
 		nick_text.setForeground(Color.WHITE);
-		nick_text.setBounds(70, 429, 220, 30);
+		nick_text.setBounds(92, 423, 220, 30);
 		nick_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		nick_text.setOpaque(false);
 		nick_text.addFocusListener(this);
 		layeredPane.add(nick_text);
 
 		nick_check_label = new JLabel("test");
-		nick_check_label.setBounds(33, 455, 300, 30);
+		nick_check_label.setBounds(92, 456, 300, 30);
 		layeredPane.add(nick_check_label);
 
 		// 기본 설정
 		// setBackground(new Color(0,0,0,122)); 배경 투명 설정
 		setTitle("회원정보 수정테스트");
 		setLayout(null);
-		setBounds(0, 0, 341, 597);
+		setBounds(0, 0, 341, 596);
 		setLocationRelativeTo(null);
 		add(layeredPane);
-		
 		setUndecorated(true);
 		setVisible(true);
 		layeredPane.add(panel);
@@ -264,13 +261,13 @@ public class MemberUpdateView extends JFrame
 			userIc = new ImageIcon(Diraddress);
 			// 크기조정
 			Image ori = userIc.getImage();
-			Image changedImg = ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+			Image changedImg = ori.getScaledInstance(115, 115, Image.SCALE_SMOOTH);
 			// 이미지 다시 세팅
 			changedImg = imageToOval(changedImg);
 			userIc.setImage(changedImg);
 			userLabel.setIcon(userIc);
 			userLabel.setLayout(null);
-			userLabel.setBounds(105, 100, 130, 130);
+			userLabel.setBounds(0, 0, 115, 115);
 		}
 	}
 
@@ -292,8 +289,8 @@ public class MemberUpdateView extends JFrame
 		Image ori_bpi = basic_profile_img.getImage();
 		BufferedImage buf_bpi = ImageToBufferedImageClass.toBufferedImage(ori_bpi);
 
-		for (int y = 0; y < 130; y++) {
-			for (int x = 0; x < 130; x++) {
+		for (int y = 0; y < 115; y++) {
+			for (int x = 0; x < 115; x++) {
 				int pixel = buf_bpi.getRGB(x, y);
 
 				if (pixel == 0) {// 픽셀이 투명이면

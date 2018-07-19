@@ -72,8 +72,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		titleText.setFont(titleFont);
 		titleText.setForeground(Color.WHITE);
 		titleText.setBounds(65, 100, 310, 50);
-		titleText.setText(dto.getTitle());
-		
+		titleText.setText(dto.getTitle());		
 		
 		//컨텐츠
 		postArea = new JTextArea();
@@ -138,7 +137,6 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 				} else {
 					JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
 				}
-				
 				QAmain.changePanel(1, new QAbbsDto(), LIST);
 			}
 		});
