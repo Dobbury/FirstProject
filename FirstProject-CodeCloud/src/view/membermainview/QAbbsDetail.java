@@ -37,8 +37,19 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 	JScrollPane jScrol;
 
+	ImageIcon updateIc1;
+	ImageIcon updateIc2;
+	ImageIcon updateIc3;
 	private JButton btn_Update; // 게시판 글 정보수정
+	
+	ImageIcon listIc1;
+	ImageIcon listIc2;
+	ImageIcon listIc3;
 	private JButton btn_List;// 목록으로
+	
+	ImageIcon deleteIc1;
+	ImageIcon deleteIc2;
+	ImageIcon deleteIc3;
 	private JButton btn_delete;// 삭제버튼
 
 	final int DETAIL = -2;
@@ -102,19 +113,48 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 
 		// 글 목록
-		btn_List = new JButton("글 목록");
+
+		listIc1 = new ImageIcon("img/QAbbs/QA_list_on.png");
+		listIc2 = new ImageIcon("img/QAbbs/QA_list_off.png");
+		listIc3 = new ImageIcon("img/QAbbs/QA_list_ing.png");
+		btn_List = new JButton(listIc1);
+		btn_List.setRolloverIcon(listIc2);
+		btn_List.setPressedIcon(listIc3);
+		btn_List.setBorderPainted(false);
+		btn_List.setContentAreaFilled(false);
+		btn_List.setFocusPainted(false);
 		btn_List.addActionListener(this);
-		btn_List.setBounds(50, 570, 100, 40);
+	
+		btn_List.setBounds(50, 570, 101, 41);
 
 		// 삭제
-		btn_delete = new JButton("삭제");
+		deleteIc1 = new ImageIcon("img/QAbbs/QA_delete_on.png");
+		deleteIc2 = new ImageIcon("img/QAbbs/QA_delete_off.png");
+		deleteIc3 = new ImageIcon("img/QAbbs/QA_delete_ing.png");
+		btn_delete = new JButton(deleteIc1);
+		btn_delete.setRolloverIcon(deleteIc2);
+		btn_delete.setPressedIcon(deleteIc3);
+		btn_delete.setBorderPainted(false);
+		btn_delete.setContentAreaFilled(false);
+		btn_delete.setFocusPainted(false);
 		btn_delete.addActionListener(this);
-		btn_delete.setBounds(550, 570, 100, 50);
+		
+	
+		btn_delete.setBounds(550, 570, 101, 41);
 
 		// 수정
-		btn_Update = new JButton("수정");
+		updateIc1 = new ImageIcon("img/QAbbs/QA_update_on.png");
+		updateIc2 = new ImageIcon("img/QAbbs/QA_update_off.png");
+		updateIc3 = new ImageIcon("img/QAbbs/QA_update_ing.png");
+		btn_Update = new JButton(updateIc1);
+		btn_Update.setRolloverIcon(updateIc2);
+		btn_Update.setPressedIcon(updateIc3);
+		btn_Update.setBorderPainted(false);
+		btn_Update.setContentAreaFilled(false);
+		btn_Update.setFocusPainted(false);
 		btn_Update.addActionListener(this);
-		btn_Update.setBounds(700, 570, 100, 50);
+		
+		btn_Update.setBounds(700, 570, 101, 41);
 
 		
 		Singleton s = Singleton.getInstance();

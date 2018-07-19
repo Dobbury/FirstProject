@@ -18,11 +18,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
 import singleton.Singleton;
@@ -40,10 +42,35 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 	JLabel memProfile_Img;
 	JLabel memName;
 
-	JButton btn_Member;
-	JButton btn_Sharebbs;
-	JButton btn_QAbbs;
-	JButton btn_Chat;
+	// 코드플래닛 로고
+	JLabel codePlanet;
+	// 바탕 라벨
+	JLabel backLabel;
+	// 로그아웃 라벨
+	JLabel logLabel;
+
+	// 버튼
+	ImageIcon memberIc1;
+	ImageIcon memberIc2;
+	ImageIcon memberIc3;
+	JToggleButton btn_Memberbbs;
+
+	ImageIcon sharedIc1;
+	ImageIcon sharedIc2;
+	ImageIcon sharedIc3;
+	JToggleButton btn_Sharebbs;
+
+	ImageIcon qaIc1;
+	ImageIcon qaIc2;
+	ImageIcon qaIc3;
+	JToggleButton btn_QAbbs;
+
+	ImageIcon chatIc1;
+	ImageIcon chatIc2;
+	JToggleButton btn_Chat;
+
+	ImageIcon logoutIc1;
+	ImageIcon logoutIc2;
 	JButton btn_Logout;
 	boolean chat;
 
@@ -104,34 +131,14 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 
 		memProfile_Img = new JLabel();
 		memProfile_Img.setIcon(img);
-		memProfile_Img.setBounds(10, 50, 130, 130);
+		memProfile_Img.addMouseListener(this);
+		memProfile_Img.setBounds(17, 108, 115, 115);
 
 		Font nickFont = new Font("맑은고딕",Font.BOLD,13);
 		memName = new JLabel(s.nowMember.getNick(), SwingConstants.CENTER);
 		memName.setForeground(Color.WHITE);
 		memName.setFont(nickFont);
-		memName.setBounds(10, 200, 130, 30);		
-
-
-		btn_Member = new JButton("회원 관리");
-		btn_Member.addActionListener(this);
-		btn_Member.setBounds(10, 260, 130, 50);
-
-		btn_Sharebbs = new JButton("공유 관리");
-		btn_Sharebbs.addActionListener(this);
-		btn_Sharebbs.setBounds(10, 360, 130, 50);
-
-		btn_QAbbs = new JButton("Q&A 관리");
-		btn_QAbbs.addActionListener(this);
-		btn_QAbbs.setBounds(10, 460, 130, 50);
-
-		btn_Chat = new JButton("채팅");
-		btn_Chat.addActionListener(this);
-		btn_Chat.setBounds(10, 560, 130, 50);
-
-		btn_Logout = new JButton("로그아웃");
-		btn_Logout.addActionListener(this);
-		btn_Logout.setBounds(30, 650, 100, 80);
+		memName.setBounds(10, 230, 130, 30);	
 
 		chatPanel = new chatPanel();
 		chatPanel.setOpaque(false);
@@ -151,6 +158,92 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
 
+		// 코드플레닛 이미지 라벨
+		ImageIcon code = new ImageIcon("img/memberMain/codeplanet.png");
+		codePlanet = new JLabel();
+		codePlanet.setIcon(code);
+		codePlanet.setBounds(0, 0, 150, 88);
+		add(codePlanet);
+
+		// 프로필 이미지 뒷 반투명 배경
+		backLabel = new JLabel();
+		backLabel.setIcon(new ImageIcon("img/memberMain/backlabel.png"));
+		backLabel.setBounds(0, 88, 150, 175);
+		
+		// 버튼
+
+		// 멤버 버튼
+		memberIc1 = new ImageIcon("img/adminMain/btn_member1.png");
+		memberIc2 = new ImageIcon("img/adminMain/btn_member2.png");
+		memberIc3 = new ImageIcon("img/adminMain/btn_member3.png");
+		btn_Memberbbs = new JToggleButton(memberIc1);
+		btn_Memberbbs.setRolloverIcon(memberIc2);
+		btn_Memberbbs.setPressedIcon(memberIc2);
+		btn_Memberbbs.setSelectedIcon(memberIc3);
+		btn_Memberbbs.setBorderPainted(false);
+		btn_Memberbbs.setContentAreaFilled(false);
+		btn_Memberbbs.setFocusPainted(false);
+
+		btn_Memberbbs.addActionListener(this);
+		btn_Memberbbs.setBounds(0, 262, 150, 88);
+
+		// 공유 버튼
+		sharedIc1 = new ImageIcon("img/adminMain/btn_shared1.png");
+		sharedIc2 = new ImageIcon("img/adminMain/btn_shared2.png");
+		sharedIc3 = new ImageIcon("img/adminMain/btn_shared3.png");
+		btn_Sharebbs = new JToggleButton(sharedIc1);
+		btn_Sharebbs.setRolloverIcon(sharedIc2);
+		btn_Sharebbs.setPressedIcon(sharedIc2);
+		btn_Sharebbs.setSelectedIcon(sharedIc3);
+		btn_Sharebbs.setBorderPainted(false);
+		btn_Sharebbs.setContentAreaFilled(false);
+		btn_Sharebbs.setFocusPainted(false);
+		btn_Sharebbs.addActionListener(this);
+		btn_Sharebbs.setBounds(0, 350, 150, 88);
+
+		// Q&A 버튼
+		qaIc1 = new ImageIcon("img/adminMain/btn_qa1.png");
+		qaIc2 = new ImageIcon("img/adminMain/btn_qa2.png");
+		qaIc3 = new ImageIcon("img/adminMain/btn_qa3.png");
+		btn_QAbbs = new JToggleButton(qaIc1);
+		btn_QAbbs.setRolloverIcon(qaIc2);
+		btn_QAbbs.setPressedIcon(qaIc2);
+		btn_QAbbs.setSelectedIcon(qaIc3);
+		btn_QAbbs.setBorderPainted(false);
+		btn_QAbbs.setContentAreaFilled(false);
+		btn_QAbbs.setFocusPainted(false);
+		btn_QAbbs.addActionListener(this);
+		btn_QAbbs.setBounds(0, 437, 150, 88);
+
+		// 채팅 버튼
+		chatIc1 = new ImageIcon("img/adminMain/btn_chatting1.png");
+		chatIc2 = new ImageIcon("img/adminMain/btn_chatting2.png");
+		btn_Chat = new JToggleButton(chatIc1);
+		btn_Chat.setRolloverIcon(chatIc2);
+		btn_Chat.setPressedIcon(chatIc2);
+		btn_Chat.setSelectedIcon(chatIc2);
+		btn_Chat.setBorderPainted(false);
+		btn_Chat.setContentAreaFilled(false);
+		btn_Chat.setFocusPainted(false);
+		btn_Chat.addActionListener(this);
+		btn_Chat.setBounds(0, 525, 150, 88);
+		chat = false;
+
+		// 로그아웃
+		logLabel = new JLabel();
+		logLabel.setBounds(0, 612, 150, 88);
+		logLabel.setIcon(new ImageIcon("img/adminMain/backlabel.png"));
+		logoutIc1 = new ImageIcon("img/adminMain/btn_logout1.png");
+		logoutIc2 = new ImageIcon("img/adminMain/btn_logout2.png");
+		btn_Logout = new JButton(logoutIc1);
+		btn_Logout.setRolloverIcon(logoutIc2);
+		btn_Logout.setPressedIcon(logoutIc2);
+		btn_Logout.setBorderPainted(false);
+		btn_Logout.setContentAreaFilled(false);
+		btn_Logout.setFocusPainted(false);
+		btn_Logout.addActionListener(this);
+		btn_Logout.setBounds(12, 670, 19, 19);
+
 		closeIc1 = new ImageIcon("img/close/close1.png");
 		closeIc2 = new ImageIcon("img/close/close2.png");
 		closeIc3 = new ImageIcon("img/close/close3.png");
@@ -162,12 +255,20 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		btn_Close.setFocusPainted(false);
 		btn_Close.setBounds(1279, 5, 16, 16);
 		btn_Close.addActionListener(this);
+		
+		
+		ButtonGroup Tbtn_group = new ButtonGroup();
+		
+		Tbtn_group.add(btn_Memberbbs);
+		Tbtn_group.add(btn_QAbbs);
+		Tbtn_group.add(btn_Sharebbs);
+		
 		add(btn_Close);
 
 		add(btn_drag);
 		add(chatPanel);
 
-		add(btn_Member);
+		add(btn_Memberbbs);
 		add(btn_Sharebbs);
 		add(btn_QAbbs);
 		add(btn_Chat);
@@ -177,6 +278,8 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		add(memProfile_Img);
 		add(mainPanel);
 
+		add(backLabel);
+		add(logLabel);
 		setUndecorated(true);
 		setVisible(true);
 		setResizable(false);
@@ -200,9 +303,10 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btn_Member) {
+		if (e.getSource() == btn_Memberbbs) {
 			changePanel(1);
-
+			
+			
 		} else if (e.getSource() == btn_Sharebbs) {
 			changePanel(2);
 

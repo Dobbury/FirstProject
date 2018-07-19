@@ -267,7 +267,7 @@ public class MemberUpdateView extends JFrame
 			userIc.setImage(changedImg);
 			userLabel.setIcon(userIc);
 			userLabel.setLayout(null);
-			userLabel.setBounds(0, 0, 115, 115);
+			userLabel.setBounds(115, 108, 115, 115);
 		}
 	}
 

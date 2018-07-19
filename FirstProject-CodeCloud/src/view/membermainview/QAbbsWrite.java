@@ -2,6 +2,7 @@ package view.membermainview;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -9,6 +10,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,12 +28,19 @@ import textlimit.JTextFieldLimit;
 
 public class QAbbsWrite extends JPanel implements WindowListener, ActionListener {
 
-	JTextField titleText;
+	JLabel titleText;
 	JTextArea postArea;
 
 	JScrollPane jScrol;
 
+	ImageIcon commitIc1;
+	ImageIcon commitIc2;
+	ImageIcon commitIc3;
 	JButton btn_Commit; // 게시판 글 입력
+	
+	ImageIcon cancleIc1;
+	ImageIcon cancleIc2;
+	ImageIcon cancleIc3;
 	JButton btn_Cancle; // 게시판 글 입력 취소
 
 	final int DETAIL = -2;
@@ -51,33 +61,66 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		
 
 		//타이틀
-		titleText = new JTextField();
-		titleText.setDocument(new JTextFieldLimit(50));//50자 제한
-		titleText.setBounds(100, 50, 310, 30);
-		titleText.setText(dto.getTitle());
-
-
+		Font titleFont = new Font("굴림",Font.BOLD, 40);
+		titleText = new JLabel();
+		titleText.setFont(titleFont);
+		titleText.setForeground(Color.WHITE);
+		titleText.setBounds(65, 100, 310, 50);
+		titleText.setText(dto.getTitle());		
+		
+		
+		//컨텐츠
 		postArea = new JTextArea();
-		postArea.setDocument(new JTextFieldLimit(4000));	//4000자 제한
 		postArea.append(dto.getContent());
+		postArea.setOpaque(false);
+		postArea.setEditable(false);
+		postArea.setForeground(Color.WHITE);
 
+		// 코드 배경
+		ImageIcon content_back_Img = new ImageIcon("img/QAbbs/QA_content_background.png");
 
-		//스크롤바 0으로 줄여서 안보이게하는 코드
+		JLabel content_backgorund = new JLabel();
+		content_backgorund.setIcon(content_back_Img);
+		content_backgorund.setBounds(50, 200, 750, 350);
+	
+
 		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrol.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
-				
-		jScrol.setBounds(50, 150, 650, 400);
+		
+		jScrol.setOpaque(false);
+		jScrol.getViewport().setOpaque(false);
+		jScrol.setBounds(50, 200, 750, 350);
 
-
+		jScrol.setBorder(BorderFactory.createCompoundBorder(null,
+	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 		// 입력 버튼
-		btn_Commit = new JButton("저 장");
+
+		commitIc1 = new ImageIcon("img/QAbbs/QA_save_on.png");
+		commitIc2 = new ImageIcon("img/QAbbs/QA_save_off.png");
+		commitIc3 = new ImageIcon("img/QAbbs/QA_save_ing.png");
+		btn_Commit = new JButton(commitIc1);
+		btn_Commit.setRolloverIcon(commitIc2);
+		btn_Commit.setPressedIcon(commitIc3);
+		btn_Commit.setBorderPainted(false);
+		btn_Commit.setContentAreaFilled(false);
+		btn_Commit.setFocusPainted(false);
 		btn_Commit.addActionListener(this);
-		btn_Commit.setBounds(700, 570, 100, 40);
+		
+		btn_Commit.setBounds(700, 570, 101, 41);
 
 		// 글 목록
-		btn_Cancle = new JButton("글 목록");
+		cancleIc1 = new ImageIcon("img/QAbbs/QA_list_on.png");
+		cancleIc2 = new ImageIcon("img/QAbbs/QA_list_off.png");
+		cancleIc3 = new ImageIcon("img/QAbbs/QA_list_ing.png");
+		btn_Cancle = new JButton(cancleIc1);
+		btn_Cancle.setRolloverIcon(cancleIc2);
+		btn_Cancle.setPressedIcon(cancleIc3);
+		btn_Cancle.setBorderPainted(false);
+		btn_Cancle.setContentAreaFilled(false);
+		btn_Cancle.setFocusPainted(false);
 		btn_Cancle.addActionListener(this);
-		btn_Cancle.setBounds(50, 570, 100, 40);
+		
+		btn_Cancle.setBounds(50, 570, 101, 41);
 
 		add(titleText);
 		add(jScrol);
@@ -87,6 +130,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 		setLayout(null);
 		setVisible(true);
+		add(content_backgorund);
 	}
 
 	@Override

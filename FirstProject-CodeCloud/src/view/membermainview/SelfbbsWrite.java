@@ -70,8 +70,10 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 	
 	JTextArea codetxt = new JTextArea("");
 
-
-	JButton savebtn = new JButton("저장");
+	ImageIcon saveIc1;
+	ImageIcon saveIc2;
+	ImageIcon saveIc3;
+	JButton savebtn;
 	ButtonGroup langTogglebtnGroup;
 
 	BBSDto dto;
@@ -179,7 +181,17 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 		jScrPane.setBounds(25,170,750,400);
 		right.add(jScrPane);
 
-		savebtn.setBounds(700, 590, 75, 50);
+		saveIc1 = new ImageIcon("img/selfbbs/self_save_on.png");
+		saveIc2 = new ImageIcon("img/selfbbs/self_save_off.png");
+		saveIc3 = new ImageIcon("img/selfbbs/self_save_ing.png");
+		savebtn = new JButton(saveIc1);
+		savebtn.setRolloverIcon(saveIc2);
+		savebtn.setPressedIcon(saveIc3);
+		savebtn.setBorderPainted(false);
+		savebtn.setContentAreaFilled(false);
+		savebtn.setFocusPainted(false);
+		
+		savebtn.setBounds(700, 590, 76, 51);
 		savebtn.addActionListener(this);
 		right.add(savebtn);
 		add(right);
