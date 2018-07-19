@@ -106,7 +106,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		plus.setBorderPainted(true);
 		plus.setForeground(Color.WHITE);
 		plus.addActionListener(this);
-		plus.setFont(new Font("Arial", Font.PLAIN, 40));
+		plus.setFont(new Font("맑은고딕", Font.PLAIN, 40));
 
 
 		left.add(plus);
@@ -130,7 +130,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 			}
 		};
 		//한글 지원 안됨
-		jTable.setFont(new Font("Arial", Font.PLAIN, 30));
+		jTable.setFont(new Font("맑은고딕", Font.PLAIN, 30));
 		jTable.addMouseListener(this);
 		jTable.setRowHeight(70);
 		jTable.getColumnModel().getColumn(0).setMaxWidth(305);
@@ -142,7 +142,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		jTable.setTableHeader(null);
 		jTable.setForeground(Color.WHITE);		
 		jTable.setSelectionForeground(Color.BLACK);
-
+		
 		
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
@@ -161,6 +161,7 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 	
 		searchbox.setBounds(0, 600, 300, 25);
 		searchbox.setOpaque(false);
+		searchbox.setFocusable(false);
 		searchbox.setForeground(Color.white);
 		searchbox.setRenderer(new DefaultListCellRenderer(){
 		    @Override
