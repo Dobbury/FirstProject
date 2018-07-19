@@ -112,7 +112,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 
 		// 검색할 부분 콤보박스로 나열해줌
 		// Choice(AWT) -> JComboBox(swing)
-		String[] selects = new String[] { "제목", "내용", "닉네임" };
+		String[] selects = new String[] { "전체보기", "제목", "내용", "닉네임" };
 		choiceList = new JComboBox<>(selects);
 		choiceList.setBounds(50, 570, 80, 40);
 		add(choiceList);
@@ -125,10 +125,15 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == selectBtn) { // 검색버튼으로 디테일뷰 테스트
 			Singleton s = Singleton.getInstance();
+			if(choiceList.equals("전체보기")) {
+				list = s.sharDao.getbbsList();
+			}
+			else {
+				list = s.sharDao.getTitleFindList(selectField.getText(), choiceList.getSelectedItem().toString());
+			}
 			
-			list = s.sharDao.getTitleFindList(selectField.getText(), choiceList.getSelectedItem().toString());
 			
-			if (list.size() == 0 || selectField.getText().equals("")) {
+			if (list.size() == 0) {
 				JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
 
 				list = s.sharDao.getbbsList(); // 만약 데이터가 없으면 초기화함
