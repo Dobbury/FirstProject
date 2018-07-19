@@ -282,20 +282,20 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		celAlignCenter.setOpaque(false);
 		// 컬럼의 넓이 설정
-		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
+		jTable.getColumnModel().getColumn(0).setMaxWidth(53);
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(70);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(477);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(95);
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(140);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(115);
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
-
+		
 		jTable.setOpaque(false);
 		jTable.setForeground(Color.WHITE);
 		jTable.setTableHeader(null);
 		jTable.setShowGrid(false);
 		jTable.setRowHeight(25);
-		Font tableFont = new Font("맑은고딕", Font.PLAIN, 18);
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
 		jTable.setFont(tableFont);
 		
 		jTable.setModel(model);

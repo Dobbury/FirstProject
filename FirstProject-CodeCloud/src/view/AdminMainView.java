@@ -2,6 +2,7 @@ package view;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import singleton.Singleton;
 import view.MemberMainView.MyPanel;
@@ -99,10 +101,11 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		memProfile_Img.setIcon(img);
 		memProfile_Img.setBounds(10, 50, 130, 130);
 
-		memName = new JLabel();
-		memName.setText(s.nowMember.getNick());
+		Font nickFont = new Font("맑은고딕",Font.BOLD,13);
+		memName = new JLabel(s.nowMember.getNick(), SwingConstants.CENTER);
 		memName.setForeground(Color.WHITE);
-		memName.setBounds(50, 200, 80, 30);		
+		memName.setFont(nickFont);
+		memName.setBounds(10, 200, 130, 30);		
 
 		btn_Member = new JButton("회원 관리");
 		btn_Member.addActionListener(this);
@@ -127,7 +130,7 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		chatPanel = new chatPanel();
 		chatPanel.setOpaque(false);
 		chatPanel.connect();
-		chatPanel.setBounds(1100, 0, 300, 700);
+		chatPanel.setBounds(1100, 30, 300, 700);
 
 		// 창 드래그
 		drag1 = new ImageIcon("img/drag/drag1.png");

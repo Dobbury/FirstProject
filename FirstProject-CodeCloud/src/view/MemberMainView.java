@@ -2,6 +2,7 @@ package view;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -27,6 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import singleton.Singleton;
 import thread.RankThread;
@@ -132,11 +134,12 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		memProfile_Img.addMouseListener(this);
 		memProfile_Img.setBounds(10, 50, 130, 130);
 
-		memName = new JLabel();
-		memName.setText(s.nowMember.getNick());
+		Font nickFont = new Font("맑은고딕",Font.BOLD,13);
+		memName = new JLabel(s.nowMember.getNick(), SwingConstants.CENTER);
 		memName.setForeground(Color.WHITE);
-		memName.setBounds(10, 200, 80, 30);
-
+		memName.setFont(nickFont);
+		memName.setBounds(10, 200, 130, 30);	
+		
 		btn_Selfbbs = new JButton("개인 코드");
 		btn_Selfbbs.addActionListener(this);
 		btn_Selfbbs.setBounds(10, 260, 130, 50);
@@ -162,7 +165,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		chatPanel = new chatPanel();
 		chatPanel.connect();
 		chatPanel.setOpaque(false);
-		chatPanel.setBounds(1300, 7, 300, 700);
+		chatPanel.setBounds(1300, 30, 300, 700);
 
 		// 창 드래그
 		drag1 = new ImageIcon("img/drag/drag1.png");

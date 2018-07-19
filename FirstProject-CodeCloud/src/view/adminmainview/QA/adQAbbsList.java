@@ -2,6 +2,7 @@ package view.adminmainview.QA;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -111,19 +112,26 @@ public class adQAbbsList extends JPanel implements MouseListener, WindowListener
 		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(60);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(70);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(640);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(95);
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(115);
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
 
-
+		jTable.setOpaque(false);
+		jTable.setForeground(Color.WHITE);
+		jTable.setTableHeader(null);
+		jTable.setShowGrid(false);
+		jTable.setRowHeight(25);
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+		jTable.setFont(tableFont);
+		
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 		
 
-		jScrPane.setBounds(80, 150, 800, 400);
+		jScrPane.setBounds(50, 150, 800, 400);
 		add(jScrPane);
 
 		setLayout(null);
@@ -175,16 +183,27 @@ public class adQAbbsList extends JPanel implements MouseListener, WindowListener
 		}
 		////////////////////////////// table 형태 유지
 		model.setDataVector(rowData, columnNames);
+
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-
+		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(640);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(95);
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(115);
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
+
+		jTable.setOpaque(false);
+		jTable.setForeground(Color.WHITE);
+		jTable.setTableHeader(null);
+		jTable.setShowGrid(false);
+		jTable.setRowHeight(25);
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+		jTable.setFont(tableFont);
+		
+		jTable.setModel(model);
 	}
 
 	@Override

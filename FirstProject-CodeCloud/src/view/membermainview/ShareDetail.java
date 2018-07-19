@@ -72,7 +72,7 @@ public class ShareDetail extends JPanel implements Action {
 		JLabel langText = new JLabel(dto.getLang(), SwingConstants.CENTER);
 		langText.setFont(titleFont);
 		langText.setForeground(Color.WHITE);
-		langText.setBounds(650, 100, 150, 50);
+		langText.setBounds(605, 100, 160, 50);
 		add(langText);
 
 		postArea = new JTextArea();

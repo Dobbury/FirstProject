@@ -191,7 +191,7 @@ public class QAbbsDao {
 
 	// 수정
 	public boolean update(QAbbsDto dto) {
-		String sql = "UPDATE QA SET title=?, content=?, del = ?  visible = ? "
+		String sql = "UPDATE QA SET title=?, content=?, del = ?, visible = ? "
 				+ "WHERE seq = ? AND ref=? AND step=? AND dept=?";
 
 		Connection conn = DBConnection.makeConnection();
