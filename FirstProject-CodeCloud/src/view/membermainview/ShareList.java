@@ -1,6 +1,7 @@
 package view.membermainview;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -11,10 +12,13 @@ import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -143,7 +147,23 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		String[] selects = new String[] { "전체보기", "제목", "내용", "닉네임", "언어" };
 		choiceList = new JComboBox<>(selects);
 		choiceList.setBounds(50, 570, 80, 40);
+		
+		choiceList.setOpaque(false);
+		choiceList.setFocusable(false);
+		choiceList.setForeground(Color.white);
+		choiceList.setRenderer(new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
+						cellHasFocus);
+				result.setOpaque(false);
+				return result;
+			}
+		});
+		
 		add(choiceList);
+		
 
 		// 검색
 		selectField = new JTextField();
@@ -234,7 +254,8 @@ public class ShareList extends JPanel implements Action, MouseListener {
 			}
 
 			if (list.size() == 0 || selectField.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
+				if(!selectedItem.equals("전체보기"))
+					JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
 
 				list = ShareDao.getbbsList(); // 만약 데이터가 없으면 초기화함
 			}
