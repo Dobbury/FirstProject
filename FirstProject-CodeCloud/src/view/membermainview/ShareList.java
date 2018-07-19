@@ -87,14 +87,22 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
 		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
 		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
-
+		
+		
 
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(ShareListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
-						
 		jScrPane.setBounds(50, 150, 750, 400);
 		add(jScrPane);
+		
+		ShareListTable.setOpaque(false);
+		ShareListTable.setShowGrid(false);
+		ShareListTable.setForeground(Color.WHITE);
+		((DefaultTableCellRenderer) ShareListTable.getDefaultRenderer(Object.class)).setOpaque(false);
+		jScrPane.setOpaque(false);
+		jScrPane.getViewport().setOpaque(false);
+		
 
 		// 검색할 부분 콤보박스로 나열해줌
 		// Choice(AWT) -> JComboBox(swing)
@@ -144,10 +152,14 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
 		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
 
-		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+		/*DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-		ShareListTable.getColumn("번호").setCellRenderer(celAlignCenter);
-		ShareListTable.getColumn("작성일").setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(0).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(1).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(2).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(3).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(4).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(5).setCellRenderer(celAlignCenter);*/
 
 		ShareListTable.setModel(model);
 	}

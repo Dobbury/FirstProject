@@ -69,10 +69,12 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 
 
 	JButton savebtn = new JButton("저장");
+	ButtonGroup langTogglebtnGroup;
 
 	BBSDto dto;
 	SelfbbsMain selfMain;
 	int state;
+	String lang = "JAVA";
 
 	public SelfbbsWrite(SelfbbsMain selfMain, BBSDto dto, int state) {
 		setLayout(null);
@@ -80,6 +82,11 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		this.selfMain = selfMain;
 		this.state = state;
 		this.dto = dto;
+		if (dto.getLanguage() != null) {
+			this.lang = dto.getLanguage();
+		}
+		
+		
 
 		Singleton s = Singleton.getInstance();
 
@@ -99,10 +106,11 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		titletxt.setText(dto.getTitle());
 		right.add(titletxt);
 
-		ButtonGroup langTogglebtnGroup = new ButtonGroup();
+		langTogglebtnGroup = new ButtonGroup();
 
 		Tbtn_Java = new JToggleButton("JAVA");
 		Tbtn_Java.setBounds(25, 100, 75, 50);
+		Tbtn_Java.setSelected(true);
 
 		langTogglebtnGroup.add(Tbtn_Java);
 
@@ -120,6 +128,14 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		Tbtn_ETC.setBounds(250, 100, 75, 50);
 
 		langTogglebtnGroup.add(Tbtn_ETC);
+		
+		if(lang.equals("SQL")) {
+			Tbtn_SQL.setSelected(true);
+		}else if(lang.equals("C")) {
+			Tbtn_C.setSelected(true);
+		}else if(lang.equals("ETC")) {
+			Tbtn_ETC.setSelected(true);
+		}
 
 		right.add(Tbtn_Java);
 		right.add(Tbtn_SQL);
@@ -161,6 +177,10 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		Object obj = e.getSource();
 
 		if (obj == savebtn) {
+			if (titletxt.getText().equals("") || codetxt.getText().equals("") || langTogglebtnGroup.getSelection() == null) {
+				JOptionPane.showMessageDialog(null, "제목 내용을 입력하시고, 언어를 선택하세요");
+				return;
+			}
 			if (state == INSERT) {
 				String lang;
 				if (Tbtn_Java.isSelected())
@@ -177,25 +197,25 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 				JOptionPane.showMessageDialog(null, "저장되었습니다.");
 				selfMain.changePanel(DETAIL, new BBSDto(seq, titletxt.getText(), codetxt.getText(), 0, 0, 0, lang));
 				selfMain.setList(s.selfDao.getSelfBbsList());
+			}else if (state == UPDATE) {
+				int choice = JOptionPane.YES_NO_OPTION;
+				choice = JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?", "WARNING", choice);
+
+				if (choice == 0) {
+					dto.setTitle(titletxt.getText());
+					dto.setContent(codetxt.getText());
+					dto.setLanguage(lang);
+
+					boolean result = s.selfDao.update(dto);
+					if (result) {
+						JOptionPane.showMessageDialog(null, "수정되었습니다.");
+						selfMain.setList(s.selfDao.getSelfBbsList());
+						selfMain.changePanel(DETAIL, dto);
+					}
+				}
 			}
 			// 테이블 모델 갱신
 
-		} else if (state == UPDATE) {
-			int choice = JOptionPane.YES_NO_OPTION;
-			choice = JOptionPane.showConfirmDialog(null, "정말 수정하시겠습니까?", "WARNING", choice);
-
-			if (choice == 0) {
-				dto.setTitle(titletxt.getText());
-				dto.setContent(codetxt.getText());
-				// dto.setLanguage(language);
-
-				boolean result = s.selfDao.update(dto);
-				if (result) {
-					JOptionPane.showMessageDialog(null, "수정되었습니다.");
-					selfMain.setList(s.selfDao.getSelfBbsList());
-					selfMain.changePanel(DETAIL, dto);
-				}
-			}
-		}
+		} 
 	}
 }

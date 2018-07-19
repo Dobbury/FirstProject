@@ -88,10 +88,6 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 
 		mainPanel.setOpaque(false);
-
-		/*if (list.size() > 0) {//첫번째 게시물 시퀀스번호 저장
-			currseq = list.get(0).getSeq();
-		}*/
 		
 		// left
 		left.setOpaque(false);
@@ -284,10 +280,12 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
-				changePanel(DETAIL, tmplist.get(0));
+				if(tmplist.size()>0) {
+					changePanel(DETAIL, tmplist.get(0));
+					jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				}
 				((AbstractTableModel) model).fireTableDataChanged();
 				searchtext.setText("");
 
@@ -311,15 +309,19 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				}
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
-				changePanel(DETAIL, tmplist.get(0));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				if(tmplist.size()>0) {
+					changePanel(DETAIL, tmplist.get(0));
+					jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				}
 				((AbstractTableModel) model).fireTableDataChanged();
 				searchtext.setText("");
 
 			} else if (searchbox.getSelectedIndex() == 2) {
 				// 언어
+				searchstr = searchstr.toUpperCase();
+
 				for (int i = 0; i < list.size(); i++) {
 					if (list.get(i).getLanguage().equals(searchstr)) {
 						tmplist.add(list.get(i));
@@ -336,10 +338,12 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				}
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
-				changePanel(DETAIL, tmplist.get(0));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				if(tmplist.size()>0) {
+					changePanel(DETAIL, tmplist.get(0));
+					jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				}
 				((AbstractTableModel) model).fireTableDataChanged();
 				searchtext.setText("");
 
@@ -363,12 +367,15 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				}
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
-				changePanel(DETAIL, tmplist.get(0));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				if(tmplist.size()>0) {
+					changePanel(DETAIL, tmplist.get(0));
+					jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				}
 				((AbstractTableModel) model).fireTableDataChanged();
 				searchtext.setText("");
+
 			}
 		}
 	}
