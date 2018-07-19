@@ -23,7 +23,7 @@ public class ShareDao {
 		List<ShareDto> list = new ArrayList<>();
 		
 		//Singleton s = Singleton.getInstance();
-		String sql = "SELECT * FROM SHAR";
+		String sql = "SELECT * FROM SHAR ORDER BY SEQ DESC";
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -84,7 +84,7 @@ public class ShareDao {
 			}
 		}
 		catch(Exception e){
-			System.out.println("에러났어여");
+			e.printStackTrace();
 		}
 		return list;
 		
@@ -407,6 +407,8 @@ public class ShareDao {
 			} else if (fword.equals("언어")) {
 				sql = sql + " WHERE LAN = ?";
 			}
+			
+			sql = sql + " ORDER BY SEQ DESC";
 				
 
 			
@@ -421,7 +423,10 @@ public class ShareDao {
 
 				if (fword.equals("닉네임")) {
 					psmt.setString(1, fStr); 
-				} else {
+				}else if(fword.equals("언어")){
+					fStr=fStr.toUpperCase();
+					psmt.setString(1, fStr);
+				}else {
 					psmt.setString(1, "%" + fStr + "%");
 				}
 

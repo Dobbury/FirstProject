@@ -2,6 +2,7 @@ package view;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import singleton.Singleton;
 import view.MemberMainView.MyPanel;
@@ -52,6 +54,11 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 	private ImageIcon drag2;
 	private JButton btn_drag;
 
+	private ImageIcon closeIc1;
+	private ImageIcon closeIc2;
+	private ImageIcon closeIc3;
+	private JButton btn_Close;
+
 	adQAbbsMain adQAMain = new adQAbbsMain();
 
 	// 채팅 부분
@@ -61,7 +68,7 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 
 		setBounds(50, 50, 1100, 700);
 		setLayout(null);
-		
+
 		// ---------------------------------------------------------------------------
 		// 배경화면
 		try {
@@ -75,33 +82,36 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		panel.setBounds(0, 0, 1400, 700);
 
 		// ---------------------------------------------------------------------------
-		
+
 		mainPanel = new JPanel(cards);
 
 		mainPanel.add("Memberbbs", new adMemberbbsMain());
 		mainPanel.add("AdminSharebbs", new AdminSharebbs());
-		mainPanel.add("Q&Abbs", adQAMain);
+		//mainPanel.add("Q&Abbs", adQAMain);
+		mainPanel.add("Q&Abbs",new adQAbbsMain());
 		cards.show(mainPanel, "Memberbbs");
 
 		mainPanel.setOpaque(false);
 		mainPanel.setBounds(150, 0, 950, 700);
-		
+
 		Singleton s = Singleton.getInstance();
-		
+
 		ImageIcon img = new ImageIcon(s.nowMember.getProfile_Img());
 		Image ori = img.getImage();
-		Image changedImg= ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH );
-		
+		Image changedImg = ori.getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+
 		img = new ImageIcon(changedImg);
-		
+
 		memProfile_Img = new JLabel();
 		memProfile_Img.setIcon(img);
 		memProfile_Img.setBounds(10, 50, 130, 130);
 
-		memName = new JLabel();
-		memName.setText(s.nowMember.getNick());
+		Font nickFont = new Font("맑은고딕",Font.BOLD,13);
+		memName = new JLabel(s.nowMember.getNick(), SwingConstants.CENTER);
 		memName.setForeground(Color.WHITE);
-		memName.setBounds(50, 200, 80, 30);		
+		memName.setFont(nickFont);
+		memName.setBounds(10, 200, 130, 30);		
+
 
 		btn_Member = new JButton("회원 관리");
 		btn_Member.addActionListener(this);
@@ -126,7 +136,7 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		chatPanel = new chatPanel();
 		chatPanel.setOpaque(false);
 		chatPanel.connect();
-		chatPanel.setBounds(1100, 0, 300, 700);
+		chatPanel.setBounds(1100, 30, 300, 700);
 
 		// 창 드래그
 		drag1 = new ImageIcon("img/drag/drag1.png");
@@ -137,11 +147,23 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		btn_drag.setBorderPainted(false);
 		btn_drag.setContentAreaFilled(false);
 		btn_drag.setFocusPainted(false);
-		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.setBounds(0, 0, 17, 17);
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
-		
-		
+
+		closeIc1 = new ImageIcon("img/close/close1.png");
+		closeIc2 = new ImageIcon("img/close/close2.png");
+		closeIc3 = new ImageIcon("img/close/close3.png");
+		btn_Close = new JButton(closeIc1);
+		btn_Close.setRolloverIcon(closeIc2);
+		btn_Close.setPressedIcon(closeIc3);
+		btn_Close.setBorderPainted(false);
+		btn_Close.setContentAreaFilled(false);
+		btn_Close.setFocusPainted(false);
+		btn_Close.setBounds(1279, 5, 16, 16);
+		btn_Close.addActionListener(this);
+		add(btn_Close);
+
 		add(btn_drag);
 		add(chatPanel);
 
@@ -154,7 +176,7 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		add(memName);
 		add(memProfile_Img);
 		add(mainPanel);
-		
+
 		setUndecorated(true);
 		setVisible(true);
 		setResizable(false);
@@ -171,8 +193,8 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 			mainPanel.add("AdminSharebbs", new AdminSharebbs());
 			cards.show(mainPanel, "AdminSharebbs");
 		} else if (select == 3) {
+			mainPanel.add("Q&Abbs",new adQAbbsMain());
 			cards.show(mainPanel, "Q&Abbs");
-			adQAMain.cards.show(adQAMain.admainPanel, "adQAbbsList");
 		}
 	}
 
@@ -180,22 +202,22 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btn_Member) {
 			changePanel(1);
-			
+
 		} else if (e.getSource() == btn_Sharebbs) {
 			changePanel(2);
-			
+
 		} else if (e.getSource() == btn_QAbbs) {
 			changePanel(3);
-			
+
 		} else if (e.getSource() == btn_Chat) {
 			if (chat) {
 				setBounds(50, 50, 1100, 700);
 				chat = false;
-				
+
 			} else {
 				setBounds(50, 50, 1400, 700);
 				chat = true;
-				
+
 			}
 		} else if (e.getSource() == btn_Logout) {
 			Singleton s = Singleton.getInstance();
@@ -203,16 +225,17 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 			this.dispose();
 			s.MemCtrl.login();
 
+		} else if (e.getSource() == btn_Close) {
+			dispose();
 		}
 	}
-	
+
 	class MyPanel extends JPanel {
 		public void paint(Graphics g) {
 			g.drawImage(img, 0, 0, null);
 
 		}
 	}
-
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

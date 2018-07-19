@@ -39,7 +39,7 @@ import singleton.Singleton;
 import view.MemberMainView;
 import view.SignupView;
 
-public class SelfbbsMain extends JPanel implements ActionListener,MouseListener {
+public class SelfbbsMain extends JPanel implements ActionListener, MouseListener {
 	private CardLayout cards = new CardLayout();
 	JPanel mainPanel;
 
@@ -56,58 +56,52 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 	private DefaultTableModel model;
 	private String[] head = { "title", "seq", "share" };
 	private Object[][] rowData;
-	
+
 	private String[] searchlist = { "전체보기", "제목", "언어", "내용" };
 	JComboBox searchbox = new JComboBox(searchlist);
 
 	JTextField searchtext = new JTextField();
 	JButton searchbtn = new JButton("검색");
 	List<BBSDto> list;
-	
+
 	int currseq;
-	
+
 	public SelfbbsMain() {
 		Singleton s = Singleton.getInstance();
 		list = s.selfDao.getSelfBbsList();
-		
+
 		setLayout(null);
 		setOpaque(false);
 		setBounds(0, 0, 1100, 700);
 		mainPanel = new JPanel(cards);
 
-		if (list.size() > 0) {	
+		if (list.size() > 0) {
 			mainPanel.add("SelfbbsDetail", new SelfbbsDetail(this, list.get(0)));
-		}else {
+		} else {
 			mainPanel.add("SelfbbsDetail", new SelfbbsDetail(this, new BBSDto()));
 		}
-		mainPanel.add("SelfbbsWrite", new SelfbbsWrite(this, new BBSDto(),INSERT));
+		mainPanel.add("SelfbbsWrite", new SelfbbsWrite(this, new BBSDto(), INSERT));
 
 		cards.show(mainPanel, "SelfbbsDetail");// 처음 띄워지는 판
 
 		mainPanel.setBounds(300, 0, 800, 700);
 
-
 		mainPanel.setOpaque(false);
 
-		/*if (list.size() > 0) {//첫번째 게시물 시퀀스번호 저장
-			currseq = list.get(0).getSeq();
-		}*/
-		
 		// left
 		left.setOpaque(false);
-		//left.setBackground(new Color(0,0,0,30));
+		// left.setBackground(new Color(0,0,0,30));
 		left.setBounds(0, 0, 300, 700);
 		left.setLayout(null);
 
-		plus.setBounds(0, 0, 300, 50);
+		plus.setBounds(0, 0, 300, 70);
 
 		plus.setOpaque(false);
 		plus.setContentAreaFilled(false);
 		plus.setBorderPainted(true);
 		plus.setForeground(Color.WHITE);
 		plus.addActionListener(this);
-		plus.setFont(new Font("Arial", Font.PLAIN, 40));
-
+		plus.setFont(new Font("맑은고딕", Font.PLAIN, 40));
 
 		left.add(plus);
 
@@ -129,79 +123,92 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				return false;
 			}
 		};
-		//한글 지원 안됨
-		jTable.setFont(new Font("Arial", Font.PLAIN, 30));
+		// 한글 지원 안됨
+		jTable.setFont(new Font("굴림", Font.PLAIN, 30));
 		jTable.addMouseListener(this);
 		jTable.setRowHeight(70);
 		jTable.getColumnModel().getColumn(0).setMaxWidth(305);
 
-
+		// 테이블안에 컬럼을 위치설정
+		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+		celAlignCenter.setOpaque(false);
+		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+		
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.getSelectionModel().setSelectionInterval(0, 0);
 		jTable.setTableHeader(null);
-		jTable.setForeground(Color.WHITE);		
-		jTable.setSelectionForeground(Color.BLACK);
+		jTable.setOpaque(false);
+		jTable.setShowGrid(false);
+		jTable.setForeground(Color.GRAY);
+		jTable.setSelectionForeground(Color.WHITE);
 
-		
-		//스크롤바 0으로 줄여서 안보이게하는 코드
-		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
-		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+		// 스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
 		// 테이블 투명
 		jTable.setOpaque(false);
 		((DefaultTableCellRenderer) jTable.getDefaultRenderer(Object.class)).setOpaque(false);
 		// 스크롤영역 투명
 		jScrPane.setOpaque(false);
 		jScrPane.getViewport().setOpaque(false);
+
+		jScrPane.setBorder(BorderFactory.createCompoundBorder(null,
+	            BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 		
-		jScrPane.setBounds(0, 50, 305, 550);
+		plus.setBorderPainted(false);
+
+		jScrPane.setBounds(0, 70, 300, 565);
 
 		left.add(jScrPane);
-		
-	
-		searchbox.setBounds(0, 600, 300, 25);
+
+		searchbox.setBounds(0, 635, 300, 25);
 		searchbox.setOpaque(false);
+		searchbox.setFocusable(false);
 		searchbox.setForeground(Color.white);
-		searchbox.setRenderer(new DefaultListCellRenderer(){
-		    @Override
-		    public Component getListCellRendererComponent(JList list, Object value,
-		            int index, boolean isSelected, boolean cellHasFocus) {
-		        JComponent result = (JComponent)super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-		        result.setOpaque(false);
-		        return result;
-		    }});
+		searchbox.setRenderer(new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
+						cellHasFocus);
+				result.setOpaque(false);
+				return result;
+			}
+		});
 
 		left.add(searchbox);
 		searchtext.setForeground(Color.white);
 		searchtext.setOpaque(false);
-		searchtext.setBounds(0, 625, 225, 40);
+		searchtext.setBounds(0, 660, 225, 40);
 		left.add(searchtext);
-		searchbtn.setBounds(225, 625, 75, 40);
+		searchbtn.setBounds(225, 660, 75, 40);
 		searchbtn.setOpaque(false);
 		searchbtn.setContentAreaFilled(false);
-		//searchbtn.setBorderPainted(true);
+		// searchbtn.setBorderPainted(true);
 		searchbtn.setForeground(Color.WHITE);
 		searchbtn.addActionListener(this);
 		left.add(searchbtn);
 
 		add(mainPanel);
-		
-		Border border = BorderFactory.createLineBorder(Color.white);
-	    left.setBorder(BorderFactory.createCompoundBorder(border,
-	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+
+//		Border border = BorderFactory.createLineBorder(Color.white);
+//		left.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		add(left);
 		setVisible(true);
 	}
 
 	public void changePanel(int state, BBSDto dto) {
 		if (state == INSERT) {
-			mainPanel.add("SelfbbsWrite", new SelfbbsWrite(this,dto,state));
+			mainPanel.add("SelfbbsWrite", new SelfbbsWrite(this, dto, state));
 			cards.show(mainPanel, "SelfbbsWrite");
 		} else if (state == UPDATE) {
-			mainPanel.add("SelfbbsWrite", new SelfbbsWrite(this, dto,state));
+			mainPanel.add("SelfbbsWrite", new SelfbbsWrite(this, dto, state));
 			cards.show(mainPanel, "SelfbbsWrite");
 		} else if (state == DETAIL) {
-			mainPanel.add("SelfbbsDetail", new SelfbbsDetail(this,dto));
+			mainPanel.add("SelfbbsDetail", new SelfbbsDetail(this, dto));
 			cards.show(mainPanel, "SelfbbsDetail");
 		}
 	}
@@ -210,59 +217,60 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 	public void mouseClicked(MouseEvent e) {
 		JTable source = (JTable) e.getSource();
 		int rows = source.rowAtPoint(e.getPoint());
-		
+
 		Singleton s = Singleton.getInstance();
 		try {
 			int seq = (int) source.getModel().getValueAt(rows, 1);
 			int shar = (int) source.getModel().getValueAt(rows, 2);
 			System.out.println(shar);
 			currseq = seq;
-	
+
 			for (int i = 0; i < list.size(); i++) {
 				if (seq == list.get(i).getSeq()) {
 					changePanel(DETAIL, list.get(i));
 					break;
 				}
 			}
-			
+
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(null, "이 게시물은 볼수 없습니다.");
 		}
 	}
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Singleton s = Singleton.getInstance();
-		
+
 		if (e.getSource() == plus) {
 			changePanel(INSERT, new BBSDto());
 		}
-		
-		if(e.getSource() == searchbtn) {
+
+		if (e.getSource() == searchbtn) {
 			// {"전체보기", "제목", "언어", "내용"};
 
 			String searchstr = searchtext.getText();
@@ -284,10 +292,20 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
-				changePanel(DETAIL, tmplist.get(0));
+				if (tmplist.size() > 0) {
+					changePanel(DETAIL, tmplist.get(0));
+					jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+					
+					// 테이블안에 컬럼을 위치설정
+					DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+					celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+					celAlignCenter.setOpaque(false);
+					jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+					
+					
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				}
 				((AbstractTableModel) model).fireTableDataChanged();
 				searchtext.setText("");
 
@@ -311,15 +329,25 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				}
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
-				changePanel(DETAIL, tmplist.get(0));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				if (tmplist.size() > 0) {
+					changePanel(DETAIL, tmplist.get(0));
+					jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+					// 테이블안에 컬럼을 위치설정
+					DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+					celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+					celAlignCenter.setOpaque(false);
+					jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+					
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				}
 				((AbstractTableModel) model).fireTableDataChanged();
 				searchtext.setText("");
 
 			} else if (searchbox.getSelectedIndex() == 2) {
 				// 언어
+				searchstr = searchstr.toUpperCase();
+
 				for (int i = 0; i < list.size(); i++) {
 					if (list.get(i).getLanguage().equals(searchstr)) {
 						tmplist.add(list.get(i));
@@ -336,10 +364,18 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				}
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
-				changePanel(DETAIL, tmplist.get(0));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				if (tmplist.size() > 0) {
+					changePanel(DETAIL, tmplist.get(0));
+					jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+					// 테이블안에 컬럼을 위치설정
+					DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+					celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+					celAlignCenter.setOpaque(false);
+					jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+					
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				}
 				((AbstractTableModel) model).fireTableDataChanged();
 				searchtext.setText("");
 
@@ -363,16 +399,25 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 				}
 				model.setDataVector(tmparr, head);
 				jTable.setModel(model);
-				jTable.getColumnModel().getColumn(0).setMaxWidth(300);
-				changePanel(DETAIL, tmplist.get(0));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
-				jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				if (tmplist.size() > 0) {
+					changePanel(DETAIL, tmplist.get(0));
+					jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+					// 테이블안에 컬럼을 위치설정
+					DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+					celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+					celAlignCenter.setOpaque(false);
+					jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+					
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+					jTable.removeColumn(jTable.getColumnModel().getColumn(1));
+				}
 				((AbstractTableModel) model).fireTableDataChanged();
 				searchtext.setText("");
+
 			}
 		}
 	}
-	
+
 	public void setList(List<BBSDto> list) {
 		rowData = new Object[list.size()][3];
 		this.list = list;
@@ -388,9 +433,16 @@ public class SelfbbsMain extends JPanel implements ActionListener,MouseListener 
 		model.setDataVector(rowData, head);
 		jTable.setModel(model);
 		jTable.getColumnModel().getColumn(0).setMaxWidth(300);
+	
+		// 테이블안에 컬럼을 위치설정
+		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+		celAlignCenter.setOpaque(false);
+		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		jTable.removeColumn(jTable.getColumnModel().getColumn(1));
 		((AbstractTableModel) model).fireTableDataChanged();
 		searchtext.setText("");
-	}	
+	}
 }

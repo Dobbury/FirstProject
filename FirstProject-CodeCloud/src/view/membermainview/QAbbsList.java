@@ -2,6 +2,7 @@ package view.membermainview;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -68,8 +69,11 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		for (int i = 0; i < list.size(); i++) {
 			QAbbsDto dto = list.get(i);
 
+			
 			rowData[i][0] = dto.getSeq();// 번호
-
+			if(dto.getRef()!=0){
+				rowData[i][0]="";
+			}
 
 			if (dto.getDel() == 1)
 				rowData[i][1] = "  *************이 글은 삭제되었습니다*************";
@@ -83,8 +87,9 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 	
 				if (rowData[i][1].equals(""))
 					rowData[i][1] ="  " + list.get(i).getTitle();
-				else
-					rowData[i][1] += "[답변] " + list.get(i).getTitle();
+				else 
+					rowData[i][1] += "┗ [답변] " + list.get(i).getTitle();
+				
 			}
 
 			rowData[i][2] = dto.getNick();
@@ -141,18 +146,21 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		celAlignCenter.setOpaque(false);
 		// 컬럼의 넓이 설정
-		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
+		jTable.getColumnModel().getColumn(0).setMaxWidth(53);
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(80);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(477);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(95);
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(120);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(115);
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
 		
 		jTable.setOpaque(false);
 		jTable.setForeground(Color.WHITE);
 		jTable.setTableHeader(null);
 		jTable.setShowGrid(false);
+		jTable.setRowHeight(25);
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+		jTable.setFont(tableFont);
 		
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
@@ -172,7 +180,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		bbs_backgorund.setIcon(bbs_back_Img);
 		bbs_backgorund.setBounds(50, 150, 750, 400);
 		///////////////////////////////////////////////////
-		jScrPane.setBounds(50, 196, 750, 354);
+		jScrPane.setBounds(55, 205, 740, 340);
 		
 
 		add(jScrPane);
@@ -219,13 +227,19 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 	public void setList(List<QAbbsDto> list) {
 		rowData = new Object[list.size()][4];
 
-		int n = 1;
 		for (int i = 0; i < list.size(); i++) {
 			QAbbsDto dto = list.get(i);
-			rowData[i][0] = dto.getSeq();
+
+			
+			rowData[i][0] = dto.getSeq();// 번호
+			if(dto.getRef()!=0){
+				rowData[i][0]="";
+			}
+
 			if (dto.getDel() == 1)
-				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
+				rowData[i][1] = "  *************이 글은 삭제되었습니다*************";
 			else {
+
 				// 댓글 작업 부분
 				rowData[i][1] = "";
 				for (int j = 0; j < list.get(i).getDept(); j++) {
@@ -233,11 +247,13 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 				}
 	
 				if (rowData[i][1].equals(""))
-					rowData[i][1] = list.get(i).getTitle();
-				else
+					rowData[i][1] ="  " + list.get(i).getTitle();
+				else 
 					rowData[i][1] += "┗ [답변] " + list.get(i).getTitle();
-			}			rowData[i][2] = dto.getNick();
+				
+			}
 
+			rowData[i][2] = dto.getNick();
 
 			Calendar cal = Calendar.getInstance();
 
@@ -257,24 +273,31 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 				String beforeDate = list.get(i).getWdate().substring(0, 10);
 				rowData[i][3] = beforeDate;
 			}
-
 		}
 		////////////////////////////// table 형태 유지
 		model.setDataVector(rowData, columnNames);
 
-		// 컬럼의 넓이 설정
-		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(600);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(60);
-		jTable.getColumnModel().getColumn(3).setMaxWidth(150);
-
-
+		// 테이블안에 컬럼을 위치설정
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-		jTable.getColumn("번호").setCellRenderer(celAlignCenter);
-		jTable.getColumn("작성일").setCellRenderer(celAlignCenter);
-		//////////////////////////////
-
+		celAlignCenter.setOpaque(false);
+		// 컬럼의 넓이 설정
+		jTable.getColumnModel().getColumn(0).setMaxWidth(53);
+		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(477);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(95);
+		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(3).setMaxWidth(115);
+		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
+		
+		jTable.setOpaque(false);
+		jTable.setForeground(Color.WHITE);
+		jTable.setTableHeader(null);
+		jTable.setShowGrid(false);
+		jTable.setRowHeight(25);
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+		jTable.setFont(tableFont);
+		
 		jTable.setModel(model);
 	}
 

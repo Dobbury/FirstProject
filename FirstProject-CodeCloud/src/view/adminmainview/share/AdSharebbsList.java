@@ -70,12 +70,18 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		
 		// 검색
 		selectField = new JTextField();
-		selectField.setBounds(250, 600, 150, 20);
+		selectField.setBounds(140, 570, 150, 40);
 		add(selectField);
 
+		
+		
+		
+		
+
+		
 		selectBtn = new JButton("검색");
 		selectBtn.addActionListener(this);
-		selectBtn.setBounds(420, 600, 100, 20);
+		selectBtn.setBounds(300, 570, 100, 40);
 		add(selectBtn);
 
 		model = new DefaultTableModel(columnNames, 0);
@@ -101,14 +107,14 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 
-		jScrPane.setBounds(80, 150, 800, 400);
+		jScrPane.setBounds(50, 150, 800, 400);
 		add(jScrPane);
 
 		// 검색할 부분 콤보박스로 나열해줌
 		// Choice(AWT) -> JComboBox(swing)
 		String[] selects = new String[] { "제목", "내용", "닉네임" };
 		choiceList = new JComboBox<>(selects);
-		choiceList.setBounds(150, 600, 80, 20);
+		choiceList.setBounds(50, 570, 80, 40);
 		add(choiceList);
 
 		setLayout(null);

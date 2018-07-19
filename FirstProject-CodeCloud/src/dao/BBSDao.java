@@ -25,7 +25,7 @@ public class BBSDao implements BBSDaoImpl {
 	@Override
 	public LinkedList<BBSDto> getSelfBbsList() {
 		Singleton s = Singleton.getInstance();
-		String sql = "SELECT * FROM " + s.nowMember.getID();
+		String sql = "SELECT * FROM " + s.nowMember.getID() + " ORDER BY SEQ";
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
