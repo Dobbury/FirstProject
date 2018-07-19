@@ -134,7 +134,8 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 
 		memName = new JLabel();
 		memName.setText(s.nowMember.getNick());
-		memName.setBounds(10, 200, 40, 30);
+		memName.setForeground(Color.WHITE);
+		memName.setBounds(10, 200, 80, 30);
 
 		btn_Selfbbs = new JButton("개인 코드");
 		btn_Selfbbs.addActionListener(this);
@@ -152,6 +153,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		btn_Chat.addActionListener(this);
 		btn_Chat.setBounds(10, 560, 130, 50);
 
+		
 		btn_Logout = new JButton("로그아웃");
 		btn_Logout.addActionListener(this);
 		btn_Logout.setBounds(10, 591, 130, 50);
