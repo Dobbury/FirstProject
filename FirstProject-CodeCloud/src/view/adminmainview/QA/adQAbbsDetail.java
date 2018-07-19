@@ -2,6 +2,7 @@ package view.adminmainview.QA;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -30,13 +31,9 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 	final int COMMENT = 2;
 	final int COMMENT_UPDATE = 3;
 	
-	JLabel titleLabel;// 닉네임
-	JLabel titleLabel2;// 제목
-	JLabel titleLabel3;// content
 
-	JTextField titleText;// 닉넴 텍스트필드
-	JTextField titleText2;// 제목 텍스트필드
-	JTextField titleText3;// content 텍스트 필드
+	JLabel nickText;// 닉넴
+	JLabel titleText;// 제목
 
 	JTextArea postArea;
 	JPanel comments;
@@ -58,56 +55,52 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		adQAmian = QA;
 		this.dto = dto;
 
-		titleLabel = new JLabel("닉네임: ");
-		titleLabel.setBounds(100, 100, 50, 30);
+		// 타이틀
+		Font titleFont = new Font("굴림", Font.BOLD, 40);
+		titleText = new JLabel();
+		titleText.setFont(titleFont);
+		titleText.setForeground(Color.WHITE);
+		titleText.setBounds(65, 100, 310, 50);
+		titleText.setText(dto.getTitle());
 
-		titleText = new JTextField();
-
-		titleText.setBounds(200, 100, 310, 30);
-		titleText.setText(dto.getNick());
-
-		titleText.setEditable(false);
-
-		titleLabel2 = new JLabel("제목: ");
-		titleLabel2.setBounds(100, 150, 50, 30);
-
-		titleText2 = new JTextField();
-		titleText2.setBounds(200, 150, 310, 30);
-		titleText2.setText(dto.getTitle());
-
-		titleText2.setEditable(false);
+		// 닉네임
+		Font nickFont = new Font("굴림", Font.BOLD, 25);
+		nickText = new JLabel();
+		nickText.setFont(nickFont);
+		nickText.setForeground(Color.WHITE);
+		nickText.setBounds(65, 160, 310, 30);
+		nickText.setText(dto.getNick());
 
 		
 		postArea = new JTextArea();
-		postArea.setBounds(200, 200, 300, 300);
 		postArea.append(dto.getContent());
 		postArea.setEditable(false);
 
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrol.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
-		jScrol.setBounds(200, 200, 300, 300);
+		jScrol.setBounds(50, 200, 750, 350);
 
 		// 게시글 답글달기
 		btn_comment = new JButton("답글 달기");
 		btn_comment.addActionListener(this);
-		btn_comment.setBounds(200, 550, 110, 50);
+		btn_comment.setBounds(50, 570, 110, 40);
 
 		// 글 목록
 		btn_List = new JButton("글 목록");
 		btn_List.addActionListener(this);
-		btn_List.setBounds(400, 550, 110, 50);
+		btn_List.setBounds(400, 570, 110, 40);
 
 		// 삭제
 		btn_delete = new JButton("삭제");
 		btn_delete.addActionListener(this);
-		btn_delete.setBounds(550, 550, 110, 50);
+		btn_delete.setBounds(550, 570, 110, 40);
 
 		// 수정
 		//btn_update = null;
 		btn_update = new JButton("수정");
 		btn_update.addActionListener(this);
-		btn_update.setBounds(700, 550, 110, 50);
+		btn_update.setBounds(700, 570, 110, 40);
 
 		Singleton s = Singleton.getInstance();
 
@@ -133,11 +126,9 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 			}
 		});
 
-		add(titleLabel);
-		add(titleLabel2);
-		add(titleLabel3);
+
+		add(nickText);
 		add(titleText);
-		add(titleText2);
 		add(jScrol);
 		add(btn_comment);
 		add(btn_List);

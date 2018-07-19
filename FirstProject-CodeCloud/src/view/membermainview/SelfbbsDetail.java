@@ -62,7 +62,6 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 	JToggleButton sharebtn = new JToggleButton("공유");
 	JButton deletebtn = new JButton("삭제");
 
-
 	private JScrollPane jScrPane;
 
 	BBSDao dao = new BBSDao();
@@ -115,14 +114,10 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		code_backgorund.setIcon(code_back_Img);
 		code_backgorund.setBounds(25,170,750,400);
 		
-		codetxt.setBounds(25, 170, 750, 400);
+		
 		codetxt.setOpaque(false);
 		codetxt.setFont(contentFont);
 		codetxt.setForeground(Color.white);
-
-		
-	    codetxt.setBorder(BorderFactory.createCompoundBorder(null,
-	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 
 		codetxt.setText(dto.getContent());
 		codetxt.setEditable(false);
@@ -130,8 +125,11 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(codetxt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
-					
-				
+		jScrPane.setBounds(25,170,750,400);
+		jScrPane.setOpaque(false);
+		jScrPane.getViewport().setOpaque(false);
+		jScrPane.setBorder(BorderFactory.createCompoundBorder(null,
+	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 		right.add(jScrPane);
 		right.add(code_backgorund);
 		

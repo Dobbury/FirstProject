@@ -43,8 +43,8 @@ import dao.BBSDao;
 import dto.BBSDto;
 
 import singleton.Singleton;
+import textlimit.*;
 import view.MemberMainView;
-import textLimit.*;
 
 public class SelfbbsWrite extends JPanel implements ActionListener {
 
@@ -128,7 +128,6 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 
 		Font contentFont = new Font("굴림", Font.BOLD, 20);
 
-		codetxt.setBounds(25, 170, 750, 390);
 
 		codetxt.setDocument(new JTextFieldLimit(4000));	//4000자 제한
 		//codetxt.setBackground(new Color(0,0,0,70));
@@ -143,7 +142,11 @@ public class SelfbbsWrite extends JPanel implements ActionListener {
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(codetxt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
-		
+		jScrPane.setOpaque(false);
+		jScrPane.getViewport().setOpaque(false);
+		jScrPane.setBorder(BorderFactory.createCompoundBorder(null,
+	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+		jScrPane.setBounds(25,170,750,400);
 		right.add(jScrPane);
 
 		savebtn.setBounds(700, 570, 75, 50);
