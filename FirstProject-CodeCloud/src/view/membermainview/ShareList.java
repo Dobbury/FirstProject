@@ -173,22 +173,32 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		
 		model.setDataVector(rowData, columnNames);
 
+		// 테이블안에 컬럼을 위치설정
+		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+		celAlignCenter.setOpaque(false);
+
+		// 컬럼의 넓이 설정 //가 되고있지않음
 		ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
+		ShareListTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
 		ShareListTable.getColumnModel().getColumn(1).setMaxWidth(60);
-		ShareListTable.getColumnModel().getColumn(2).setMaxWidth(600);
-		ShareListTable.getColumnModel().getColumn(3).setMaxWidth(60);
-		ShareListTable.getColumnModel().getColumn(4).setMaxWidth(50);
-		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
+		ShareListTable.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumnModel().getColumn(2).setMaxWidth(405);
+		ShareListTable.getColumnModel().getColumn(3).setMaxWidth(95);
+		ShareListTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumnModel().getColumn(4).setMaxWidth(70);
+		ShareListTable.getColumnModel().getColumn(4).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(70);
+		ShareListTable.getColumnModel().getColumn(5).setCellRenderer(celAlignCenter);
 		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
 
-		/*DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
-		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-		ShareListTable.getColumn(0).setCellRenderer(celAlignCenter);
-		ShareListTable.getColumn(1).setCellRenderer(celAlignCenter);
-		ShareListTable.getColumn(2).setCellRenderer(celAlignCenter);
-		ShareListTable.getColumn(3).setCellRenderer(celAlignCenter);
-		ShareListTable.getColumn(4).setCellRenderer(celAlignCenter);
-		ShareListTable.getColumn(5).setCellRenderer(celAlignCenter);*/
+		ShareListTable.setOpaque(false);
+		ShareListTable.setForeground(Color.WHITE);
+		ShareListTable.setTableHeader(null);
+		ShareListTable.setShowGrid(false);
+		ShareListTable.setRowHeight(25);
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+		ShareListTable.setFont(tableFont);
 
 		ShareListTable.setModel(model);
 	}

@@ -23,7 +23,7 @@ public class ShareDao {
 		List<ShareDto> list = new ArrayList<>();
 		
 		//Singleton s = Singleton.getInstance();
-		String sql = "SELECT * FROM SHAR ORDER BY SEQ";
+		String sql = "SELECT * FROM SHAR ORDER BY SEQ DESC";
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -408,7 +408,7 @@ public class ShareDao {
 				sql = sql + " WHERE LAN = ?";
 			}
 			
-			sql = sql + " ORDER BY SEQ";
+			sql = sql + " ORDER BY SEQ DESC";
 				
 
 			
