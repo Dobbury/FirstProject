@@ -111,8 +111,8 @@ public class adQAbbsList extends JPanel implements MouseListener, WindowListener
 		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500);
-		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(60);
+		jTable.getColumnModel().getColumn(2).setMaxWidth(70);
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(200);
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);

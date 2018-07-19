@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 import dao.ShareDao;
 import dto.QAbbsDto;
@@ -51,6 +52,7 @@ public class ShareDetail extends JPanel implements Action {
 		
 		ShareMain=sharebbs;
 		
+		
 		//닉네임
 		Font nickFont = new Font("굴림",Font.BOLD, 25);
 		nickText = new JLabel();
@@ -60,7 +62,6 @@ public class ShareDetail extends JPanel implements Action {
 		nickText.setText(dto.getNick());
 		
 		//타이틀
-
 		Font titleFont = new Font("굴림",Font.BOLD, 40);
 		titleText = new JLabel();
 		titleText.setFont(titleFont);
@@ -68,6 +69,12 @@ public class ShareDetail extends JPanel implements Action {
 		titleText.setBounds(65, 100, 310, 50);
 		titleText.setText(dto.getTitle());
 		
+		JLabel langText = new JLabel(dto.getLang(), SwingConstants.CENTER);
+		langText.setFont(titleFont);
+		langText.setForeground(Color.WHITE);
+		langText.setBounds(650, 100, 150, 50);
+		add(langText);
+
 		postArea = new JTextArea();
 		postArea.setOpaque(false);
 		postArea.setForeground(Color.WHITE);

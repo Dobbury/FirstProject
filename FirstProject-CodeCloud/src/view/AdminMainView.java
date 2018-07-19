@@ -52,7 +52,7 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 	private ImageIcon drag2;
 	private JButton btn_drag;
 
-	adQAbbsMain adQAMain = new adQAbbsMain();
+	//adQAbbsMain adQAMain = new adQAbbsMain();
 
 	// 채팅 부분
 	private chatPanel chatPanel;
@@ -80,7 +80,8 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 
 		mainPanel.add("Memberbbs", new adMemberbbsMain());
 		mainPanel.add("AdminSharebbs", new AdminSharebbs());
-		mainPanel.add("Q&Abbs", adQAMain);
+		//mainPanel.add("Q&Abbs", adQAMain);
+		mainPanel.add("Q&Abbs",new adQAbbsMain());
 		cards.show(mainPanel, "Memberbbs");
 
 		mainPanel.setOpaque(false);
@@ -171,8 +172,8 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 			mainPanel.add("AdminSharebbs", new AdminSharebbs());
 			cards.show(mainPanel, "AdminSharebbs");
 		} else if (select == 3) {
+			mainPanel.add("Q&Abbs",new adQAbbsMain());
 			cards.show(mainPanel, "Q&Abbs");
-			adQAMain.cards.show(adQAMain.admainPanel, "adQAbbsList");
 		}
 	}
 
