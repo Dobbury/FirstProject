@@ -19,7 +19,11 @@ public class DBCheck {
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> 078892c1be9efdf2a40b74729279f5722effa82b
 		ResultSet rs = null;
 		
 		String path = "img/signUp/userImages.png";
@@ -32,11 +36,8 @@ public class DBCheck {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if (!rs.next()) { // 테이블이 없다면 생성
-				sql = "CREATE TABLE MEMBER(" 
-						+ "ID VARCHAR2(15 CHAR) PRIMARY KEY," 
-						+ "PWD VARCHAR2(10 CHAR) NOT NULL,"
-						+ "NICK VARCHAR2(15 CHAR) UNIQUE," 
-						+ "AUTH NUMBER NOT NULL," + "IMG BLOB )";
+				sql = "CREATE TABLE MEMBER(" + "ID VARCHAR2(15 CHAR) PRIMARY KEY," + "PWD VARCHAR2(10 CHAR) NOT NULL,"
+						+ "NICK VARCHAR2(15 CHAR) UNIQUE," + "AUTH NUMBER NOT NULL," + "IMG BLOB )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
 			}
@@ -45,6 +46,7 @@ public class DBCheck {
 			System.out.println(sql2);
 			rs = psmt.executeQuery();
 			if (!rs.next()) { // 테이블이 없다면 생성
+<<<<<<< HEAD
 				sql2 = "INSERT INTO MEMBER VALUES('admin', ?, '관리자', 0, ?)"; 
 				psmt = conn.prepareStatement(sql2);
 				psmt.setString(1, PasswordClass.Encryption("admin"));
@@ -52,6 +54,20 @@ public class DBCheck {
 				psmt.executeQuery();
 			}
 		} catch (SQLException e) {
+=======
+				sql2 = "INSERT INTO MEMBER VALUES('admin', ?, '관리자', 0, ?)";
+				psmt = conn.prepareStatement(sql2);
+				psmt.setString(1, PasswordClass.Encryption("admin"));
+
+				String path = "img/signUp/userImages.png";
+				File imgfile = new File(path);
+				FileInputStream fis = new FileInputStream(imgfile);
+
+				psmt.setBinaryStream(2, fis, (int) imgfile.length());
+				psmt.executeQuery();
+			}
+		} catch (Exception e) {
+>>>>>>> 078892c1be9efdf2a40b74729279f5722effa82b
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);

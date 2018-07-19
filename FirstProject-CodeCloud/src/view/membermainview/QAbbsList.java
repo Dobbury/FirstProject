@@ -35,10 +35,18 @@ import singleton.Singleton;
 public class QAbbsList extends JPanel implements ActionListener, WindowListener, MouseListener {
 	private JTable jTable;
 	private JScrollPane jScrPane;
+	
+	ImageIcon writeIc1;
+	ImageIcon writeIc2;
+	ImageIcon writeIc3;
 	private JButton writeBtn;
 
 	private JComboBox<String> choiceList; // 검색 목록 초이스
 	private JTextField selectField; // 검색 필드
+	
+	ImageIcon selectIc1;
+	ImageIcon selectIc2;
+	ImageIcon selectIc3;
 	private JButton selectBtn;// 검색 버튼
 
 	DefaultTableModel model; // 테이블의 넓이 설정
@@ -115,10 +123,18 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		}
 
 		// 글쓰기 버튼
-		writeBtn = new JButton("글쓰기");
+		writeIc1 = new ImageIcon("img/QAbbs/QA_write_on.png");
+		writeIc2 = new ImageIcon("img/QAbbs/QA_write_off.png");
+		writeIc3 = new ImageIcon("img/QAbbs/QA_write_ing.png");
+		writeBtn = new JButton(writeIc1);
+		writeBtn.setRolloverIcon(writeIc2);
+		writeBtn.setPressedIcon(writeIc3);
+		writeBtn.setBorderPainted(false);
+		writeBtn.setContentAreaFilled(false);
+		writeBtn.setFocusPainted(false);
+		
 		writeBtn.addActionListener(this);
-
-		writeBtn.setBounds(700, 570, 100, 40);
+		writeBtn.setBounds(700, 570, 101, 41);
 
 		add(writeBtn);
 
@@ -127,11 +143,18 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		selectField.setBounds(140, 570, 150, 40);
 		add(selectField);
 
-		selectBtn = new JButton("검색");
-
+		selectIc1 = new ImageIcon("img/QAbbs/QA_search_on.png");
+		selectIc2 = new ImageIcon("img/QAbbs/QA_search_off.png");
+		selectIc3 = new ImageIcon("img/QAbbs/QA_search_ing.png");
+		selectBtn = new JButton(selectIc1);
+		selectBtn.setRolloverIcon(selectIc2);
+		selectBtn.setPressedIcon(selectIc3);
+		selectBtn.setBorderPainted(false);
+		selectBtn.setContentAreaFilled(false);
+		selectBtn.setFocusPainted(false);
 		selectBtn.addActionListener(this);
 
-		selectBtn.setBounds(300, 570, 100, 40);
+		selectBtn.setBounds(300, 570, 101, 41);
 		add(selectBtn);
 
 		model = new DefaultTableModel(columnNames, 0);
@@ -211,8 +234,6 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 			String selectedItem = (String) choiceList.getSelectedItem();
 
 			list = s.qaDao.getTitleFindList(selectField.getText(), selectedItem);
-
-			JOptionPane.showMessageDialog(null, selectedItem);
 
 			if (list.size() == 0 || selectField.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");

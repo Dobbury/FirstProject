@@ -261,10 +261,14 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 
 			try {
 				DBCheck.memDBcheck();
+<<<<<<< HEAD
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (SQLException e1) {
+=======
+			} catch (Exception e1) {
+>>>>>>> 078892c1be9efdf2a40b74729279f5722effa82b
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

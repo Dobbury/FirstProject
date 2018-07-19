@@ -38,6 +38,9 @@ public class ShareDetail extends JPanel implements Action {
 	JTextArea postArea;
 	JScrollPane jScrol;
 	
+	ImageIcon listIc1;
+	ImageIcon listIc2;
+	ImageIcon listIc3;
 	private JButton btn_List;// 목록으로
 	private JToggleButton btn_liked;//좋아요 버튼
 	private JButton btn_fork;// 다운로드 버튼 
@@ -104,9 +107,18 @@ public class ShareDetail extends JPanel implements Action {
 	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 
 		// 글 목록
-		btn_List = new JButton("글 목록");
+		listIc1 = new ImageIcon("img/sharebbs/share_list_on.png");
+		listIc2 = new ImageIcon("img/sharebbs/share_list_off.png");
+		listIc3 = new ImageIcon("img/sharebbs/share_list_ing.png");
+		btn_List = new JButton(listIc1);
+		btn_List.setRolloverIcon(listIc2);
+		btn_List.setPressedIcon(listIc3);
+		btn_List.setBorderPainted(false);
+		btn_List.setContentAreaFilled(false);
+		btn_List.setFocusPainted(false);
+	
 		btn_List.addActionListener(this);
-		btn_List.setBounds(50, 570, 100, 40);
+		btn_List.setBounds(50, 570, 101, 41);
 		
 		//좋아요버튼
 		ImageIcon liked_Img = new ImageIcon("img/sharebbs/btn_Liked.png");
