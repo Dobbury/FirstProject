@@ -200,7 +200,13 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 				boolean result = s.selfDao.delete(dto.getSeq());
 				if (result) {
 					JOptionPane.showMessageDialog(null, "삭제되었습니다.");
-					selfMain.changePanel(DETAIL, selfMain.list.get(0));
+					list = s.selfDao.getSelfBbsList();
+					if(list.size() > 0) {
+						selfMain.changePanel(DETAIL, list.get(0));
+					}else {
+						selfMain.changePanel(DETAIL, new BBSDto());
+					}
+					selfMain.setList(list);
 				}
 			}
 		}

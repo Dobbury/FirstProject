@@ -123,6 +123,7 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		// 코드 배경
 		ImageIcon bbs_back_Img = new ImageIcon("img/sharebbs/Sharebbs_list_background.png");
 
+
 		JLabel list_backgorund = new JLabel();
 		list_backgorund.setIcon(bbs_back_Img);
 		list_backgorund.setBounds(50, 150, 750, 400);
@@ -180,10 +181,14 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(50);
 		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
 
-		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+		/*DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
-		ShareListTable.getColumn("번호").setCellRenderer(celAlignCenter);
-		ShareListTable.getColumn("작성일").setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(0).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(1).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(2).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(3).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(4).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumn(5).setCellRenderer(celAlignCenter);*/
 
 		ShareListTable.setModel(model);
 	}

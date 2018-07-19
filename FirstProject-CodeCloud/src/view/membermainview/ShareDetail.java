@@ -31,7 +31,9 @@ public class ShareDetail extends JPanel implements Action {
 	JLabel forklab = new JLabel();
 
 	JLabel nickText;// 닉넴 텍스트필드
+	JLabel langText;
 	JLabel titleText;// 제목 텍스트필드
+	
 	
 	JTextArea postArea;
 	JScrollPane jScrol;
@@ -61,7 +63,7 @@ public class ShareDetail extends JPanel implements Action {
 		nickText.setBounds(65, 160, 310, 30);
 		nickText.setText(dto.getNick());
 		
-		//타이틀
+
 		Font titleFont = new Font("굴림",Font.BOLD, 40);
 		titleText = new JLabel();
 		titleText.setFont(titleFont);
@@ -69,6 +71,7 @@ public class ShareDetail extends JPanel implements Action {
 		titleText.setBounds(65, 100, 310, 50);
 		titleText.setText(dto.getTitle());
 		
+
 		JLabel langText = new JLabel(dto.getLang(), SwingConstants.CENTER);
 		langText.setFont(titleFont);
 		langText.setForeground(Color.WHITE);
