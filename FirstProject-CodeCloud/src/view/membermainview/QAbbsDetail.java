@@ -80,14 +80,13 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		postArea.append(dto.getContent());
 		postArea.setOpaque(false);
 		postArea.setEditable(false);
-
+		postArea.setForeground(Color.WHITE);
 
 		// 코드 배경
 		ImageIcon content_back_Img = new ImageIcon("img/QAbbs/QA_content_background.png");
 
 		JLabel content_backgorund = new JLabel();
 		content_backgorund.setIcon(content_back_Img);
-		//이미지 크기 높이 400으로 수정할것
 		content_backgorund.setBounds(50, 200, 750, 350);
 	
 
@@ -96,7 +95,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 		
 		jScrol.setOpaque(false);
 		jScrol.getViewport().setOpaque(false);
-		jScrol.setBounds(50, 150, 750, 400);
+		jScrol.setBounds(50, 200, 750, 350);
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 					
 		jScrol.setBorder(BorderFactory.createCompoundBorder(null,
