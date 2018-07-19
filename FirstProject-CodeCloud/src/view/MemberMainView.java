@@ -140,12 +140,12 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		mainPanel = new JPanel(cards);
 		mainPanel.add("SelfbbsMain", new SelfbbsMain());
 		mainPanel.add("Sharebbs", new Sharebbs());
-		RankThread rank = new RankThread();
-		rank.start();
-
 		mainPanel.add("Q&Abbs", new QAbbsMain());
 		cards.show(mainPanel, "Singlebbs");
-
+		
+		RankThread rank = new RankThread();
+		rank.start();
+		
 		mainPanel.setOpaque(false);
 
 		mainPanel.setBounds(150, 0, 1150, 700);
