@@ -88,7 +88,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		btn_drag.setBorderPainted(false);
 		btn_drag.setContentAreaFilled(false);
 		btn_drag.setFocusPainted(false);
-		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.setBounds(0, 0, 17, 17);
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
 		layeredPane.add(btn_drag);
@@ -117,7 +117,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		btn_Close.setBorderPainted(false);
 		btn_Close.setContentAreaFilled(false);
 		btn_Close.setFocusPainted(false);
-		btn_Close.setBounds(313, 10, 16, 16);
+		btn_Close.setBounds(318, 5, 16, 16);
 		btn_Close.addActionListener(this);
 		layeredPane.add(btn_Close);
 
