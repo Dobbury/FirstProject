@@ -38,6 +38,10 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 	private ImageIcon closeIc2;
 	private ImageIcon closeIc3;
 	private JButton btn_Close;
+	
+	private ImageIcon return1;
+	private ImageIcon return2;
+	private JButton btn_return;
 
 	private JTextField id_text;
 	private JLabel id_check_label;
@@ -95,6 +99,33 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		btn_drag.addMouseListener(this);
 		layeredPane.add(btn_drag);
 
+		// 닫기
+		closeIc1 = new ImageIcon("img/close/close1.png");
+		closeIc2 = new ImageIcon("img/close/close2.png");
+		closeIc3 = new ImageIcon("img/close/close3.png");
+		btn_Close = new JButton(closeIc1);
+		btn_Close.setRolloverIcon(closeIc2);
+		btn_Close.setPressedIcon(closeIc3);
+		btn_Close.setBorderPainted(false);
+		btn_Close.setContentAreaFilled(false);
+		btn_Close.setFocusPainted(false);
+		btn_Close.setBounds(318, 5, 16, 16);
+		btn_Close.addActionListener(this);
+		layeredPane.add(btn_Close);
+		
+		// 뒤로가기
+		return1 = new ImageIcon("img/return/btn_return1.png");
+		return2 = new ImageIcon("img/return/btn_return2.png");
+		btn_return = new JButton(return1);
+		btn_return.setRolloverIcon(return2);
+		btn_return.setPressedIcon(return2);
+		btn_return.setBorderPainted(false);
+		btn_return.setContentAreaFilled(false);
+		btn_return.setFocusPainted(false);
+		btn_return.setBounds(18, 14, 22, 16);
+		btn_return.addActionListener(this);
+		layeredPane.add(btn_return);
+
 		// 회원가입
 		signupIc1 = new ImageIcon("img/signUp/btn_sign1.png");
 		signupIc2 = new ImageIcon("img/signUp/btn_sign2.png");
@@ -109,19 +140,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		btn_Signup.addActionListener(this);
 		layeredPane.add(btn_Signup);
 
-		// 닫기
-		closeIc1 = new ImageIcon("img/close/close1.png");
-		closeIc2 = new ImageIcon("img/close/close2.png");
-		closeIc3 = new ImageIcon("img/close/close3.png");
-		btn_Close = new JButton(closeIc1);
-		btn_Close.setRolloverIcon(closeIc2);
-		btn_Close.setPressedIcon(closeIc3);
-		btn_Close.setBorderPainted(false);
-		btn_Close.setContentAreaFilled(false);
-		btn_Close.setFocusPainted(false);
-		btn_Close.setBounds(318, 5, 16, 16);
-		btn_Close.addActionListener(this);
-		layeredPane.add(btn_Close);
 
 		// 아이디 입력 textField
 		id_text = new JTextField();
@@ -221,6 +239,9 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		}
 		if (e.getSource() == btn_Close) {
 			System.exit(0);
+		}else if(e.getSource() == btn_return) {
+			new LoginView();
+			this.dispose();
 		}
 	}
 
