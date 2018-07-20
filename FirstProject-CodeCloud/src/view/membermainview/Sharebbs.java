@@ -84,14 +84,14 @@ public class Sharebbs extends JPanel {
 
 		Liked.setOpaque(false);
 		Liked.setForeground(Color.WHITE);
-		Liked.setShowGrid(false);
-		Liked.setOpaque(false);
+		//Liked.setShowGrid(false);
+		//Liked.setOpaque(false);
 		((DefaultTableCellRenderer) Liked.getDefaultRenderer(Object.class)).setOpaque(false);
 
 		Fork.setOpaque(false);
 		Fork.setForeground(Color.WHITE);
-		Fork.setShowGrid(false);
-		Fork.setOpaque(false);
+		//Fork.setShowGrid(false);
+		//Fork.setOpaque(false);
 		((DefaultTableCellRenderer) Fork.getDefaultRenderer(Object.class)).setOpaque(false);
 
       
