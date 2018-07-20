@@ -43,12 +43,6 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 	private ImageIcon updateIc3;
 	private JButton btn_Update;
 
-	private ImageIcon closeIc1;
-	private ImageIcon closeIc2;
-	private ImageIcon closeIc3;
-	private JButton btn_Close;
-	
-
 	// 이미지 파일 불러오는 버튼 이미지 나중에 바꿔야함
 	private ImageIcon edit1;
 	private ImageIcon edit2;
@@ -66,11 +60,6 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 	private JPasswordField pwd_text;
 	private JLabel pwd_check_label;
 	private boolean pwd_check;
-
-	private int posX = 0, posY = 0;
-	private ImageIcon drag1;
-	private ImageIcon drag2;
-	private JButton btn_drag;
 
 	BufferedImage img = null;
 	BufferedImage userImg = null;
@@ -108,9 +97,9 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 		// 버튼
 
 		// 회원가입
-		updateIc1 = new ImageIcon("img/memberUpdate/btn_update1.png");
-		updateIc2 = new ImageIcon("img/memberUpdate/btn_update2.png");
-		updateIc3 = new ImageIcon("img/memberUpdate/btn_update3.png");
+		updateIc1 = new ImageIcon("img/memberUpdate/btn_edicpwd1.png");
+		updateIc2 = new ImageIcon("img/memberUpdate/btn_edicpwd2.png");
+		updateIc3 = new ImageIcon("img/memberUpdate/btn_edicpwd3.png");
 		btn_Update = new JButton(updateIc1);
 		btn_Update.setRolloverIcon(updateIc2);
 		btn_Update.setPressedIcon(updateIc3);
@@ -120,20 +109,6 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 		btn_Update.setBounds(20, 484, 296, 51);
 		btn_Update.addActionListener(this);
 		layeredPane.add(btn_Update);
-
-		// 닫기
-		closeIc1 = new ImageIcon("img/close/close1.png");
-		closeIc2 = new ImageIcon("img/close/close2.png");
-		closeIc3 = new ImageIcon("img/close/close3.png");
-		btn_Close = new JButton(closeIc1);
-		btn_Close.setRolloverIcon(closeIc2);
-		btn_Close.setPressedIcon(closeIc3);
-		btn_Close.setBorderPainted(false);
-		btn_Close.setContentAreaFilled(false);
-		btn_Close.setFocusPainted(false);
-		btn_Close.setBounds(318, 5, 16, 16);
-		btn_Close.addActionListener(this);
-		layeredPane.add(btn_Close);
 
 		edit1 = new ImageIcon("img/memberUpdate/btn_edit1.png");
 		edit2 = new ImageIcon("img/memberUpdate/btn_edit2.png");
