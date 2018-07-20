@@ -58,9 +58,23 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 
 	JTextArea codetxt = new JTextArea("");
 
-	JButton editbtn = new JButton("수정");
-	JToggleButton sharebtn = new JToggleButton("공유");
-	JButton deletebtn = new JButton("삭제");
+	// 버튼
+	ImageIcon editIc1;
+	ImageIcon editIc2;
+	ImageIcon editIc3;
+	JButton editbtn;
+
+	// 버튼
+	ImageIcon shareIc1;
+	ImageIcon shareIc2;
+	ImageIcon shareIc3;
+	JToggleButton sharebtn;
+
+	// 버튼
+	ImageIcon deleteIc1;
+	ImageIcon deleteIc2;
+	ImageIcon deleteIc3;
+	JButton deletebtn;
 
 	private JScrollPane jScrPane;
 
@@ -133,17 +147,48 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		right.add(jScrPane);
 		right.add(code_backgorund);
 		
+		
+		editIc1 = new ImageIcon("img/selfbbs/self_edit_on.png");
+		editIc2 = new ImageIcon("img/selfbbs/self_edit_off.png");
+		editIc3 = new ImageIcon("img/selfbbs/self_edit_ing.png");
+		editbtn = new JButton(editIc1);
+		editbtn.setRolloverIcon(editIc2);
+		editbtn.setPressedIcon(editIc3);
+		editbtn.setBorderPainted(false);
+		editbtn.setContentAreaFilled(false);
+		editbtn.setFocusPainted(false);
 		// 공유 수정 삭제
-		editbtn.setBounds(500, 590, 75, 50);
+		editbtn.setBounds(500, 590, 76, 51);
 		editbtn.addActionListener(this);
 		right.add(editbtn);
-		sharebtn.setBounds(600, 590, 75, 50);
+		
+		shareIc1 = new ImageIcon("img/selfbbs/self_share_on.png");
+		shareIc2 = new ImageIcon("img/selfbbs/self_share_off.png");
+		shareIc3 = new ImageIcon("img/selfbbs/self_share_ing.png");
+		sharebtn = new JToggleButton(shareIc1);
+		sharebtn.setRolloverIcon(shareIc2);
+		sharebtn.setPressedIcon(shareIc3);
+		sharebtn.setBorderPainted(false);
+		sharebtn.setContentAreaFilled(false);
+		sharebtn.setFocusPainted(false);
+		
+		sharebtn.setBounds(600, 590, 76, 51);
 
 		if (dto.getShare() == 1) {
 			sharebtn.setSelected(true);
 		}
 
-		deletebtn.setBounds(700, 590, 75, 50);
+		deleteIc1 = new ImageIcon("img/selfbbs/self_delete_on.png");
+		deleteIc2 = new ImageIcon("img/selfbbs/self_delete_off.png");
+		deleteIc3 = new ImageIcon("img/selfbbs/self_delete_ing.png");
+		deletebtn = new JButton(deleteIc1);
+		deletebtn.setRolloverIcon(deleteIc2);
+		deletebtn.setPressedIcon(deleteIc3);
+		deletebtn.setBorderPainted(false);
+		deletebtn.setContentAreaFilled(false);
+		deletebtn.setFocusPainted(false);
+		
+		deletebtn.setBounds(700, 590, 76, 51);
 		deletebtn.addActionListener(this);
 		right.add(deletebtn);
 

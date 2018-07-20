@@ -39,15 +39,20 @@ public class ShareList extends JPanel implements Action, MouseListener {
 
 	String columnNames[] = { "no.", "언어", "제목", "닉네임", "추천" , "다운로드", "indseq"};
 	Object rowData[][];
+	
+	
 	Sharebbs ShareMain; //colorLayout
 
 	List<ShareDto> list;
 	
-	private JButton writeBtn;
 
 	private JComboBox<String> choiceList; // 검색 목록 초이스
 	private JTextField selectField; // 검색 필드
-	private JButton selectBtn;// 검색 버튼
+	
+	ImageIcon searchIc1;
+	ImageIcon searchIc2;
+	ImageIcon searchIc3;
+	private JButton searchBtn;// 검색 버튼
 		
 	public ShareList(Sharebbs sharebbs) {
 		
@@ -145,10 +150,19 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		selectField.setBounds(140, 570, 150, 40);
 		add(selectField);
 
-		selectBtn = new JButton("검색");
-		selectBtn.addActionListener(this);
-		selectBtn.setBounds(300, 570, 100, 40);
-		add(selectBtn);
+		searchIc1 = new ImageIcon("img/sharebbs/share_search_on.png");
+		searchIc2 = new ImageIcon("img/sharebbs/share_search_off.png");
+		searchIc3 = new ImageIcon("img/sharebbs/share_search_ing.png");
+		searchBtn = new JButton(searchIc1);
+		searchBtn.setRolloverIcon(searchIc2);
+		searchBtn.setPressedIcon(searchIc3);
+		searchBtn.setBorderPainted(false);
+		searchBtn.setContentAreaFilled(false);
+		searchBtn.setFocusPainted(false);
+		
+		searchBtn.addActionListener(this);
+		searchBtn.setBounds(300, 570, 101, 41);
+		add(searchBtn);
 
 		setLayout(null);
 		setOpaque(false);
@@ -206,12 +220,8 @@ public class ShareList extends JPanel implements Action, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		// 글쓰기
-		if (obj == writeBtn) {
-			ShareMain.changePanel(2, new ShareDto());
-		}
 		// 검색 버튼
-		else if (obj == selectBtn) {
+		if (obj == searchBtn) {
 			Singleton s = Singleton.getInstance();
 
 			String selectedItem = (String) choiceList.getSelectedItem();
