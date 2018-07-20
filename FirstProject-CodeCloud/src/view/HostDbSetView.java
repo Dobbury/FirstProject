@@ -120,6 +120,7 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		layeredPane.add(btn_Close);
 
 		IP_Text = new JTextField();
+		IP_Text.setCaretColor(Color.WHITE);
 		IP_Text.setText(IP_Hint);
 		IP_Text.setForeground(Color.WHITE);
 		IP_Text.setFont(new Font("menlo", Font.PLAIN, 14));
@@ -261,8 +262,9 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 
 			try {
 				DBCheck.memDBcheck();
+
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
+
 				e1.printStackTrace();
 			}
 			DBCheck.shareDBCheck();

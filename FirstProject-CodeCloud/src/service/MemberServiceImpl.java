@@ -11,5 +11,5 @@ public interface MemberServiceImpl {
 	public boolean getNick(String nick);
 	public boolean update(MemberDto dto);
 	public List<MemberDto> getbbsList();
-	public MemberDto search(String id);
+	public List<MemberDto> search(String txt, String choice);
 }

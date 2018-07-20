@@ -36,8 +36,8 @@ public class MemberController {
 		return mService.getId(id);
 
 	}
-	public MemberDto memSearch(String id) {
-		return mService.search(id);
+	public List<MemberDto> memSearch(String txt, String choice) {
+		return mService.search(txt, choice);
 	}
 	public boolean getNick(String nick) {
 		return mService.getNick(nick);

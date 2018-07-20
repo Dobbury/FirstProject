@@ -13,7 +13,7 @@ import Encrypt.PasswordClass;
 
 public class DBCheck {
 
-	public static void memDBcheck() {
+	public static void memDBcheck() throws FileNotFoundException, SQLException {
 		String sql = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='HR' AND TABLE_NAME='MEMBER'";
 		String sql2 = "SELECT ID FROM MEMBER WHERE ID='admin'";
 
@@ -21,6 +21,11 @@ public class DBCheck {
 		PreparedStatement psmt = null;
 
 		ResultSet rs = null;
+		
+		String path = "img/signUp/userImages.png";
+		File imgfile = new File(path);
+		FileInputStream fis = new FileInputStream(imgfile);
+		
 
 		try {
 			conn = DBConnection.makeConnection();
@@ -37,18 +42,18 @@ public class DBCheck {
 			System.out.println(sql2);
 			rs = psmt.executeQuery();
 			if (!rs.next()) { // 테이블이 없다면 생성
+
 				sql2 = "INSERT INTO MEMBER VALUES('admin', ?, '관리자', 0, ?)";
 				psmt = conn.prepareStatement(sql2);
 				psmt.setString(1, PasswordClass.Encryption("admin"));
 
-				String path = "img/signUp/userImages.png";
-				File imgfile = new File(path);
-				FileInputStream fis = new FileInputStream(imgfile);
+
 
 				psmt.setBinaryStream(2, fis, (int) imgfile.length());
 				psmt.executeQuery();
 			}
 		} catch (Exception e) {
+
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);

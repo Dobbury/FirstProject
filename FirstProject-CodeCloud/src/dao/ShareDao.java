@@ -185,18 +185,30 @@ public class ShareDao {
 	}
 
 	// 삭제
-	public int delete(int seq) {
-		String sql = " DELETE SHAR " + "WHERE seq=" + seq;
+	public int delete(ShareDto dto) {
+		String sql = " DELETE SHAR " + "WHERE seq=" + dto.getSeq();
+		
+		String sql2 = "SELECT ID FROM MEMBER WHERE NICK=" + dto.getNick();
+		
+		
+		
 
 		Connection conn = DBConnection.makeConnection();
 		Statement stmt = null;
+		ResultSet rs = null;
 
 		int count = 0;
 
-		System.out.println(sql);
 		try {
 			stmt = conn.createStatement();
 			count = stmt.executeUpdate(sql);
+			
+			rs = stmt.executeQuery(sql2);
+			rs.next();
+			String id = rs.getString(1);
+			
+			String sql3 = "UPDATE " + id +  " SET SHA=0 WHERE SEQ=" + dto.getIndseq();
+			stmt.executeQuery(sql3);
 
 		} catch (SQLException e) {
 
