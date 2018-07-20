@@ -167,6 +167,7 @@ public class ShareDao {
 				dto = new ShareDto();
 
 				dto.setSeq(rs.getInt("seq"));
+				dto.setIndseq(rs.getInt("indseq"));
 				dto.setNick(rs.getString("nick"));
 				dto.setLang(rs.getString("lan"));
 				dto.setTitle(rs.getString("title"));
@@ -188,13 +189,14 @@ public class ShareDao {
 	public int delete(ShareDto dto) {
 		String sql = " DELETE SHAR " + "WHERE seq=" + dto.getSeq();
 		
-		String sql2 = "SELECT ID FROM MEMBER WHERE NICK=" + dto.getNick();
+		String sql2 = "SELECT ID FROM MEMBER WHERE NICK=?";
 		
 		
 		
 
 		Connection conn = DBConnection.makeConnection();
 		Statement stmt = null;
+		PreparedStatement psmt = null;
 		ResultSet rs = null;
 
 		int count = 0;
@@ -203,7 +205,10 @@ public class ShareDao {
 			stmt = conn.createStatement();
 			count = stmt.executeUpdate(sql);
 			
-			rs = stmt.executeQuery(sql2);
+			
+			psmt = conn.prepareStatement(sql2);
+			psmt.setString(1, dto.getNick());
+			rs = psmt.executeQuery();
 			rs.next();
 			String id = rs.getString(1);
 			
