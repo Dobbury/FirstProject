@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -15,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -26,9 +29,9 @@ import dto.QAbbsDto;
 import singleton.Singleton;
 import textlimit.JTextFieldLimit;
 
-public class QAbbsWrite extends JPanel implements WindowListener, ActionListener {
+public class QAbbsWrite extends JPanel implements WindowListener, ActionListener,FocusListener {
 
-	JLabel titleText;
+	JTextField titleText;
 	JTextArea postArea;
 
 	JScrollPane jScrol;
@@ -53,6 +56,8 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 	int state;
 
+	String title_Hint = "제목을 입력해 주세요";
+	
 	public QAbbsWrite(QAbbsMain QA, QAbbsDto dto,int state) {
 		setOpaque(false);
 		QAmain = QA;
@@ -62,18 +67,26 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 		//타이틀
 		Font titleFont = new Font("굴림",Font.BOLD, 40);
-		titleText = new JLabel();
+		titleText = new JTextField();
 		titleText.setFont(titleFont);
 		titleText.setForeground(Color.WHITE);
-		titleText.setBounds(65, 100, 310, 50);
-		titleText.setText(dto.getTitle());		
+		titleText.setOpaque(false);
+		titleText.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+		titleText.setBounds(65, 100, 750, 50);
+			
+		if(dto.getTitle().equals(""))
+			titleText.setText(title_Hint);
+		else
+			titleText.setText(dto.getTitle());
+		titleText.addFocusListener(this);
 		
-		
+		Font contentFont = new Font("굴림", Font.BOLD, 20);
+
 		//컨텐츠
 		postArea = new JTextArea();
 		postArea.append(dto.getContent());
+		postArea.setFont(contentFont);
 		postArea.setOpaque(false);
-		postArea.setEditable(false);
 		postArea.setForeground(Color.WHITE);
 
 		// 코드 배경
@@ -93,8 +106,8 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 
 		jScrol.setBorder(BorderFactory.createCompoundBorder(null,
 	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+		
 		// 입력 버튼
-
 		commitIc1 = new ImageIcon("img/QAbbs/QA_save_on.png");
 		commitIc2 = new ImageIcon("img/QAbbs/QA_save_off.png");
 		commitIc3 = new ImageIcon("img/QAbbs/QA_save_ing.png");
@@ -140,24 +153,32 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 			Singleton s = Singleton.getInstance();
 			
 			if (state == UPDATE) {
+				if (titleText.getText().equals(title_Hint) ||titleText.getText().equals("") || postArea.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "제목 내용을 입력하세요");
+					return;
+				}
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
 				s.qaDao.update(dto);
 
-				QAmain.changePanel(1, new QAbbsDto(),UPDATE);
+				QAmain.changePanel(LIST, new QAbbsDto());
 
 			} else if (state == INSERT) {
+				if (titleText.getText().equals(title_Hint) ||titleText.getText().equals("") || postArea.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "제목 내용을 입력하세요");
+					return;
+				}
 				dto.setNick(s.nowMember.getNick());			
 				dto.setTitle(titleText.getText());
 				dto.setContent(postArea.getText());
 				dto.setDel(0); // 0이 삭제 되지 않은 게시글 , 1이 삭제된 게시글
 				s.qaDao.insert(dto);
 
-				QAmain.changePanel(1, new QAbbsDto(),INSERT);
+				QAmain.changePanel(LIST, new QAbbsDto());
 
 			}
 		} else if (e.getSource() == btn_Cancle) {// 취소
-			QAmain.changePanel(1, new QAbbsDto(),INSERT);
+			QAmain.changePanel(LIST, new QAbbsDto());
 		}
 	}
 
@@ -200,6 +221,27 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == titleText) {
+			if (titleText.getText().equals(title_Hint))
+				titleText.setText("");
+			titleText.setForeground(Color.white);
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == titleText) {
+			if (titleText.getText().length() == 0) {
+				titleText.setText(title_Hint);
+				titleText.setForeground(Color.WHITE);
+			}
+		}
 	}
 
 }

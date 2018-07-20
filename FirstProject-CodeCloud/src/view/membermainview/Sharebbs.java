@@ -3,6 +3,8 @@ package view.membermainview;
 import java.awt.CardLayout;
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -22,11 +24,20 @@ public class Sharebbs extends JPanel {
 	static String Fcolum[] = { "순위", "제목", "포크수" };
 
 	Object LrowData[][], FrowData[][];
-
+	JLabel logo;
+	
 	public Sharebbs() {
 		setLayout(null);
 		setOpaque(false);
 		setBounds(0, 0, 1100, 700);
+
+		// 코드 배경
+		ImageIcon logo_Img = new ImageIcon("img/sharebbs/share_logo.png");
+
+		logo = new JLabel();
+		logo.setIcon(logo_Img);
+		logo.setBounds(50, 40, 294, 70);
+		add(logo);
 
 		mainPanel = new JPanel(cards);
 		mainPanel.setOpaque(false);
@@ -130,9 +141,11 @@ public class Sharebbs extends JPanel {
 
       if (i == 1) {
          mainPanel.add("ShareList", new ShareList(this));
+         logo.setVisible(true);
          cards.show(mainPanel, "ShareList");
       } else if (i == 2) {
          mainPanel.add("ShareDetail", new ShareDetail(this, shareDto));
+         logo.setVisible(false);
          cards.show(mainPanel, "ShareDetail");
  
       }

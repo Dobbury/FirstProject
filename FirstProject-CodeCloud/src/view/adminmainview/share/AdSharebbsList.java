@@ -40,7 +40,11 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 
 	private JComboBox<String> choiceList; // 검색 목록 초이스
 	private JTextField selectField; // 검색 필드
-	private JButton selectBtn;// 검색 버튼
+	
+	ImageIcon searchIc1;
+	ImageIcon searchIc2;
+	ImageIcon searchIc3;
+	private JButton searchBtn;// 검색 버튼
 
 	DefaultTableModel model; // 테이블의 넓이 설정
 
@@ -81,16 +85,19 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		selectField.setBounds(140, 570, 150, 40);
 		add(selectField);
 
+		searchIc1 = new ImageIcon("img/adminMain/share/share_search_on.png");
+		searchIc2 = new ImageIcon("img/adminMain/share/share_search_off.png");
+		searchIc3 = new ImageIcon("img/adminMain/share/share_search_ing.png");
+		searchBtn = new JButton(searchIc1);
+		searchBtn.setRolloverIcon(searchIc2);
+		searchBtn.setPressedIcon(searchIc3);
+		searchBtn.setBorderPainted(false);
+		searchBtn.setContentAreaFilled(false);
+		searchBtn.setFocusPainted(false);
 		
-		
-		
-		
-
-		
-		selectBtn = new JButton("검색");
-		selectBtn.addActionListener(this);
-		selectBtn.setBounds(300, 570, 100, 40);
-		add(selectBtn);
+		searchBtn.addActionListener(this);
+		searchBtn.setBounds(300, 570, 101, 41);
+		add(searchBtn);
 
 		model = new DefaultTableModel(columnNames, 0);
 		model.setDataVector(rowData, columnNames);
@@ -130,7 +137,6 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		// 테두리 없애기
 		jScrPane.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 
-		
 		jScrPane.setBounds(50, 205, 800, 340);
 		add(jScrPane);
 
@@ -169,7 +175,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == selectBtn) { // 검색버튼으로 디테일뷰 테스트
+		if (e.getSource() == searchBtn) { // 검색버튼으로 디테일뷰 테스트
 			Singleton s = Singleton.getInstance();
 			String selectedItem = (String) choiceList.getSelectedItem();
 			list = s.sharDao.getTitleFindList(selectField.getText(),selectedItem.toString());
@@ -204,6 +210,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+		celAlignCenter.setOpaque(false);
 		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50); // 번호
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter); 

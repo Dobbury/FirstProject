@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import dao.ShareDao;
 import dto.QAbbsDto;
@@ -61,6 +62,8 @@ public class ShareList extends JPanel implements Action, MouseListener {
 	public ShareList(Sharebbs sharebbs) {
 		
 		ShareMain=sharebbs;
+		
+		
 		Singleton s = Singleton.getInstance();
 		list = ShareDao.getbbsList();
 		
@@ -95,7 +98,8 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		celAlignCenter.setOpaque(false);
-
+		TableCellRenderer ren = ShareListTable.getCellRenderer(2,2);
+		
 		// 컬럼의 넓이 설정 //가 되고있지않음
 		ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		ShareListTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);

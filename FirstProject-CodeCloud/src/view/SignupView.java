@@ -135,9 +135,9 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		layeredPane.add(id_text);
 
 		// 아이디 체크 라벨
-		id_check_label = new JLabel("test");
+		id_check_label = new JLabel();
 
-		id_check_label.setBounds(92, 316, 300, 30);
+		id_check_label.setBounds(30, 316, 300, 30);
 		layeredPane.add(id_check_label);
 
 		// pwd 입력
@@ -151,8 +151,8 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		layeredPane.add(pwd_text);
 
 		// pwd 확인
-		pwd_check_label = new JLabel("test");
-		pwd_check_label.setBounds(92, 387, 300, 30);
+		pwd_check_label = new JLabel();
+		pwd_check_label.setBounds(30, 387, 300, 30);
 		layeredPane.add(pwd_check_label);
 
 		// 닉네임 입력
@@ -167,8 +167,8 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		layeredPane.add(nick_text);
 
 		// 닉네임 확인
-		nick_check_label = new JLabel("test");
-		nick_check_label.setBounds(92, 458, 300, 30);
+		nick_check_label = new JLabel();
+		nick_check_label.setBounds(30, 458, 300, 30);
 		layeredPane.add(nick_check_label);
 
 		// 기본 설정
@@ -266,9 +266,14 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 				id_check = false;
 			} else {
 				String id = id_text.getText();
-
+				if(!(id.charAt(0) >= 97 && id.charAt(0) <= 122)) {
+					id_check_label.setText("첫글자는 소문자만 사용 가능합니다.");
+					id_check_label.setForeground(Color.RED);
+					id_check = false;
+					return;
+				}
 				for (int i = 0; i < id.length(); i++) {
-
+					
 					if (!(id.charAt(i) >= 97 && id.charAt(i) <= 122) && // 소문자가 아닐때 그리고
 							!(id.charAt(i) >= 48 && id.charAt(i) <= 57) && // 숫자가 아닐때 그리고
 							id.charAt(i) != 45 && id.charAt(i) != 95) { // -나 _가 아닐때

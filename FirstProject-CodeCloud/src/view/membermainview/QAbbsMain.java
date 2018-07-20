@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -33,6 +34,8 @@ public class QAbbsMain extends JPanel {
 
 	final int DETAIL = -2;
 	final int LIST = -1;
+	final int INSERT = 0;
+	final int UPDATE = 1;
 
 	private static JTable Liked,Fork;
     
@@ -46,13 +49,22 @@ public class QAbbsMain extends JPanel {
     
     Object LrowData[][],  FrowData[][];     
    
-    
-
+    JLabel logo;
+	
 
 	public QAbbsMain() {
 		setLayout(null);
 		setOpaque(false);
 		setBounds(0, 0, 1100, 700);
+		
+		// 코드 배경
+		ImageIcon logo_Img = new ImageIcon("img/QAbbs/QA_logo.png");
+
+		logo = new JLabel();
+		logo.setIcon(logo_Img);
+		logo.setBounds(50, 40, 350, 69);
+		add(logo);
+
 		mainPanel = new JPanel(cards);
 
 		mainPanel.add("QAbbsList", new QAbbsList(this));
@@ -122,17 +134,24 @@ public class QAbbsMain extends JPanel {
 		setVisible(true);
 	}
 
-	public void changePanel(int select, QAbbsDto dto, int state) {
-		if (select == 1) {
+	public void changePanel(int state, QAbbsDto dto) {
+		if (state == LIST) {
 			mainPanel.add("QAbbsList", new QAbbsList(this));
+			logo.setVisible(true);
 			cards.show(mainPanel, "QAbbsList");
 			
-		} else if (select == 2) {
+		} else if (state == DETAIL) {
 			mainPanel.add("QAbbsDetail", new QAbbsDetail(this, dto));
+			logo.setVisible(false);
 			cards.show(mainPanel, "QAbbsDetail");
 
-		} else if (select == 3) {
+		} else if (state == UPDATE) {
 			mainPanel.add("QAbbsWrite", new QAbbsWrite(this, dto, state));
+			logo.setVisible(false);
+			cards.show(mainPanel, "QAbbsWrite");
+		} else if (state == INSERT) {
+			mainPanel.add("QAbbsWrite", new QAbbsWrite(this, dto, state));
+			logo.setVisible(false);
 			cards.show(mainPanel, "QAbbsWrite");
 		}
 	}

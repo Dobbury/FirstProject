@@ -279,7 +279,7 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 			Tbtn_SQL.setIcon(sqlIc1);
 		}
 		if (obj == savebtn) {
-			if (titletxt.getText().equals("") || codetxt.getText().equals("") || langTogglebtnGroup.getSelection() == null) {
+			if (titletxt.getText().equals(title_Hint) ||titletxt.getText().equals("") || codetxt.getText().equals("") || langTogglebtnGroup.getSelection() == null) {
 				JOptionPane.showMessageDialog(null, "제목 내용을 입력하시고, 언어를 선택하세요");
 				return;
 			}

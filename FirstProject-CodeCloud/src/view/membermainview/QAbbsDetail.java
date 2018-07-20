@@ -113,7 +113,6 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 
 		// 글 목록
-
 		listIc1 = new ImageIcon("img/QAbbs/QA_list_on.png");
 		listIc2 = new ImageIcon("img/QAbbs/QA_list_off.png");
 		listIc3 = new ImageIcon("img/QAbbs/QA_list_ing.png");
@@ -177,7 +176,7 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 				} else {
 					JOptionPane.showMessageDialog(null, "글이 삭제되지 않았습니다");
 				}
-				QAmain.changePanel(1, new QAbbsDto(), LIST);
+				QAmain.changePanel(LIST, new QAbbsDto());
 			}
 		});
 
@@ -243,10 +242,10 @@ public class QAbbsDetail extends JPanel implements ActionListener, WindowListene
 
 		// TODO Auto-generated method stub
 		if (e.getSource() == btn_List) {
-			QAmain.changePanel(1, new QAbbsDto(), LIST);
+			QAmain.changePanel(LIST, new QAbbsDto());
 
 		} else if (e.getSource() == btn_Update) {
-			QAmain.changePanel(3, dto, UPDATE);
+			QAmain.changePanel(UPDATE, dto);
 
 		}
 	}
