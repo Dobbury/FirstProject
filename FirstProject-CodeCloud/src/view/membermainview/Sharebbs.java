@@ -19,9 +19,9 @@ public class Sharebbs extends JPanel {
 
 	private static JTable Liked, Fork;
 
-	static String Lcolum[] = { "순위", "제목", "추천수" };
+	static String Lcolum[] = {"제목", "추천수" };
 
-	static String Fcolum[] = { "순위", "제목", "포크수" };
+	static String Fcolum[] = {"제목", "포크수" };
 
 	Object LrowData[][], FrowData[][];
 	JLabel logo;
@@ -69,37 +69,61 @@ public class Sharebbs extends JPanel {
 			}
 		};
 
-		Liked.getColumnModel().getColumn(0).setMaxWidth(40);
-		Liked.getColumnModel().getColumn(1).setMaxWidth(100);
-		Liked.getColumnModel().getColumn(2).setMaxWidth(40);
 
-		Fork.getColumnModel().getColumn(0).setMaxWidth(40);
-		Fork.getColumnModel().getColumn(1).setMaxWidth(100);
-		Fork.getColumnModel().getColumn(2).setMaxWidth(40);
+		Liked.getColumnModel().getColumn(0).setMaxWidth(100);
+		Liked.getColumnModel().getColumn(1).setMaxWidth(40);
 
-		Liked.setBounds(10, 50, 180, 270);
-		Fork.setBounds(10, 370, 180, 270);
-		Liked.setRowHeight(45);
-		Fork.setRowHeight(45);
+
+		Fork.getColumnModel().getColumn(0).setMaxWidth(100);
+		Fork.getColumnModel().getColumn(1).setMaxWidth(40);
+
+		Liked.setBounds(55, 88, 140, 270);
+		Fork.setBounds(55, 438, 140, 270);
+		Liked.setRowHeight(40);
+		Fork.setRowHeight(40);
+
+		// 코드 배경
+		ImageIcon Lrank = new ImageIcon("img/sharebbs/rank.png");
+
+		JLabel rankL = new JLabel();
+		rankL.setIcon(Lrank);
+		rankL.setBounds(10, 50, 180, 270);
+
+		// 코드 배경
+		ImageIcon Frank = new ImageIcon("img/sharebbs/rank.png");
+
+		JLabel rankF = new JLabel();
+		rankF.setIcon(Frank);
+		rankF.setBounds(10, 400, 180, 270);
 
 		Liked.setOpaque(false);
 		Liked.setForeground(Color.WHITE);
-		//Liked.setShowGrid(false);
-		//Liked.setOpaque(false);
+		Liked.setShowGrid(false);
+		Liked.setOpaque(false);
 		((DefaultTableCellRenderer) Liked.getDefaultRenderer(Object.class)).setOpaque(false);
 
 		Fork.setOpaque(false);
 		Fork.setForeground(Color.WHITE);
-		//Fork.setShowGrid(false);
-		//Fork.setOpaque(false);
+		Fork.setShowGrid(false);
+		Fork.setOpaque(false);
 		((DefaultTableCellRenderer) Fork.getDefaultRenderer(Object.class)).setOpaque(false);
 
+		// 코드 배경
+		ImageIcon Like_top5 = new ImageIcon("img/sharebbs/like_top5.png");
+
+		JLabel Like_top5_L = new JLabel();
+		Like_top5_L.setIcon(Like_top5);
+		Like_top5_L.setBounds(10, 33, 180, 50);
       
+		
       
        endOfRightPanel.setBounds(900,0,300,700);
        endOfRightPanel.setOpaque(false);
-       endOfRightPanel.add(Liked);     
+       endOfRightPanel.add(Liked); 
        endOfRightPanel.add(Fork);
+       endOfRightPanel.add(rankL);
+       endOfRightPanel.add(rankF);
+       endOfRightPanel.add(Like_top5_L);
       
       
 
@@ -118,23 +142,21 @@ public class Sharebbs extends JPanel {
 	   //추천순 포크순 테이블 만들기
 	      DefaultTableModel modellike = new DefaultTableModel(LList, Lcolum);
 	      DefaultTableModel modelfork = new DefaultTableModel(FList, Fcolum);
-
+	   
 	      Liked.setModel(modellike);
 	      Fork.setModel(modelfork);
 	      
-	      Liked.getColumnModel().getColumn(0).setMaxWidth(40);
-	      Liked.getColumnModel().getColumn(1).setMaxWidth(100);
-	      Liked.getColumnModel().getColumn(2).setMaxWidth(40);
+	      Liked.getColumnModel().getColumn(0).setMaxWidth(100);
+	      Liked.getColumnModel().getColumn(1).setMaxWidth(40);
 	      
-	      Fork.getColumnModel().getColumn(0).setMaxWidth(40);
-	      Fork.getColumnModel().getColumn(1).setMaxWidth(100);
-	      Fork.getColumnModel().getColumn(2).setMaxWidth(40);
+	      Fork.getColumnModel().getColumn(0).setMaxWidth(100);
+	      Fork.getColumnModel().getColumn(1).setMaxWidth(40);
 	      
-	      Liked.setBounds(10,50,180,270);
-	      Fork.setBounds(10,370,180,270);
-	      Liked.setRowHeight(45);
-	      Fork.setRowHeight(45);
-
+	      Liked.setBounds(55,88,140,270);
+	      Fork.setBounds(55,438,140,270);
+	      Liked.setRowHeight(40);
+	      Fork.setRowHeight(40);
+	      
 
    }
    public void changePanel(int i, ShareDto shareDto) {

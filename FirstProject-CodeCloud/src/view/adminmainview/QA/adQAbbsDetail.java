@@ -132,7 +132,7 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		btn_comment.setContentAreaFilled(false);
 		btn_comment.setFocusPainted(false);
 		btn_comment.addActionListener(this);
-		btn_comment.setBounds(50, 570, 101, 41);
+		btn_comment.setBounds(400, 570, 101, 41);
 
 		// 글 목록
 		listIc1 = new ImageIcon("img/adminMain/QA/QA_list_on.png");
@@ -145,8 +145,8 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		btn_List.setContentAreaFilled(false);
 		btn_List.setFocusPainted(false);
 		btn_List.addActionListener(this);
-		btn_List.setBounds(400, 570, 101, 41);
-
+		btn_List.setBounds(50, 570, 101, 41);
+		
 		//삭제
 		deleteIc1 = new ImageIcon("img/adminMain/QA/QA_delete_on.png");
 		deleteIc2 = new ImageIcon("img/adminMain/QA/QA_delete_off.png");
