@@ -90,5 +90,9 @@ public class MemberController {
 	public List<MemberDto> getbbsList(){
 		return mService.getbbsList();
 	}
+	
+	public int deleteMember(MemberDto dto) {
+		return mService.deleteMem(dto);
+	}
 
 }

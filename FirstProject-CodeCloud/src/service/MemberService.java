@@ -31,4 +31,8 @@ public class MemberService implements MemberServiceImpl {
 	public List<MemberDto> search(String txt, String choice) {
 		return dao.search(txt, choice);
 	}
+
+	public int deleteMem(MemberDto dto) {
+		return dao.delete(dto);
+	}
 }

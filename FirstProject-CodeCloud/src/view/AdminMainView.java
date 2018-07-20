@@ -112,7 +112,7 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 
 		mainPanel = new JPanel(cards);
 
-		mainPanel.add("Memberbbs", new adMemberbbsMain());
+		mainPanel.add("Memberbbs", new adMemberbbsMain(this));
 		mainPanel.add("AdminSharebbs", new AdminSharebbs());
 		//mainPanel.add("Q&Abbs", adQAMain);
 		mainPanel.add("Q&Abbs",new adQAbbsMain());
@@ -290,7 +290,7 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 
 	public void changePanel(int select) {
 		if (select == 1) {
-			mainPanel.add("Memberbbs", new adMemberbbsMain());
+			mainPanel.add("Memberbbs", new adMemberbbsMain(this));
 			cards.show(mainPanel, "Memberbbs");
 		} else if (select == 2) {
 			mainPanel.add("AdminSharebbs", new AdminSharebbs());

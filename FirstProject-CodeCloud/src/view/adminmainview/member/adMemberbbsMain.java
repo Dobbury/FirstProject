@@ -35,6 +35,7 @@ import dto.MemberDto;
 import dto.QAbbsDto;
 import oracle.net.aso.s;
 import singleton.Singleton;
+import view.AdminMainView;
 import view.membermainview.QAbbsList;
 
 public class adMemberbbsMain extends JPanel implements ActionListener,MouseListener {
@@ -67,11 +68,13 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 	ImageIcon searchIc3;
 	
 	private JButton searchBtn;
+	AdminMainView main;
 
-	public adMemberbbsMain() {
+	public adMemberbbsMain(AdminMainView mainview) {
 		setLayout(null);
 		setBounds(0, 0, 1000, 700);
 		setOpaque(false);
+		main = mainview;
 		
 		String[] selects = new String[] { "전체보기", "아이디", "닉네임"};
 		choiceList = new JComboBox<>(selects);
@@ -206,7 +209,9 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 		} else if (state == UPDATE) {
 			mainPanel.add("adMemberbbsUpdate", new adMemberbbsUpdate(this, dto));
 			cards.show(mainPanel, "adMemberbbsUpdate");
-		} 
+		} else if (state == LIST) {
+			main.changePanel(1);
+		}
 	}
 
 	@Override

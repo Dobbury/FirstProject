@@ -20,4 +20,6 @@ public interface MemberDaoImpl {
 	public boolean getNick(String nick);
 
 	public List<MemberDto> search(String id, String choice);
+
+	public int delete(MemberDto dto);
 }

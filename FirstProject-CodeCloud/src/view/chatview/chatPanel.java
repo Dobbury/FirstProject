@@ -1,6 +1,7 @@
 package view.chatview;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,12 +31,25 @@ public class chatPanel extends JPanel implements ActionListener {
 	public chatPanel() {
 
 		Singleton s = Singleton.getInstance();
-
+		
+		
 		nickName = s.nowMember.getNick();
-
+		
+		//채팅판 투명화, 커서 흰색, 텍스트에리어 수정불가
+		jta.setOpaque(false);
+		jta.setEditable(false);
+		jta.setCaretColor(Color.WHITE);
+		jta.setForeground(Color.WHITE);
+		jtf.setOpaque(false);
+		jtf.setCaretColor(Color.WHITE);
+		jtf.setForeground(Color.WHITE);
+		
+		
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		scrl = new JScrollPane(jta, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		scrl.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+		scrl.setOpaque(false);
+		scrl.getViewport().setOpaque(false);
 					
 		add(scrl, BorderLayout.CENTER);
 

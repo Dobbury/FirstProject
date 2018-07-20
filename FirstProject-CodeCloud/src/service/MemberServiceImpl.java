@@ -12,4 +12,5 @@ public interface MemberServiceImpl {
 	public boolean update(MemberDto dto);
 	public List<MemberDto> getbbsList();
 	public List<MemberDto> search(String txt, String choice);
+	public int deleteMem(MemberDto dto);
 }
