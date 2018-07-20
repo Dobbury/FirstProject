@@ -28,7 +28,7 @@ public class MemberService implements MemberServiceImpl {
 	public boolean update(MemberDto dto) {
 		return dao.update(dto);
 	}
-	public MemberDto search(String id) {
-		return dao.search(id);
+	public List<MemberDto> search(String txt, String choice) {
+		return dao.search(txt, choice);
 	}
 }

@@ -171,25 +171,13 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == selectBtn) { // 검색버튼으로 디테일뷰 테스트
 			Singleton s = Singleton.getInstance();
-<<<<<<< HEAD
-			if(choiceList.equals("전체보기")) {
-				list = s.sharDao.getbbsList();
-			}
-			else {
-				list = s.sharDao.getTitleFindList(selectField.getText(), choiceList.getSelectedItem().toString());
-			}
-			
-			
-			if (list.size() == 0) {
-				JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
-=======
+
 			String selectedItem = (String) choiceList.getSelectedItem();
 			list = s.sharDao.getTitleFindList(selectField.getText(),selectedItem.toString());
 			
 			if (list.size() == 0 || selectField.getText().equals("")) {
 				if(!selectedItem.equals("전체보기"))
 					JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
->>>>>>> 078892c1be9efdf2a40b74729279f5722effa82b
 
 				list = s.sharDao.getbbsList(); // 만약 데이터가 없으면 초기화함
 			}
