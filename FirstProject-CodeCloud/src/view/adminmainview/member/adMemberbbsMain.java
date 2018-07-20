@@ -182,17 +182,25 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 			jTable.setModel(model);
 			
 			// 컬럼의 넓이 설정
-			jTable.getColumnModel().getColumn(0).setMaxWidth(50);
-			jTable.getColumnModel().getColumn(1).setMaxWidth(500);
-			jTable.getColumnModel().getColumn(2).setMaxWidth(200);
-			jTable.getColumnModel().getColumn(3).setMaxWidth(300);
+			jTable.getColumnModel().getColumn(0).setMaxWidth(130);
+			jTable.getColumnModel().getColumn(1).setMaxWidth(130);
+			jTable.getColumnModel().getColumn(2).setMaxWidth(100);
 
 			// 테이블안에 컬럼을 위치설정
 			DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 			celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+			celAlignCenter.setOpaque(false);
 			jTable.getColumn("ID").setCellRenderer(celAlignCenter);
 			jTable.getColumn("닉네임").setCellRenderer(celAlignCenter);
-			jTable.getColumn("회원등급").setCellRenderer(celAlignCenter);			
+			jTable.getColumn("회원 등급").setCellRenderer(celAlignCenter);
+			
+			jTable.setOpaque(false);
+			jTable.setForeground(Color.WHITE);
+			jTable.setTableHeader(null);
+			jTable.setShowGrid(false);
+			jTable.setRowHeight(25);
+			Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+			jTable.setFont(tableFont);		
 			
 	}
 	@Override

@@ -253,7 +253,7 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		btn_Close.setBorderPainted(false);
 		btn_Close.setContentAreaFilled(false);
 		btn_Close.setFocusPainted(false);
-		btn_Close.setBounds(1279, 5, 16, 16);
+		btn_Close.setBounds(1079, 5, 16, 16);
 		btn_Close.addActionListener(this);
 		
 		
@@ -315,10 +315,12 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 
 		} else if (e.getSource() == btn_Chat) {
 			if (chat) {
+				btn_Close.setBounds(1079, 5, 16, 16);
 				setBounds(50, 50, 1100, 700);
 				chat = false;
 
 			} else {
+				btn_Close.setBounds(1379, 5, 16, 16);
 				setBounds(50, 50, 1400, 700);
 				chat = true;
 
