@@ -176,6 +176,7 @@ public class SelfbbsMain extends JPanel implements ActionListener, MouseListener
 		JLabel search_back = new JLabel(search_img);
 		search_back.setBounds(0, 635, 300, 65);
 		
+		
 		searchbox.setBounds(0, 635, 300, 25);
 		searchbox.setOpaque(false);
 		searchbox.setFocusable(false);
@@ -186,7 +187,8 @@ public class SelfbbsMain extends JPanel implements ActionListener, MouseListener
 					boolean cellHasFocus) {
 				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
 						cellHasFocus);
-				result.setOpaque(true);
+				result.setOpaque(false);
+				
 				return result;
 			}
 		});

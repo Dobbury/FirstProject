@@ -230,6 +230,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
 						cellHasFocus);
 				result.setOpaque(false);
+				result.setForeground(Color.black);
 				return result;
 			}
 		});
