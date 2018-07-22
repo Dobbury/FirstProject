@@ -179,13 +179,17 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 			Singleton s = Singleton.getInstance();
 
 			String selectedItem = (String) choiceList.getSelectedItem();
-			list = s.sharDao.getTitleFindList(selectField.getText(),selectedItem.toString());
 			
-			if (list.size() == 0 || selectField.getText().equals("")) {
-				if(!selectedItem.equals("전체보기"))
+			if (selectedItem.toString().equals("전체보기")){
+				list = s.sharDao.getbbsList();
+			}
+			else {
+				list = s.sharDao.getTitleFindList(selectField.getText(), selectedItem.toString());
+				if (list.size() == 0) {
 					JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
 
-				list = s.sharDao.getbbsList(); // 만약 데이터가 없으면 초기화함
+					list = s.sharDao.getbbsList(); // 만약 데이터가 없으면 초기화함
+				}
 			}
 			setList(list);
 		}
@@ -215,12 +219,12 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50); // 번호
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter); 
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500); // 제목
+		jTable.getColumnModel().getColumn(1).setMaxWidth(480); // 제목
 		jTable.getColumnModel().getColumn(2).setMaxWidth(50); // 언어
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(50); // 추천
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(4).setMaxWidth(50); // 포크
+		jTable.getColumnModel().getColumn(4).setMaxWidth(70); // 포크
 		jTable.getColumnModel().getColumn(4).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(5).setMaxWidth(100); // 닉네임
 		jTable.getColumnModel().getColumn(5).setCellRenderer(celAlignCenter);
