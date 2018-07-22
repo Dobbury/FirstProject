@@ -42,6 +42,11 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 	private ImageIcon updateIc2;
 	private ImageIcon updateIc3;
 	private JButton btn_Update;
+	
+	private ImageIcon deleteIc1;
+	private ImageIcon deleteIc2;
+	private ImageIcon deleteIc3;
+	private JButton btn_Delete;
 
 	// 이미지 파일 불러오는 버튼 이미지 나중에 바꿔야함
 	private ImageIcon edit1;
@@ -106,9 +111,24 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 		btn_Update.setBorderPainted(false);
 		btn_Update.setContentAreaFilled(false);
 		btn_Update.setFocusPainted(false);
-		btn_Update.setBounds(20, 484, 296, 51);
+		btn_Update.setBounds(20, 474, 296, 51);
 		btn_Update.addActionListener(this);
 		layeredPane.add(btn_Update);
+		
+		deleteIc1 = new ImageIcon("img/memberUpdate/btn_del1.png");
+		deleteIc2 = new ImageIcon("img/memberUpdate/btn_del2.png");
+		deleteIc3 = new ImageIcon("img/memberUpdate/btn_del3.png");
+		btn_Delete = new JButton(deleteIc1);
+		btn_Delete.setRolloverIcon(deleteIc2);
+		btn_Delete.setPressedIcon(deleteIc3);
+		btn_Delete.setBorderPainted(false);
+		btn_Delete.setContentAreaFilled(false);
+		btn_Delete.setFocusPainted(false);
+		btn_Delete.setBounds(20, 535, 296, 51);
+		btn_Delete.addActionListener(this);
+		layeredPane.add(btn_Delete);
+		
+		
 
 		edit1 = new ImageIcon("img/memberUpdate/btn_edit1.png");
 		edit2 = new ImageIcon("img/memberUpdate/btn_edit2.png");
@@ -237,6 +257,18 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 				adMembermian.changePanel(UPDATE, dto);
 				
 			}
-		} 
+		}
+		if (e.getSource() == btn_Delete) {
+			Singleton s = Singleton.getInstance();
+			int choice = JOptionPane.YES_NO_OPTION;
+			choice = JOptionPane.showConfirmDialog(null, "'"+dto.getID()+"' 회원을 삭제하시겠습니까?", "WARNING", choice);
+			if (choice == 0) {
+				int result = s.MemCtrl.deleteMember(dto);
+				if (result > 0) {
+					JOptionPane.showMessageDialog(null, "삭제되었습니다");
+				}
+				adMembermian.changePanel(LIST, null);
+			}
+		}
 	}
 }
