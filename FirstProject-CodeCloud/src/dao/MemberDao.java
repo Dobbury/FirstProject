@@ -309,4 +309,38 @@ public class MemberDao implements MemberDaoImpl {
 		}
 		return count > 0 ? true : false;
 	}
+
+	@Override
+	public int delete(MemberDto dto) {
+		String sql = "DELETE FROM MEMBER WHERE ID=?";
+		String sql2 = "DROP TABLE " + dto.getID() + " cascade constraints PURGE";
+		String sql3 = "DROP TABLE " + dto.getID() + "_LIKED cascade constraints PURGE";
+		String sql4 = "DROP SEQUENCE " + dto.getID() + "_SEQ";
+		
+		int count = -1;
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getID());
+			count = psmt.executeUpdate();
+			
+			psmt = conn.prepareStatement(sql2);
+			psmt.executeQuery();
+			
+			psmt = conn.prepareStatement(sql3);
+			psmt.executeQuery();
+			
+			psmt = conn.prepareStatement(sql4);
+			psmt.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+		
+	}
 }

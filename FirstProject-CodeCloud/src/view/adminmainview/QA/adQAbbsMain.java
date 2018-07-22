@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import dto.QAbbsDto;
-import view.membermainview.QAbbsList;
+import view.membermainview.QA.QAbbsList;
 
 public class adQAbbsMain extends JPanel {
 	
@@ -61,7 +61,11 @@ public class adQAbbsMain extends JPanel {
 			admainPanel.add("adQAbbsList", new adQAbbsList(this));
 			cards.show(admainPanel, "adQAbbsList");
 		}else if (state == COMMENT_UPDATE) {
+<<<<<<< HEAD
 			logo.setVisible(true);
+=======
+			logo.setVisible(false);
+>>>>>>> b1b8f14a692ba59ab7dac2f216ef763b75f2b380
 			admainPanel.add("adQAbbswrite", new adQAbbswrite(this, dto, state));
 			cards.show(admainPanel, "adQAbbswrite");
 		}

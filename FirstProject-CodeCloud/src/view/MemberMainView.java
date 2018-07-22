@@ -34,11 +34,11 @@ import singleton.Singleton;
 import thread.RankThread;
 import view.SignupView.MyPanel;
 import view.chatview.chatPanel;
-import view.membermainview.QAbbsMain;
-import view.membermainview.QAbbsWrite;
-import view.membermainview.SelfbbsMain;
-import view.membermainview.SelfbbsWrite;
-import view.membermainview.Sharebbs;
+import view.membermainview.QA.QAbbsMain;
+import view.membermainview.QA.QAbbsWrite;
+import view.membermainview.self.SelfbbsMain;
+import view.membermainview.self.SelfbbsWrite;
+import view.membermainview.share.Sharebbs;
 import Encrypt.PasswordClass;
 import chatting.ClientBackground;
 import dao.BBSDao;
@@ -47,9 +47,6 @@ import db.DBConnection;
 import dto.BBSDto;
 import dto.MemberDto;
 import singleton.Singleton;
-
-import view.membermainview.SelfbbsWrite;
-import view.membermainview.Sharebbs;
 
 public class MemberMainView extends JFrame implements ActionListener, MouseListener, MouseMotionListener {
 

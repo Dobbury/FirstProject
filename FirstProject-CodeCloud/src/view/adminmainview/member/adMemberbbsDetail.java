@@ -42,12 +42,11 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 	private ImageIcon updateIc2;
 	private ImageIcon updateIc3;
 	private JButton btn_Update;
-
-	private ImageIcon closeIc1;
-	private ImageIcon closeIc2;
-	private ImageIcon closeIc3;
-	private JButton btn_Close;
 	
+	private ImageIcon deleteIc1;
+	private ImageIcon deleteIc2;
+	private ImageIcon deleteIc3;
+	private JButton btn_Delete;
 
 	// 이미지 파일 불러오는 버튼 이미지 나중에 바꿔야함
 	private ImageIcon edit1;
@@ -66,11 +65,6 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 	private JPasswordField pwd_text;
 	private JLabel pwd_check_label;
 	private boolean pwd_check;
-
-	private int posX = 0, posY = 0;
-	private ImageIcon drag1;
-	private ImageIcon drag2;
-	private JButton btn_drag;
 
 	BufferedImage img = null;
 	BufferedImage userImg = null;
@@ -108,32 +102,33 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 		// 버튼
 
 		// 회원가입
-		updateIc1 = new ImageIcon("img/memberUpdate/btn_update1.png");
-		updateIc2 = new ImageIcon("img/memberUpdate/btn_update2.png");
-		updateIc3 = new ImageIcon("img/memberUpdate/btn_update3.png");
+		updateIc1 = new ImageIcon("img/memberUpdate/btn_edicpwd1.png");
+		updateIc2 = new ImageIcon("img/memberUpdate/btn_edicpwd2.png");
+		updateIc3 = new ImageIcon("img/memberUpdate/btn_edicpwd3.png");
 		btn_Update = new JButton(updateIc1);
 		btn_Update.setRolloverIcon(updateIc2);
 		btn_Update.setPressedIcon(updateIc3);
 		btn_Update.setBorderPainted(false);
 		btn_Update.setContentAreaFilled(false);
 		btn_Update.setFocusPainted(false);
-		btn_Update.setBounds(20, 484, 296, 51);
+		btn_Update.setBounds(20, 474, 296, 51);
 		btn_Update.addActionListener(this);
 		layeredPane.add(btn_Update);
-
-		// 닫기
-		closeIc1 = new ImageIcon("img/close/close1.png");
-		closeIc2 = new ImageIcon("img/close/close2.png");
-		closeIc3 = new ImageIcon("img/close/close3.png");
-		btn_Close = new JButton(closeIc1);
-		btn_Close.setRolloverIcon(closeIc2);
-		btn_Close.setPressedIcon(closeIc3);
-		btn_Close.setBorderPainted(false);
-		btn_Close.setContentAreaFilled(false);
-		btn_Close.setFocusPainted(false);
-		btn_Close.setBounds(318, 5, 16, 16);
-		btn_Close.addActionListener(this);
-		layeredPane.add(btn_Close);
+		
+		deleteIc1 = new ImageIcon("img/memberUpdate/btn_del1.png");
+		deleteIc2 = new ImageIcon("img/memberUpdate/btn_del2.png");
+		deleteIc3 = new ImageIcon("img/memberUpdate/btn_del3.png");
+		btn_Delete = new JButton(deleteIc1);
+		btn_Delete.setRolloverIcon(deleteIc2);
+		btn_Delete.setPressedIcon(deleteIc3);
+		btn_Delete.setBorderPainted(false);
+		btn_Delete.setContentAreaFilled(false);
+		btn_Delete.setFocusPainted(false);
+		btn_Delete.setBounds(20, 535, 296, 51);
+		btn_Delete.addActionListener(this);
+		layeredPane.add(btn_Delete);
+		
+		
 
 		edit1 = new ImageIcon("img/memberUpdate/btn_edit1.png");
 		edit2 = new ImageIcon("img/memberUpdate/btn_edit2.png");
@@ -262,6 +257,18 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 				adMembermian.changePanel(UPDATE, dto);
 				
 			}
-		} 
+		}
+		if (e.getSource() == btn_Delete) {
+			Singleton s = Singleton.getInstance();
+			int choice = JOptionPane.YES_NO_OPTION;
+			choice = JOptionPane.showConfirmDialog(null, "'"+dto.getID()+"' 회원을 삭제하시겠습니까?", "WARNING", choice);
+			if (choice == 0) {
+				int result = s.MemCtrl.deleteMember(dto);
+				if (result > 0) {
+					JOptionPane.showMessageDialog(null, "삭제되었습니다");
+				}
+				adMembermian.changePanel(LIST, null);
+			}
+		}
 	}
 }

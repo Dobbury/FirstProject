@@ -26,7 +26,7 @@ import javax.swing.ScrollPaneConstants;
 import dto.QAbbsDto;
 import singleton.Singleton;
 import textlimit.JTextFieldLimit;
-import view.membermainview.QAbbsMain;
+import view.membermainview.QA.QAbbsMain;
 
 public class adQAbbswrite extends JPanel implements ActionListener, WindowListener,FocusListener {
 

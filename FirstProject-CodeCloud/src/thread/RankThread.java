@@ -1,8 +1,8 @@
 package thread;
 
 import singleton.Singleton;
-import view.membermainview.QAbbsMain;
-import view.membermainview.Sharebbs;
+import view.membermainview.QA.QAbbsMain;
+import view.membermainview.share.Sharebbs;
 
 public class RankThread extends Thread {
 

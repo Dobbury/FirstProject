@@ -348,7 +348,7 @@ public class ShareDao {
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		
-		Object[][] rowData = new Object[5][3];
+		Object[][] rowData = new Object[5][2];
 		
 		String sql = "SELECT TITLE, LIKED FROM SHAR ORDER BY LIKED DESC";
 		
@@ -360,9 +360,8 @@ public class ShareDao {
 			
 			for (int i = 0; i < rowData.length; i++) {
 				if(rs.next()) {;
-				rowData[i][0] = i+1;
-				rowData[i][1] = rs.getString(1);
-				rowData[i][2] = rs.getInt(2);
+				rowData[i][0] = rs.getString(1);
+				rowData[i][1] = rs.getInt(2);
 				}
 			}
 			
@@ -380,7 +379,7 @@ public class ShareDao {
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		
-		Object[][] rowData = new Object[5][3];
+		Object[][] rowData = new Object[5][2];
 		
 		String sql = "SELECT TITLE, FORK FROM SHAR ORDER BY FORK DESC";
 		
@@ -392,9 +391,8 @@ public class ShareDao {
 			
 			for (int i = 0; i < rowData.length; i++) {
 				if(rs.next()) {;
-				rowData[i][0] = i+1;
-				rowData[i][1] = rs.getString(1);
-				rowData[i][2] = rs.getInt(2);
+				rowData[i][0] = rs.getString(1);
+				rowData[i][1] = rs.getInt(2);
 				}
 			}
 			

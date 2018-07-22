@@ -7,10 +7,8 @@ import view.AdminMainView;
 import view.HostDbSetView;
 import view.LoginView;
 import view.MemberMainView;
-
-import view.membermainview.SelfbbsWrite;
-
 import view.SignupView;
+import view.membermainview.self.SelfbbsWrite;
 
 public class MainClass {
 

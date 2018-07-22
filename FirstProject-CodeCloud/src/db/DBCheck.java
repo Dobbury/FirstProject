@@ -41,7 +41,7 @@ public class DBCheck {
 			psmt = conn.prepareStatement(sql2);
 			System.out.println(sql2);
 			rs = psmt.executeQuery();
-			if (!rs.next()) { // 테이블이 없다면 생성
+			if (!rs.next()) {
 
 				sql2 = "INSERT INTO MEMBER VALUES('admin', ?, '관리자', 0, ?)";
 				psmt = conn.prepareStatement(sql2);
