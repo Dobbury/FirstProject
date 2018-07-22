@@ -1,6 +1,7 @@
 package view.membermainview.QA;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -14,12 +15,15 @@ import java.util.List;
 
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -140,6 +144,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 
 		// 검색
 		selectField = new JTextField();
+		selectField.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 5, 0, 5)));
 		selectField.setBounds(140, 570, 150, 40);
 		add(selectField);
 
@@ -169,9 +174,9 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		celAlignCenter.setOpaque(false);
 		// 컬럼의 넓이 설정
-		jTable.getColumnModel().getColumn(0).setMaxWidth(53);
+		jTable.getColumnModel().getColumn(0).setMaxWidth(50);
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(1).setMaxWidth(477);
+		jTable.getColumnModel().getColumn(1).setMaxWidth(480);
 		jTable.getColumnModel().getColumn(2).setMaxWidth(95);
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(115);
@@ -203,7 +208,7 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		bbs_backgorund.setIcon(bbs_back_Img);
 		bbs_backgorund.setBounds(50, 150, 750, 400);
 		///////////////////////////////////////////////////
-		jScrPane.setBounds(55, 205, 740, 340);
+		jScrPane.setBounds(50, 205, 750, 340);
 		
 
 		add(jScrPane);
@@ -214,6 +219,21 @@ public class QAbbsList extends JPanel implements ActionListener, WindowListener,
 		String[] selects = new String[] { "제목", "내용", "작성자" };
 		choiceList = new JComboBox<>(selects);
 		choiceList.setBounds(50, 570, 80, 40);
+		
+		choiceList.setOpaque(false);
+		choiceList.setFocusable(false);
+		choiceList.setForeground(Color.white);
+		choiceList.setRenderer(new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
+						cellHasFocus);
+				result.setOpaque(false);
+				return result;
+			}
+		});
+		
 		add(choiceList);
 
 		setLayout(null);

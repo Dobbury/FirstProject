@@ -153,6 +153,7 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 		// 아이디 입력 textField
 		id_text = new JTextField();
 		id_text.setText(dto.getID());
+		id_text.setCaretColor(Color.WHITE);
 		id_text.setForeground(Color.gray);
 		id_text.setBounds(92, 282, 220, 30);
 		id_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -162,6 +163,7 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 
 		pwd_text = new JPasswordField();
 		pwd_text.setText(dto.getPWD());
+		pwd_text.setCaretColor(Color.WHITE);
 		pwd_text.setForeground(Color.WHITE);
 		pwd_text.setBounds(92, 351, 220, 30);
 		pwd_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -169,12 +171,13 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 		pwd_text.setEditable(false);
 		layeredPane.add(pwd_text);
 
-		pwd_check_label = new JLabel("test");
+		pwd_check_label = new JLabel();
 		pwd_check_label.setBounds(92, 387, 300, 30);
 		layeredPane.add(pwd_check_label);
 
 		nick_text = new JTextField();
 		nick_text.setText(dto.getNick());
+		nick_text.setCaretColor(Color.WHITE);
 		nick_text.setForeground(Color.WHITE);
 		nick_text.setBounds(92, 423, 220, 30);
 		nick_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -182,7 +185,7 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 		nick_text.setEditable(false);
 		layeredPane.add(nick_text);
 
-		nick_check_label = new JLabel("test");
+		nick_check_label = new JLabel();
 		nick_check_label.setBounds(92, 456, 300, 30);
 		layeredPane.add(nick_check_label);
 

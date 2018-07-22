@@ -69,6 +69,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		Font titleFont = new Font("굴림",Font.BOLD, 40);
 		titleText = new JTextField();
 		titleText.setFont(titleFont);
+		titleText.setCaretColor(Color.WHITE);
 		titleText.setForeground(Color.WHITE);
 		titleText.setOpaque(false);
 		titleText.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 0, 0, 0)));
@@ -87,6 +88,7 @@ public class QAbbsWrite extends JPanel implements WindowListener, ActionListener
 		postArea.append(dto.getContent());
 		postArea.setFont(contentFont);
 		postArea.setOpaque(false);
+		postArea.setCaretColor(Color.WHITE);
 		postArea.setForeground(Color.WHITE);
 
 		// 코드 배경

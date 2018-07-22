@@ -144,6 +144,7 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		// 아이디 입력 textField
 		id_text = new JTextField();
 		id_text.setText(id_Hint);
+		id_text.setCaretColor(Color.WHITE);
 		id_text.setForeground(Color.WHITE);
 		id_text.setFont(new Font("menlo", Font.PLAIN, 14));
 		id_text.setBounds(92, 282, 220, 30);
@@ -161,6 +162,7 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		// pwd 입력
 		pwd_text = new JPasswordField();
 		pwd_text.setText(pwd_Hint);
+		pwd_text.setCaretColor(Color.WHITE);
 		pwd_text.setForeground(Color.WHITE);
 		pwd_text.setBounds(92, 351, 220, 30);
 		pwd_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -176,6 +178,7 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		// 닉네임 입력
 		nick_text = new JTextField();
 		nick_text.setText(nick_Hint);
+		nick_text.setCaretColor(Color.WHITE);
 		nick_text.setFont(new Font("menlo", Font.PLAIN, 14));
 		nick_text.setForeground(Color.WHITE);
 		nick_text.setBounds(92, 423, 220, 30);

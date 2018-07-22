@@ -109,7 +109,7 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 			this.lang = dto.getLanguage();
 		}
 		
-		
+		System.out.println(lang);
 
 		Singleton s = Singleton.getInstance();
 
@@ -122,6 +122,7 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 		titletxt.setBounds(25, 35, 400, 50);
 		titletxt.setDocument(new JTextFieldLimit(50)); // 글자수 50개로 제한
 		titletxt.setFont(tilteFont);
+		titletxt.setCaretColor(Color.WHITE);
 		titletxt.setForeground(Color.WHITE);
 		titletxt.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 		titletxt.setOpaque(false);
@@ -138,13 +139,12 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 		javaIc1 = new ImageIcon("img/selfbbs/btn_java1.png");
 		javaIc2 = new ImageIcon("img/selfbbs/btn_java2.png");
 		javaIc3 = new ImageIcon("img/selfbbs/btn_java3.png");
-		Tbtn_Java = new JToggleButton(javaIc3);
+		Tbtn_Java = new JToggleButton(javaIc1);
 		Tbtn_Java.setRolloverIcon(javaIc2);
-		Tbtn_Java.setPressedIcon(javaIc2);
+		Tbtn_Java.setPressedIcon(javaIc3);
 		Tbtn_Java.setBorderPainted(false);
 		Tbtn_Java.setContentAreaFilled(false);
 		Tbtn_Java.setFocusPainted(false);
-		Tbtn_Java.setSelected(true);
 		Tbtn_Java.setBounds(25, 100, 83, 43);
 		Tbtn_Java.addActionListener(this);
 		langTogglebtnGroup.add(Tbtn_Java);
@@ -154,11 +154,10 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 		cIc3 = new ImageIcon("img/selfbbs/btn_c3.png");
 		Tbtn_C = new JToggleButton(cIc1);
 		Tbtn_C.setRolloverIcon(cIc2);
-		Tbtn_C.setPressedIcon(cIc2);
+		Tbtn_C.setPressedIcon(cIc3);
 		Tbtn_C.setBorderPainted(false);
 		Tbtn_C.setContentAreaFilled(false);
 		Tbtn_C.setFocusPainted(false);
-		Tbtn_C.setSelected(true);
 		Tbtn_C.setBounds(188, 100, 83, 43);
 		Tbtn_C.addActionListener(this);
 		langTogglebtnGroup.add(Tbtn_C);
@@ -168,11 +167,10 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 		sqlIc3 = new ImageIcon("img/selfbbs/btn_sql3.png");
 		Tbtn_SQL = new JToggleButton(sqlIc1);
 		Tbtn_SQL.setRolloverIcon(sqlIc2);
-		Tbtn_SQL.setPressedIcon(sqlIc2);
+		Tbtn_SQL.setPressedIcon(sqlIc3);
 		Tbtn_SQL.setBorderPainted(false);
 		Tbtn_SQL.setContentAreaFilled(false);
 		Tbtn_SQL.setFocusPainted(false);
-		Tbtn_SQL.setSelected(true);
 		Tbtn_SQL.setBounds(106, 100, 83, 43);
 		Tbtn_SQL.addActionListener(this);
 		langTogglebtnGroup.add(Tbtn_SQL);
@@ -182,21 +180,22 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 		etcIc3 = new ImageIcon("img/selfbbs/btn_etc3.png");
 		Tbtn_ETC = new JToggleButton(etcIc1);
 		Tbtn_ETC.setRolloverIcon(etcIc2);
-		Tbtn_ETC.setPressedIcon(etcIc2);
+		Tbtn_ETC.setPressedIcon(etcIc3);
 		Tbtn_ETC.setBorderPainted(false);
 		Tbtn_ETC.setContentAreaFilled(false);
 		Tbtn_ETC.setFocusPainted(false);
-		Tbtn_ETC.setSelected(true);
 		Tbtn_ETC.setBounds(270, 100, 83, 43);
 		Tbtn_ETC.addActionListener(this);
 		langTogglebtnGroup.add(Tbtn_ETC);
 		
+		Tbtn_Java.doClick();
+		
 		if(lang.equals("SQL")) {
-			Tbtn_SQL.setSelected(true);
+			Tbtn_SQL.doClick();
 		}else if(lang.equals("C")) {
-			Tbtn_C.setSelected(true);
+			Tbtn_C.doClick();
 		}else if(lang.equals("ETC")) {
-			Tbtn_ETC.setSelected(true);
+			Tbtn_ETC.doClick();
 		}
 
 		right.add(Tbtn_Java);
@@ -222,6 +221,7 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 		codetxt.setOpaque(false);
 		
 		codetxt.setFont(contentFont);
+		codetxt.setCaretColor(Color.WHITE);
 		codetxt.setForeground(Color.white);
 		
 		codetxt.append(dto.getContent());

@@ -218,6 +218,7 @@ public class QAbbsDao {
 		} finally {
 			DBClose.close(stmt, conn, null);
 		}
+
 		return count > 0 ? true : false;
 	}
 
@@ -248,7 +249,7 @@ public class QAbbsDao {
 	public List<QAbbsDto> getTitleFindList(String fStr, String fword) {
 		List<QAbbsDto> list = new ArrayList<QAbbsDto>();
 
-		String sql = " SELECT SEQ, nick, TITLE, dat, del " + " FROM QA";
+		String sql = " SELECT * " + " FROM QA";
 
 		if (fword.equals("제목")) {
 			sql = sql + " WHERE TITLE LIKE ? ";
@@ -277,15 +278,19 @@ public class QAbbsDao {
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				int i = 1;
+				
+				QAbbsDto dto = new QAbbsDto();
 
-				QAbbsDto dto = new QAbbsDto(rs.getInt(i++), // SEQ
-						rs.getString(i++), // nick
-						rs.getString(i++), // TITLE
-						null, // CONTENT
-						rs.getString(i++), // WDATE
-						rs.getInt(i++) 	// DEL
-						, 0, 0, 0, 0);
+				dto.setSeq(rs.getInt("seq"));
+				dto.setNick(rs.getString("nick"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setWdate(rs.getString("dat"));
+				dto.setDel(rs.getInt("del"));
+				dto.setRef(rs.getInt("ref"));
+				dto.setStep(rs.getInt("step"));
+				dto.setDept(rs.getInt("dept"));
+				dto.setVisible(rs.getInt("visible"));
 
 				list.add(dto);
 			}

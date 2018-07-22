@@ -69,7 +69,7 @@ public class ShareList extends JPanel implements Action, MouseListener {
 			for (int i = 0; i < list.size(); i++) {
 				rowData[i][0] = list.get(i).getSeq();
 				rowData[i][1] = list.get(i).getLang();
-				rowData[i][2] = list.get(i).getTitle();
+				rowData[i][2] = " "+list.get(i).getTitle();
 				rowData[i][3] = list.get(i).getNick();
 				rowData[i][4] = list.get(i).getLiked();
 				rowData[i][5] = list.get(i).getFork();
@@ -163,7 +163,7 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		list_backgorund.setBounds(50, 150, 750, 400);
 		///////////////////////////////////////////////////
 
-		jScrPane.setBounds(55, 205, 740, 340);
+		jScrPane.setBounds(50, 205, 750, 340);
 		add(jScrPane);
 		add(list_backgorund);
 
@@ -191,6 +191,8 @@ public class ShareList extends JPanel implements Action, MouseListener {
 
 		// 검색
 		selectField = new JTextField();
+		selectField.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 5, 0, 5)));
+
 		selectField.setBounds(140, 570, 150, 40);
 		add(selectField);
 
@@ -222,7 +224,7 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		for (int i = 0; i < list.size(); i++) {
 			rowData[i][0] = list.get(i).getSeq();
 			rowData[i][1] = list.get(i).getLang();
-			rowData[i][2] = list.get(i).getTitle();
+			rowData[i][2] = " "+list.get(i).getTitle();
 			rowData[i][3] = list.get(i).getNick();
 			rowData[i][4] = list.get(i).getLiked();
 			rowData[i][5] = list.get(i).getFork();
@@ -230,12 +232,62 @@ public class ShareList extends JPanel implements Action, MouseListener {
 		}
 
 		model.setDataVector(rowData, columnNames);
-
+		ShareListTable.setModel(model);
 		// 테이블안에 컬럼을 위치설정
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		celAlignCenter.setOpaque(false);
 
+		
+		DefaultTableCellRenderer langcel = new DefaultTableCellRenderer() {
+			@Override
+		    public Component getTableCellRendererComponent
+		       (JTable table, Object value, boolean isSelected,
+		       boolean hasFocus, int row, int column) {
+
+		        Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+
+		        if (value.equals("JAVA")) {
+					cell.setForeground(new Color(234, 45, 46));
+				} else if (value.equals("C")) {
+					cell.setForeground(new Color(3, 89, 156));
+				} else if (value.equals("SQL")) {
+					cell.setForeground(new Color(214, 165, 58));
+				} else if (value.equals("ETC")) {
+					cell.setForeground(Color.white);
+				}
+		        return cell;
+
+		}
+		};
+		langcel.setHorizontalAlignment(JLabel.CENTER);
+		langcel.setOpaque(false);
+		
+		
+		
+		// 컬럼의 넓이 설정 //가 되고있지않음
+		ShareListTable.getColumnModel().getColumn(0).setMaxWidth(50);
+		ShareListTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumnModel().getColumn(1).setMaxWidth(60);
+		ShareListTable.getColumnModel().getColumn(1).setCellRenderer(langcel);
+		ShareListTable.getColumnModel().getColumn(2).setMaxWidth(405);
+		ShareListTable.getColumnModel().getColumn(3).setMaxWidth(95);
+		ShareListTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumnModel().getColumn(4).setMaxWidth(70);
+		ShareListTable.getColumnModel().getColumn(4).setCellRenderer(celAlignCenter);
+		ShareListTable.getColumnModel().getColumn(5).setMaxWidth(70);
+		ShareListTable.getColumnModel().getColumn(5).setCellRenderer(celAlignCenter);
+		ShareListTable.removeColumn(ShareListTable.getColumnModel().getColumn(6));
+		ShareListTable.setOpaque(false);
+		ShareListTable.setForeground(Color.WHITE);
+		ShareListTable.setTableHeader(null);
+		ShareListTable.setShowGrid(false);
+		ShareListTable.setRowHeight(25);
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+		ShareListTable.setFont(tableFont);
+		
+		
 
 	}
 

@@ -138,6 +138,7 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 
 		pwd_text = new JPasswordField();
 		pwd_text.setText(pwd_Hint);
+		pwd_text.setCaretColor(Color.WHITE);
 		pwd_text.setForeground(Color.WHITE);
 		pwd_text.setBounds(92, 351, 220, 30);
 		pwd_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -151,6 +152,7 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 
 		nick_text = new JTextField();
 		nick_text.setText(dto.getNick());
+		nick_text.setCaretColor(Color.WHITE);
 		nick_text.setForeground(Color.WHITE);
 		nick_text.setBounds(92, 423, 220, 30);
 		nick_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));

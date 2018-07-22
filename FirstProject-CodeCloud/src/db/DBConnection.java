@@ -28,7 +28,6 @@ public class DBConnection {
 
 		try {
 			// DB 설정 및 연결
-			System.out.println(Server_IP);
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@" + Server_IP + ":1521:xe", "hr", "hr");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

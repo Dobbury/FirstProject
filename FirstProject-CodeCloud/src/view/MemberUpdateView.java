@@ -168,6 +168,7 @@ public class MemberUpdateView extends JFrame
 		// 아이디 입력 textField
 		id_text = new JTextField();
 		id_text.setText(dto.getID());
+		id_text.setCaretColor(Color.WHITE);
 		id_text.setForeground(Color.gray);
 		id_text.setBounds(92, 282, 220, 30);
 		id_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -177,6 +178,7 @@ public class MemberUpdateView extends JFrame
 
 		pwd_text = new JPasswordField();
 		pwd_text.setText(pwd_Hint);
+		pwd_text.setCaretColor(Color.WHITE);
 		pwd_text.setForeground(Color.WHITE);
 		pwd_text.setBounds(92, 351, 220, 30);
 		pwd_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -190,6 +192,7 @@ public class MemberUpdateView extends JFrame
 
 		nick_text = new JTextField();
 		nick_text.setText(nick_Hint);
+		nick_text.setCaretColor(Color.WHITE);
 		nick_text.setForeground(Color.WHITE);
 		nick_text.setBounds(92, 423, 220, 30);
 		nick_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
@@ -257,8 +260,9 @@ public class MemberUpdateView extends JFrame
 			String DirName = dial.getDirectory();
 			String FileName = dial.getFile();
 			Diraddress = DirName + "./" + FileName;
-			System.out.println(Diraddress);
+
 			userIc = new ImageIcon(Diraddress);
+			
 			// 크기조정
 			Image ori = userIc.getImage();
 			Image changedImg = ori.getScaledInstance(115, 115, Image.SCALE_SMOOTH);
