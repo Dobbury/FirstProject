@@ -106,7 +106,7 @@ public class ShareDao {
 		
 		//원래 글 추천수 올림 // 누군가 공유게에서 추천을 눌렀는데   개인게의 추천버튼도 카운트 되는것 
 		
-		String sql3 = "SELECT ID FROM MEMBER"
+		String sql3 = "SELECT ID FROM CODE_MEMBER"
 		+ " WHERE NICK=?";
 
 		try {
@@ -189,7 +189,7 @@ public class ShareDao {
 	public int delete(ShareDto dto) {
 		String sql = " DELETE SHAR " + "WHERE seq=" + dto.getSeq();
 		
-		String sql2 = "SELECT ID FROM MEMBER WHERE NICK=?";
+		String sql2 = "SELECT ID FROM CODE_MEMBER WHERE NICK=?";
 		
 		
 		
@@ -240,7 +240,7 @@ public class ShareDao {
 		
 		//원래 글 추천수 올림 // 누군가 공유게에서 추천을 눌렀는데   개인게의 추천버튼도 카운트 되는것 
 		
-		String sql3 = "SELECT ID FROM MEMBER"
+		String sql3 = "SELECT ID FROM CODE_MEMBER"
 		+ " WHERE NICK=?";
 
 		try {
@@ -297,7 +297,7 @@ public class ShareDao {
 		
 		//공유한 사람 게시판 포크수 없데이트전 아이디 검색
 		//글을 공유한 사람의 테이블을 들어가려면 아이디가 필요한데 쉐어 게시판에서는 닉네임밖에 없어서
-		String sql3 = "SELECT ID FROM MEMBER"
+		String sql3 = "SELECT ID FROM CODE_MEMBER"
 				+ " WHERE NICK=?";
 		int indseq2 = 0;
 		try {

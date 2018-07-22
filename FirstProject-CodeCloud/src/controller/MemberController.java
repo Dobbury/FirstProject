@@ -57,6 +57,20 @@ public class MemberController {
 		else
 			return false;
 	}
+	public boolean memberPwdUpdate(String id, String pwd, String nick,int auth,ImageIcon imgIcon) {
+		
+		//Image -> BufferedImage
+		Image oriImg = imgIcon.getImage();
+		BufferedImage img = ImageToBufferedImageClass.toBufferedImage(oriImg);
+		
+		MemberDto dto = new MemberDto(id,pwd,nick,auth,img);
+		if(mService.update(dto)) {
+			Singleton s = Singleton.getInstance();
+			return  true;
+		}
+		else
+			return false;
+	}
 	public boolean addMember(String id, String pwd, String nick) {
 		return mService.insert(new MemberDto(id, pwd, nick, 1, null));
 	}
