@@ -114,7 +114,6 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 
 		mainPanel.add("Memberbbs", new adMemberbbsMain(this));
 		mainPanel.add("AdminSharebbs", new AdminSharebbs());
-		//mainPanel.add("Q&Abbs", adQAMain);
 		mainPanel.add("Q&Abbs",new adQAbbsMain());
 		cards.show(mainPanel, "Memberbbs");
 
@@ -140,10 +139,15 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		memName.setFont(nickFont);
 		memName.setBounds(10, 230, 130, 30);	
 
+		ImageIcon chat_img = new ImageIcon("img/chat_back.png");
+		JLabel chat_back = new JLabel(chat_img);
+		chat_back.setBounds(1100,30,290,650);
+		
+		
 		chatPanel = new chatPanel();
 		chatPanel.setOpaque(false);
 		chatPanel.connect();
-		chatPanel.setBounds(1100, 30, 300, 700);
+		chatPanel.setBounds(1110, 30, 270, 700);
 
 		// 창 드래그
 		drag1 = new ImageIcon("img/drag/drag1.png");
@@ -267,7 +271,8 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 
 		add(btn_drag);
 		add(chatPanel);
-
+		add(chat_back);
+		
 		add(btn_Memberbbs);
 		add(btn_Sharebbs);
 		add(btn_QAbbs);
