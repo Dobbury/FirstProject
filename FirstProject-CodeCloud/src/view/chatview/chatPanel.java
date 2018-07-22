@@ -22,7 +22,7 @@ public class chatPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	private JTextArea jta = new JTextArea(34, 25);
+	private JTextArea jta = new JTextArea(37, 25);
 	private JTextField jtf = new JTextField(25);
 
 	private JScrollPane scrl;
