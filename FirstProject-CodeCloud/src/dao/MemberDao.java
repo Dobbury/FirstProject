@@ -39,7 +39,7 @@ public class MemberDao implements MemberDaoImpl {
 	public List<MemberDto> getbbsList(){
 		List<MemberDto> list = new ArrayList<>();
 		
-		String sql = "SELECT * FROM MEMBER";
+		String sql = "SELECT * FROM CODE_MEMBER";
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -75,7 +75,7 @@ public class MemberDao implements MemberDaoImpl {
 	}
 	public boolean getId(String id) {
 
-		String sql = " SELECT ID FROM MEMBER " + " WHERE ID ='" + id + "'";
+		String sql = " SELECT ID FROM CODE_MEMBER " + " WHERE ID ='" + id + "'";
 
 		Connection conn = null; // DB info
 		PreparedStatement psmt = null; // sql query
@@ -101,7 +101,7 @@ public class MemberDao implements MemberDaoImpl {
 
 	@Override
 	public boolean getNick(String nick) {
-		String sql = " SELECT NICK FROM MEMBER " + " WHERE NICK ='" + nick + "'";
+		String sql = " SELECT NICK FROM CODE_MEMBER " + " WHERE NICK ='" + nick + "'";
 
 		Connection conn = null; // DB info
 		PreparedStatement psmt = null; // sql query
@@ -129,7 +129,7 @@ public class MemberDao implements MemberDaoImpl {
 		String path = "img/signUp/userImages.png"; // 기본이미지 경로
 		String pwd = PasswordClass.Encryption(dto.getPWD());
 
-		String sql = "INSERT INTO MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO CODE_MEMBER(id, pwd, nick, auth, img) " + "VALUES(?,?,?,?,?)";
 		
 		String sql2 = "CREATE TABLE "+dto.getID()
 				+ "(SEQ NUMBER PRIMARY KEY,"
@@ -187,7 +187,7 @@ public class MemberDao implements MemberDaoImpl {
 	}
 
 	public MemberDto login(MemberDto dto) {
-		String sql = " SELECT ID, PWD, NICK, AUTH, IMG " + " FROM MEMBER " + " WHERE ID=?";
+		String sql = " SELECT ID, PWD, NICK, AUTH, IMG " + " FROM CODE_MEMBER " + " WHERE ID=?";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -234,7 +234,7 @@ public class MemberDao implements MemberDaoImpl {
 	
 	public List<MemberDto> search(String txt, String choice) {
 		String txt2 = "%"+txt+"%";
-		String sql = " SELECT * " + " FROM MEMBER ";
+		String sql = " SELECT * " + " FROM CODE_MEMBER ";
 		
 		if (choice.equals("아이디")) {
 			sql += "WHERE ID LIKE ?";
@@ -279,7 +279,7 @@ public class MemberDao implements MemberDaoImpl {
 		return list;
 	}
 	public boolean update(MemberDto dto) {
-		String sql = "UPDATE MEMBER SET PWD = ?, NICK = ?, IMG = ? WHERE ID=?";
+		String sql = "UPDATE CODE_MEMBER SET PWD = ?, NICK = ?, IMG = ? WHERE ID=?";
 		
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement stmt = null;
@@ -312,7 +312,7 @@ public class MemberDao implements MemberDaoImpl {
 
 	@Override
 	public int delete(MemberDto dto) {
-		String sql = "DELETE FROM MEMBER WHERE ID=?";
+		String sql = "DELETE FROM CODE_MEMBER WHERE ID=?";
 		String sql2 = "DROP TABLE " + dto.getID() + " cascade constraints PURGE";
 		String sql3 = "DROP TABLE " + dto.getID() + "_LIKED cascade constraints PURGE";
 		String sql4 = "DROP SEQUENCE " + dto.getID() + "_SEQ";

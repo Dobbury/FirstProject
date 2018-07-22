@@ -370,15 +370,17 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 			
 			if (chat) {
 				btn_Chat.setIcon(chatIc1);
+				setBounds(50,50, 1300, 700);
 				setLocationRelativeTo(null);
 				btn_Close.setBounds(1279, 5, 16, 16);
-				setBounds(50,50, 1300, 700);
+				
 				chat = false;
 			} else {
 				btn_Chat.setIcon(chatIc2);
+				setBounds(50, 50, 1600, 700);
 				setLocationRelativeTo(null);
 				btn_Close.setBounds(1579, 5, 16, 16);
-				setBounds(50, 50, 1600, 700);
+				
 				chat = true;
 			}
 		} else if (e.getSource() == btn_Logout) {

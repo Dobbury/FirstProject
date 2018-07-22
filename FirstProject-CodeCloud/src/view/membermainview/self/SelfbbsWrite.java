@@ -122,6 +122,7 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 		titletxt.setBounds(25, 35, 400, 50);
 		titletxt.setDocument(new JTextFieldLimit(50)); // 글자수 50개로 제한
 		titletxt.setFont(tilteFont);
+		titletxt.setCaretColor(Color.WHITE);
 		titletxt.setForeground(Color.WHITE);
 		titletxt.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 		titletxt.setOpaque(false);
@@ -222,6 +223,7 @@ public class SelfbbsWrite extends JPanel implements ActionListener,FocusListener
 		codetxt.setOpaque(false);
 		
 		codetxt.setFont(contentFont);
+		codetxt.setCaretColor(Color.WHITE);
 		codetxt.setForeground(Color.white);
 		
 		codetxt.append(dto.getContent());

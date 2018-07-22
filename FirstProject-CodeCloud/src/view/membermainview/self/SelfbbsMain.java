@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -49,7 +50,7 @@ public class SelfbbsMain extends JPanel implements ActionListener, MouseListener
 
 	// 왼쪽 칸
 	private JPanel left = new JPanel();
-	private JButton plus = new JButton("+");
+	private JButton plus = new JButton();
 
 	private JTable jTable;
 	private JScrollPane jScrPane;
@@ -94,17 +95,26 @@ public class SelfbbsMain extends JPanel implements ActionListener, MouseListener
 		left.setBounds(0, 0, 300, 700);
 		left.setLayout(null);
 
+		ImageIcon plus_img1 = new ImageIcon("img/selfbbs/btn_plus1.png"); 
+		ImageIcon plus_img2 = new ImageIcon("img/selfbbs/btn_plus2.png"); 
+		
 		plus.setBounds(0, 0, 300, 70);
-
+		plus.setIcon(plus_img1);
+		plus.setRolloverIcon(plus_img2);
+		plus.setSelectedIcon(plus_img2);
 		plus.setOpaque(false);
 		plus.setContentAreaFilled(false);
-		plus.setBorderPainted(true);
-		plus.setForeground(Color.WHITE);
+		plus.setBorderPainted(false);
+		plus.setBorder(BorderFactory.createCompoundBorder(plus.getBorder(),
+	            BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+		//plus.setForeground(Color.WHITE);
+		plus.setFocusable(false);
 		plus.addActionListener(this);
-		plus.setFont(new Font("맑은고딕", Font.PLAIN, 40));
-
+		//plus.setFont(new Font("맑은고딕", Font.PLAIN, 40));
+		
+		
 		left.add(plus);
-
+		
 		if (list.size() > 0) {
 			rowData = new Object[list.size()][3];
 
@@ -158,12 +168,14 @@ public class SelfbbsMain extends JPanel implements ActionListener, MouseListener
 		jScrPane.setBorder(BorderFactory.createCompoundBorder(null,
 	            BorderFactory.createEmptyBorder(0, 0, 0, 0)));
 		
-		plus.setBorderPainted(false);
-
 		jScrPane.setBounds(0, 70, 300, 565);
 
 		left.add(jScrPane);
-
+		
+		ImageIcon search_img = new ImageIcon("img/selfbbs/select_back.png");
+		JLabel search_back = new JLabel(search_img);
+		search_back.setBounds(0, 635, 300, 65);
+		
 		searchbox.setBounds(0, 635, 300, 25);
 		searchbox.setOpaque(false);
 		searchbox.setFocusable(false);
@@ -191,7 +203,8 @@ public class SelfbbsMain extends JPanel implements ActionListener, MouseListener
 		searchbtn.setForeground(Color.WHITE);
 		searchbtn.addActionListener(this);
 		left.add(searchbtn);
-
+		
+		left.add(search_back);
 		add(mainPanel);
 
 //		Border border = BorderFactory.createLineBorder(Color.white);
