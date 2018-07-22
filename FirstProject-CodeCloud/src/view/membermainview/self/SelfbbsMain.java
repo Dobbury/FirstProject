@@ -186,7 +186,7 @@ public class SelfbbsMain extends JPanel implements ActionListener, MouseListener
 					boolean cellHasFocus) {
 				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
 						cellHasFocus);
-				result.setOpaque(false);
+				result.setOpaque(true);
 				return result;
 			}
 		});
