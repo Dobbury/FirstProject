@@ -78,7 +78,7 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 		
 		String[] selects = new String[] { "전체보기", "아이디", "닉네임"};
 		choiceList = new JComboBox<>(selects);
-		choiceList.setBounds(50, 640, 80, 40);
+		choiceList.setBounds(100, 640, 80, 40);
 		choiceList.setOpaque(false);
 		choiceList.setFocusable(false);
 		choiceList.setForeground(Color.white);
@@ -96,7 +96,7 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 		add(choiceList);
 		
 		selectField = new JTextField();
-		selectField.setBounds(140, 640, 150, 40);
+		selectField.setBounds(190, 640, 150, 40);
 		add(selectField);
 
 		searchIc1 = new ImageIcon("img/sharebbs/share_search_on.png");
@@ -110,7 +110,7 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 		searchBtn.setFocusPainted(false);
 		
 		searchBtn.addActionListener(this);
-		searchBtn.setBounds(300, 640, 101, 41);
+		searchBtn.setBounds(350, 640, 101, 41);
 		add(searchBtn);
 		
 		ListPanel = new JPanel();

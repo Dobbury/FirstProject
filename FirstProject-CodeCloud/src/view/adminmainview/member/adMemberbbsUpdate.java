@@ -146,8 +146,8 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 		pwd_text.addFocusListener(this);
 		layeredPane.add(pwd_text);
 
-		pwd_check_label = new JLabel("test");
-		pwd_check_label.setBounds(92, 387, 300, 30);
+		pwd_check_label = new JLabel();
+		pwd_check_label.setBounds(30, 387, 300, 30);
 		layeredPane.add(pwd_check_label);
 
 		nick_text = new JTextField();
@@ -160,8 +160,8 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 		nick_text.setEditable(false);
 		layeredPane.add(nick_text);
 
-		nick_check_label = new JLabel("test");
-		nick_check_label.setBounds(92, 456, 300, 30);
+		nick_check_label = new JLabel();
+		nick_check_label.setBounds(30, 456, 300, 30);
 		layeredPane.add(nick_check_label);
 
 		// 기본 설정
