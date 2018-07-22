@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,16 +33,17 @@ public class chatPanel extends JPanel implements ActionListener {
 
 		Singleton s = Singleton.getInstance();
 		
-		
 		nickName = s.nowMember.getNick();
 		
 		//채팅판 투명화, 커서 흰색, 텍스트에리어 수정불가
 		jta.setOpaque(false);
 		jta.setEditable(false);
 		jta.setForeground(Color.WHITE);
-		jtf.setOpaque(false);
-		jtf.setCaretColor(Color.WHITE);
-		jtf.setForeground(Color.WHITE);
+		
+		jtf.setForeground(Color.black);
+		jtf.setBackground(Color.WHITE);
+		jtf.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0,10, 0, 0)));
+		
 		
 		
 		//스크롤바 0으로 줄여서 안보이게하는 코드
@@ -50,12 +52,14 @@ public class chatPanel extends JPanel implements ActionListener {
 		scrl.setOpaque(false);
 		scrl.getViewport().setOpaque(false);
 					
+		scrl.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+		
 		add(scrl, BorderLayout.CENTER);
 
 		add(jtf, BorderLayout.SOUTH);
 		jtf.addActionListener(this);
 
-		setBounds(0, 0, 300, 700);
+		setBounds(0, 0, 270, 700);
 		
 		client.setGui(this);
 		client.setNickName(nickName);
@@ -73,6 +77,7 @@ public class chatPanel extends JPanel implements ActionListener {
 
 	public void appendMsg(String msg) {
 		jta.append(msg);
+		scrl.getVerticalScrollBar().setValue(scrl.getVerticalScrollBar().getMaximum());
 	}
 
 	public void connect() {

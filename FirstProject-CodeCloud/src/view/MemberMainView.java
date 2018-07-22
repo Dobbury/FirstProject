@@ -261,13 +261,16 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		btn_Logout.addActionListener(this);
 		btn_Logout.setBounds(12, 670, 19, 19);
 
+		ImageIcon chat_img = new ImageIcon("img/chat_back.png");
+		JLabel chat_back = new JLabel(chat_img);
+		chat_back.setBounds(1300,30,290,650);
+		
 		chatPanel = new chatPanel();
 		chatPanel.connect();
 		chatPanel.setOpaque(false);
-		chatPanel.setBounds(1300, 30, 300, 700);
+		chatPanel.setBounds(1310, 30, 270, 700);
 
 	
-		
 		//닫기 
 		closeIc1 = new ImageIcon("img/close/close1.png");
 		closeIc2 = new ImageIcon("img/close/close2.png");
@@ -283,7 +286,8 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		add(btn_Close);
 
 		add(chatPanel);
-
+		add(chat_back);
+		
 		add(btn_Selfbbs);
 		add(btn_Sharebbs);
 		add(btn_QAbbs);

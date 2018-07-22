@@ -190,6 +190,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
 						cellHasFocus);
 				result.setOpaque(false);
+				result.setForeground(Color.black);
 				return result;
 			}
 		});
