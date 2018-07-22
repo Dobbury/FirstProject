@@ -62,7 +62,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 	public LoginView() {
 
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 342, 596);
+		layeredPane.setBounds(0, 0, 341, 596);
 		layeredPane.setLayout(null);
 
 		// ---------------------------------------------------------------------------

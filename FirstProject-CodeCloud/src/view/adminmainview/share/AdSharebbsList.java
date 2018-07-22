@@ -80,6 +80,33 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		celAlignCenter.setOpaque(false);
 		
+
+		DefaultTableCellRenderer langcel = new DefaultTableCellRenderer() {
+			@Override
+		    public Component getTableCellRendererComponent
+		       (JTable table, Object value, boolean isSelected,
+		       boolean hasFocus, int row, int column) {
+
+		        Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+
+		        if (value.equals("JAVA")) {
+					cell.setForeground(new Color(234, 45, 46));
+				} else if (value.equals("C")) {
+					cell.setForeground(new Color(3, 89, 156));
+				} else if (value.equals("SQL")) {
+					cell.setForeground(new Color(214, 165, 58));
+				} else if (value.equals("ETC")) {
+					cell.setForeground(Color.white);
+				}
+		        return cell;
+
+		}
+		};
+		langcel.setHorizontalAlignment(JLabel.CENTER);
+		langcel.setOpaque(false);
+		
+		
 		// 검색
 		selectField = new JTextField();
 		selectField.setBounds(140, 570, 150, 40);
@@ -110,7 +137,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter); 
 		jTable.getColumnModel().getColumn(1).setMaxWidth(480); // 제목
 		jTable.getColumnModel().getColumn(2).setMaxWidth(50); // 언어
-		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(2).setCellRenderer(langcel);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(50); // 추천
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(4).setMaxWidth(70); // 포크
@@ -216,12 +243,40 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		celAlignCenter.setOpaque(false);
+		
+
+		DefaultTableCellRenderer langcel = new DefaultTableCellRenderer() {
+			@Override
+		    public Component getTableCellRendererComponent
+		       (JTable table, Object value, boolean isSelected,
+		       boolean hasFocus, int row, int column) {
+
+		        Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+
+		        if (value.equals("JAVA")) {
+					cell.setForeground(new Color(234, 45, 46));
+				} else if (value.equals("C")) {
+					cell.setForeground(new Color(3, 89, 156));
+				} else if (value.equals("SQL")) {
+					cell.setForeground(new Color(214, 165, 58));
+				} else if (value.equals("ETC")) {
+					cell.setForeground(Color.white);
+				}
+		        return cell;
+
+		}
+		};
+		langcel.setHorizontalAlignment(JLabel.CENTER);
+		langcel.setOpaque(false);
+		
+		
 		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50); // 번호
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter); 
 		jTable.getColumnModel().getColumn(1).setMaxWidth(480); // 제목
 		jTable.getColumnModel().getColumn(2).setMaxWidth(50); // 언어
-		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
+		jTable.getColumnModel().getColumn(2).setCellRenderer(langcel);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(50); // 추천
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(4).setMaxWidth(70); // 포크

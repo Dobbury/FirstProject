@@ -228,7 +228,7 @@ public class adMemberbbsUpdate extends JPanel implements ActionListener, WindowL
 			Singleton s = Singleton.getInstance();
 
 				dto.setPWD(pwd_text.getText());
-				s.MemCtrl.memberUpdate(dto.getID(), pwd_text.getText(), dto.getNick(), dto.getAuth(), userIc);
+				s.MemCtrl.memberPwdUpdate(dto.getID(), pwd_text.getText(), dto.getNick(), dto.getAuth(), userIc);
 
 				adMembermian.changePanel(DETAIL, dto);
 		}
