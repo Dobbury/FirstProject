@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import dto.QAbbsDto;
-import view.membermainview.QAbbsList;
+import view.membermainview.QA.QAbbsList;
 
 public class adQAbbsMain extends JPanel {
 	

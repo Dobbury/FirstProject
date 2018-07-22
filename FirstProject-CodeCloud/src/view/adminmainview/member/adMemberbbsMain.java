@@ -36,7 +36,7 @@ import dto.QAbbsDto;
 import oracle.net.aso.s;
 import singleton.Singleton;
 import view.AdminMainView;
-import view.membermainview.QAbbsList;
+import view.membermainview.QA.QAbbsList;
 
 public class adMemberbbsMain extends JPanel implements ActionListener,MouseListener {
 
