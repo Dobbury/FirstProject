@@ -267,8 +267,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 		
 		chatPanel = new chatPanel();
 		chatPanel.connect();
-		chatPanel.setOpaque(false);
-		chatPanel.setBounds(1310, 30, 270, 700);
+		chatPanel.setBounds(1310, 40, 270, 640);
 
 	
 		//닫기 

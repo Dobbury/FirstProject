@@ -22,15 +22,15 @@ public class chatPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	private JTextArea jta = new JTextArea(34, 25);
+	private JTextArea jta = new JTextArea(33, 25);
 	private JTextField jtf = new JTextField(25);
 
 	private JScrollPane scrl;
 	private ClientBackground client = new ClientBackground();
 	private static String nickName;
-
 	public chatPanel() {
-
+		setLayout(null);
+		setOpaque(false);
 		Singleton s = Singleton.getInstance();
 		
 		nickName = s.nowMember.getNick();
@@ -42,6 +42,7 @@ public class chatPanel extends JPanel implements ActionListener {
 		
 		jtf.setForeground(Color.black);
 		jtf.setBackground(Color.WHITE);
+		jtf.setBounds(0,610,270,20);
 		jtf.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0,10, 0, 0)));
 		
 		
@@ -51,15 +52,14 @@ public class chatPanel extends JPanel implements ActionListener {
 		scrl.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 		scrl.setOpaque(false);
 		scrl.getViewport().setOpaque(false);
-					
+		scrl.setBounds(0,0,270,590);			
 		scrl.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 5, 0, 0)));
 		
-		add(scrl, BorderLayout.CENTER);
+		add(scrl);
 
-		add(jtf, BorderLayout.SOUTH);
+		add(jtf);
 		jtf.addActionListener(this);
 
-		setBounds(0, 0, 270, 700);
 		
 		client.setGui(this);
 		client.setNickName(nickName);
@@ -77,7 +77,9 @@ public class chatPanel extends JPanel implements ActionListener {
 
 	public void appendMsg(String msg) {
 		jta.append(msg);
+	
 		scrl.getVerticalScrollBar().setValue(scrl.getVerticalScrollBar().getMaximum());
+	
 	}
 
 	public void connect() {
