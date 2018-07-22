@@ -2,6 +2,7 @@ package view.membermainview;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -69,16 +70,24 @@ public class Sharebbs extends JPanel {
 			}
 		};
 
-
-		Liked.getColumnModel().getColumn(0).setMaxWidth(100);
+		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+		celAlignCenter.setOpaque(false);
+		
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+		
+		Liked.getColumnModel().getColumn(0).setMaxWidth(90);
 		Liked.getColumnModel().getColumn(1).setMaxWidth(40);
-
-
-		Fork.getColumnModel().getColumn(0).setMaxWidth(100);
+		Liked.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
+		Liked.setFont(tableFont);
+		
+		Fork.getColumnModel().getColumn(0).setMaxWidth(90);
 		Fork.getColumnModel().getColumn(1).setMaxWidth(40);
-
-		Liked.setBounds(55, 88, 140, 270);
-		Fork.setBounds(55, 438, 140, 270);
+		Fork.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
+		Fork.setFont(tableFont);
+		
+		Liked.setBounds(55, 98, 130, 270);
+		Fork.setBounds(55, 428, 130, 270);
 		Liked.setRowHeight(40);
 		Fork.setRowHeight(40);
 
@@ -87,14 +96,14 @@ public class Sharebbs extends JPanel {
 
 		JLabel rankL = new JLabel();
 		rankL.setIcon(Lrank);
-		rankL.setBounds(10, 50, 180, 270);
+		rankL.setBounds(10, 60, 180, 270);
 
 		// 코드 배경
 		ImageIcon Frank = new ImageIcon("img/sharebbs/rank.png");
 
 		JLabel rankF = new JLabel();
 		rankF.setIcon(Frank);
-		rankF.setBounds(10, 400, 180, 270);
+		rankF.setBounds(10, 390, 180, 270);
 
 		Liked.setOpaque(false);
 		Liked.setForeground(Color.WHITE);
@@ -113,18 +122,23 @@ public class Sharebbs extends JPanel {
 
 		JLabel Like_top5_L = new JLabel();
 		Like_top5_L.setIcon(Like_top5);
-		Like_top5_L.setBounds(10, 33, 180, 50);
-      
-		
-      
-       endOfRightPanel.setBounds(900,0,300,700);
-       endOfRightPanel.setOpaque(false);
-       endOfRightPanel.add(Liked); 
-       endOfRightPanel.add(Fork);
-       endOfRightPanel.add(rankL);
-       endOfRightPanel.add(rankF);
-       endOfRightPanel.add(Like_top5_L);
-      
+		Like_top5_L.setBounds(10, 43, 180, 50);
+
+		// 코드 배경
+		ImageIcon Fork_top5 = new ImageIcon("img/sharebbs/down_top5.png");
+
+		JLabel Fork_top5_L = new JLabel();
+		Fork_top5_L.setIcon(Fork_top5);
+		Fork_top5_L.setBounds(10, 373, 180, 50);
+
+		endOfRightPanel.setBounds(900, 0, 300, 700);
+		endOfRightPanel.setOpaque(false);
+		endOfRightPanel.add(Liked);
+		endOfRightPanel.add(Fork);
+		endOfRightPanel.add(rankL);
+		endOfRightPanel.add(rankF);
+		endOfRightPanel.add(Like_top5_L);
+		endOfRightPanel.add(Fork_top5_L);
       
 
       //가운데 패널 체인지해주는 패널 부착
@@ -146,14 +160,24 @@ public class Sharebbs extends JPanel {
 	      Liked.setModel(modellike);
 	      Fork.setModel(modelfork);
 	      
-	      Liked.getColumnModel().getColumn(0).setMaxWidth(100);
-	      Liked.getColumnModel().getColumn(1).setMaxWidth(40);
+			DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+			celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+			celAlignCenter.setOpaque(false);
+			
+			Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+			
+			Liked.getColumnModel().getColumn(0).setMaxWidth(90);
+			Liked.getColumnModel().getColumn(1).setMaxWidth(40);
+			Liked.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
+			Liked.setFont(tableFont);
+			
+			Fork.getColumnModel().getColumn(0).setMaxWidth(90);
+			Fork.getColumnModel().getColumn(1).setMaxWidth(40);
+			Fork.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
+			Fork.setFont(tableFont);
 	      
-	      Fork.getColumnModel().getColumn(0).setMaxWidth(100);
-	      Fork.getColumnModel().getColumn(1).setMaxWidth(40);
-	      
-	      Liked.setBounds(55,88,140,270);
-	      Fork.setBounds(55,438,140,270);
+	      Liked.setBounds(55,98,130,270);
+	      Fork.setBounds(55,428,130,270);
 	      Liked.setRowHeight(40);
 	      Fork.setRowHeight(40);
 	      

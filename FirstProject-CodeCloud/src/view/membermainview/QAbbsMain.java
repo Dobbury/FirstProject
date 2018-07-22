@@ -2,6 +2,7 @@ package view.membermainview;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -40,11 +41,11 @@ public class QAbbsMain extends JPanel {
 	private static JTable Liked,Fork;
     
     static String Lcolum[] = {
-         "순위","제목","추천수"
+         "제목","추천수"
     };      
    
     static String Fcolum[] = {
-          "순위","제목", "포크수"
+          "제목", "포크수"
     };   
     
     Object LrowData[][],  FrowData[][];     
@@ -99,18 +100,40 @@ public class QAbbsMain extends JPanel {
 			}
 		};
 
-		Liked.getColumnModel().getColumn(0).setMaxWidth(40);
-		Liked.getColumnModel().getColumn(1).setMaxWidth(100);
-		Liked.getColumnModel().getColumn(2).setMaxWidth(40);
+		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+		celAlignCenter.setOpaque(false);
+		
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+		
+		Liked.getColumnModel().getColumn(0).setMaxWidth(90);
+		Liked.getColumnModel().getColumn(1).setMaxWidth(40);
+		Liked.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
+		Liked.setFont(tableFont);
+		
+		Fork.getColumnModel().getColumn(0).setMaxWidth(90);
+		Fork.getColumnModel().getColumn(1).setMaxWidth(40);
+		Fork.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
+		Fork.setFont(tableFont);
+		
+		Liked.setBounds(55, 98, 130, 270);
+		Fork.setBounds(55, 428, 130, 270);
+		Liked.setRowHeight(40);
+		Fork.setRowHeight(40);
 
-		Fork.getColumnModel().getColumn(0).setMaxWidth(40);
-		Fork.getColumnModel().getColumn(1).setMaxWidth(100);
-		Fork.getColumnModel().getColumn(2).setMaxWidth(40);
+		// 코드 배경
+		ImageIcon Lrank = new ImageIcon("img/QAbbs/rank.png");
 
-		Liked.setBounds(10, 50, 180, 270);
-		Fork.setBounds(10, 370, 180, 270);
-		Liked.setRowHeight(45);
-		Fork.setRowHeight(45);
+		JLabel rankL = new JLabel();
+		rankL.setIcon(Lrank);
+		rankL.setBounds(10, 60, 180, 270);
+
+		// 코드 배경
+		ImageIcon Frank = new ImageIcon("img/QAbbs/rank.png");
+
+		JLabel rankF = new JLabel();
+		rankF.setIcon(Frank);
+		rankF.setBounds(10, 390, 180, 270);
 
 		Liked.setOpaque(false);
 		Liked.setForeground(Color.WHITE);
@@ -124,13 +147,33 @@ public class QAbbsMain extends JPanel {
 		Fork.setOpaque(false);
 		((DefaultTableCellRenderer) Fork.getDefaultRenderer(Object.class)).setOpaque(false);
 
+		// 코드 배경
+		ImageIcon Like_top5 = new ImageIcon("img/QAbbs/like_top5.png");
+
+		JLabel Like_top5_L = new JLabel();
+		Like_top5_L.setIcon(Like_top5);
+		Like_top5_L.setBounds(10, 43, 180, 50);
+
+		// 코드 배경
+		ImageIcon Fork_top5 = new ImageIcon("img/QAbbs/down_top5.png");
+
+		JLabel Fork_top5_L = new JLabel();
+		Fork_top5_L.setIcon(Fork_top5);
+		Fork_top5_L.setBounds(10, 373, 180, 50);
+
+		
 		endOfRightPanel.setBounds(900, 0, 300, 700);
 		endOfRightPanel.setOpaque(false);
 		endOfRightPanel.add(Liked);
 		endOfRightPanel.add(Fork);
-
+		endOfRightPanel.add(rankL);
+		endOfRightPanel.add(rankF);
+		endOfRightPanel.add(Like_top5_L);
+		endOfRightPanel.add(Fork_top5_L);
+		
 		add(mainPanel);
 		add(endOfRightPanel);
+		
 		setVisible(true);
 	}
 
@@ -164,16 +207,27 @@ public class QAbbsMain extends JPanel {
 		Liked.setModel(modellike);
 		Fork.setModel(modelfork);
 
-		Liked.getColumnModel().getColumn(0).setMaxWidth(40);
-		Liked.getColumnModel().getColumn(1).setMaxWidth(100);
-		Liked.getColumnModel().getColumn(2).setMaxWidth(40);
+		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+		celAlignCenter.setOpaque(false);
+		
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+		
+		Liked.getColumnModel().getColumn(0).setMaxWidth(90);
+		Liked.getColumnModel().getColumn(1).setMaxWidth(40);
+		Liked.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
+		Liked.setFont(tableFont);
+		
+		Fork.getColumnModel().getColumn(0).setMaxWidth(90);
+		Fork.getColumnModel().getColumn(1).setMaxWidth(40);
+		Fork.getColumnModel().getColumn(1).setCellRenderer(celAlignCenter);
+		Fork.setFont(tableFont);
+		
+		Liked.setBounds(55, 98, 130, 270);
+		Fork.setBounds(55, 428, 130, 270);
+		Liked.setRowHeight(40);
+		Fork.setRowHeight(40);
 
-		Fork.getColumnModel().getColumn(0).setMaxWidth(40);
-		Fork.getColumnModel().getColumn(1).setMaxWidth(100);
-		Fork.getColumnModel().getColumn(2).setMaxWidth(40);
-
-		Liked.setRowHeight(45);
-		Fork.setRowHeight(45);
 
 	
 	}
