@@ -70,6 +70,7 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 		Font titleFont = new Font("굴림",Font.BOLD, 40);
 		titleText = new JTextField();
 		titleText.setFont(titleFont);
+		titleText.setCaretColor(Color.WHITE);
 		titleText.setForeground(Color.WHITE);
 		titleText.setDocument(new JTextFieldLimit(50));	//50자 제한
 		titleText.setBounds(50, 100, 750, 50);
@@ -86,6 +87,7 @@ public class adQAbbswrite extends JPanel implements ActionListener, WindowListen
 
 		postArea = new JTextArea();
 		postArea.setFont(contentFont);
+		postArea.setCaretColor(Color.WHITE);
 		postArea.setForeground(Color.WHITE);
 		postArea.setDocument(new JTextFieldLimit(4000));	//4000자 제한
 		postArea.setBounds(110, 80, 310, 200);

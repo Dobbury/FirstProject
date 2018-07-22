@@ -138,6 +138,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		// id 텍스트 필드
 		id_text = new JTextField();
 		id_text.setText(id_Hint);
+		id_text.setCaretColor(Color.WHITE);
 		id_text.setForeground(Color.WHITE);
 		id_text.addFocusListener(this);
 		id_text.setBounds(92, 366, 220, 30);
@@ -149,6 +150,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		// pwd 텍스트 필드
 		pwd_text = new JPasswordField();
 		pwd_text.setText(pwd_Hint);
+		pwd_text.setCaretColor(Color.WHITE);
 		pwd_text.setForeground(Color.WHITE);
 		pwd_text.addFocusListener(this);
 		pwd_text.setBounds(92, 429, 220, 30);

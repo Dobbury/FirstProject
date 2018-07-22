@@ -38,7 +38,6 @@ public class chatPanel extends JPanel implements ActionListener {
 		//채팅판 투명화, 커서 흰색, 텍스트에리어 수정불가
 		jta.setOpaque(false);
 		jta.setEditable(false);
-		jta.setCaretColor(Color.WHITE);
 		jta.setForeground(Color.WHITE);
 		jtf.setOpaque(false);
 		jtf.setCaretColor(Color.WHITE);

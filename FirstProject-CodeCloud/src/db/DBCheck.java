@@ -14,8 +14,8 @@ import Encrypt.PasswordClass;
 public class DBCheck {
 
 	public static void memDBcheck() throws FileNotFoundException, SQLException {
-		String sql = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='HR' AND TABLE_NAME='MEMBER'";
-		String sql2 = "SELECT ID FROM MEMBER WHERE ID='admin'";
+		String sql = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='HR' AND TABLE_NAME='CODE_MEMBER'";
+		String sql2 = "SELECT ID FROM CODE_MEMBER WHERE ID='admin'";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -32,7 +32,7 @@ public class DBCheck {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if (!rs.next()) { // 테이블이 없다면 생성
-				sql = "CREATE TABLE MEMBER(" + "ID VARCHAR2(15 CHAR) PRIMARY KEY," + "PWD VARCHAR2(10 CHAR) NOT NULL,"
+				sql = "CREATE TABLE CODE_MEMBER(" + "ID VARCHAR2(15 CHAR) PRIMARY KEY," + "PWD VARCHAR2(10 CHAR) NOT NULL,"
 						+ "NICK VARCHAR2(15 CHAR) UNIQUE," + "AUTH NUMBER NOT NULL," + "IMG BLOB )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
@@ -43,7 +43,7 @@ public class DBCheck {
 			rs = psmt.executeQuery();
 			if (!rs.next()) {
 
-				sql2 = "INSERT INTO MEMBER VALUES('admin', ?, '관리자', 0, ?)";
+				sql2 = "INSERT INTO CODE_MEMBER VALUES('admin', ?, '관리자', 0, ?)";
 				psmt = conn.prepareStatement(sql2);
 				psmt.setString(1, PasswordClass.Encryption("admin"));
 
@@ -86,7 +86,7 @@ public class DBCheck {
 						+ "FORK NUMBER NOT NULL,"
 						+ "LAN VARCHAR2(10 CHAR) NOT NULL," 
 						+ "CONSTRAINT FK_SHAR_NICK FOREIGN KEY(NICK) "
-						+ "REFERENCES MEMBER(NICK) ON DELETE CASCADE )";
+						+ "REFERENCES CODE_MEMBER(NICK) ON DELETE CASCADE )";
 
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
@@ -135,7 +135,7 @@ public class DBCheck {
 						+ "VISIBLE	NUMBER	NOT NULL,"
 						+ "ANSWER	NUMBER  NOT NULL," 
 						+ "CONSTRAINT FK_QA_NICK FOREIGN KEY(NICK) "
-						+ "REFERENCES MEMBER(NICK) ON DELETE CASCADE )";
+						+ "REFERENCES CODE_MEMBER(NICK) ON DELETE CASCADE )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
 
