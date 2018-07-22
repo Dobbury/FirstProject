@@ -89,6 +89,7 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
 						cellHasFocus);
 				result.setOpaque(false);
+				result.setForeground(Color.black);
 				return result;
 			}
 		});

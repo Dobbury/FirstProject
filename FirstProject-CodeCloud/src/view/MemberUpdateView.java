@@ -83,7 +83,7 @@ public class MemberUpdateView extends JFrame
 
 	public MemberUpdateView(MemberMainView mainView, MemberDto dto) {
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 342, 596);
+		layeredPane.setBounds(0, 0, 341, 596);
 		layeredPane.setLayout(null);
 
 		this.dto = dto;
@@ -288,7 +288,7 @@ public class MemberUpdateView extends JFrame
 		BufferedImage oriImg = ImageToBufferedImageClass.toBufferedImage(img);
 
 		// 기본 프로필 원형 이미지
-		ImageIcon basic_profile_img = new ImageIcon("img/signUp/userImages.png");
+		ImageIcon basic_profile_img = new ImageIcon("img/base.png");
 
 		Image ori_bpi = basic_profile_img.getImage();
 		BufferedImage buf_bpi = ImageToBufferedImageClass.toBufferedImage(ori_bpi);

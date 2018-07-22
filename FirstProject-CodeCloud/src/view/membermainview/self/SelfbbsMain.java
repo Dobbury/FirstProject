@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
@@ -187,6 +188,7 @@ public class SelfbbsMain extends JPanel implements ActionListener, MouseListener
 				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
 						cellHasFocus);
 				result.setOpaque(false);
+				result.setForeground(Color.black);
 				return result;
 			}
 		});
