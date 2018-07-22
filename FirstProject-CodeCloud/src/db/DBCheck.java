@@ -163,7 +163,7 @@ public class DBCheck {
 	}
 	public static void createUpdateTrigger() {
 		String Tri_sql = "CREATE OR REPLACE TRIGGER MEMBER_UPDATE_TRG " + 
-				"AFTER UPDATE OF NICK ON MEMBER FOR EACH ROW " + 
+				"AFTER UPDATE OF NICK ON CODE_MEMBER FOR EACH ROW " + 
 				"BEGIN " + 
 				"UPDATE SHAR " + 
 				"SET NICK =:NEW.NICK " + 
