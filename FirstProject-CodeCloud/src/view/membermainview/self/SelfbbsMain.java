@@ -180,6 +180,8 @@ public class SelfbbsMain extends JPanel implements ActionListener, MouseListener
 		searchbox.setOpaque(false);
 		searchbox.setFocusable(false);
 		searchbox.setForeground(Color.white);
+
+		
 		searchbox.setRenderer(new DefaultListCellRenderer() {
 			@Override
 			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
@@ -187,6 +189,8 @@ public class SelfbbsMain extends JPanel implements ActionListener, MouseListener
 				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
 						cellHasFocus);
 				result.setOpaque(false);
+				result.setForeground(Color.black);
+				
 				return result;
 			}
 		});
