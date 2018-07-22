@@ -105,7 +105,18 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		lang = new JLabel();
 		lang.setText(dto.getLanguage());
 		lang.setFont(langFont);
-		lang.setForeground(Color.white);
+		if (list.size() >0) {
+			if (dto.getLanguage().equals("JAVA")) {
+				lang.setForeground(new Color(234, 45, 46));
+			} else if (dto.getLanguage().equals("C")) {
+				lang.setForeground(new Color(3, 89, 156));
+			} else if (dto.getLanguage().equals("SQL")) {
+				lang.setForeground(new Color(214, 165, 58));
+			} else if (dto.getLanguage().equals("ETC")) {
+				lang.setForeground(Color.white);
+			}
+		}
+		
 		lang.setBounds(35, 110, 75, 50);
 		right.add(lang);
 
@@ -120,15 +131,14 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		right.add(titletxt);
 
 		Font contentFont = new Font("굴림", Font.BOLD, 15);
-		
-		//코드 배경
+
+		// 코드 배경
 		ImageIcon code_back_Img = new ImageIcon("img/selfbbs/self_code_background.png");
-		
+
 		JLabel code_backgorund = new JLabel();
 		code_backgorund.setIcon(code_back_Img);
-		code_backgorund.setBounds(25,170,750,400);
-		
-		
+		code_backgorund.setBounds(25, 170, 750, 400);
+
 		codetxt.setOpaque(false);
 		codetxt.setFont(contentFont);
 		codetxt.setForeground(Color.white);
@@ -136,18 +146,17 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		codetxt.setText(dto.getContent());
 		codetxt.setEditable(false);
 
-		//스크롤바 0으로 줄여서 안보이게하는 코드
-		jScrPane = new JScrollPane(codetxt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
-		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
-		jScrPane.setBounds(25,170,750,400);
+		// 스크롤바 0으로 줄여서 안보이게하는 코드
+		jScrPane = new JScrollPane(codetxt, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+		jScrPane.setBounds(25, 170, 750, 400);
 		jScrPane.setOpaque(false);
 		jScrPane.getViewport().setOpaque(false);
-		jScrPane.setBorder(BorderFactory.createCompoundBorder(null,
-	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+		jScrPane.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 		right.add(jScrPane);
 		right.add(code_backgorund);
-		
-		
+
 		editIc1 = new ImageIcon("img/selfbbs/self_edit_on.png");
 		editIc2 = new ImageIcon("img/selfbbs/self_edit_off.png");
 		editIc3 = new ImageIcon("img/selfbbs/self_edit_ing.png");
@@ -161,17 +170,18 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		editbtn.setBounds(500, 590, 76, 51);
 		editbtn.addActionListener(this);
 		right.add(editbtn);
-		
+
 		shareIc1 = new ImageIcon("img/selfbbs/self_share_on.png");
 		shareIc2 = new ImageIcon("img/selfbbs/self_share_off.png");
 		shareIc3 = new ImageIcon("img/selfbbs/self_share_ing.png");
 		sharebtn = new JToggleButton(shareIc1);
 		sharebtn.setRolloverIcon(shareIc2);
-		sharebtn.setPressedIcon(shareIc3);
+		sharebtn.setPressedIcon(shareIc2);
+		sharebtn.setSelectedIcon(shareIc2);
 		sharebtn.setBorderPainted(false);
 		sharebtn.setContentAreaFilled(false);
 		sharebtn.setFocusPainted(false);
-		
+
 		sharebtn.setBounds(600, 590, 76, 51);
 
 		if (dto.getShare() == 1) {
@@ -187,7 +197,7 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 		deletebtn.setBorderPainted(false);
 		deletebtn.setContentAreaFilled(false);
 		deletebtn.setFocusPainted(false);
-		
+
 		deletebtn.setBounds(700, 590, 76, 51);
 		deletebtn.addActionListener(this);
 		right.add(deletebtn);
@@ -215,6 +225,7 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 				if (choice == 0) {
 
 					int result = dao.share(dto);
+					dto.setShare(1);
 					if (result > 0) {
 						JOptionPane.showMessageDialog(null, "공유되었습니다.");
 					}
@@ -246,9 +257,9 @@ public class SelfbbsDetail extends JPanel implements ActionListener {
 				if (result) {
 					JOptionPane.showMessageDialog(null, "삭제되었습니다.");
 					list = s.selfDao.getSelfBbsList();
-					if(list.size() > 0) {
+					if (list.size() > 0) {
 						selfMain.changePanel(DETAIL, list.get(0));
-					}else {
+					} else {
 						selfMain.changePanel(DETAIL, new BBSDto());
 					}
 					selfMain.setList(list);

@@ -190,7 +190,7 @@ public class AdSharebbsDetail extends JPanel implements ActionListener {
 
 		}else if (e.getSource() == btn_Delete) {
 			Singleton s = Singleton.getInstance();
-			s.sharDao.delete(dto.getSeq());
+			s.sharDao.delete(dto);
 			adminSharebbs.changPanel(1, new ShareDto());
 		}
 	}

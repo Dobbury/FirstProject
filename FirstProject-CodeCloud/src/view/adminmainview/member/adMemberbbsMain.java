@@ -2,29 +2,38 @@ package view.adminmainview.member;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import dto.MemberDto;
 import dto.QAbbsDto;
+import oracle.net.aso.s;
 import singleton.Singleton;
 import view.membermainview.QAbbsList;
 
@@ -41,6 +50,8 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 	private JTable jTable;
 	private JScrollPane jScrPane;
 	private JButton writeBtn;
+	private JComboBox choiceList;
+	private JTextField selectField;
 	
 	DefaultTableModel model; // 테이블의 넓이 설정
 
@@ -50,11 +61,53 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 
 	List<MemberDto> list;	
 	adMemberbbsDetail addetail;
+	
+	ImageIcon searchIc1;
+	ImageIcon searchIc2;
+	ImageIcon searchIc3;
+	
+	private JButton searchBtn;
 
 	public adMemberbbsMain() {
 		setLayout(null);
 		setBounds(0, 0, 1000, 700);
 		setOpaque(false);
+		
+		String[] selects = new String[] { "전체보기", "아이디", "닉네임"};
+		choiceList = new JComboBox<>(selects);
+		choiceList.setBounds(50, 640, 80, 40);
+		choiceList.setOpaque(false);
+		choiceList.setFocusable(false);
+		choiceList.setForeground(Color.white);
+		choiceList.setRenderer(new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
+						cellHasFocus);
+				result.setOpaque(false);
+				return result;
+			}
+		});
+		add(choiceList);
+		
+		selectField = new JTextField();
+		selectField.setBounds(140, 640, 150, 40);
+		add(selectField);
+
+		searchIc1 = new ImageIcon("img/sharebbs/share_search_on.png");
+		searchIc2 = new ImageIcon("img/sharebbs/share_search_off.png");
+		searchIc3 = new ImageIcon("img/sharebbs/share_search_ing.png");
+		searchBtn = new JButton(searchIc1);
+		searchBtn.setRolloverIcon(searchIc2);
+		searchBtn.setPressedIcon(searchIc3);
+		searchBtn.setBorderPainted(false);
+		searchBtn.setContentAreaFilled(false);
+		searchBtn.setFocusPainted(false);
+		
+		searchBtn.addActionListener(this);
+		searchBtn.setBounds(300, 640, 101, 41);
+		add(searchBtn);
 		
 		ListPanel = new JPanel();
 		ListPanel.setLayout(null);
@@ -82,7 +135,12 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 		model = new DefaultTableModel(columnNames, 0);
 		model.setDataVector(rowData, columnNames);
 
-		jTable = new JTable(model);
+		jTable = new JTable(model){
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};;
 		jTable.addMouseListener(this);
 
 		// 컬럼의 넓이 설정
@@ -154,10 +212,27 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int rowNum = jTable.getSelectedRow();
+		Singleton s = Singleton.getInstance();
 		
 		// 비밀번호 변경
 		if (e.getSource() == writeBtn) {
 			changePanel(UPDATE, list.get(rowNum));
+		}
+		
+		if (e.getSource() == searchBtn) {
+			List<MemberDto> list = new ArrayList<>();
+			
+			String selectedItem = (String) choiceList.getSelectedItem();
+			if (selectedItem.equals("전체보기")) {
+				list = s.MemCtrl.getbbsList();
+				setList(list);
+			}else if (selectedItem.equals("아이디")) {
+				list = s.MemCtrl.memSearch(selectField.getText(), "아이디");
+				setList(list);
+			}else if (selectedItem.equals("닉네임")) {
+				list = s.MemCtrl.memSearch(selectField.getText(), "닉네임");
+				setList(list);
+			}
 		}
 	}
 
@@ -200,7 +275,10 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 			jTable.setShowGrid(false);
 			jTable.setRowHeight(25);
 			Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
-			jTable.setFont(tableFont);		
+			jTable.setFont(tableFont);
+
+			selectField.setText("");
+			
 			
 	}
 	@Override
@@ -223,10 +301,22 @@ public class adMemberbbsMain extends JPanel implements ActionListener,MouseListe
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int rowNum = jTable.getSelectedRow();
+		JTable source = (JTable) e.getSource();
+		int rows = source.rowAtPoint(e.getPoint());
+
+		String id = (String) source.getModel().getValueAt(rows, 0);
 		
 		Singleton s = Singleton.getInstance();
-		MemberDto dto = s.MemCtrl.memSearch(list.get(rowNum).getID());
+		MemberDto dto = null;
+		List<MemberDto> templist = new ArrayList<>();
+		templist = s.MemCtrl.memSearch(id, "아이디");
+		
+		for (int i = 0; i < templist.size(); i++) {
+			if (templist.get(i).getID().equals(id)) {
+				dto = templist.get(i);
+			}
+		}
+		
 
 		changePanel(DETAIL, dto); // 해당 글 보는 곳
 	}

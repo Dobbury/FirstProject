@@ -77,7 +77,15 @@ public class ShareDetail extends JPanel implements Action {
 
 		JLabel langText = new JLabel(dto.getLang(), SwingConstants.CENTER);
 		langText.setFont(titleFont);
-		langText.setForeground(Color.WHITE);
+		if (dto.getLang().equals("JAVA")) {
+			langText.setForeground(new Color(234, 45, 46));
+		} else if (dto.getLang().equals("C")) {
+			langText.setForeground(Color.BLUE);
+		} else if (dto.getLang().equals("SQL")) {
+			langText.setForeground(new Color(214, 165, 58));
+		} else if (dto.getLang().equals("ETC")) {
+			langText.setForeground(Color.white);
+		}
 		langText.setBounds(605, 100, 160, 50);
 		add(langText);
 

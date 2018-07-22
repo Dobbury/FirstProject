@@ -177,6 +177,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == searchBtn) { // 검색버튼으로 디테일뷰 테스트
 			Singleton s = Singleton.getInstance();
+
 			String selectedItem = (String) choiceList.getSelectedItem();
 			list = s.sharDao.getTitleFindList(selectField.getText(),selectedItem.toString());
 			

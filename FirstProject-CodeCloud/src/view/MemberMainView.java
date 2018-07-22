@@ -390,7 +390,7 @@ public class MemberMainView extends JFrame implements ActionListener, MouseListe
 			this.dispose();
 			s.MemCtrl.login();
 		} else if (e.getSource() == btn_Close) {
-				dispose();
+			System.exit(0);
 		}
 
 	}

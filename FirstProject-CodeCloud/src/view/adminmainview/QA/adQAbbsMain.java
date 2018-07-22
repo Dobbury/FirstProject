@@ -60,6 +60,10 @@ public class adQAbbsMain extends JPanel {
 			logo.setVisible(true);
 			admainPanel.add("adQAbbsList", new adQAbbsList(this));
 			cards.show(admainPanel, "adQAbbsList");
+		}else if (state == COMMENT_UPDATE) {
+			logo.setVisible(true);
+			admainPanel.add("adQAbbswrite", new adQAbbswrite(this, dto, state));
+			cards.show(admainPanel, "adQAbbswrite");
 		}
 	}
 }
