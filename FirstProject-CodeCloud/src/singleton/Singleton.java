@@ -9,10 +9,8 @@ import dao.ShareDao;
 import dto.BBSDto;
 import dto.MemberDto;
 import dto.QAbbsDto;
-
-import view.membermainview.QAbbsList;
-
 import dto.ShareDto;
+import view.membermainview.QA.QAbbsList;
 
 public class Singleton {
 	private static Singleton s = null;

@@ -14,7 +14,10 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImagingOpException;
 import java.awt.peer.ButtonPeer;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -97,7 +100,7 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		btn_drag.setBorderPainted(false);
 		btn_drag.setContentAreaFilled(false);
 		btn_drag.setFocusPainted(false);
-		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.setBounds(0, 0, 17, 17);
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
 		layeredPane.add(btn_drag);
@@ -112,11 +115,12 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 		btn_Close.setBorderPainted(false);
 		btn_Close.setContentAreaFilled(false);
 		btn_Close.setFocusPainted(false);
-		btn_Close.setBounds(313, 10, 16, 16);
+		btn_Close.setBounds(318, 5, 16, 16);
 		btn_Close.addActionListener(this);
 		layeredPane.add(btn_Close);
 
 		IP_Text = new JTextField();
+		IP_Text.setCaretColor(Color.WHITE);
 		IP_Text.setText(IP_Hint);
 		IP_Text.setForeground(Color.WHITE);
 		IP_Text.setFont(new Font("menlo", Font.PLAIN, 14));
@@ -256,7 +260,13 @@ public class HostDbSetView extends JFrame implements FocusListener, ActionListen
 			Singleton s = Singleton.getInstance();
 			s.hostDB_IP = IP_Text.getText();
 
-			DBCheck.memDBcheck();
+			try {
+				DBCheck.memDBcheck();
+
+			} catch (Exception e1) {
+
+				e1.printStackTrace();
+			}
 			DBCheck.shareDBCheck();
 			DBCheck.qaDBCheck();
 			DBCheck.createUpdateTrigger();

@@ -232,41 +232,51 @@ public class MemberDao implements MemberDaoImpl {
 		return mem;
 	}
 	
-	public MemberDto search(String id) {
-		String sql = " SELECT PWD, NICK, AUTH, IMG " + " FROM MEMBER " + " WHERE ID=?";
+	public List<MemberDto> search(String txt, String choice) {
+		String txt2 = "%"+txt+"%";
+		String sql = " SELECT * " + " FROM MEMBER ";
+		
+		if (choice.equals("아이디")) {
+			sql += "WHERE ID LIKE ?";
+		}else {
+			sql += "WHERE NICK LIKE ?";
+		}
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		MemberDto mem = null;
+		List<MemberDto> list = new ArrayList<>();
 
 		try {
 
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, txt2);
 
-			psmt.setString(1, id);
 
 			rs = psmt.executeQuery();
 
-			if (rs.next()) {
-				String pwd = rs.getString(1);
-				String nick = rs.getString(2);
-				int auth = rs.getInt(3);
+			while(rs.next()) {
+				int i = 1;
+				
 				// 이미지 처리
-				InputStream is = rs.getBinaryStream(4);
+				InputStream is = rs.getBinaryStream(5);
 				BufferedImage profile_Img = ImageIO.read(is);
-
-				mem = new MemberDto(id, pwd, nick, auth, profile_Img);
-			} else {
-				JOptionPane.showMessageDialog(null, "아이디가 존재하지 않습니다.");
-			}
+				
+				MemberDto dto = new MemberDto(rs.getString(i++), 
+										rs.getString(i++), 
+										rs.getString(i++), 
+										rs.getInt(i++), 
+										profile_Img);
+				list.add(dto);				
+			}		
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-		return mem;
+		return list;
 	}
 	public boolean update(MemberDto dto) {
 		String sql = "UPDATE MEMBER SET PWD = ?, NICK = ?, IMG = ? WHERE ID=?";
@@ -298,5 +308,39 @@ public class MemberDao implements MemberDaoImpl {
 			DBClose.close(stmt, conn, null);
 		}
 		return count > 0 ? true : false;
+	}
+
+	@Override
+	public int delete(MemberDto dto) {
+		String sql = "DELETE FROM MEMBER WHERE ID=?";
+		String sql2 = "DROP TABLE " + dto.getID() + " cascade constraints PURGE";
+		String sql3 = "DROP TABLE " + dto.getID() + "_LIKED cascade constraints PURGE";
+		String sql4 = "DROP SEQUENCE " + dto.getID() + "_SEQ";
+		
+		int count = -1;
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getID());
+			count = psmt.executeUpdate();
+			
+			psmt = conn.prepareStatement(sql2);
+			psmt.executeQuery();
+			
+			psmt = conn.prepareStatement(sql3);
+			psmt.executeQuery();
+			
+			psmt = conn.prepareStatement(sql4);
+			psmt.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+		
 	}
 }

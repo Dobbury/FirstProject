@@ -1,7 +1,9 @@
 package view.adminmainview.share;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -9,9 +11,14 @@ import java.awt.event.MouseListener;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -33,7 +40,11 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 
 	private JComboBox<String> choiceList; // 검색 목록 초이스
 	private JTextField selectField; // 검색 필드
-	private JButton selectBtn;// 검색 버튼
+	
+	ImageIcon searchIc1;
+	ImageIcon searchIc2;
+	ImageIcon searchIc3;
+	private JButton searchBtn;// 검색 버튼
 
 	DefaultTableModel model; // 테이블의 넓이 설정
 
@@ -57,7 +68,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 			ShareDto dto = list.get(i);
 
 			rowData[i][0] = dto.getSeq();// 번호
-			rowData[i][1] = list.get(i).getTitle();	//제목
+			rowData[i][1] = " "+list.get(i).getTitle();	//제목
 			rowData[i][2] = list.get(i).getLang();	//언오
 			rowData[i][3] = list.get(i).getLiked();	//추천
 			rowData[i][4] = list.get(i).getFork(); //포크
@@ -67,16 +78,26 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+		celAlignCenter.setOpaque(false);
 		
 		// 검색
 		selectField = new JTextField();
-		selectField.setBounds(250, 600, 150, 20);
+		selectField.setBounds(140, 570, 150, 40);
 		add(selectField);
 
-		selectBtn = new JButton("검색");
-		selectBtn.addActionListener(this);
-		selectBtn.setBounds(420, 600, 100, 20);
-		add(selectBtn);
+		searchIc1 = new ImageIcon("img/adminMain/share/share_search_on.png");
+		searchIc2 = new ImageIcon("img/adminMain/share/share_search_off.png");
+		searchIc3 = new ImageIcon("img/adminMain/share/share_search_ing.png");
+		searchBtn = new JButton(searchIc1);
+		searchBtn.setRolloverIcon(searchIc2);
+		searchBtn.setPressedIcon(searchIc3);
+		searchBtn.setBorderPainted(false);
+		searchBtn.setContentAreaFilled(false);
+		searchBtn.setFocusPainted(false);
+		
+		searchBtn.addActionListener(this);
+		searchBtn.setBounds(300, 570, 101, 41);
+		add(searchBtn);
 
 		model = new DefaultTableModel(columnNames, 0);
 		model.setDataVector(rowData, columnNames);
@@ -87,28 +108,65 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50); // 번호
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter); 
-		jTable.getColumnModel().getColumn(1).setMaxWidth(500); // 제목
+		jTable.getColumnModel().getColumn(1).setMaxWidth(480); // 제목
 		jTable.getColumnModel().getColumn(2).setMaxWidth(50); // 언어
 		jTable.getColumnModel().getColumn(2).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(50); // 추천
 		jTable.getColumnModel().getColumn(3).setCellRenderer(celAlignCenter);
-		jTable.getColumnModel().getColumn(4).setMaxWidth(50); // 포크
+		jTable.getColumnModel().getColumn(4).setMaxWidth(70); // 포크
 		jTable.getColumnModel().getColumn(4).setCellRenderer(celAlignCenter);
 		jTable.getColumnModel().getColumn(5).setMaxWidth(100); // 닉네임
 		jTable.getColumnModel().getColumn(5).setCellRenderer(celAlignCenter);
 
+		jTable.setOpaque(false);
+		jTable.setForeground(Color.WHITE);
+		jTable.setTableHeader(null);
+		jTable.setShowGrid(false);
+		jTable.setRowHeight(25);
+		Font tableFont = new Font("맑은고딕", Font.PLAIN, 15);
+		jTable.setFont(tableFont);	
+		
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrPane.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
 
-		jScrPane.setBounds(80, 150, 800, 400);
+		jScrPane.setOpaque(false);
+		jScrPane.getViewport().setOpaque(false);
+		((DefaultTableCellRenderer) jTable.getDefaultRenderer(Object.class)).setOpaque(false);
+
+		// 테두리 없애기
+		jScrPane.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+
+		jScrPane.setBounds(50, 205, 800, 340);
 		add(jScrPane);
 
+		// 코드 배경
+		ImageIcon bbs_back_Img = new ImageIcon("img/adminMain/share/adShare_list_background.png");
+
+		JLabel bbs_backgorund = new JLabel();
+		bbs_backgorund.setIcon(bbs_back_Img);
+		bbs_backgorund.setBounds(50,150, 800, 400);
+		add(bbs_backgorund);
 		// 검색할 부분 콤보박스로 나열해줌
 		// Choice(AWT) -> JComboBox(swing)
-		String[] selects = new String[] { "제목", "내용", "닉네임" };
+		String[] selects = new String[] { "전체보기", "제목", "내용", "닉네임" };
 		choiceList = new JComboBox<>(selects);
-		choiceList.setBounds(150, 600, 80, 20);
+		choiceList.setBounds(50, 570, 80, 40);
+		
+		choiceList.setOpaque(false);
+		choiceList.setFocusable(false);
+		choiceList.setForeground(Color.white);
+		choiceList.setRenderer(new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				JComponent result = (JComponent) super.getListCellRendererComponent(list, value, index, isSelected,
+						cellHasFocus);
+				result.setOpaque(false);
+				return result;
+			}
+		});
+		
 		add(choiceList);
 
 		setLayout(null);
@@ -117,13 +175,15 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == selectBtn) { // 검색버튼으로 디테일뷰 테스트
+		if (e.getSource() == searchBtn) { // 검색버튼으로 디테일뷰 테스트
 			Singleton s = Singleton.getInstance();
-			
-			list = s.sharDao.getTitleFindList(selectField.getText(), choiceList.getSelectedItem().toString());
+
+			String selectedItem = (String) choiceList.getSelectedItem();
+			list = s.sharDao.getTitleFindList(selectField.getText(),selectedItem.toString());
 			
 			if (list.size() == 0 || selectField.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
+				if(!selectedItem.equals("전체보기"))
+					JOptionPane.showMessageDialog(null, "검색하신 단어로는 데이터를 찾지못했습니다");
 
 				list = s.sharDao.getbbsList(); // 만약 데이터가 없으면 초기화함
 			}
@@ -139,7 +199,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 			ShareDto dto = list.get(i);
 			
 			rowData[i][0] = dto.getSeq();// 번호
-			rowData[i][1] = list.get(i).getTitle();	//제목
+			rowData[i][1] = " "+list.get(i).getTitle();	//제목
 			rowData[i][2] = list.get(i).getLang();	//언오
 			rowData[i][3] = list.get(i).getLiked();	//추천
 			rowData[i][4] = list.get(i).getFork(); //포크
@@ -151,6 +211,7 @@ public class AdSharebbsList extends JPanel implements ActionListener,MouseListen
 		
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
+		celAlignCenter.setOpaque(false);
 		// 컬럼의 넓이 설정
 		jTable.getColumnModel().getColumn(0).setMaxWidth(50); // 번호
 		jTable.getColumnModel().getColumn(0).setCellRenderer(celAlignCenter); 

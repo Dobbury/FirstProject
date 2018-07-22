@@ -38,24 +38,40 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 	final int LIST = 1;
 	final int UPDATE = 2;
 	
-	private ImageIcon signupIc1;
-	private ImageIcon signupIc2;
-	private ImageIcon signupIc3;
+	private ImageIcon updateIc1;
+	private ImageIcon updateIc2;
+	private ImageIcon updateIc3;
 	private JButton btn_Update;
 	
+	private ImageIcon deleteIc1;
+	private ImageIcon deleteIc2;
+	private ImageIcon deleteIc3;
+	private JButton btn_Delete;
+
+	// 이미지 파일 불러오는 버튼 이미지 나중에 바꿔야함
+	private ImageIcon edit1;
+	private ImageIcon edit2;
+	private JButton btn_ImgSelect;
+
 	private ImageIcon userIc;
 	private JLabel userLabel;
 
 	private JTextField id_text;
 
 	private JTextField nick_text;
-	
-	private JPasswordField pwd_text;
+	private JLabel nick_check_label;
+	private boolean nick_check;
 
-	String pwd_Hint = "패스워드 입력";
-	
+	private JPasswordField pwd_text;
+	private JLabel pwd_check_label;
+	private boolean pwd_check;
+
 	BufferedImage img = null;
 	BufferedImage userImg = null;
+
+	String id_Hint = "ID 입력";
+	String pwd_Hint = "패스워드 입력";
+	String nick_Hint = "닉네임 입력";
 	
 	adMemberbbsMain adMembermian;
 	MemberDto dto;
@@ -73,69 +89,108 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 		// ---------------------------------------------------------------------------
 		// 배경화면
 		try {
-			img = ImageIO.read(new File("img/signUp/signBack.png"));
+			img = ImageIO.read(new File("img/memberUpdate/updatebck.png"));
 		} catch (IOException e) {
 			System.out.println("이미지 불러오기 실패");
 			System.exit(0);
 		}
 
 		MyPanel panel = new MyPanel();
-		panel.setBounds(0, 0, 341, 597);
+		panel.setBounds(0, 0, 341, 596);
 
 		// ---------------------------------------------------------------------------
 		// 버튼
+
 		// 회원가입
-		signupIc1 = new ImageIcon("img/signUp/btn_sign1.png");
-		signupIc2 = new ImageIcon("img/signUp/btn_sign2.png");
-		signupIc3 = new ImageIcon("img/signUp/btn_sign3.png");
-		btn_Update = new JButton(signupIc1);
-		btn_Update.setRolloverIcon(signupIc2);
-		btn_Update.setPressedIcon(signupIc3);
+		updateIc1 = new ImageIcon("img/memberUpdate/btn_edicpwd1.png");
+		updateIc2 = new ImageIcon("img/memberUpdate/btn_edicpwd2.png");
+		updateIc3 = new ImageIcon("img/memberUpdate/btn_edicpwd3.png");
+		btn_Update = new JButton(updateIc1);
+		btn_Update.setRolloverIcon(updateIc2);
+		btn_Update.setPressedIcon(updateIc3);
 		btn_Update.setBorderPainted(false);
 		btn_Update.setContentAreaFilled(false);
 		btn_Update.setFocusPainted(false);
-		btn_Update.setBounds(20, 484, 295, 50);
+		btn_Update.setBounds(20, 474, 296, 51);
 		btn_Update.addActionListener(this);
 		layeredPane.add(btn_Update);
-	
+		
+		deleteIc1 = new ImageIcon("img/memberUpdate/btn_del1.png");
+		deleteIc2 = new ImageIcon("img/memberUpdate/btn_del2.png");
+		deleteIc3 = new ImageIcon("img/memberUpdate/btn_del3.png");
+		btn_Delete = new JButton(deleteIc1);
+		btn_Delete.setRolloverIcon(deleteIc2);
+		btn_Delete.setPressedIcon(deleteIc3);
+		btn_Delete.setBorderPainted(false);
+		btn_Delete.setContentAreaFilled(false);
+		btn_Delete.setFocusPainted(false);
+		btn_Delete.setBounds(20, 535, 296, 51);
+		btn_Delete.addActionListener(this);
+		layeredPane.add(btn_Delete);
+		
+		
+
+		edit1 = new ImageIcon("img/memberUpdate/btn_edit1.png");
+		edit2 = new ImageIcon("img/memberUpdate/btn_edit2.png");
+		btn_ImgSelect = new JButton(edit1);
+		btn_ImgSelect.setRolloverIcon(edit2);
+		btn_ImgSelect.setPressedIcon(edit2);
+		btn_ImgSelect.setBorderPainted(false);
+		btn_ImgSelect.setContentAreaFilled(false);
+		btn_ImgSelect.setFocusPainted(false);
+		btn_ImgSelect.setBounds(143, 243, 59, 12);
+		btn_ImgSelect.addActionListener(this);
+		layeredPane.add(btn_ImgSelect);
+
 		// ---------------------------------------------------------------------------
 		// 사용자 프로필 이미지
 		userIc = new ImageIcon(dto.getProfile_Img());
 		userLabel = new JLabel(userIc);
 		userLabel.setLayout(null);
-		userLabel.setBounds(105, 100, 130, 130);
+		userLabel.setBounds(115, 108, 115, 115);
 		layeredPane.add(userLabel);
 
 		// 아이디 입력 textField
 		id_text = new JTextField();
 		id_text.setText(dto.getID());
-		id_text.setBounds(70, 303, 220, 30);
+		id_text.setForeground(Color.gray);
+		id_text.setBounds(92, 282, 220, 30);
 		id_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		id_text.setOpaque(false);
 		id_text.setEditable(false);
 		layeredPane.add(id_text);
 
 		pwd_text = new JPasswordField();
-		pwd_text.setText(pwd_Hint);
+		pwd_text.setText(dto.getPWD());
 		pwd_text.setForeground(Color.WHITE);
-		pwd_text.setBounds(70, 366, 220, 30);
+		pwd_text.setBounds(92, 351, 220, 30);
 		pwd_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		pwd_text.setOpaque(false);
 		pwd_text.setEditable(false);
 		layeredPane.add(pwd_text);
 
+		pwd_check_label = new JLabel("test");
+		pwd_check_label.setBounds(92, 387, 300, 30);
+		layeredPane.add(pwd_check_label);
+
 		nick_text = new JTextField();
+		nick_text.setText(dto.getNick());
 		nick_text.setForeground(Color.WHITE);
-		nick_text.setBounds(70, 429, 220, 30);
+		nick_text.setBounds(92, 423, 220, 30);
 		nick_text.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		nick_text.setOpaque(false);
 		nick_text.setEditable(false);
 		layeredPane.add(nick_text);
 
+		nick_check_label = new JLabel("test");
+		nick_check_label.setBounds(92, 456, 300, 30);
+		layeredPane.add(nick_check_label);
+
 		// 기본 설정
 		// setBackground(new Color(0,0,0,122)); 배경 투명 설정
+
 		setLayout(null);
-		setBounds(0, 0, 341, 597);
+		setBounds(0, 0, 341, 596);
 		add(layeredPane);
 		setVisible(true);
 		layeredPane.add(panel);
@@ -202,6 +257,18 @@ public class adMemberbbsDetail extends JPanel implements ActionListener, WindowL
 				adMembermian.changePanel(UPDATE, dto);
 				
 			}
-		} 
+		}
+		if (e.getSource() == btn_Delete) {
+			Singleton s = Singleton.getInstance();
+			int choice = JOptionPane.YES_NO_OPTION;
+			choice = JOptionPane.showConfirmDialog(null, "'"+dto.getID()+"' 회원을 삭제하시겠습니까?", "WARNING", choice);
+			if (choice == 0) {
+				int result = s.MemCtrl.deleteMember(dto);
+				if (result > 0) {
+					JOptionPane.showMessageDialog(null, "삭제되었습니다");
+				}
+				adMembermian.changePanel(LIST, null);
+			}
+		}
 	}
 }

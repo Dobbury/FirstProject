@@ -191,7 +191,7 @@ public class QAbbsDao {
 
 	// 수정
 	public boolean update(QAbbsDto dto) {
-		String sql = "UPDATE QA SET title=?, content=?, del = ?  visible = ? "
+		String sql = "UPDATE QA SET title=?, content=?, del = ?, visible = ? "
 				+ "WHERE seq = ? AND ref=? AND step=? AND dept=?";
 
 		Connection conn = DBConnection.makeConnection();
@@ -248,16 +248,17 @@ public class QAbbsDao {
 	public List<QAbbsDto> getTitleFindList(String fStr, String fword) {
 		List<QAbbsDto> list = new ArrayList<QAbbsDto>();
 
-		String sql = " SELECT SEQ, nick, TITLE, dat " + " FROM QA ";
+		String sql = " SELECT SEQ, nick, TITLE, dat, del " + " FROM QA";
 
 		if (fword.equals("제목")) {
-			sql = sql + " WHERE TITLE LIKE ?";
+			sql = sql + " WHERE TITLE LIKE ? ";
 		} else if (fword.equals("내용")) {
 			sql = sql + " WHERE CONTENT LIKE ?";
 		} else if (fword.equals("작성자")) {
 			sql = sql + " WHERE nick = ?";
 		}
-
+		sql += " ORDER BY SEQ DESC";
+		
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -283,7 +284,8 @@ public class QAbbsDao {
 						rs.getString(i++), // TITLE
 						null, // CONTENT
 						rs.getString(i++), // WDATE
-						0, 0, 0, 0, 0); // DEL
+						rs.getInt(i++) 	// DEL
+						, 0, 0, 0, 0);
 
 				list.add(dto);
 			}

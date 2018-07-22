@@ -38,6 +38,10 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 	private ImageIcon closeIc2;
 	private ImageIcon closeIc3;
 	private JButton btn_Close;
+	
+	private ImageIcon return1;
+	private ImageIcon return2;
+	private JButton btn_return;
 
 	private JTextField id_text;
 	private JLabel id_check_label;
@@ -90,10 +94,37 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		btn_drag.setBorderPainted(false);
 		btn_drag.setContentAreaFilled(false);
 		btn_drag.setFocusPainted(false);
-		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.setBounds(0, 0, 17, 17);
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
 		layeredPane.add(btn_drag);
+
+		// 닫기
+		closeIc1 = new ImageIcon("img/close/close1.png");
+		closeIc2 = new ImageIcon("img/close/close2.png");
+		closeIc3 = new ImageIcon("img/close/close3.png");
+		btn_Close = new JButton(closeIc1);
+		btn_Close.setRolloverIcon(closeIc2);
+		btn_Close.setPressedIcon(closeIc3);
+		btn_Close.setBorderPainted(false);
+		btn_Close.setContentAreaFilled(false);
+		btn_Close.setFocusPainted(false);
+		btn_Close.setBounds(318, 5, 16, 16);
+		btn_Close.addActionListener(this);
+		layeredPane.add(btn_Close);
+		
+		// 뒤로가기
+		return1 = new ImageIcon("img/return/btn_return1.png");
+		return2 = new ImageIcon("img/return/btn_return2.png");
+		btn_return = new JButton(return1);
+		btn_return.setRolloverIcon(return2);
+		btn_return.setPressedIcon(return2);
+		btn_return.setBorderPainted(false);
+		btn_return.setContentAreaFilled(false);
+		btn_return.setFocusPainted(false);
+		btn_return.setBounds(18, 14, 22, 16);
+		btn_return.addActionListener(this);
+		layeredPane.add(btn_return);
 
 		// 회원가입
 		signupIc1 = new ImageIcon("img/signUp/btn_sign1.png");
@@ -109,19 +140,6 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		btn_Signup.addActionListener(this);
 		layeredPane.add(btn_Signup);
 
-		// 닫기
-		closeIc1 = new ImageIcon("img/close/close1.png");
-		closeIc2 = new ImageIcon("img/close/close2.png");
-		closeIc3 = new ImageIcon("img/close/close3.png");
-		btn_Close = new JButton(closeIc1);
-		btn_Close.setRolloverIcon(closeIc2);
-		btn_Close.setPressedIcon(closeIc3);
-		btn_Close.setBorderPainted(false);
-		btn_Close.setContentAreaFilled(false);
-		btn_Close.setFocusPainted(false);
-		btn_Close.setBounds(313, 10, 16, 16);
-		btn_Close.addActionListener(this);
-		layeredPane.add(btn_Close);
 
 		// 아이디 입력 textField
 		id_text = new JTextField();
@@ -135,9 +153,9 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		layeredPane.add(id_text);
 
 		// 아이디 체크 라벨
-		id_check_label = new JLabel("test");
+		id_check_label = new JLabel();
 
-		id_check_label.setBounds(92, 316, 300, 30);
+		id_check_label.setBounds(30, 316, 300, 30);
 		layeredPane.add(id_check_label);
 
 		// pwd 입력
@@ -151,8 +169,8 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		layeredPane.add(pwd_text);
 
 		// pwd 확인
-		pwd_check_label = new JLabel("test");
-		pwd_check_label.setBounds(92, 387, 300, 30);
+		pwd_check_label = new JLabel();
+		pwd_check_label.setBounds(30, 387, 300, 30);
 		layeredPane.add(pwd_check_label);
 
 		// 닉네임 입력
@@ -167,8 +185,8 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		layeredPane.add(nick_text);
 
 		// 닉네임 확인
-		nick_check_label = new JLabel("test");
-		nick_check_label.setBounds(92, 458, 300, 30);
+		nick_check_label = new JLabel();
+		nick_check_label.setBounds(30, 458, 300, 30);
 		layeredPane.add(nick_check_label);
 
 		// 기본 설정
@@ -221,6 +239,9 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 		}
 		if (e.getSource() == btn_Close) {
 			System.exit(0);
+		}else if(e.getSource() == btn_return) {
+			new LoginView();
+			this.dispose();
 		}
 	}
 
@@ -266,9 +287,14 @@ public class SignupView extends JFrame implements ActionListener, FocusListener,
 				id_check = false;
 			} else {
 				String id = id_text.getText();
-
+				if(!(id.charAt(0) >= 97 && id.charAt(0) <= 122)) {
+					id_check_label.setText("첫글자는 소문자만 사용 가능합니다.");
+					id_check_label.setForeground(Color.RED);
+					id_check = false;
+					return;
+				}
 				for (int i = 0; i < id.length(); i++) {
-
+					
 					if (!(id.charAt(i) >= 97 && id.charAt(i) <= 122) && // 소문자가 아닐때 그리고
 							!(id.charAt(i) >= 48 && id.charAt(i) <= 57) && // 숫자가 아닐때 그리고
 							id.charAt(i) != 45 && id.charAt(i) != 95) { // -나 _가 아닐때
