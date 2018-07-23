@@ -1,35 +1,59 @@
 package db;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Encrypt.PasswordClass;
+
 public class DBCheck {
 
-	public static void memDBcheck() {
-		String sql = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='HR' AND TABLE_NAME='MEMBER'";
+	public static void memDBcheck() throws FileNotFoundException, SQLException {
+		String sql = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER='HR' AND TABLE_NAME='CODE_MEMBER'";
+		String sql2 = "SELECT ID FROM CODE_MEMBER WHERE ID='admin'";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
+
 		ResultSet rs = null;
+		
+		String path = "img/signUp/userImages.png";
+		File imgfile = new File(path);
+		FileInputStream fis = new FileInputStream(imgfile);
+		
 
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if (!rs.next()) { // 테이블이 없다면 생성
-				sql = "CREATE TABLE MEMBER(" 
-						+ "ID VARCHAR2(15 CHAR) PRIMARY KEY," 
-						+ "PWD VARCHAR2(10 CHAR) NOT NULL,"
-						+ "NICK VARCHAR2(15 CHAR) UNIQUE," 
-						+ "AUTH NUMBER NOT NULL," + "IMG BLOB )";
+				sql = "CREATE TABLE CODE_MEMBER(" + "ID VARCHAR2(15 CHAR) PRIMARY KEY," + "PWD VARCHAR2(10 CHAR) NOT NULL,"
+						+ "NICK VARCHAR2(15 CHAR) UNIQUE," + "AUTH NUMBER NOT NULL," + "IMG BLOB )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
 			}
 
-		} catch (SQLException e) {
+			psmt = conn.prepareStatement(sql2);
+			System.out.println(sql2);
+			rs = psmt.executeQuery();
+			if (!rs.next()) {
+
+				sql2 = "INSERT INTO CODE_MEMBER VALUES('admin', ?, '관리자', 0, ?)";
+				psmt = conn.prepareStatement(sql2);
+				psmt.setString(1, PasswordClass.Encryption("admin"));
+
+
+
+				psmt.setBinaryStream(2, fis, (int) imgfile.length());
+				psmt.executeQuery();
+			}
+		} catch (Exception e) {
+
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
@@ -62,7 +86,7 @@ public class DBCheck {
 						+ "FORK NUMBER NOT NULL,"
 						+ "LAN VARCHAR2(10 CHAR) NOT NULL," 
 						+ "CONSTRAINT FK_SHAR_NICK FOREIGN KEY(NICK) "
-						+ "REFERENCES MEMBER(NICK) ON DELETE CASCADE )";
+						+ "REFERENCES CODE_MEMBER(NICK) ON DELETE CASCADE )";
 
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
@@ -111,7 +135,7 @@ public class DBCheck {
 						+ "VISIBLE	NUMBER	NOT NULL,"
 						+ "ANSWER	NUMBER  NOT NULL," 
 						+ "CONSTRAINT FK_QA_NICK FOREIGN KEY(NICK) "
-						+ "REFERENCES MEMBER(NICK) ON DELETE CASCADE )";
+						+ "REFERENCES CODE_MEMBER(NICK) ON DELETE CASCADE )";
 				psmt = conn.prepareStatement(sql);
 				psmt.executeQuery();
 
@@ -139,7 +163,7 @@ public class DBCheck {
 	}
 	public static void createUpdateTrigger() {
 		String Tri_sql = "CREATE OR REPLACE TRIGGER MEMBER_UPDATE_TRG " + 
-				"AFTER UPDATE OF NICK ON MEMBER FOR EACH ROW " + 
+				"AFTER UPDATE OF NICK ON CODE_MEMBER FOR EACH ROW " + 
 				"BEGIN " + 
 				"UPDATE SHAR " + 
 				"SET NICK =:NEW.NICK " + 

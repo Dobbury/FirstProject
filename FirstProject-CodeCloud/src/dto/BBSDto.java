@@ -3,7 +3,7 @@ package dto;
 public class BBSDto {
 
 	private int seq;
-	private String title;
+	private String title="";
 	private String content;
 	private int share;
 	private int liked;

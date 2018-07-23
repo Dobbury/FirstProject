@@ -9,6 +9,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,11 +43,26 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 
 	JScrollPane jScrol;
 
+	
+	ImageIcon commentIc1;
+	ImageIcon commentIc2;
+	ImageIcon commentIc3;
 	private JButton btn_comment; // 게시글 답변달기
+	
+	ImageIcon updateIc1;
+	ImageIcon updateIc2;
+	ImageIcon updateIc3;
+	private JButton btn_Update; // 게시판 글 정보수정
+	
+	ImageIcon listIc1;
+	ImageIcon listIc2;
+	ImageIcon listIc3;
 	private JButton btn_List;// 목록으로
-	private JButton btn_delete;// 삭제
-	private JButton btn_update;// 수정
-
+	
+	ImageIcon deleteIc1;
+	ImageIcon deleteIc2;
+	ImageIcon deleteIc3;
+	private JButton btn_delete;// 삭제버튼
 
 	adQAbbsMain adQAmian;
 	QAbbsDto dto;
@@ -74,40 +92,94 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		
 		postArea = new JTextArea();
 		postArea.append(dto.getContent());
+
+		// 컨텐츠
+		postArea = new JTextArea();
+		postArea.append(dto.getContent());
+		postArea.setOpaque(false);
 		postArea.setEditable(false);
+		postArea.setForeground(Color.WHITE);
 
 		//스크롤바 0으로 줄여서 안보이게하는 코드
 		jScrol = new JScrollPane(postArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); 
 		jScrol.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
+		
 		jScrol.setBounds(50, 200, 750, 350);
+		
+		jScrol.setOpaque(false);
+		jScrol.getViewport().setOpaque(false);
+		//스크롤바 0으로 줄여서 안보이게하는 코드
+					
+		jScrol.setBorder(BorderFactory.createCompoundBorder(null,
+	            BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 
+		
+		//코드 배경
+		ImageIcon content_back_Img = new ImageIcon("img/adminMain/QA/adQA_detail_content_background.png");
+				
+		JLabel content_backgorund = new JLabel();
+		content_backgorund.setIcon(content_back_Img);
+		content_backgorund.setBounds(50,200,750,350);
+				
 		// 게시글 답글달기
-		btn_comment = new JButton("답글 달기");
+		commentIc1 = new ImageIcon("img/adminMain/QA/comment_on.png");
+		commentIc2 = new ImageIcon("img/adminMain/QA/comment_off.png");
+		commentIc3 = new ImageIcon("img/adminMain/QA/comment_ing.png");
+		btn_comment = new JButton(commentIc1);
+		btn_comment.setRolloverIcon(commentIc2);
+		btn_comment.setPressedIcon(commentIc3);
+		btn_comment.setBorderPainted(false);
+		btn_comment.setContentAreaFilled(false);
+		btn_comment.setFocusPainted(false);
 		btn_comment.addActionListener(this);
-		btn_comment.setBounds(50, 570, 110, 40);
+		btn_comment.setBounds(400, 570, 101, 41);
 
 		// 글 목록
-		btn_List = new JButton("글 목록");
+		listIc1 = new ImageIcon("img/adminMain/QA/QA_list_on.png");
+		listIc2 = new ImageIcon("img/adminMain/QA/QA_list_off.png");
+		listIc3 = new ImageIcon("img/adminMain/QA/QA_list_ing.png");
+		btn_List = new JButton(listIc1);
+		btn_List.setRolloverIcon(listIc2);
+		btn_List.setPressedIcon(listIc3);
+		btn_List.setBorderPainted(false);
+		btn_List.setContentAreaFilled(false);
+		btn_List.setFocusPainted(false);
 		btn_List.addActionListener(this);
-		btn_List.setBounds(400, 570, 110, 40);
-
-		// 삭제
-		btn_delete = new JButton("삭제");
+		btn_List.setBounds(50, 570, 101, 41);
+		
+		//삭제
+		deleteIc1 = new ImageIcon("img/adminMain/QA/QA_delete_on.png");
+		deleteIc2 = new ImageIcon("img/adminMain/QA/QA_delete_off.png");
+		deleteIc3 = new ImageIcon("img/adminMain/QA/QA_delete_ing.png");
+		btn_delete = new JButton(deleteIc1);
+		btn_delete.setRolloverIcon(deleteIc2);
+		btn_delete.setPressedIcon(deleteIc3);
+		btn_delete.setBorderPainted(false);
+		btn_delete.setContentAreaFilled(false);
+		btn_delete.setFocusPainted(false);
 		btn_delete.addActionListener(this);
-		btn_delete.setBounds(550, 570, 110, 40);
+		btn_delete.setBounds(550, 570, 101, 41);
 
 		// 수정
-		//btn_update = null;
-		btn_update = new JButton("수정");
-		btn_update.addActionListener(this);
-		btn_update.setBounds(700, 570, 110, 40);
+		updateIc1 = new ImageIcon("img/adminMain/QA/QA_update_on.png");
+		updateIc2 = new ImageIcon("img/adminMain/QA/QA_update_off.png");
+		updateIc3 = new ImageIcon("img/adminMain/QA/QA_update_ing.png");
+		btn_Update = new JButton(updateIc1);
+		btn_Update.setRolloverIcon(updateIc2);
+		btn_Update.setPressedIcon(updateIc3);
+		btn_Update.setBorderPainted(false);
+		btn_Update.setContentAreaFilled(false);
+		btn_Update.setFocusPainted(false);
+		btn_Update.addActionListener(this);
+
+		btn_Update.setBounds(700, 570, 101, 41);
 
 		Singleton s = Singleton.getInstance();
 
 		// 수정 버튼의 비활성화 (다른 id일 경우만)
 
 		if (!dto.getNick().equals(s.nowMember.getNick())) {
-			btn_update.setEnabled(false);
+			btn_Update.setEnabled(false);
 			btn_delete.setEnabled(false);
 		}
 		// 삭제 액션 구현
@@ -133,8 +205,9 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 		add(btn_comment);
 		add(btn_List);
 		add(btn_delete);
-		add(btn_update);
-
+		add(btn_Update);
+		
+		add(content_backgorund);
 		setLayout(null);
 
 		setVisible(true);
@@ -187,14 +260,14 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == btn_comment) {
-			QAbbsDto dto = new QAbbsDto();
-			dto.setSeq(this.dto.getSeq());
+			dto.setContent("");
+			dto.setTitle("");
 			adQAmian.changePanel(COMMENT, dto);
 
 		} else if (e.getSource() == btn_List) {
 			adQAmian.changePanel(LIST, dto);
 
-		} else if (e.getSource() == btn_update) {
+		} else if (e.getSource() == btn_Update) {
 
 			adQAmian.changePanel(COMMENT_UPDATE, dto);
 

@@ -19,5 +19,7 @@ public interface MemberDaoImpl {
 
 	public boolean getNick(String nick);
 
-	public MemberDto search(String id);
+	public List<MemberDto> search(String id, String choice);
+
+	public int delete(MemberDto dto);
 }

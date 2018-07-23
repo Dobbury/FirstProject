@@ -62,7 +62,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 	public LoginView() {
 
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 342, 596);
+		layeredPane.setBounds(0, 0, 341, 596);
 		layeredPane.setLayout(null);
 
 		// ---------------------------------------------------------------------------
@@ -75,7 +75,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		}
 
 		MyPanel panel = new MyPanel();
-		panel.setBounds(0, 0, 341, 597);
+		panel.setBounds(0, 0, 341, 596);
 
 		// ---------------------------------------------------------------------------
 		// 버튼
@@ -88,7 +88,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		btn_drag.setBorderPainted(false);
 		btn_drag.setContentAreaFilled(false);
 		btn_drag.setFocusPainted(false);
-		btn_drag.setBounds(0, 0, 13, 13);
+		btn_drag.setBounds(0, 0, 17, 17);
 		btn_drag.addMouseMotionListener(this);
 		btn_drag.addMouseListener(this);
 		layeredPane.add(btn_drag);
@@ -117,7 +117,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		btn_Close.setBorderPainted(false);
 		btn_Close.setContentAreaFilled(false);
 		btn_Close.setFocusPainted(false);
-		btn_Close.setBounds(313, 10, 16, 16);
+		btn_Close.setBounds(318, 5, 16, 16);
 		btn_Close.addActionListener(this);
 		layeredPane.add(btn_Close);
 
@@ -138,6 +138,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		// id 텍스트 필드
 		id_text = new JTextField();
 		id_text.setText(id_Hint);
+		id_text.setCaretColor(Color.WHITE);
 		id_text.setForeground(Color.WHITE);
 		id_text.addFocusListener(this);
 		id_text.setBounds(92, 366, 220, 30);
@@ -149,6 +150,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		// pwd 텍스트 필드
 		pwd_text = new JPasswordField();
 		pwd_text.setText(pwd_Hint);
+		pwd_text.setCaretColor(Color.WHITE);
 		pwd_text.setForeground(Color.WHITE);
 		pwd_text.addFocusListener(this);
 		pwd_text.setBounds(92, 429, 220, 30);

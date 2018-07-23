@@ -36,8 +36,8 @@ public class MemberController {
 		return mService.getId(id);
 
 	}
-	public MemberDto memSearch(String id) {
-		return mService.search(id);
+	public List<MemberDto> memSearch(String txt, String choice) {
+		return mService.search(txt, choice);
 	}
 	public boolean getNick(String nick) {
 		return mService.getNick(nick);
@@ -52,6 +52,20 @@ public class MemberController {
 		if(mService.update(dto)) {
 			Singleton s = Singleton.getInstance();
 			s.nowMember = dto;
+			return  true;
+		}
+		else
+			return false;
+	}
+	public boolean memberPwdUpdate(String id, String pwd, String nick,int auth,ImageIcon imgIcon) {
+		
+		//Image -> BufferedImage
+		Image oriImg = imgIcon.getImage();
+		BufferedImage img = ImageToBufferedImageClass.toBufferedImage(oriImg);
+		
+		MemberDto dto = new MemberDto(id,pwd,nick,auth,img);
+		if(mService.update(dto)) {
+			Singleton s = Singleton.getInstance();
 			return  true;
 		}
 		else
@@ -89,6 +103,10 @@ public class MemberController {
 	
 	public List<MemberDto> getbbsList(){
 		return mService.getbbsList();
+	}
+	
+	public int deleteMember(MemberDto dto) {
+		return mService.deleteMem(dto);
 	}
 
 }

@@ -23,7 +23,7 @@ public class ShareDao {
 		List<ShareDto> list = new ArrayList<>();
 		
 		//Singleton s = Singleton.getInstance();
-		String sql = "SELECT * FROM SHAR";
+		String sql = "SELECT * FROM SHAR ORDER BY SEQ DESC";
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -84,7 +84,7 @@ public class ShareDao {
 			}
 		}
 		catch(Exception e){
-			System.out.println("에러났어여");
+			e.printStackTrace();
 		}
 		return list;
 		
@@ -106,7 +106,7 @@ public class ShareDao {
 		
 		//원래 글 추천수 올림 // 누군가 공유게에서 추천을 눌렀는데   개인게의 추천버튼도 카운트 되는것 
 		
-		String sql3 = "SELECT ID FROM MEMBER"
+		String sql3 = "SELECT ID FROM CODE_MEMBER"
 		+ " WHERE NICK=?";
 
 		try {
@@ -167,6 +167,7 @@ public class ShareDao {
 				dto = new ShareDto();
 
 				dto.setSeq(rs.getInt("seq"));
+				dto.setIndseq(rs.getInt("indseq"));
 				dto.setNick(rs.getString("nick"));
 				dto.setLang(rs.getString("lan"));
 				dto.setTitle(rs.getString("title"));
@@ -185,18 +186,34 @@ public class ShareDao {
 	}
 
 	// 삭제
-	public int delete(int seq) {
-		String sql = " DELETE SHAR " + "WHERE seq=" + seq;
+	public int delete(ShareDto dto) {
+		String sql = " DELETE SHAR " + "WHERE seq=" + dto.getSeq();
+		
+		String sql2 = "SELECT ID FROM CODE_MEMBER WHERE NICK=?";
+		
+		
+		
 
 		Connection conn = DBConnection.makeConnection();
 		Statement stmt = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
 
 		int count = 0;
 
-		System.out.println(sql);
 		try {
 			stmt = conn.createStatement();
 			count = stmt.executeUpdate(sql);
+			
+			
+			psmt = conn.prepareStatement(sql2);
+			psmt.setString(1, dto.getNick());
+			rs = psmt.executeQuery();
+			rs.next();
+			String id = rs.getString(1);
+			
+			String sql3 = "UPDATE " + id +  " SET SHA=0 WHERE SEQ=" + dto.getIndseq();
+			stmt.executeQuery(sql3);
 
 		} catch (SQLException e) {
 
@@ -223,7 +240,7 @@ public class ShareDao {
 		
 		//원래 글 추천수 올림 // 누군가 공유게에서 추천을 눌렀는데   개인게의 추천버튼도 카운트 되는것 
 		
-		String sql3 = "SELECT ID FROM MEMBER"
+		String sql3 = "SELECT ID FROM CODE_MEMBER"
 		+ " WHERE NICK=?";
 
 		try {
@@ -280,7 +297,7 @@ public class ShareDao {
 		
 		//공유한 사람 게시판 포크수 없데이트전 아이디 검색
 		//글을 공유한 사람의 테이블을 들어가려면 아이디가 필요한데 쉐어 게시판에서는 닉네임밖에 없어서
-		String sql3 = "SELECT ID FROM MEMBER"
+		String sql3 = "SELECT ID FROM CODE_MEMBER"
 				+ " WHERE NICK=?";
 		int indseq2 = 0;
 		try {
@@ -331,7 +348,7 @@ public class ShareDao {
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		
-		Object[][] rowData = new Object[5][3];
+		Object[][] rowData = new Object[5][2];
 		
 		String sql = "SELECT TITLE, LIKED FROM SHAR ORDER BY LIKED DESC";
 		
@@ -343,9 +360,8 @@ public class ShareDao {
 			
 			for (int i = 0; i < rowData.length; i++) {
 				if(rs.next()) {;
-				rowData[i][0] = i+1;
-				rowData[i][1] = rs.getString(1);
-				rowData[i][2] = rs.getInt(2);
+				rowData[i][0] = rs.getString(1);
+				rowData[i][1] = rs.getInt(2);
 				}
 			}
 			
@@ -363,7 +379,7 @@ public class ShareDao {
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
 		
-		Object[][] rowData = new Object[5][3];
+		Object[][] rowData = new Object[5][2];
 		
 		String sql = "SELECT TITLE, FORK FROM SHAR ORDER BY FORK DESC";
 		
@@ -375,9 +391,8 @@ public class ShareDao {
 			
 			for (int i = 0; i < rowData.length; i++) {
 				if(rs.next()) {;
-				rowData[i][0] = i+1;
-				rowData[i][1] = rs.getString(1);
-				rowData[i][2] = rs.getInt(2);
+				rowData[i][0] = rs.getString(1);
+				rowData[i][1] = rs.getInt(2);
 				}
 			}
 			
@@ -407,6 +422,8 @@ public class ShareDao {
 			} else if (fword.equals("언어")) {
 				sql = sql + " WHERE LAN = ?";
 			}
+			
+			sql = sql + " ORDER BY SEQ DESC";
 				
 
 			
@@ -421,7 +438,10 @@ public class ShareDao {
 
 				if (fword.equals("닉네임")) {
 					psmt.setString(1, fStr); 
-				} else {
+				}else if(fword.equals("언어")){
+					fStr=fStr.toUpperCase();
+					psmt.setString(1, fStr);
+				}else {
 					psmt.setString(1, "%" + fStr + "%");
 				}
 

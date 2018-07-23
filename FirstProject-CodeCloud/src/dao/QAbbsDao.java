@@ -139,7 +139,7 @@ public class QAbbsDao {
 		System.out.println(sql);
 		try {
 			stmt = conn.prepareStatement(sql);
-
+			
 			stmt.setString(1, dto.getNick());
 			stmt.setString(2, dto.getTitle());
 			stmt.setString(3, dto.getContent());
@@ -147,7 +147,7 @@ public class QAbbsDao {
 			stmt.setInt(5, dto.getRef());
 			stmt.setInt(6, dto.getStep());
 			stmt.setInt(7, dto.getDept());
-
+			System.out.println(dto.getDept());
 			count = stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -191,7 +191,7 @@ public class QAbbsDao {
 
 	// 수정
 	public boolean update(QAbbsDto dto) {
-		String sql = "UPDATE QA SET title=?, content=?, del = ?  visible = ? "
+		String sql = "UPDATE QA SET title=?, content=?, del = ?, visible = ? "
 				+ "WHERE seq = ? AND ref=? AND step=? AND dept=?";
 
 		Connection conn = DBConnection.makeConnection();
@@ -218,6 +218,7 @@ public class QAbbsDao {
 		} finally {
 			DBClose.close(stmt, conn, null);
 		}
+
 		return count > 0 ? true : false;
 	}
 
@@ -248,16 +249,17 @@ public class QAbbsDao {
 	public List<QAbbsDto> getTitleFindList(String fStr, String fword) {
 		List<QAbbsDto> list = new ArrayList<QAbbsDto>();
 
-		String sql = " SELECT SEQ, nick, TITLE, dat " + " FROM QA ";
+		String sql = " SELECT * " + " FROM QA";
 
 		if (fword.equals("제목")) {
-			sql = sql + " WHERE TITLE LIKE ?";
+			sql = sql + " WHERE TITLE LIKE ? ";
 		} else if (fword.equals("내용")) {
 			sql = sql + " WHERE CONTENT LIKE ?";
 		} else if (fword.equals("작성자")) {
 			sql = sql + " WHERE nick = ?";
 		}
-
+		sql += " ORDER BY SEQ DESC";
+		
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -276,14 +278,19 @@ public class QAbbsDao {
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				int i = 1;
+				
+				QAbbsDto dto = new QAbbsDto();
 
-				QAbbsDto dto = new QAbbsDto(rs.getInt(i++), // SEQ
-						rs.getString(i++), // nick
-						rs.getString(i++), // TITLE
-						null, // CONTENT
-						rs.getString(i++), // WDATE
-						0, 0, 0, 0, 0); // DEL
+				dto.setSeq(rs.getInt("seq"));
+				dto.setNick(rs.getString("nick"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setWdate(rs.getString("dat"));
+				dto.setDel(rs.getInt("del"));
+				dto.setRef(rs.getInt("ref"));
+				dto.setStep(rs.getInt("step"));
+				dto.setDept(rs.getInt("dept"));
+				dto.setVisible(rs.getInt("visible"));
 
 				list.add(dto);
 			}
