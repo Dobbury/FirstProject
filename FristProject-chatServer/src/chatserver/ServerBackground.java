@@ -10,7 +10,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ServerBackground {
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class ServerBackground extends JFrame {
 
 	private ServerSocket serverSocket;
 	private Socket socket;
@@ -18,7 +21,19 @@ public class ServerBackground {
 	private String msg;
 
 	private Map<String, DataOutputStream> clientMap = new HashMap<String, DataOutputStream>(); // 사용자의 정보를 저장하는 맵
-
+	public ServerBackground() {
+		setBounds(50, 50, 300, 300);
+		setVisible(true);
+		setLayout(null);
+		
+		JLabel label = new JLabel("CodePlanet ChatServer");
+		label.setBounds(75,100,200,40);
+		
+		add(label);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
 	public void setting() {
 
 		try {
