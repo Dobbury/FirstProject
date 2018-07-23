@@ -22,7 +22,7 @@ public class chatPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	private JTextArea jta = new JTextArea(33, 25);
+	private JTextArea jta = new JTextArea(32, 25);
 	private JTextField jtf = new JTextField(25);
 
 	private JScrollPane scrl;
@@ -65,7 +65,9 @@ public class chatPanel extends JPanel implements ActionListener {
 		client.setNickName(nickName);
 
 	}
-
+	public static void changeNick(String nick) {
+		nickName = nick;
+	}
 	@Override
 	// 말치면 보내는 부분
 	public void actionPerformed(ActionEvent e) {
