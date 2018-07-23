@@ -260,8 +260,8 @@ public class adQAbbsDetail extends JPanel implements ActionListener, WindowListe
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == btn_comment) {
-			QAbbsDto dto = new QAbbsDto();
-			dto.setSeq(this.dto.getSeq());
+			dto.setContent("");
+			dto.setTitle("");
 			adQAmian.changePanel(COMMENT, dto);
 
 		} else if (e.getSource() == btn_List) {
