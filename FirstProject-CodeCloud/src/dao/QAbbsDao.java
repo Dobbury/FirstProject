@@ -139,7 +139,7 @@ public class QAbbsDao {
 		System.out.println(sql);
 		try {
 			stmt = conn.prepareStatement(sql);
-
+			
 			stmt.setString(1, dto.getNick());
 			stmt.setString(2, dto.getTitle());
 			stmt.setString(3, dto.getContent());
@@ -147,7 +147,7 @@ public class QAbbsDao {
 			stmt.setInt(5, dto.getRef());
 			stmt.setInt(6, dto.getStep());
 			stmt.setInt(7, dto.getDept());
-
+			System.out.println(dto.getDept());
 			count = stmt.executeUpdate();
 
 		} catch (SQLException e) {

@@ -75,7 +75,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener, 
 		}
 
 		MyPanel panel = new MyPanel();
-		panel.setBounds(0, 0, 341, 597);
+		panel.setBounds(0, 0, 341, 596);
 
 		// ---------------------------------------------------------------------------
 		// 버튼

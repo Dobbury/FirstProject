@@ -147,7 +147,7 @@ public class AdminMainView extends JFrame implements ActionListener, MouseListen
 		chatPanel = new chatPanel();
 		chatPanel.setOpaque(false);
 		chatPanel.connect();
-		chatPanel.setBounds(1110, 30, 270, 700);
+		chatPanel.setBounds(1110, 40, 270, 640);
 
 		// 창 드래그
 		drag1 = new ImageIcon("img/drag/drag1.png");

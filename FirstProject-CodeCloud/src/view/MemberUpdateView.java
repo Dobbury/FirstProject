@@ -31,6 +31,7 @@ import javax.swing.JTextField;
 import convertImg.ImageToBufferedImageClass;
 import dto.MemberDto;
 import singleton.Singleton;
+import view.chatview.chatPanel;
 
 public class MemberUpdateView extends JFrame
 		implements ActionListener, FocusListener, WindowListener, MouseMotionListener, MouseListener {
@@ -241,7 +242,7 @@ public class MemberUpdateView extends JFrame
 				JOptionPane.showMessageDialog(null, "회원의 정보가 수정 되었습니다.");
 				mainView.memProfile_Img.setIcon(userIc);
 				mainView.memName.setText(s.nowMember.getNick());
-
+				chatPanel.changeNick(s.nowMember.getNick());
 				this.dispose();
 
 			} else {
@@ -312,12 +313,12 @@ public class MemberUpdateView extends JFrame
 			if (id_text.getText().equals(id_Hint))
 				id_text.setText("");
 
-			id_text.setForeground(Color.black);
+			id_text.setForeground(Color.white);
 		}
 		if (e.getSource() == pwd_text) {
 			if (pwd_text.getText().equals(pwd_Hint))
 				pwd_text.setText("");
-			pwd_text.setForeground(Color.black);
+			pwd_text.setForeground(Color.white);
 		}
 		if (e.getSource() == nick_text) {
 			if (nick_text.getText().equals(nick_Hint))

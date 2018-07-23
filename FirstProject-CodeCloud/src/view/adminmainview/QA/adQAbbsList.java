@@ -62,6 +62,9 @@ public class adQAbbsList extends JPanel implements MouseListener, WindowListener
 
 		for (int i = 0; i < list.size(); i++) {
 			QAbbsDto dto = list.get(i);
+			if(dto.getRef()!=0){
+				rowData[i][0]="";
+			}
 
 			rowData[i][0] = dto.getSeq();// 번호
 
@@ -160,7 +163,12 @@ public class adQAbbsList extends JPanel implements MouseListener, WindowListener
 		int n = 1;
 		for (int i = 0; i < list.size(); i++) {
 			QAbbsDto dto = list.get(i);
+
 			rowData[i][0] = dto.getSeq();
+			if(dto.getRef()!=0){
+				rowData[i][0]="";
+			}
+
 			if (dto.getDel() == 1)
 				rowData[i][1] = "*************이 글은 삭제되었습니다*************";
 			else {
@@ -280,7 +288,7 @@ public class adQAbbsList extends JPanel implements MouseListener, WindowListener
 
 		QAbbsDto dto = s.qaDao.search(list.get(rowNum).getSeq(), list.get(rowNum).getRef(), list.get(rowNum).getStep(),
 				list.get(rowNum).getDept());
-
+	
 		adQAmian.changePanel(DETAIL, dto); // 해당 글 보는 곳
 	}
 
