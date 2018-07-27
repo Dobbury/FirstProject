@@ -11,12 +11,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImagingOpException;
-import java.awt.peer.ButtonPeer;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -31,7 +29,6 @@ import javax.swing.JToggleButton;
 import db.DBCheck;
 import db.DBConnection;
 import singleton.Singleton;
-import view.LoginView.MyPanel;
 
 public class HostDbSetView extends JFrame implements FocusListener, ActionListener, MouseListener, MouseMotionListener {
 

@@ -1,23 +1,19 @@
 package dao;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.JOptionPane;
 
-import Encrypt.PasswordClass;
 import db.DBClose;
 import db.DBConnection;
 import dto.BBSDto;
-import dto.MemberDto;
+
 import singleton.Singleton;
 
 public class BBSDao implements BBSDaoImpl {
@@ -66,8 +62,7 @@ public class BBSDao implements BBSDaoImpl {
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		int count = 0;
-
+	
 		System.out.println(sql);
 
 		try {
@@ -80,7 +75,7 @@ public class BBSDao implements BBSDaoImpl {
 
 			// 이미지 파일을 Blob으로 저장
 
-			count = psmt.executeUpdate();
+			psmt.executeUpdate();
 
 			psmt = conn.prepareStatement(sql2);
 			rs = psmt.executeQuery();
@@ -142,7 +137,6 @@ public class BBSDao implements BBSDaoImpl {
 
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement psmt = null;
-		ResultSet rs = null;
 		int count = 0;
 		int count2 = 0;
 
@@ -191,7 +185,6 @@ public class BBSDao implements BBSDaoImpl {
 
 		Connection conn = DBConnection.makeConnection();
 		PreparedStatement psmt = null;
-		ResultSet rs = null;
 		int count = 0;
 
 		System.out.println(sql);
@@ -265,7 +258,7 @@ public class BBSDao implements BBSDaoImpl {
 	public int unshare(int seq) {
 		// 개인 코드 테이블에서 쉐어 컬럼 수정
 		Singleton s = Singleton.getInstance();
-		String sql = "UPDATE " + s.nowMember.getID() + " SET SHA=0 WHERE SEQ=?";
+		String sql = "UPDATE " + s.nowMember.getID() + " SET LIKED=0,SHA=0 WHERE SEQ=?";
 
 		String sql2 = "DELETE FROM SHAR" + " WHERE INDSEQ=? AND NICK=?";
 		// 쉐어테이블에서 삭제
